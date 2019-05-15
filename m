@@ -2,61 +2,50 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 99BF11AE5F
-	for <lists+openrisc@lfdr.de>; Mon, 13 May 2019 01:09:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AFE231E6F4
+	for <lists+openrisc@lfdr.de>; Wed, 15 May 2019 04:54:47 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 456CF28463;
-	Mon, 13 May 2019 01:09:32 +0200 (CEST)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- by mail.librecores.org (Postfix) with ESMTPS id A53FF25A94
- for <openrisc@lists.librecores.org>; Mon, 13 May 2019 01:09:30 +0200 (CEST)
-Received: by mail-vk1-f171.google.com with SMTP id s80so2843294vke.6
- for <openrisc@lists.librecores.org>; Sun, 12 May 2019 16:09:30 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 5E10B27979;
+	Wed, 15 May 2019 04:54:47 +0200 (CEST)
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+ [209.85.208.65])
+ by mail.librecores.org (Postfix) with ESMTPS id 3F2E1259F2
+ for <openrisc@lists.librecores.org>; Wed, 15 May 2019 04:54:46 +0200 (CEST)
+Received: by mail-ed1-f65.google.com with SMTP id w11so1914427edl.5
+ for <openrisc@lists.librecores.org>; Tue, 14 May 2019 19:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kS55OIF3U8Rh/NfFpnP8itNDZbaop5o+NkBYmqgt5jY=;
- b=Y//Yba9gt+8BnpQwVNrOGBzo2/MQLBWtGexKmdO3xBeX/tObXSlxNgNhhmUEUaD89y
- sjSG5mUdyybxX8cLLU5ExbbuFn0dh+ZlCbc2wZTGuynOnl/gwck8QOTHMak4HnWCccve
- Wc7r8wSUesLCe9yHGRheaT3R2Qn4kRGtTSriGxkHhe6UT9lkx09eEWcc2eeojYu2vQ55
- afcCdrFy37W/NKqRGnp8DX0mxJmQDjOAzYyREun+OcIz3jHHX6+ppo9HWBKIQl++koFs
- vr5OucB4TTcibGK5yb5JV6cwW7MYSae0yK0Lrsbx1M7OiLiiJcc/mFE184vJnkBum/Ts
- PVpA==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=AOvmB4EFoJqgskuznqOR+DCoHdLDC0c/dpVzSDqqHhk=;
+ b=RwIxNUbCgwUeag/iO/WMTRqRlqedR0RwjE/PWPs0HqiWnVIyKyWA3m/ckHsrGSWGL5
+ 6jx3k1yVKCt4JECNLr1gtqYQkZo8E2e6Z9+/H/rRvOzhSkGlv8DRmYauqFBhsG4l9ny9
+ vKfrhwskMHVdtS3cRPzQPxmADFiJt11dpx6rKRxETP2YrqrrfxlhCbwvyb95n7FePbYz
+ 6WWz/Sb1e+Z42L7NzjHpZMHa8EU7wg5RuK+Pq1jR/w/lIGtJraeV61Ow3xcYHz5LAjAJ
+ VlHcqc8ScEYb12uZXIC8qFwmQNiDyBi4mjj00twED1e2LF7SmZtE9uGn4tvyQwISMG/c
+ xo8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kS55OIF3U8Rh/NfFpnP8itNDZbaop5o+NkBYmqgt5jY=;
- b=BLAmgX15jfrfWDJRDi/cK6W8GM3Hvp55QTjlYO72PJMrz152rTGgbyXWRu7kZSu8HI
- S1pf8/kt7E75XVJPMCD4CSMBbigQzOB+NLm5nbNHXCvCfE2j/Mp3Xhn2F+WvwxMwt7z1
- hG3Us8O3+wLXZjMEKbioMOTYBaWnFcMJ/tfJBpsfUI22j8GwxMnshNFUtGj6D1B3CjfL
- GpFrZpZJZGJ9i1cgE2u8V2YKRP5cXA5z7B4tqKtkgdQFFg5Ebq4G8kGF4KaMhCshJJcc
- ZQ41Vd6A7Zyj8YSqO845J4YFiZUaCfwr9ujRNGgf0trL7SSRwuPxVIMxssSnvcnqDuWh
- ysGA==
-X-Gm-Message-State: APjAAAWmNDF3qFpQBFncJjI+a7NV/Tw+ke1YUKDhE73tz9RFAhSGexBV
- ZzyDQtWGJf+SqL95cYns2bCGy7M7Yq0VMlm5zJ8=
-X-Google-Smtp-Source: APXvYqzFq4FJPahOriKAlEBwdMuFQXNyUh4C1d/qpbVe+WNTSrVsY20tXCrsbqO2Lr6yNcTha11JclO2ZQpqZ2s3v9o=
-X-Received: by 2002:a1f:d585:: with SMTP id m127mr10902852vkg.34.1557702569305; 
- Sun, 12 May 2019 16:09:29 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=AOvmB4EFoJqgskuznqOR+DCoHdLDC0c/dpVzSDqqHhk=;
+ b=eFBQ6JH01yu/xZYUfgAj9/5EqRvQvlNhTU5q+VzitKSjUM5jKq0hIE3FbEGYUePylb
+ WCAat0OT7WURLIv8p2v5f5p/MQTEegbt3ouJl5tlZ2nM5EhaW5OXh3IUJuN+zEcss7js
+ ZYLg8JBuuGJZOPA3uLDyAYTxDDdoRTqhQmfbHoSXR5zHkJyWJO993B9i0JKu4x5n5BaU
+ 5dPU86+bofIwu5zT+/u+YQGxFafyFidsj7axU7J2uYn9FzeYP8nReztx43qu7oGVrr0w
+ hTKYeWJ+TGB+V3M33yb7siWmBB+fybvMDg3cSNLuMpTWzjJB1VBKk/tjiRVTqqYZYo+E
+ qXsw==
+X-Gm-Message-State: APjAAAUIySzKr/p7LCoQgNOZodABykxDBOmR4Fdq2xzWwbc07pJMiJEX
+ NA32L3SAPAZL5/bDX1Ed2o/8r5cHpwiWkOFNxEzr8zuEP50=
+X-Google-Smtp-Source: APXvYqzFIvBaTCnnnjVw/llMvSOHuTMuHCVvfFZPP7xsH2q0+N584Lo+OVxlXvFAljv4TZY+F36FmBDUiMzzYL3SBos=
+X-Received: by 2002:a17:906:c355:: with SMTP id
+ ci21mr5826118ejb.202.1557888885424; 
+ Tue, 14 May 2019 19:54:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190412214843.GB32284@lianli.shorne-pla.net>
- <05413d8c-395c-de51-95f6-cdaa85c834dd@twiddle.net>
- <20190413084708.GC32284@lianli.shorne-pla.net>
- <3D70BAC7A5B64C0E977D84EC118F146E@BAndViG>
- <20190425211702.GG32284@lianli.shorne-pla.net>
- <e441bb74-5cea-6002-c33e-4822f082265b@twiddle.net>
- <20190507211254.GD11006@lianli.shorne-pla.net>
- <6CFC558D2E0643BAA8C0CFCB1AEE95BB@BAndViG>
- <3ce42625-83fe-4ee2-b48f-23e6362ee616@twiddle.net>
- <AED0C7019AE04A2F87CD0E432FA20A70@BAndViG>
- <20190511100433.GA20465@lianli.shorne-pla.net>
- <A49361B4A05048AD995FF588CC923E61@BAndViG>
-In-Reply-To: <A49361B4A05048AD995FF588CC923E61@BAndViG>
-From: Stafford Horne <shorne@gmail.com>
-Date: Mon, 13 May 2019 08:09:13 +0900
-Message-ID: <CAAfxs76rr-VPbrQPndNm1rTR1KzgO7NrUSixPhNNp9BArM6Ekg@mail.gmail.com>
-To: BAndViG <bandvig@mail.ru>
-Subject: Re: [OpenRISC] OpenRISC 1.3 spec
+From: Nancy Chauhan <nancychn1@gmail.com>
+Date: Wed, 15 May 2019 08:24:33 +0530
+Message-ID: <CAF69GorM-mvR-=v0x81f2xSAMU2eM39btii42DhqaDQ=dtHLRQ@mail.gmail.com>
+To: openrisc@lists.librecores.org, Oleg Nenashev <o.v.nenashev@gmail.com>,
+ shorne@gmail.com
+Subject: [OpenRISC] GSoC 2019 Introduction : Continuous Integration for
+ Hardware Projects on LibreCores CI
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,158 +58,70 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>
-Content-Type: multipart/mixed; boundary="===============2775804104256426551=="
+Content-Type: multipart/mixed; boundary="===============7762255150989411015=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============2775804104256426551==
-Content-Type: multipart/alternative; boundary="0000000000004f296a0588b8e415"
+--===============7762255150989411015==
+Content-Type: multipart/alternative; boundary="0000000000009d84fa0588e44515"
 
---0000000000004f296a0588b8e415
+--0000000000009d84fa0588e44515
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 13, 2019, 4:58 AM BAndViG <bandvig@mail.ru> wrote:
+Hello Everyone ,
 
-> > From: Stafford Horne
-> > Sent: Saturday, May 11, 2019 1:04 PM
->
-> > > On Fri, May 10, 2019 at 10:56:05AM +0300, BAndViG wrote:
-> > > I've been thinking about a variants for R0 write protection. R0 could
-> be
-> > > zero initialized at cpu_rst by dedicated circuits. And `invalid
-> > > instruction`
-> > > exception should be raised if an instruction tries to write to R0. At
-> the
-> > > same time such behavior is incompatible with current run-time
-> > > initialization
-> > > sequences implemented in OR1K tool chains. The circle is closed.
->
-> > We still have the option to drop the validation.  Just as we don't have
-> > validation for writing to r0, I think its fine to say r31's pair
-> register is
-> > undefined and should be avoided. (i.e. on some machines it might go into
-> the
-> > shadow reg space)
->
-> On the one hand I'm a kind of perfectionist and would prefer to implement
-> such
-> protections. On the other hand they cost noticeable space and timing. Not
-> trivial choice for me :).
->
-> > On the other hand, I have finished the GCC updates for unordered
-> comparisons.
-> > You can see the patch here, I built newlib with this enabled and was
-> able to
-> > shake out a few bugs.  It seems to work:
->
-> >   - https://github.com/stffrdhrn/gcc/commits/or1k-fpu-2
->
-> > The new gcc argument is:
->
-> >   -munordered-float
->
-> I've build two variants of GCC9/NewLIB tool chains. One has got
-> "-mhard-float -munordered-float" options raised by default. And another
-> one has
-> got "-mhard-float -mdouble-float -munordered-float" default options. First
-> variant was used to build single precision Whetstone for mor1kx+FPU32 and
-> second to build single and double precision Whetstone for MAROCCHINO. All
-> variants work.
-> We could merge fp_unordered_cmp branches into master. Or should we
-> postpone the
-> merge till your binutils/gcc patches being upstreamed?
->
+I am Nancy Chauhan <http://nancychauhan.in/> and I will be working on
+Continuous
+Integration for Hardware Projects on LibreCores CI
+<https://summerofcode.withgoogle.com/projects/#4706542530592768>throughout
+my summers as a Google Summer of Code Student Developer 2019 .
 
-I think we can merge.  It will take time to get it all upstream.
+Librecores provides a platform to share projects and ideas, in the area of
+free and open source digital hardware design. Librecores CI is an
+approach/service to provide continuous integration to hardware projects
+hosted on Librecores <https://www.librecores.org/> to improve user
+experience and reliability. This project aims to provide automation service
+for some hardware projects that have a constantly evolving code. Jenkins,
+the automation server will be used to achieve the goals of the project.
 
-Note I started updates to the spec.
-- https://github.com/stffrdhrn/doc
+For the first part of my project I will be mostly working on Setting up
+demo CI flow for mor1kx project <https://github.com/openrisc/mor1kx>under
+the guidance of mentors : Stafford Horne , Oleg Nenashev and Stefan
+Wallentowitz . Looking forward towards an amazing summers !
 
-Still a lot to do, but if you want to look at how I wrote up the lf sfu*
-instructions please let me know what you think
 
--stafford
+Thanks
+Nancy Chauhan
 
---0000000000004f296a0588b8e415
+--0000000000009d84fa0588e44515
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Mon, May 13, 2019, 4:58 AM BAndViG &lt;<a href=3D"m=
-ailto:bandvig@mail.ru" target=3D"_blank" rel=3D"noreferrer">bandvig@mail.ru=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">&gt; From: Stafford=
- Horne<br>
-&gt; Sent: Saturday, May 11, 2019 1:04 PM<br>
-<br>
-&gt; &gt; On Fri, May 10, 2019 at 10:56:05AM +0300, BAndViG wrote:<br>
-&gt; &gt; I&#39;ve been thinking about a variants for R0 write protection. =
-R0 could be<br>
-&gt; &gt; zero initialized at cpu_rst by dedicated circuits. And `invalid <=
-br>
-&gt; &gt; instruction`<br>
-&gt; &gt; exception should be raised if an instruction tries to write to R0=
-. At the<br>
-&gt; &gt; same time such behavior is incompatible with current run-time <br=
->
-&gt; &gt; initialization<br>
-&gt; &gt; sequences implemented in OR1K tool chains. The circle is closed.<=
-br>
-<br>
-&gt; We still have the option to drop the validation.=C2=A0 Just as we don&=
-#39;t have<br>
-&gt; validation for writing to r0, I think its fine to say r31&#39;s pair r=
-egister is<br>
-&gt; undefined and should be avoided. (i.e. on some machines it might go in=
-to the<br>
-&gt; shadow reg space)<br>
-<br>
-On the one hand I&#39;m a kind of perfectionist and would prefer to impleme=
-nt such <br>
-protections. On the other hand they cost noticeable space and timing. Not <=
-br>
-trivial choice for me :).<br>
-<br>
-&gt; On the other hand, I have finished the GCC updates for unordered compa=
-risons.<br>
-&gt; You can see the patch here, I built newlib with this enabled and was a=
-ble to<br>
-&gt; shake out a few bugs.=C2=A0 It seems to work:<br>
-<br>
-&gt;=C2=A0 =C2=A0- <a href=3D"https://github.com/stffrdhrn/gcc/commits/or1k=
--fpu-2" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">https://=
-github.com/stffrdhrn/gcc/commits/or1k-fpu-2</a><br>
-<br>
-&gt; The new gcc argument is:<br>
-<br>
-&gt;=C2=A0 =C2=A0-munordered-float<br>
-<br>
-I&#39;ve build two variants of GCC9/NewLIB tool chains. One has got <br>
-&quot;-mhard-float -munordered-float&quot; options raised by default. And a=
-nother one has <br>
-got &quot;-mhard-float -mdouble-float -munordered-float&quot; default optio=
-ns. First <br>
-variant was used to build single precision Whetstone for mor1kx+FPU32 and <=
-br>
-second to build single and double precision Whetstone for MAROCCHINO. All <=
-br>
-variants work.<br>
-We could merge fp_unordered_cmp branches into master. Or should we postpone=
- the <br>
-merge till your binutils/gcc patches being upstreamed?<br></blockquote></di=
-v></div><div dir=3D"auto"><br></div><div dir=3D"auto">I think we can merge.=
-=C2=A0 It will take time to get it all upstream.</div><div dir=3D"auto"><br=
-></div><div dir=3D"auto">Note I started updates to the spec.</div><div dir=
-=3D"auto">-=C2=A0<a href=3D"https://github.com/stffrdhrn/doc">https://githu=
-b.com/stffrdhrn/doc</a></div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-Still a lot to do, but if you want to look at how I wrote up the lf sfu* in=
-structions please let me know what you think</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto">-stafford</div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div>Hello Everyone , <br></div><div><br>=
+</div><div>I am <a href=3D"http://nancychauhan.in/">Nancy Chauhan</a> and I=
+ will be working on <a target=3D"_self" class=3D"gmail-md-soc-theme" href=
+=3D"https://summerofcode.withgoogle.com/projects/#4706542530592768">Continu=
+ous Integration for Hardware Projects on LibreCores CI </a>throughout my su=
+mmers as a Google Summer of Code Student Developer 2019 .</div><div><br></d=
+iv><div>Librecores provides a platform to share projects and ideas, in the =
+area=20
+of free and open source digital hardware design. Librecores CI is an=20
+approach/service to provide continuous integration
+to hardware projects hosted on<a href=3D"https://www.librecores.org/"> Libr=
+ecores</a> to improve user experience and
+ reliability. This project aims to provide automation service for some=20
+hardware projects that have a constantly evolving code.  Jenkins, the=20
+automation server will be used to achieve the goals of the project.</div><d=
+iv><br></div><div>For the first part of my project I will be mostly working=
+ on=C2=A0Setting up demo CI flow for<a href=3D"https://github.com/openrisc/=
+mor1kx"> mor1kx project </a>under the guidance of mentors : Stafford Horne =
+, Oleg Nenashev and Stefan Wallentowitz . Looking forward towards an amazin=
+g summers ! <br></div><div><br></div><div><br></div><div>Thanks <br></div><=
+div>Nancy Chauhan<br> </div></div></div>
 
---0000000000004f296a0588b8e415--
+--0000000000009d84fa0588e44515--
 
---===============2775804104256426551==
+--===============7762255150989411015==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -230,4 +131,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
 bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
 bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
 
---===============2775804104256426551==--
+--===============7762255150989411015==--
