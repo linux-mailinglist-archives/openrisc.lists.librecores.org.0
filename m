@@ -2,57 +2,70 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 9508642740
-	for <lists+openrisc@lfdr.de>; Wed, 12 Jun 2019 15:14:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A509429C9
+	for <lists+openrisc@lfdr.de>; Wed, 12 Jun 2019 16:48:02 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 58A0D2027B;
-	Wed, 12 Jun 2019 15:14:09 +0200 (CEST)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
- [209.85.210.193])
- by mail.librecores.org (Postfix) with ESMTPS id 080FC20155
- for <openrisc@lists.librecores.org>; Wed, 12 Jun 2019 15:14:08 +0200 (CEST)
-Received: by mail-pf1-f193.google.com with SMTP id j2so9657047pfe.6
- for <openrisc@lists.librecores.org>; Wed, 12 Jun 2019 06:14:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=4bwTT94KmV4CjuRnxQWw+4V5+YqAitxE8bK7k+23Gww=;
- b=azEDGqhIZFDKw4BYjxgHJ04cqV/2oQ1ijuLVvUJX2iss9ELepiT23H1HzVk5LOGg3H
- HAFrQ3Lz/qq4AbJczTWIQItzASHDjjD7GrpGmKhbQJrx49lGSSLcwl95MuozgUDfFDqI
- ByvsG7u6M+C8L867GhE2QeXwjzoASKqSP+gmYf+JGBeZb6pgvboRu3TGKcmoufijz8oe
- Ci6se2f9jompkbVTlvp9YrGKGP+WG6XPsttGKewWFQTVYWHFfv3YECs+hwLCZ1pPup7M
- 1BgIJjrjDfrBNaAilU4lN/xjjo5EZ7yLy/LGdsvrfLEIrTYXR7yvhji8o6jqaFaEpo2n
- Z/wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=4bwTT94KmV4CjuRnxQWw+4V5+YqAitxE8bK7k+23Gww=;
- b=I4fm/DB/R/QxTRMYH/i0GIuda8XU+8OSza1ojTxh/VfnBkQZFfG4/VgclcEK3MBZZc
- r9n8eqB+mxzys2qae7qPD4GUUOquy3AXgIJlX/3n1mZEJETK5NTr7wVurXxNRDJCyCvT
- wHTe2gNQgR9IMBPqMB58COUIF5DUwDo8NBBmfttI73yT/WrXUhgGu4hmsIWdFV28iNjD
- TcORt84Bh3Xv75kzrz59JFZKVHfi0BJDCYehR1O6cwQT6PW20hy4S/cFmTtnXhU5XvUb
- OUXkLr4R0cnjCaqzy7tZl2eNQpJWI98r/cUFxjAO5rbdwYXEsIheceOAarNYEOvcvFUM
- cfxA==
-X-Gm-Message-State: APjAAAXJ07HD9ItqZA1BvS9BVu7VXnpS48CaqG6q1UYH3UG0yzFLoZIh
- nvLsQDlXkEGFxC+qAfckgQU=
-X-Google-Smtp-Source: APXvYqy15aQxNY9J6t7qTG8OzvFRn/UcykToLtVHqzhKc+kfXUCIkdk3IjoxUtnjB2nbRoj0oK2v6A==
-X-Received: by 2002:a17:90a:2228:: with SMTP id
- c37mr33210760pje.9.1560345246532; 
- Wed, 12 Jun 2019 06:14:06 -0700 (PDT)
-Received: from localhost (g30.211-19-85.ppp.wakwak.ne.jp. [211.19.85.30])
- by smtp.gmail.com with ESMTPSA id c9sm22889290pfn.3.2019.06.12.06.14.05
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 12 Jun 2019 06:14:05 -0700 (PDT)
-Date: Wed, 12 Jun 2019 22:14:03 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: cgen@sourceware.org
-Message-ID: <20190612131403.GE2358@lianli.shorne-pla.net>
+	by mail.librecores.org (Postfix) with ESMTP id C32B320285;
+	Wed, 12 Jun 2019 16:48:01 +0200 (CEST)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by mail.librecores.org (Postfix) with ESMTPS id 2D1E220226
+ for <openrisc@lists.librecores.org>; Wed, 12 Jun 2019 16:36:29 +0200 (CEST)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x5CEXtwN058488;
+ Wed, 12 Jun 2019 14:36:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : references : date : in-reply-to : message-id : mime-version :
+ content-type; s=corp-2018-07-02;
+ bh=FLquKI4NiwCLRKcDiLEOBvm4CdE15YRYq1CmoImmZGs=;
+ b=tuu6GQVFVykyFQrcCmZvUiuhkQQ2+by71yPUAjekZ0DeZ6RiKCNtPhVfppaW6Cze8a6i
+ 16VDoc6TisLtKkDqE78aj6b9hWGllrZY44RuFl64KbC1FUx14mGNH2JN0Gd/NlsVQE5j
+ Cm8MaaqTmED7p9u32p/4iAOBwUA6M5LCGDd72wmDzjd46OTdIPgDZlgKD+M2vOPeTCCF
+ FuHsL5DKRFgVjNv12uPyaECFy7KIWVsCn5YacCvisOuWdvSjEjnMMJvsjjjCSeA2u07p
+ rW5mlRqm6h0TpDriNNrtsvvnk6Md/OGv5tcx8iMboDUgnD3VJDGWjLWWjwpE4yqJAkbD 8A== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 2t05nqutnp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 12 Jun 2019 14:36:26 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x5CEYosL065630;
+ Wed, 12 Jun 2019 14:36:26 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 2t1jpj25wh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 12 Jun 2019 14:36:26 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x5CEaOiW018898;
+ Wed, 12 Jun 2019 14:36:25 GMT
+Received: from termi.oracle.com (/10.175.45.94)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 12 Jun 2019 07:36:24 -0700
+From: jose.marchesi@oracle.com (Jose E. Marchesi)
+To: Stafford Horne <shorne@gmail.com>
 References: <20190601072629.4070-1-shorne@gmail.com>
+ <20190612131403.GE2358@lianli.shorne-pla.net>
+Date: Wed, 12 Jun 2019 16:36:17 +0200
+In-Reply-To: <20190612131403.GE2358@lianli.shorne-pla.net> (Stafford Horne's
+ message of "Wed, 12 Jun 2019 22:14:03 +0900")
+Message-ID: <878su6dg66.fsf@oracle.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190601072629.4070-1-shorne@gmail.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9285
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=738
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1810050000 definitions=main-1906120098
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9285
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=786 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1906120098
+X-Mailman-Approved-At: Wed, 12 Jun 2019 16:47:59 +0200
 Subject: Re: [OpenRISC] [PATCH 0/2] CGEN unordered fpu compares + fixes
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -66,34 +79,17 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>
+Cc: cgen@sourceware.org, Openrisc <openrisc@lists.librecores.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGVsbG8sCgpEaWQgYW55b25lIGhhdmUgYSBjaGFuY2UgdG8gbG9vayBhdCB0aGlzPyAgVGhlIGJp
-bnV0aWxzIHBhdGNoZXMgdGhhdCByZXF1aXJlCnRoaXMgYXJlIGFwcHJvdmVkLCBidXQgSSByYXRo
-ZXIgbm90IGNvbW1pdCB0aGVtIHVubGVzcyB0aGlzIEkgZ2V0IE9LIG9uIHRoZXNlCnBhdGNoZXMg
-YW5kIHB1c2ggdGhlbS4KCi1TdGFmZm9yZAoKT24gU2F0LCBKdW4gMDEsIDIwMTkgYXQgMDQ6MjY6
-MjdQTSArMDkwMCwgU3RhZmZvcmQgSG9ybmUgd3JvdGU6Cj4gSGVsbG8sCj4gCj4gQXMgSSBhbSB3
-b3JraW5nIG9uIG9wZW5yaXNjIHdoaWNoIHVzZXMgY2dlbiBpbiBiaW51dGlscyBJIGhhdmUgbmVl
-ZGVkIHRvIG1ha2UKPiB0aGVzZSBjaGFuZ2VzLgo+IAo+IFRoZSBVbm9yZGVyZWQgY29tcGFyZXMg
-aXMgbmVlZGVkIGZvciBGUFUgdW5vcmRlcmVkIChOYU4gZGV0ZWN0aW5nKSBjb21wYXJpc29ucy4K
-PiBUaGVzZSBoYXZlIGJlZW4gaW1wbGVtZW50ZWQgYW5kIHRlc3RlZCBpbiBPcGVuUklTQyAoYm90
-aCBzaW11bGF0aW9uIGFuZAo+IGFzc2VtYmxlciAocnVubmluZyBvbiBGUEdBIGhhcmR3YXJlKSku
-Cj4gCj4gVGhlIGdlbi1kb2MgY2hhbmdlcyBjb21lIGZyb20gbWUgbm90aWNpbmcgdGhlIGRvY3Mg
-WzBdIG9uIHRoZSBjZ2VuIHdlYnNpdGUgYXJlCj4gdmVyeSBtdWNoIG91dCBvZiBkYXRlLgo+IAo+
-IERvZXMgYW55b25lIGtub3cgdGhlIHByb2Nlc3MgdG8gZ2V0IHRoZSByZWdlbmVyYXRlZCBkb2Nz
-IHBvc3RlZD8gIEkgdGhpbmsgdGhleQo+IGFyZSBiZW5lZmljaWFsIGFuZCB3aXRoIHNvbWUgbW9y
-ZSB1cGRhdGVzIHRoZXkgY291bGQgYmUgcmVhbGx5IGdvb2QuCj4gCj4gWzBdIGh0dHBzOi8vc291
-cmNld2FyZS5vcmcvY2dlbi9nZW4tZG9jLwo+IAo+IFN0YWZmb3JkIEhvcm5lICgyKToKPiAgIGNn
-ZW46IEFkZCB1bm9yZGVyZWQgY29tcGFyZSBvcGVyYXRpb24KPiAgIGdlbi1kb2M6IFVwZGF0ZXMg
-Zm9yIGxhdGVzdCBjcHUgZGVmaW5pdGlvbnMKPiAKPiAgZ2VuLWFsbC1kb2MgICB8IDQ2ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0KPiAgaHRtbC5zY20gICAg
-ICB8ICAyICstCj4gIHJ0bC1jLnNjbSAgICAgfCAgNCArKysrCj4gIHJ0eC1mdW5jcy5zY20gfCAg
-NyArKysrKysrCj4gIDQgZmlsZXMgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRp
-b25zKC0pCj4gIG1vZGUgY2hhbmdlIDEwMDY0NCA9PiAxMDA3NTUgZ2VuLWFsbC1kb2MKPiAKPiAt
-LSAKPiAyLjIxLjAKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3Jn
-Cmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+ICAgIAogICAgRGlkIGFueW9uZSBoYXZlIGEgY2hhbmNlIHRvIGxvb2sgYXQgdGhpcz8gIFRoZSBi
+aW51dGlscyBwYXRjaGVzIHRoYXQgcmVxdWlyZQogICAgdGhpcyBhcmUgYXBwcm92ZWQsIGJ1dCBJ
+IHJhdGhlciBub3QgY29tbWl0IHRoZW0gdW5sZXNzIHRoaXMgSSBnZXQgT0sgb24gdGhlc2UKICAg
+IHBhdGNoZXMgYW5kIHB1c2ggdGhlbS4KCkknbSBub3QgYSBDR0VOIG1haW50YWluZXIsIGJ1dCBG
+V0lXIGJvdGggcGF0Y2hlcyBsb29rIGdvb2QgdG8gbWUuCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0Bs
+aXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZv
+L29wZW5yaXNjCg==
