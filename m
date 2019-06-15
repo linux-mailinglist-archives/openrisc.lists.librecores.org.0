@@ -2,104 +2,60 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 28F1755927
-	for <lists+openrisc@lfdr.de>; Tue, 25 Jun 2019 22:41:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AFAC646E8A
+	for <lists+openrisc@lfdr.de>; Sat, 15 Jun 2019 08:14:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 0F66F20129;
-	Tue, 25 Jun 2019 22:41:50 +0200 (CEST)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
- [198.182.61.142])
- by mail.librecores.org (Postfix) with ESMTPS id AC39B20296
- for <openrisc@lists.librecores.org>; Fri, 14 Jun 2019 20:05:11 +0200 (CEST)
-Received: from mailhost.synopsys.com (dc2-mailhost1.synopsys.com
- [10.12.135.161])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 034BBC2289;
- Fri, 14 Jun 2019 18:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1560535508; bh=8l8rPS/BySgxKl7CjMynmtU9SAyJOl5r8Xw0NG8wAC0=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=gYkilA5FB8HiSeRy3vKPpk5f4eCqFid+8N3qGOQkb+u9MEkuKLQtD60WF6LncCyVo
- QeoSjg/yuJsnQJNlqTgMX8qfrXg4rtoYa0SmFgUIuLZy28heStZIY24ATvCE0v5XST
- o35bQF3DWPTSqqMIg0nsbKSWi+1UEjWOtQHyf34TvDAs89UBINSd9Xttn8tVPVUojs
- 8pKMnAwGkJnB/nf5HQMrhH4bbWfHoPncCwTd7GQ7gd03p28GmOUZhOvQqNdozrervd
- m6CdlpOb3owxqS340+5uaCiZ6i4T5ZfD2dA2DJ/lKZ977u9gXauvIVapnAnPrAZjyp
- 6doF38xDoZ4Mw==
-Received: from us01wehtc1.internal.synopsys.com
- (us01wehtc1-vip.internal.synopsys.com [10.12.239.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id D4B33A009B;
- Fri, 14 Jun 2019 18:05:03 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- us01wehtc1.internal.synopsys.com (10.12.239.235) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Fri, 14 Jun 2019 11:05:03 -0700
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Fri, 14 Jun 2019 11:05:02 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8l8rPS/BySgxKl7CjMynmtU9SAyJOl5r8Xw0NG8wAC0=;
- b=oaOJffTjW0uTpKf34k7hA4ANFNsEMxaGhtz6N1kUgHH+s238w8ljAedjDNr8knG8MLj2PddmLsOGZXyqmdHBxD0xg28TxIF2IdAYdAMEYFE8Jljiiy/0hfPsaFrTUY6t7svusvAd9f8KO9dTFX9WiuJpZCZk5Gx/rdC0mQMAq8g=
-Received: from SN6PR12MB2670.namprd12.prod.outlook.com (52.135.103.23) by
- SN6PR12MB2670.namprd12.prod.outlook.com (52.135.103.23) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1965.17; Fri, 14 Jun 2019 18:05:01 +0000
-Received: from SN6PR12MB2670.namprd12.prod.outlook.com
- ([fe80::cd10:94a4:d1b1:c3b2]) by SN6PR12MB2670.namprd12.prod.outlook.com
- ([fe80::cd10:94a4:d1b1:c3b2%5]) with mapi id 15.20.1965.019; Fri, 14 Jun 2019
- 18:05:01 +0000
-From: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
-To: "hch@lst.de" <hch@lst.de>,
-	Vineet Gupta <Vineet.Gupta1@synopsys.com>
-Thread-Topic: [PATCH 7/7] arc: use the generic remapping allocator for
- coherent DMA allocations
-Thread-Index: AQHVIsAMmlRh09Vs6Ea+qlthrKcWyaabcdSA
-Date: Fri, 14 Jun 2019 18:05:01 +0000
-Message-ID: <78ac563f2815a9a14bfab6076d0ef948497f5b9f.camel@synopsys.com>
-References: <20190614144431.21760-1-hch@lst.de>
- <20190614144431.21760-8-hch@lst.de>
-In-Reply-To: <20190614144431.21760-8-hch@lst.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=paltsev@synopsys.com; 
-x-originating-ip: [84.204.78.101]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fe65ae5e-8ab4-4807-cac3-08d6f0f2d1c4
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:SN6PR12MB2670; 
-x-ms-traffictypediagnostic: SN6PR12MB2670:
-x-microsoft-antispam-prvs: <SN6PR12MB2670A4F2AE9D22869844289FDEEE0@SN6PR12MB2670.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3631;
-x-forefront-prvs: 0068C7E410
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(979002)(346002)(366004)(39860400002)(376002)(396003)(136003)(189003)(199004)(66476007)(99286004)(66946007)(91956017)(73956011)(118296001)(102836004)(76176011)(478600001)(76116006)(6506007)(305945005)(7736002)(2501003)(66446008)(64756008)(66556008)(8676002)(8936002)(81166006)(81156014)(316002)(53936002)(6436002)(86362001)(6512007)(229853002)(6486002)(4326008)(6246003)(68736007)(25786009)(54906003)(110136005)(14454004)(2906002)(66066001)(7416002)(5660300002)(3846002)(6116002)(6636002)(486006)(476003)(26005)(256004)(14444005)(71190400001)(71200400001)(186003)(36756003)(2616005)(11346002)(446003)(41533002)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR12MB2670;
- H:SN6PR12MB2670.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: YBo9AYdmhEZbwv5F7ged9mWrC7tql7NT/82/lk4XBk4yxnVTMeXKJkmO/NjR85T44P5fCtj9xLXlJq9Ucph+GJH4m3+N//zN8tQtYI06Dq4BBxo7v6XIpR22HYlb/2KyiFzVWZ+2nKz84PkZWPkOlIqHHuRcNZ0zWSY16jw5gdyNkT4h/gn7M3mtCfptPWK9h/g0BXFbxbkqC6xgvi/jttuP7GI6eHhrGNHGiGQIfpMalogyDPNVq8zTgVertmYirFJda3stU1kZIIRNzG6smhyRLoZfRYFcnaSs8tqepqOsbsk8RNRuzdww5tXASliJmsM2Hs3JpzT5a9idHU3GyP2F5IGaF4QyjSsW54WTao4IWUGOvUolro4T4ZUaXgvsiQCZDW8IhXZ8DvCk2pH1fNVZx0/w7eUJjwi/d8tuhX4=
-Content-ID: <FCDD90A34BC48347BC639126DA077974@namprd12.prod.outlook.com>
+	by mail.librecores.org (Postfix) with ESMTP id 570B620298;
+	Sat, 15 Jun 2019 08:14:33 +0200 (CEST)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+ [209.85.217.48])
+ by mail.librecores.org (Postfix) with ESMTPS id E9FE4201E2
+ for <openrisc@lists.librecores.org>; Sat, 15 Jun 2019 08:14:31 +0200 (CEST)
+Received: by mail-vs1-f48.google.com with SMTP id u124so3134130vsu.2
+ for <openrisc@lists.librecores.org>; Fri, 14 Jun 2019 23:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=x7HRvZBwPJ/BxWln3T0suJ71WB79e6RfHpUnRj26xLE=;
+ b=cFhjIeK4ie4Px1I6OlIfbsuvSmmtEXAMWudttsdh7nnj10/N+3xGBjT30fDcItrRI/
+ mdM3gzJugTkO7hm8OCcJmLyq+QkYYrctRaPa2kgB6egEcTgNNkiG0TM1Uxj/1/9k469B
+ r6ujDMj7agL/tQowzu5JD3mT1au3gqsturfEi1yXEEd3daNmJNkPwrzsWAqqELAAZMmY
+ rJ8BurMVsTgJvTX6BChzH/VvooXgj8r1eNMpAH/6NLc644pv4kGnH+Y3RNCb6FLjkP/+
+ wuMr8WJsUZu/r3nO5rn/eVHGDVzYL3RYSxVry1HUJ8o/wa+V5v+0+AifCKEAC7cJTQRd
+ Q6eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x7HRvZBwPJ/BxWln3T0suJ71WB79e6RfHpUnRj26xLE=;
+ b=MMTKgUw5vLjh1E6oVKmPnUgdkDKoX6OVCveoB/WKsQLinMzQs/ZWFxGSON7yO1KS9R
+ wOMY1qQMFWUi+kTKOooTk0vBVt8HU21kX1JQaxxEgIoGHEDMs4WKqqYzpQ9vtGiS/AsW
+ htx2z1dtaN/CUe7FOf8pF74ftd3UaAMVijaaOvr//aWms1e9UsLMTG/rMqmf0Lt7ztJv
+ 6thOc6yhnURsGZBYaGQpsrK7e0U2AUaANZGGUrcX0qN34M4/nYHJvit4XK6G7GeZBCB/
+ 6ky/15wBdN/+l907Gxkhju96YMykYS6gjHoUbPc089ReIVIahNrN6zVzH59sSYeP/XvP
+ I2AA==
+X-Gm-Message-State: APjAAAVg8hIKgV0Qht2no0WS99PGg6wEkikvVR6Au9p8UJgMPQV5MCqW
+ t2xVwTeO7ggPxDPthnCos/aA0hlC5gul+sEPRYA=
+X-Google-Smtp-Source: APXvYqwEyxBLrTG3imL4IAbzA8Q5h3uISd+AHfGJCnGd15eq2u8S/jq/4KGA0+9g6N0HMqHT35LfQf4fy8sULdy63HE=
+X-Received: by 2002:a67:f5c5:: with SMTP id t5mr44419072vso.27.1560579270568; 
+ Fri, 14 Jun 2019 23:14:30 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe65ae5e-8ab4-4807-cac3-08d6f0f2d1c4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jun 2019 18:05:01.0717 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: paltsev@synopsys.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2670
-X-OriginatorOrg: synopsys.com
-X-Mailman-Approved-At: Tue, 25 Jun 2019 22:41:44 +0200
-Subject: Re: [OpenRISC] [PATCH 7/7] arc: use the generic remapping allocator
- for coherent DMA allocations
+References: <20190413084708.GC32284@lianli.shorne-pla.net>
+ <3D70BAC7A5B64C0E977D84EC118F146E@BAndViG>
+ <20190425211702.GG32284@lianli.shorne-pla.net>
+ <e441bb74-5cea-6002-c33e-4822f082265b@twiddle.net>
+ <20190507211254.GD11006@lianli.shorne-pla.net>
+ <6CFC558D2E0643BAA8C0CFCB1AEE95BB@BAndViG>
+ <3ce42625-83fe-4ee2-b48f-23e6362ee616@twiddle.net>
+ <AED0C7019AE04A2F87CD0E432FA20A70@BAndViG>
+ <20190511100433.GA20465@lianli.shorne-pla.net>
+ <A49361B4A05048AD995FF588CC923E61@BAndViG>
+ <20190606221130.GF3379@lianli.shorne-pla.net>
+In-Reply-To: <20190606221130.GF3379@lianli.shorne-pla.net>
+From: Stafford Horne <shorne@gmail.com>
+Date: Sat, 15 Jun 2019 15:14:19 +0900
+Message-ID: <CAAfxs740mxPqqa6jm-6DL+K5k_wULTko5bSD5nt1CxxbMO6FeA@mail.gmail.com>
+To: BAndViG <bandvig@mail.ru>
+Subject: Re: [OpenRISC] OpenRISC 1.3 spec
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -112,100 +68,227 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: "jonas@southpole.se" <jonas@southpole.se>,
- "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
- "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
- "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
- "deller@gmx.de" <deller@gmx.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
- "openrisc@lists.librecores.org" <openrisc@lists.librecores.org>,
- "linux-snps-arc@lists.infradead.org" <linux-snps-arc@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Openrisc <openrisc@lists.librecores.org>
+Content-Type: multipart/mixed; boundary="===============3057099005953288536=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGkgQ2hyaXN0b3BoLA0KDQpSZWd1bGFyIHF1ZXN0aW9uIC0gZG8geW91IGhhdmUgYW55IHB1Ymxp
-YyBnaXQgcmVwb3NpdG9yeSB3aXRoIGFsbCB0aGlzIGRtYSBjaGFuZ2VzPw0KSSB3YW50IHRvIHRl
-c3QgaXQgZm9yIEFSQy4NCg0KUHJldHR5IHN1cmUgdGhlDQogW1BBVENIIDIvN10gYXJjOiByZW1v
-dmUgdGhlIHBhcnRpYWwgRE1BX0FUVFJfTk9OX0NPTlNJU1RFTlQgc3VwcG9ydA0KaXMgZmluZS4N
-Cg0KTm90IHNvIHN1cmUgYWJvdXQNCiBbUEFUQ0ggNy83XSBhcmM6IHVzZSB0aGUgZ2VuZXJpYyBy
-ZW1hcHBpbmcgYWxsb2NhdG9yIGZvciBjb2hlcmVudCBETUEgYWxsb2NhdGlvbnMNCjopDQoNCk9u
-IEZyaSwgMjAxOS0wNi0xNCBhdCAxNjo0NCArMDIwMCwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6
-DQo+IFJlcGxhY2UgdGhlIGNvZGUgdGhhdCBzZXRzIHVwIHVuY2FjaGVkIFBURXMgd2l0aCB0aGUg
-Z2VuZXJpYyB2bWFwIGJhc2VkDQo+IHJlbWFwcGluZyBjb2RlLiAgSXQgYWxzbyBwcm92aWRlcyBh
-biBhdG9taWMgcG9vbCBmb3IgYWxsb2NhdGlvbnMgZnJvbQ0KPiBub24tYmxvY2tpbmcgY29udGV4
-dCwgd2hpY2ggd2Ugbm90IHByb3Blcmx5IHN1cHBvcnRlZCBieSB0aGUgZXhpc3RpbmcNCj4gYXJj
-IGNvZGUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4NCj4gLS0tDQo+ICBhcmNoL2FyYy9LY29uZmlnICB8ICAyICsrDQo+ICBhcmNoL2FyYy9tbS9k
-bWEuYyB8IDYyICsrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-DQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDUyIGRlbGV0aW9ucygtKQ0K
-PiANCj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJjL0tjb25maWcgYi9hcmNoL2FyYy9LY29uZmlnDQo+
-IGluZGV4IDIzZTA2M2RmNWQyYy4uY2RhZDdkMzBmZjFkIDEwMDY0NA0KPiAtLS0gYS9hcmNoL2Fy
-Yy9LY29uZmlnDQo+ICsrKyBiL2FyY2gvYXJjL0tjb25maWcNCj4gQEAgLTEwLDYgKzEwLDcgQEAg
-Y29uZmlnIEFSQw0KPiAgCWRlZl9ib29sIHkNCj4gIAlzZWxlY3QgQVJDX1RJTUVSUw0KPiAgCXNl
-bGVjdCBBUkNIX0hBU19ETUFfQ09IRVJFTlRfVE9fUEZODQo+ICsJc2VsZWN0IEFSQ0hfSEFTX0RN
-QV9QUkVQX0NPSEVSRU5UDQo+ICAJc2VsZWN0IEFSQ0hfSEFTX1BURV9TUEVDSUFMDQo+ICAJc2Vs
-ZWN0IEFSQ0hfSEFTX1NFVFVQX0RNQV9PUFMNCj4gIAlzZWxlY3QgQVJDSF9IQVNfU1lOQ19ETUFf
-Rk9SX0NQVQ0KPiBAQCAtMTksNiArMjAsNyBAQCBjb25maWcgQVJDDQo+ICAJc2VsZWN0IEJVSUxE
-VElNRV9FWFRBQkxFX1NPUlQNCj4gIAlzZWxlY3QgQ0xPTkVfQkFDS1dBUkRTDQo+ICAJc2VsZWN0
-IENPTU1PTl9DTEsNCj4gKwlzZWxlY3QgRE1BX0RJUkVDVF9SRU1BUA0KPiAgCXNlbGVjdCBHRU5F
-UklDX0FUT01JQzY0IGlmICFJU0FfQVJDVjIgfHwgIShBUkNfSEFTX0xMNjQgJiYgQVJDX0hBU19M
-TFNDKQ0KPiAgCXNlbGVjdCBHRU5FUklDX0NMT0NLRVZFTlRTDQo+ICAJc2VsZWN0IEdFTkVSSUNf
-RklORF9GSVJTVF9CSVQNCj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJjL21tL2RtYS5jIGIvYXJjaC9h
-cmMvbW0vZG1hLmMNCj4gaW5kZXggOTgzMjkyOGY4OTZkLi4wZmE4NTA3MDlmYWMgMTAwNjQ0DQo+
-IC0tLSBhL2FyY2gvYXJjL21tL2RtYS5jDQo+ICsrKyBiL2FyY2gvYXJjL21tL2RtYS5jDQo+IEBA
-IC0xMSw0NiArMTEsMTUgQEANCj4gICNpbmNsdWRlIDxhc20vY2FjaGVmbHVzaC5oPg0KPiAgDQo+
-ICAvKg0KPiAtICogQVJDSCBzcGVjaWZpYyBjYWxsYmFja3MgZm9yIGdlbmVyaWMgbm9uY29oZXJl
-bnQgRE1BIG9wcyAoZG1hL25vbmNvaGVyZW50LmMpDQo+ICsgKiBBUkNIIHNwZWNpZmljIGNhbGxi
-YWNrcyBmb3IgZ2VuZXJpYyBub25jb2hlcmVudCBETUEgb3BzDQo+ICAgKiAgLSBoYXJkd2FyZSBJ
-T0Mgbm90IGF2YWlsYWJsZSAob3IgImRtYS1jb2hlcmVudCIgbm90IHNldCBmb3IgZGV2aWNlIGlu
-IERUKQ0KPiAgICogIC0gQnV0IHN0aWxsIGhhbmRsZSBib3RoIGNvaGVyZW50IGFuZCBub24tY29o
-ZXJlbnQgcmVxdWVzdHMgZnJvbSBjYWxsZXINCj4gICAqDQo+ICAgKiBGb3IgRE1BIGNvaGVyZW50
-IGhhcmR3YXJlIChJT0MpIGdlbmVyaWMgY29kZSBzdWZmaWNlcw0KPiAgICovDQo+IC12b2lkICph
-cmNoX2RtYV9hbGxvYyhzdHJ1Y3QgZGV2aWNlICpkZXYsIHNpemVfdCBzaXplLCBkbWFfYWRkcl90
-ICpkbWFfaGFuZGxlLA0KPiAtCQlnZnBfdCBnZnAsIHVuc2lnbmVkIGxvbmcgYXR0cnMpDQo+IC17
-DQo+IC0JdW5zaWduZWQgbG9uZyBvcmRlciA9IGdldF9vcmRlcihzaXplKTsNCj4gLQlzdHJ1Y3Qg
-cGFnZSAqcGFnZTsNCj4gLQlwaHlzX2FkZHJfdCBwYWRkcjsNCj4gLQl2b2lkICprdmFkZHI7DQo+
-IC0NCj4gLQkvKg0KPiAtCSAqIF9fR0ZQX0hJR0hNRU0gZmxhZyBpcyBjbGVhcmVkIGJ5IHVwcGVy
-IGxheWVyIGZ1bmN0aW9ucw0KPiAtCSAqIChpbiBpbmNsdWRlL2xpbnV4L2RtYS1tYXBwaW5nLmgp
-IHNvIHdlIHNob3VsZCBuZXZlciBnZXQgYQ0KPiAtCSAqIF9fR0ZQX0hJR0hNRU0gaGVyZS4NCj4g
-LQkgKi8NCj4gLQlCVUdfT04oZ2ZwICYgX19HRlBfSElHSE1FTSk7DQo+IC0NCj4gLQlwYWdlID0g
-YWxsb2NfcGFnZXMoZ2ZwIHwgX19HRlBfWkVSTywgb3JkZXIpOw0KPiAtCWlmICghcGFnZSkNCj4g
-LQkJcmV0dXJuIE5VTEw7DQo+IC0NCj4gLQkvKiBUaGlzIGlzIGxpbmVhciBhZGRyICgweDgwMDBf
-MDAwMCBiYXNlZCkgKi8NCj4gLQlwYWRkciA9IHBhZ2VfdG9fcGh5cyhwYWdlKTsNCj4gLQ0KPiAt
-CSpkbWFfaGFuZGxlID0gcGFkZHI7DQo+IC0NCj4gLQkvKg0KPiAtCSAqIEEgY29oZXJlbnQgYnVm
-ZmVyIG5lZWRzIE1NVSBtYXBwaW5nIHRvIGVuZm9yY2Ugbm9uLWNhY2hhYmlsaXR5Lg0KPiAtCSAq
-IGt2YWRkciBpcyBrZXJuZWwgVmlydHVhbCBhZGRyZXNzICgweDcwMDBfMDAwMCBiYXNlZCkuDQo+
-IC0JICovDQo+IC0Ja3ZhZGRyID0gaW9yZW1hcF9ub2NhY2hlKHBhZGRyLCBzaXplKTsNCj4gLQlp
-ZiAoa3ZhZGRyID09IE5VTEwpIHsNCj4gLQkJX19mcmVlX3BhZ2VzKHBhZ2UsIG9yZGVyKTsNCj4g
-LQkJcmV0dXJuIE5VTEw7DQo+IC0JfQ0KPiAgDQo+ICt2b2lkIGFyY2hfZG1hX3ByZXBfY29oZXJl
-bnQoc3RydWN0IHBhZ2UgKnBhZ2UsIHNpemVfdCBzaXplKQ0KPiArew0KPiAgCS8qDQo+ICAJICog
-RXZpY3QgYW55IGV4aXN0aW5nIEwxIGFuZC9vciBMMiBsaW5lcyBmb3IgdGhlIGJhY2tpbmcgcGFn
-ZQ0KPiAgCSAqIGluIGNhc2UgaXQgd2FzIHVzZWQgZWFybGllciBhcyBhIG5vcm1hbCAiY2FjaGVk
-IiBwYWdlLg0KPiBAQCAtNjEsMjQgKzMwLDcgQEAgdm9pZCAqYXJjaF9kbWFfYWxsb2Moc3RydWN0
-IGRldmljZSAqZGV2LCBzaXplX3Qgc2l6ZSwgZG1hX2FkZHJfdCAqZG1hX2hhbmRsZSwNCj4gIAkg
-KiBDdXJyZW50bHkgZmx1c2hfY2FjaGVfdm1hcCBudWtlcyB0aGUgTDEgY2FjaGUgY29tcGxldGVs
-eSB3aGljaA0KPiAgCSAqIHdpbGwgYmUgb3B0aW1pemVkIGFzIGEgc2VwYXJhdGUgY29tbWl0DQo+
-ICAJICovDQo+IC0JZG1hX2NhY2hlX3diYWNrX2ludihwYWRkciwgc2l6ZSk7DQo+IC0JcmV0dXJu
-IGt2YWRkcjsNCj4gLX0NCj4gLQ0KPiAtdm9pZCBhcmNoX2RtYV9mcmVlKHN0cnVjdCBkZXZpY2Ug
-KmRldiwgc2l6ZV90IHNpemUsIHZvaWQgKnZhZGRyLA0KPiAtCQlkbWFfYWRkcl90IGRtYV9oYW5k
-bGUsIHVuc2lnbmVkIGxvbmcgYXR0cnMpDQo+IC17DQo+IC0JcGh5c19hZGRyX3QgcGFkZHIgPSBk
-bWFfaGFuZGxlOw0KPiAtCXN0cnVjdCBwYWdlICpwYWdlID0gdmlydF90b19wYWdlKHBhZGRyKTsN
-Cj4gLQ0KPiAtCWlvdW5tYXAoKHZvaWQgX19mb3JjZSBfX2lvbWVtICopdmFkZHIpOw0KPiAtCV9f
-ZnJlZV9wYWdlcyhwYWdlLCBnZXRfb3JkZXIoc2l6ZSkpOw0KPiAtfQ0KPiAtDQo+IC1sb25nIGFy
-Y2hfZG1hX2NvaGVyZW50X3RvX3BmbihzdHJ1Y3QgZGV2aWNlICpkZXYsIHZvaWQgKmNwdV9hZGRy
-LA0KPiAtCQlkbWFfYWRkcl90IGRtYV9hZGRyKQ0KPiAtew0KPiAtCXJldHVybiBfX3BoeXNfdG9f
-cGZuKGRtYV9hZGRyKTsNCj4gKwlkbWFfY2FjaGVfd2JhY2tfaW52KHBhZ2VfdG9fcGh5cyhwYWdl
-KSwgc2l6ZSk7DQo+ICB9DQo+ICANCj4gIC8qDQo+IEBAIC0xNTUsMyArMTA3LDkgQEAgdm9pZCBh
-cmNoX3NldHVwX2RtYV9vcHMoc3RydWN0IGRldmljZSAqZGV2LCB1NjQgZG1hX2Jhc2UsIHU2NCBz
-aXplLA0KPiAgCWRldl9pbmZvKGRldiwgInVzZSAlc25jb2hlcmVudCBETUEgb3BzXG4iLA0KPiAg
-CQkgZGV2LT5kbWFfY29oZXJlbnQgPyAiIiA6ICJub24iKTsNCj4gIH0NCj4gKw0KPiArc3RhdGlj
-IGludCBfX2luaXQgYXRvbWljX3Bvb2xfaW5pdCh2b2lkKQ0KPiArew0KPiArCXJldHVybiBkbWFf
-YXRvbWljX3Bvb2xfaW5pdChHRlBfS0VSTkVMLCBwZ3Byb3Rfbm9uY2FjaGVkKFBBR0VfS0VSTkVM
-KSk7DQo+ICt9DQo+ICtwb3N0Y29yZV9pbml0Y2FsbChhdG9taWNfcG9vbF9pbml0KTsNCi0tIA0K
-IEV1Z2VuaXkgUGFsdHNldg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMu
-b3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+--===============3057099005953288536==
+Content-Type: multipart/alternative; boundary="00000000000010f093058b56adfa"
+
+--00000000000010f093058b56adfa
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+The changes are now merged. Thanks for all of your help.
+
+Read more at:
+https://openrisc.io/2019/06/04/openrisc-arch1.3
+
+-Stafford
+
+On Fri, Jun 7, 2019, 7:11 AM Stafford Horne <shorne@gmail.com> wrote:
+
+> On Sun, May 12, 2019 at 10:58:53PM +0300, BAndViG wrote:
+> >>From: Stafford Horne
+> >>Sent: Saturday, May 11, 2019 1:04 PM
+> >
+> >>> On Fri, May 10, 2019 at 10:56:05AM +0300, BAndViG wrote:
+> >>> I've been thinking about a variants for R0 write protection. R0 could
+> be
+> >>> zero initialized at cpu_rst by dedicated circuits. And `invalid >
+> >>instruction`
+> >>> exception should be raised if an instruction tries to write to R0. At
+> the
+> >>> same time such behavior is incompatible with current run-time >
+> >>initialization
+> >>> sequences implemented in OR1K tool chains. The circle is closed.
+> >
+> >>We still have the option to drop the validation.  Just as we don't have
+> >>validation for writing to r0, I think its fine to say r31's pair
+> register is
+> >>undefined and should be avoided. (i.e. on some machines it might go into
+> the
+> >>shadow reg space)
+> >
+> >On the one hand I'm a kind of perfectionist and would prefer to
+> >implement such protections. On the other hand they cost noticeable
+> >space and timing. Not trivial choice for me :).
+> >
+> >>On the other hand, I have finished the GCC updates for unordered
+> comparisons.
+> >>You can see the patch here, I built newlib with this enabled and was
+> able to
+> >>shake out a few bugs.  It seems to work:
+> >
+> >>  - https://github.com/stffrdhrn/gcc/commits/or1k-fpu-2
+> >
+> >>The new gcc argument is:
+> >
+> >>  -munordered-float
+> >
+> >I've build two variants of GCC9/NewLIB tool chains. One has got
+> >"-mhard-float -munordered-float" options raised by default. And
+> >another one has got "-mhard-float -mdouble-float -munordered-float"
+> >default options. First variant was used to build single precision
+> >Whetstone for mor1kx+FPU32 and second to build single and double
+> >precision Whetstone for MAROCCHINO. All variants work.
+> >We could merge fp_unordered_cmp branches into master. Or should we
+> >postpone the merge till your binutils/gcc patches being upstreamed?
+> >
+> >WBR
+> >Andrey
+>
+>
+> Hello Richard, Andrey, OpenRISCers,
+>
+> This is the final review for spec version 1.3.  The pdf is here:
+>
+>  - https://github.com/openrisc/doc/raw/master/openrisc-arch-1.3-rev1.pdf
+>
+> To see a history of the changes so far check out these pull requests:
+>
+>  - https://github.com/openrisc/doc/pull/2 - Spec Updates from Stafford
+>  - https://github.com/openrisc/doc/pull/3 - SPec Updates from Andrey
+>
+> These PRs are all merged and the last thing we have is to merge the
+> website and
+> news updates to make it official:
+>
+>  - https://github.com/openrisc/openrisc.github.io/pull/13
+>
+> I'll let it sit for a bit to see if we can collect any comments or
+> feedback on
+> the final document.  So please speak up.
+>
+> But anyway, if there are any issues after the fact we can always create a
+> revision 2.
+>
+> -Stafford
+>
+
+--00000000000010f093058b56adfa
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div dir=3D"auto">Hello,</div><div dir=3D"auto"><br></div=
+>The changes are now merged. Thanks for all of your help.<div dir=3D"auto">=
+<br></div><div dir=3D"auto">Read more at:</div><div dir=3D"auto"><a href=3D=
+"https://openrisc.io/2019/06/04/openrisc-arch1.3">https://openrisc.io/2019/=
+06/04/openrisc-arch1.3</a><br></div><div dir=3D"auto"><br></div><div dir=3D=
+"auto">-Stafford</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Fri, Jun 7, 2019, 7:11 AM Stafford Horne &lt;<a hr=
+ef=3D"mailto:shorne@gmail.com">shorne@gmail.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex">On Sun, May 12, 2019 at 10:58:53PM +0300, BAndV=
+iG wrote:<br>
+&gt;&gt;From: Stafford Horne<br>
+&gt;&gt;Sent: Saturday, May 11, 2019 1:04 PM<br>
+&gt;<br>
+&gt;&gt;&gt; On Fri, May 10, 2019 at 10:56:05AM +0300, BAndViG wrote:<br>
+&gt;&gt;&gt; I&#39;ve been thinking about a variants for R0 write protectio=
+n. R0 could be<br>
+&gt;&gt;&gt; zero initialized at cpu_rst by dedicated circuits. And `invali=
+d &gt; <br>
+&gt;&gt;instruction`<br>
+&gt;&gt;&gt; exception should be raised if an instruction tries to write to=
+ R0. At the<br>
+&gt;&gt;&gt; same time such behavior is incompatible with current run-time =
+&gt; <br>
+&gt;&gt;initialization<br>
+&gt;&gt;&gt; sequences implemented in OR1K tool chains. The circle is close=
+d.<br>
+&gt;<br>
+&gt;&gt;We still have the option to drop the validation.=C2=A0 Just as we d=
+on&#39;t have<br>
+&gt;&gt;validation for writing to r0, I think its fine to say r31&#39;s pai=
+r register is<br>
+&gt;&gt;undefined and should be avoided. (i.e. on some machines it might go=
+ into the<br>
+&gt;&gt;shadow reg space)<br>
+&gt;<br>
+&gt;On the one hand I&#39;m a kind of perfectionist and would prefer to <br=
+>
+&gt;implement such protections. On the other hand they cost noticeable <br>
+&gt;space and timing. Not trivial choice for me :).<br>
+&gt;<br>
+&gt;&gt;On the other hand, I have finished the GCC updates for unordered co=
+mparisons.<br>
+&gt;&gt;You can see the patch here, I built newlib with this enabled and wa=
+s able to<br>
+&gt;&gt;shake out a few bugs.=C2=A0 It seems to work:<br>
+&gt;<br>
+&gt;&gt;=C2=A0 - <a href=3D"https://github.com/stffrdhrn/gcc/commits/or1k-f=
+pu-2" rel=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/st=
+ffrdhrn/gcc/commits/or1k-fpu-2</a><br>
+&gt;<br>
+&gt;&gt;The new gcc argument is:<br>
+&gt;<br>
+&gt;&gt;=C2=A0 -munordered-float<br>
+&gt;<br>
+&gt;I&#39;ve build two variants of GCC9/NewLIB tool chains. One has got <br=
+>
+&gt;&quot;-mhard-float -munordered-float&quot; options raised by default. A=
+nd <br>
+&gt;another one has got &quot;-mhard-float -mdouble-float -munordered-float=
+&quot; <br>
+&gt;default options. First variant was used to build single precision <br>
+&gt;Whetstone for mor1kx+FPU32 and second to build single and double <br>
+&gt;precision Whetstone for MAROCCHINO. All variants work.<br>
+&gt;We could merge fp_unordered_cmp branches into master. Or should we <br>
+&gt;postpone the merge till your binutils/gcc patches being upstreamed?<br>
+&gt;<br>
+&gt;WBR<br>
+&gt;Andrey<br>
+<br>
+<br>
+Hello Richard, Andrey, OpenRISCers,<br>
+<br>
+This is the final review for spec version 1.3.=C2=A0 The pdf is here:<br>
+<br>
+=C2=A0- <a href=3D"https://github.com/openrisc/doc/raw/master/openrisc-arch=
+-1.3-rev1.pdf" rel=3D"noreferrer noreferrer" target=3D"_blank">https://gith=
+ub.com/openrisc/doc/raw/master/openrisc-arch-1.3-rev1.pdf</a><br>
+<br>
+To see a history of the changes so far check out these pull requests:<br>
+<br>
+=C2=A0- <a href=3D"https://github.com/openrisc/doc/pull/2" rel=3D"noreferre=
+r noreferrer" target=3D"_blank">https://github.com/openrisc/doc/pull/2</a> =
+- Spec Updates from Stafford<br>
+=C2=A0- <a href=3D"https://github.com/openrisc/doc/pull/3" rel=3D"noreferre=
+r noreferrer" target=3D"_blank">https://github.com/openrisc/doc/pull/3</a> =
+- SPec Updates from Andrey<br>
+<br>
+These PRs are all merged and the last thing we have is to merge the website=
+ and<br>
+news updates to make it official:<br>
+<br>
+=C2=A0- <a href=3D"https://github.com/openrisc/openrisc.github.io/pull/13" =
+rel=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/openrisc=
+/openrisc.github.io/pull/13</a><br>
+<br>
+I&#39;ll let it sit for a bit to see if we can collect any comments or feed=
+back on<br>
+the final document.=C2=A0 So please speak up.<br>
+<br>
+But anyway, if there are any issues after the fact we can always create a<b=
+r>
+revision 2.<br>
+<br>
+-Stafford<br>
+</blockquote></div>
+
+--00000000000010f093058b56adfa--
+
+--===============3057099005953288536==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============3057099005953288536==--
