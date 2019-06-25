@@ -2,29 +2,30 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 04D635592C
+	by mail.lfdr.de (Postfix) with ESMTP id 3BBD75592D
 	for <lists+openrisc@lfdr.de>; Tue, 25 Jun 2019 22:41:53 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id BC70920308;
-	Tue, 25 Jun 2019 22:41:52 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 1C0E42030A;
+	Tue, 25 Jun 2019 22:41:53 +0200 (CEST)
 Received: from newverein.lst.de (verein.lst.de [213.95.11.211])
- by mail.librecores.org (Postfix) with ESMTPS id 73A7A200FC
- for <openrisc@lists.librecores.org>; Tue, 25 Jun 2019 08:11:35 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 0A044202DA
+ for <openrisc@lists.librecores.org>; Tue, 25 Jun 2019 08:14:03 +0200 (CEST)
 Received: by newverein.lst.de (Postfix, from userid 2407)
- id 413AB68B02; Tue, 25 Jun 2019 08:11:04 +0200 (CEST)
-Date: Tue, 25 Jun 2019 08:11:04 +0200
+ id 4350A68B02; Tue, 25 Jun 2019 08:13:32 +0200 (CEST)
+Date: Tue, 25 Jun 2019 08:13:32 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: Hillf Danton <hdanton@sina.com>
-Message-ID: <20190625061104.GB28986@lst.de>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Message-ID: <20190625061332.GC28986@lst.de>
 References: <20190614144431.21760-1-hch@lst.de>
- <20190614144431.21760-6-hch@lst.de>
+ <20190614144431.21760-2-hch@lst.de>
+ <a017e704-c6c4-7718-7f8b-eb8a0eced14d@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190614144431.21760-6-hch@lst.de>
+In-Reply-To: <a017e704-c6c4-7718-7f8b-eb8a0eced14d@arm.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Tue, 25 Jun 2019 22:41:44 +0200
-Subject: Re: [OpenRISC] [PATCH 5/7] dma-direct: handle
- DMA_ATTR_NON_CONSISTENT in common code
+Subject: Re: [OpenRISC] [PATCH 1/7] arm-nommu: remove the partial
+ DMA_ATTR_NON_CONSISTENT support
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -38,36 +39,32 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Jonas Bonn <jonas@southpole.se>, linux-xtensa@linux-xtensa.org,
- Vladimir Murzin <vladimir.murzin@arm.com>, linux-parisc@vger.kernel.org,
- Vineet Gupta <vgupta@synopsys.com>, Helge Deller <deller@gmx.de>,
- linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
- openrisc@lists.librecores.org, linux-snps-arc@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>, linux-arm-kernel@lists.infradead.org
+ linux-parisc@vger.kernel.org, Vineet Gupta <vgupta@synopsys.com>,
+ Helge Deller <deller@gmx.de>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, openrisc@lists.librecores.org,
+ linux-snps-arc@lists.infradead.org, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gU3VuLCBKdW4gMTYsIDIwMTkgYXQgMDY6MDg6NDBQTSArMDgwMCwgSGlsbGYgRGFudG9uIHdy
-b3RlOgo+IExpdGVyYWxseSwgYW55IGNwdSAoY2FsbCBpdCBjcHVXKSBvdGhlciB0aGFuIHBjeDEy
-IGFuZCBwY3gxIHdpbGwgbm8gbG9uZ2VyIGRvCj4gZG1hIGFsbG9jIGZvciBhbnkgZGV2aWNlIHdp
-dGggdGhpcyBwYXRjaCBhcHBsaWVkLgoKWWVzLiAgQW5kIHRoYXQgaXMgbm90IGEgY2hhbmNlIGZy
-b20gdGhlIHByZXZpb3VzIGNvZGUsIHdoZXJlIG9ubHkKcGN4MSBhbmQgcGN4MTIgY291bGQgZG8g
-Y29oZXJlbnQgYWxsb2NhdGlvbnMsCgo+IE9uIHRoZSBvdGhlciBoYW5kLCAKPiAhZGV2X2lzX2Rt
-YV9jb2hlcmVudChkZXYpICYmICEoYXR0cnMgJiBETUFfQVRUUl9OT05fQ09OU0lTVEVOVCkgd2ls
-bCBhc2sKPiBhbnkgY3B1IHRvIGRvIGRtYSBhbGxvYywgcmVnYXJkbGVzcyBvZiBwY3gxLiBUaGlz
-IHBhdGNoIHdvcmtzIGltbyB1bmxlc3MgY3B1Vwo+IHBsYXlzIGdhbWVzIG9ubHkgd2l0aCBkZXZp
-Y2VzIHRoYXQgYXJlIGRtYSBjb2hlcmVudC4gSSBkb3VidCBpdCBpcyB0cnVlLgoKSSBjYW4ndCBw
-YXJzZSB0aGVzZSB0d28gc2VudGVuY2VzLiAgQnV0IHRvIGV4cGxhaW5zIHRoZSBiaXRzIG1lbnRp
-b25lZApoZXJlIC0gZGV2X2lzX2RtYV9jb2hlcmVudCB3aWxsIHJldHVybiBpZiBhIGRldmljZSBp
-cyBjb2hlcmVudGx5CmF0dGFjaGVkIHZzIHRoZSBjcHUuICBUaGlzIHdpbGwgbmV2ZXIgYmUgdHJ1
-ZSBmb3IgdGhlIHBhcmlzYyBkaXJlY3QKbWFwcGluZy4gIERNQV9BVFRSX05PTl9DT05TSVNURU5U
-IGFza3MgZm9yIGEgbm9uLWNvaGVyZW50IG1hcHBpbmcgdGhhdApuZWVkcyB0byBiZSBleHBsaWNp
-dGx5IHN5bmNlZC4gIFRoaXMgc3VwcG9ydCBub3cgaXMgaW4gdGhlIGRtYS1kaXJlY3QKY29yZSBj
-b2RlLCBhbmQgdGhpcyBpcyB3aGF0IHRoZSBwYXJpc2Mgc3BlY2lmaWMgZGV2aWNlcyB1c2VkIG9u
-IHRoZQpub24tcGN4bCBzeXN0ZW1zIHVzZSwgYXMgdGhleSBkbyBub3Qgc3VwcG9ydCBkbWEgY29o
-ZXJlbmN5IGF0IGFsbC4KKHRoZSBzdG9yeSBzbGlnaHRseSBjaGFuZ2VzIHdoZW4gdXNpbmcgYW4g
-aW9tbXUsIGJ1dCB0aGF0IGlzIGlycmVsZXZhbnQKaGVyZSkKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVND
-QGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGlu
-Zm8vb3BlbnJpc2MK
+T24gTW9uLCBKdW4gMjQsIDIwMTkgYXQgMDM6MjM6MDhQTSArMDEwMCwgVmxhZGltaXIgTXVyemlu
+IHdyb3RlOgo+IE9uIDYvMTQvMTkgMzo0NCBQTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4g
+PiBUaGUgYXJtLW5vbW11IERNQSBjb2RlIHN1cHBvcnRzIERNQV9BVFRSX05PTl9DT05TSVNURU5U
+IGFsbG9jYXRpb25zLCBidXQKPiA+IGRvZXMgbm90IHByb3ZpZGUgYSBjYWNoZV9zeW5jIG9wZXJh
+dGlvbi4gIFRoaXMgbWVhbnMgYW55IHVzZXIgb2YgaXQKPiA+IHdpbGwgbmV2ZXIgYmUgYWJsZSB0
+byBhY3R1YWxseSB0cmFuc2ZlciBjYWNoZSBvd25lcnNoaXAgYW5kIHRodXMgY2F1c2UKPiA+IGNv
+aGVyZW5jeSBidWdzLgo+IAo+IEJ5IHRoZSB3YXksIERvY3VtZW50YXRpb24vRE1BLWF0dHJpYnV0
+ZXMudHh0IGRvZXNuJ3Qgc3BlY2lmeSBjYWNoZV9zeW5jKCkgYXMKPiByZXF1aXJlbWVudCBmb3Ig
+RE1BX0FUVFJfTk9OX0NPTlNJU1RFTlQgaXQgb25seSBzdGF0ZXMgdGhhdCBpdCBpcyByZXNwb25z
+aWJpbGl0eQo+IG9mIHRoZSBkcml2ZXIgdG8gaGF2ZSBhbGwgdGhlIGNvcnJlY3QgYW5kIG5lY2Vz
+c2FyeSBzeW5jIHBvaW50cy4KClRydWUuICBkbWFfY2FjaGVfc3luYyBoYXMgYWx3YXlzIGJlZW4g
+YSByYXRoZXIgb2RkIGludGVyZmFjZSwgYXMgaXQKZG9lc24ndCBzcGVjaWZ5IGluIHdoYXQgZGly
+ZWN0aW9uIHdlIG5lZWQgdG8gc3luYyBhbmQgZG9lc24ndApwYXJ0aWNpcGF0ZSBpbiBvdXIgb3du
+ZXJzaGlwIHByb3RvY29sLiAgU28gbXkgbWlkLXRlcm0gcGxhbiBpcyB0byBraWxsCml0IG9mZiBh
+bmQgcmVwbGFjZSBpdCB3aXRoIHRoZSBleGlzdGluZyBkbWFfc3luY18qIGhlbHBlcnMuICBUaGlz
+CnNlcmllcyBpcyB0aGUgZmlyc3Qgc3RlcCB0b3dhcmRzIHRoYXQuCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVu
+UklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xp
+c3RpbmZvL29wZW5yaXNjCg==
