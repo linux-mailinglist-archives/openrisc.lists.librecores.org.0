@@ -2,88 +2,60 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 50CCF5EC50
-	for <lists+openrisc@lfdr.de>; Wed,  3 Jul 2019 21:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BA865EECD
+	for <lists+openrisc@lfdr.de>; Wed,  3 Jul 2019 23:49:24 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id B9D4620358;
-	Wed,  3 Jul 2019 21:09:55 +0200 (CEST)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
- by mail.librecores.org (Postfix) with ESMTPS id 196E420113
- for <openrisc@lists.librecores.org>; Wed,  3 Jul 2019 21:09:55 +0200 (CEST)
-Received: by mail-wr1-f68.google.com with SMTP id n4so4044253wrs.3
- for <openrisc@lists.librecores.org>; Wed, 03 Jul 2019 12:09:55 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 1C03120357;
+	Wed,  3 Jul 2019 23:49:24 +0200 (CEST)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+ [209.85.210.194])
+ by mail.librecores.org (Postfix) with ESMTPS id 0E6C020343
+ for <openrisc@lists.librecores.org>; Wed,  3 Jul 2019 23:49:22 +0200 (CEST)
+Received: by mail-pf1-f194.google.com with SMTP id x15so1923536pfq.0
+ for <openrisc@lists.librecores.org>; Wed, 03 Jul 2019 14:49:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:openpgp:autocrypt:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=FU85s21yrDtJcgLBOZOSzr+w4Sfpt0dGM3I/zuGPuYk=;
- b=NfUK/MX5SdRNq9A8rPqVPSmS3JxRJMfMYb8OFcaIpr+avdcwvd5hKANgwjgd6dnxkz
- TYOVCe1VZHbRQ4+IZWGxGsdm6+4A1zhWuPfEfl5n+EPeY7wTmnowPymNs41wfzmVWwuN
- txCVvpbqaOFrUPN4OMbUSJqey+9Ms2sFuog4+gUMPKyUf27ZrZijmjeB+9DTRwaPhxlI
- XUW8ESwrce2RuvF+T7yffZaKNkC+T5z3q+af80mQK+XstXVredpjLt41d+tOuI0kCbYe
- BcnCj8Wh+AeoYox8aVDsU5PWssghiheqmBFJv8e5RK33NUEwGMCaR8Xz4V1ZNnjjHGaa
- uB+w==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=/tnXfVM5+Qo2vtC5jmYwh74C7w99qPON1lSeWIHsb0g=;
+ b=bMkalU+UFW5wpk//kaw1B73scuj5rJ1UO8o8cgRsmD103IgYZv561aGIA2PNEOp3L9
+ aPYXuRF4c0tp2R1o70y+yxed1udaf+HK3pNXurwQwlaYpAp9UEnIgfqVTGlcl4bAGQ1R
+ lMUXyxqYMlK048iDg3zQ2oqurX+4k0lFodlWhN6ss+Si/7xhNbQZBiYtxccgYOYi51CC
+ u2Xt6WVLuUh5ethOn8kWiNceieh7v70i0HohcH8ZnMrGrPtOuyTCb5IT34WHzHqFYt1u
+ YJcSI01SFBxIqGzwOoUfM8uJ1CHTaLHjS3mH48cYYJLuSl8OT/jpNnAsfwEiZ+Tq4WiC
+ LFyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:openpgp
- :autocrypt:message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=FU85s21yrDtJcgLBOZOSzr+w4Sfpt0dGM3I/zuGPuYk=;
- b=RH4IfXbHrLOkYtMnF2/LxINVezt2zGnbGwCex4yL9belwaf+bM5zDqdVCRUPQ4yalI
- u6zbnw5Av4jzbocxwoxA4QHp8Nu4L9OgPMGBWFnj/XXvRtdmtNdU3RxTNbBpRMM40WGd
- I2UESPtxWEw22dxhbb6X08VqNX+eV4seNw6wROhkkj2kd482VqqJ0Wxdwrc1Fb4H8Fhx
- UfZPv8gbePXRnKP8TE0+8wcfw/bHeLly9a5BSY95RgJunXSab8Ei4+KbjyMJig//aN12
- d/ZoZlRYKJ/vExNI+wVBxFWDRhyQFNCWOEBFQxf3gYfKxz3Wwq1UQoZA5ebYtVcWm088
- XklQ==
-X-Gm-Message-State: APjAAAVGiBy8eOfWM/8SyCqyDrClYFmPW6VFXtUVWHOPj5ENEfjz81VB
- oGNgEeJf5wfpLpWKpEjwcp8=
-X-Google-Smtp-Source: APXvYqz5VWvBHRb4i248G22D4EBIQSbxdAbI6A2ilQ9ADOO+ivXAF9NHvB217mi4GPNkM5pSYxdo3g==
-X-Received: by 2002:a5d:4586:: with SMTP id p6mr4007928wrq.139.1562180994572; 
- Wed, 03 Jul 2019 12:09:54 -0700 (PDT)
-Received: from [192.168.3.43] (93-34-153-63.ip50.fastwebnet.it. [93.34.153.63])
- by smtp.googlemail.com with ESMTPSA id y18sm3606565wmi.23.2019.07.03.12.09.53
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Jul 2019 12:09:53 -0700 (PDT)
-To: Segher Boessenkool <segher@kernel.crashing.org>,
- Stafford Horne <shorne@gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=/tnXfVM5+Qo2vtC5jmYwh74C7w99qPON1lSeWIHsb0g=;
+ b=tBuygwkwswyNCOCK0uRLyXN+4FLjbrT9ITqNFLmfL77sZRD4jPXzpZOmKNp7cPyO0m
+ SM7QwXUl/66JAtK5hT7Hj87uDIya+rn/Cv/eKmtXyamVLvJvBns0SBqYnEM8saBMCveB
+ +VBp26P79PPu7Bfal8ILzBkJnRqoEk5gd0iBTcNEOr48Fq1002Lr2gXgTR+t6g7tNa5q
+ pmX3x3ip4GdCALA0pXlpIjylrv5Q51WAARhhdsrPZuEFRXDbCrOj4lASSNSXcKNPGEvX
+ gNjYFka5KcNNgrDF00K838wkcdruQDk/Do2uPeO20b0uaqIj3Jv4VoA1CFBPVLY9ljI4
+ X/Tg==
+X-Gm-Message-State: APjAAAUQ/GPhxcibcv0psThW+VXjp3w0+peeC09Bf9aJ78ldV7x3vTfB
+ c0fAOpERr7b+PT0cZVNM0uA=
+X-Google-Smtp-Source: APXvYqzkZ84a83KeumxK75cZCSaAjqDYxwxIP02NDpQjZGtkZp+x6nZQNmcBgM3UUVsYSlwyyViueQ==
+X-Received: by 2002:a63:755e:: with SMTP id f30mr31228160pgn.246.1562190560141; 
+ Wed, 03 Jul 2019 14:49:20 -0700 (PDT)
+Received: from localhost (g223.61-115-60.ppp.wakwak.ne.jp. [61.115.60.223])
+ by smtp.gmail.com with ESMTPSA id j11sm4837324pfa.2.2019.07.03.14.49.19
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 03 Jul 2019 14:49:19 -0700 (PDT)
+Date: Thu, 4 Jul 2019 06:49:17 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: Segher Boessenkool <segher@kernel.crashing.org>
+Message-ID: <20190703214917.GB2601@lianli.shorne-pla.net>
 References: <20190703033351.11924-1-shorne@gmail.com>
- <20190703033351.11924-5-shorne@gmail.com>
- <20190703154301.GY18316@gate.crashing.org>
-From: Richard Henderson <rth@twiddle.net>
-Openpgp: preference=signencrypt
-Autocrypt: addr=rth@twiddle.net; prefer-encrypt=mutual; keydata=
- mQENBFGuLC8BCADcAoWcnW9lTsDMzbO3MBU+KbiGaj5JPatEUscRDkQYM2fyNjJp2tIWDK5a
- n4yngeXB3eX61WbYR3QraRK8mlYLGxyAdHMEQfPipbqf3TmN043fssT2bc82ApJcs1zvLYgI
- rhMht7Dck7A0wNC1jo+ZjVVFig5gDTN7gOzaAdBtV8tVNUddwkLzzaGpfihhSD6U46NdqKOG
- Wlnn6TrkMy0QGdQ5NaXHkRlUjnnUTSW/nKfoxD+EI+A9V4sYOd8mc/TL4aJh/i/AiU57eLbo
- n17uQI6/VTWDUWl8USiz4x9c8vmqlywLx00tAFxxoRWqk4KVJlj+Sh0up/D/sJ+vPpgBABEB
- AAG0I1JpY2hhcmQgSGVuZGVyc29uIDxydGhAdHdpZGRsZS5uZXQ+iQFBBBMBAgArAhsDBgsJ
- CAcDAgYVCAIJCgsEFgIDAQIeAQIXgAUJC7UHogUCWaDNVgIZAQAKCRCtEnDMTdAnm9N5CADO
- cB8F/SudJ72IupxQf40hbJdBK176+gb3sHMsixyLtrU59lee+lIM1OZmlNjsnCYmiSnbA5ks
- Q7p0HfO7DgdmfLzcK6xsHZukqSZy5LByw348Y913ZyjOrJZFdPP7kDg1MnqRqH4+3ZdzxV4y
- eYBWFU9GYMIF06JbUubossOOO4ArNVZbnIPu8Vn2tDZVVqsCBqkoCSBMj519xrvyOu5z4mHS
- LkCglXmVDOXMbqLuNAC3rfNXSnyM4hYkLUyfALJlAAy1Ro+jUqYhu7XUFV/MiwRuFMh5GbtY
- Urkx7tqsWQXLT3GeDk/LqvpWJQwk4cHHckYjRih+70CHIenm81PVuQENBFGuLC8BCACyEx3x
- 94HIkTX0CHu2sA0w75+h9wuoA8ggJ7+S4ri0y2YsijWad5TTt6z6MMiqxk9kSA5bppaj4HXh
- 86hBF/dWCtMpNr3Rb8FNOKyeA/qkYHVD6HiAiw9c6D8Dr9hWmOk3/HSmGrNURxeUFOckDXsv
- I+yGGKBNshj59j7QZr7ZiuIi2rWlBL8dFN/OWa/o3x7HKsE4k6K8ngwvCKP/QbDLwLLBOWH+
- VEUtpyeyxTr3OJ47ECTxdYvXoAV2iJaKr+6doVQiiR5eVFiMYrUPUECJeolOCwqc/JlWE18L
- +PCAFaW1H+/mpPVfSpN4wnkJ5cQiQVB41IaCM4p20iRzx7ZJABEBAAGJASUEGAECAA8CGwwF
- AlmgzYEFCQu1CEoACgkQrRJwzE3QJ5s7rggAwABzDAGrZ6uWsMxg5PeiiAYPy6LBnCBJSpB5
- Tfy5jH8QTmLfXW+u4Ib4sWXG7PYNR7sIrtqUHjRqXLVXrSnBX9ASGcYw/Xil45khW6LsRpO1
- prHv9gkwQfa6fTiWXVfSfm2Nant6u02q+MaYtQpCVTiz/9ki4FfftUwUHFLU0MhIQogjd11y
- /E08RJsqBwaHQdt14PwU1HphDOzSkhOXRXQLSd3ysyeGUXvL+gqQoXl5XYdvk8IId4PoJRo4
- jcyJ4VbnldvXh5gdGhFA/f9JgkLk9tPW+C3wNtNWyRUq8azR9hF2fg2HJUf4IXQlIu8OOgh1
- VcROBqvtH3ecaIL9iw==
-Message-ID: <64def15b-f701-4a5e-2724-6fb1e859be9a@twiddle.net>
-Date: Wed, 3 Jul 2019 21:09:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ <20190703033351.11924-4-shorne@gmail.com>
+ <20190703144902.GX18316@gate.crashing.org>
 MIME-Version: 1.0
-In-Reply-To: <20190703154301.GY18316@gate.crashing.org>
-Content-Language: en-US
-Subject: Re: [OpenRISC] [PATCH v2 4/5] or1k: Initial support for FPU
+Content-Disposition: inline
+In-Reply-To: <20190703144902.GX18316@gate.crashing.org>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+Subject: Re: [OpenRISC] [PATCH v2 3/5] or1k: Add mrori option,
+ fix option docs
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -104,23 +76,37 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gNy8zLzE5IDU6NDMgUE0sIFNlZ2hlciBCb2Vzc2Vua29vbCB3cm90ZToKPj4gQEAgLTIxMiw2
-ICsyMTQsNyBAQCBlbnVtIHJlZ19jbGFzcwo+PiAgI2RlZmluZSBSRUdfQ0xBU1NfQ09OVEVOVFMg
-ICAgICBcCj4+ICB7IHsgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCB9LAlcCj4+ICAgIHsgU0lCQ0FM
-TF9SRUdTX01BU0ssICAgMCB9LAlcCj4+ICsgIHsgMHg3ZmZmZmVmZSwgMHgwMDAwMDAwMCB9LAlc
-Cj4gCj4gQWJvdmUgeW91IHNhaWQgcjAsIHIzMCwgcjMxIGFyZSBleGNsdWRlZCwgYnV0IHRoaXMg
-aXMgcjAsIHI4LCByMzAsIG9yCj4gaW4gR0NDIHJlZ2lzdGVyIG51bWJlcnMsIDAsIDgsIGFuZCAz
-MT8gIFlvdSBwcm9iYWJseSBzaG91bGQgbWVudGlvbiByOAo+IHNvbWV3aGVyZSAoaXQncyBiZWNh
-dXNlIGl0IGlzIHRoZSBsYXN0IGFyZywgdGhpcyBhdm9pZCBwcm9ibGVtcywgSSBndWVzcz8pLAo+
-IGFuZCB0aGUgMzAvMzEgdGhpbmcgaXMgY29uZnVzZWQgc29tZSB3YXkuICBNYXliZSBpdCBpcyBh
-bGwganVzdCB0aGF0IG9uZQo+IGRvY3VtZW50YXRpb24gbGluZSA6LSkKCi4uLiBhbmQgaWYgcjgg
-aXMgZXhjbHVkZWQgYmVjYXVzZSBvZiBhcmd1bWVudHMsIEkgc3VzcGVjdCB0aGF0IHRoaXMgaXMg
-dGhlCndyb25nIGZpeCwgYXMgdGhlcmUncyBub3RoaW5nIGluaGVyZW50bHkgd3Jvbmcgd2l0aCBy
-NzpyOCBvciByODpyOSBhcyBhIHBhaXIsCmF0IGxlYXN0IHRoYXQgSSBjYW4gc2VlLgoKUGVyaGFw
-cyBmdW5jdGlvbl9hcmcgYW5kL29yIGZ1bmN0aW9uX2FyZ19hZHZhbmNlIGlzIHRoZSByaWdodCBw
-bGFjZSBmb3IgYSBmaXg/ClRoZSBjYWxsaW5nIGNvbnZlbnRpb24gc2F5cyB0aGF0IDY0LWJpdCBh
-cmd1bWVudHMgYXJlIG5vdCBzcGxpdCBhY3Jvc3MKcmVnaXN0ZXJzK3N0YWNrLCBzbyB5b3UgYWxy
-ZWFkeSBzaG91bGRuJ3QgaGF2ZSBzZWVuIChyOCwgW3NwKzBdKSBhcyBhIHBhaXIuCgoKcn4KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFp
-bGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGli
-cmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+T24gV2VkLCBKdWwgMDMsIDIwMTkgYXQgMDk6NDk6MDJBTSAtMDUwMCwgU2VnaGVyIEJvZXNzZW5r
+b29sIHdyb3RlOgo+IE9uIFdlZCwgSnVsIDAzLCAyMDE5IGF0IDEyOjMzOjQ5UE0gKzA5MDAsIFN0
+YWZmb3JkIEhvcm5lIHdyb3RlOgo+ID4gQEAgLTE3OSwxMSArMTgzLDExIEBACj4gPiAgICBbKHNl
+dCAobWF0Y2hfb3BlcmFuZDpTSSAwICJyZWdpc3Rlcl9vcGVyYW5kIiAiPXIsciIpCj4gPiAgCShy
+b3RhdGVydDpTSSAobWF0Y2hfb3BlcmFuZDpTSSAxICJyZWdpc3Rlcl9vcGVyYW5kIiAgInIsciIp
+Cj4gPiAgCQkgIChtYXRjaF9vcGVyYW5kOlNJIDIgInJlZ19vcl91Nl9vcGVyYW5kIiAicixuIikp
+KV0KPiA+IC0gICJUQVJHRVRfUk9SIgo+ID4gKyAgIlRBUkdFVF9ST1IgfHwgVEFSR0VUX1JPUkki
+Cj4gPiAgICAiQAo+ID4gICAgIGwucm9yXHQlMCwgJTEsICUyCj4gPiAgICAgbC5yb3JpXHQlMCwg
+JTEsICUyIgo+ID4gLSAgWyhzZXRfYXR0ciAiaW5zbl9zdXBwb3J0IiAiKixzaGZ0aW1tIildKQo+
+ID4gKyAgWyhzZXRfYXR0ciAiaW5zbl9zdXBwb3J0IiAicm9yLHJvcmkiKV0pCj4gCj4gRG9lcyB0
+aGlzIHdvcms/ICBJZiB5b3UgdXNlIC1tbm8tcm9yIC1tcm9yaT8gIEl0IHdpbGwgdGhlbiBhbGxv
+dyBnZW5lcmF0aW5nCj4gYSByZWcgZm9yIHRoZSBzZWNvbmQgb3BlcmFuZCwgYW5kIElDRSBsYXRl
+ciBvbiwgYXMgZmFyIGFzIEkgY2FuIHNlZT8KCkl0IGRvZXMgc2VlbSB0byB3b3JrLiAgV2h5IHdv
+dWxkIGl0IHByb2R1Y2UgYW4gaW50ZXJuYWwgY29tcGlsZXIgZXJyb3I/CgpPbmUgdGhpbmcgSSBo
+YXZlIGlzIFJlZ2VjdE5lZ2F0aXZlIG9uIG1yb3IgYW5kIG1yb3JpLCBzbyAtbW5vLXJvciB3aWxs
+IG5vdCBiZQphbGxvd2VkIGFuZCBjYXVzZSBhbiBlcnJvci4KCkV4YW1wbGU6IAoKICAgICQgY2F0
+IC4vZ2NjL3Rlc3RzdWl0ZS9nY2MudGFyZ2V0L29yMWsvcm9yLTQuYwoKCXVuc2lnbmVkIGludCBy
+b3RhdGU2ICh1bnNpZ25lZCBpbnQgYSkgewoJICByZXR1cm4gKCBhID4+IDYgKSB8ICggYSA8PCAo
+IDMyIC0gNiApICk7Cgl9CgojIFdpdGggcm9yaSwgZGlyZWN0IGltbWVkaWF0ZS4KCiAgICAkIG9y
+MWstZWxmLWdjYyAtTzIgLWMgLW1yb3JpIC4vZ2NjL3Rlc3RzdWl0ZS9nY2MudGFyZ2V0L29yMWsv
+cm9yLTQuYyAKICAgICQgb3Ixay1lbGYtb2JqZHVtcCAtZCByb3ItNC5vIAoKCXJvci00Lm86ICAg
+ICBmaWxlIGZvcm1hdCBlbGYzMi1vcjFrCgoJRGlzYXNzZW1ibHkgb2Ygc2VjdGlvbiAudGV4dDoK
+CgkwMDAwMDAwMCA8cm90YXRlNj46CgkgICAwOiAgIDQ0IDAwIDQ4IDAwICAgICBsLmpyIHI5Cgkg
+ICA0OiAgIGI5IDYzIDAwIGM2ICAgICBsLnJvcmkgcjExLHIzLDB4NgoKIyBXaXRoIHJvciwgbG9h
+ZGluZyBpbW1lZGlhdGUgdG8gdGVtcG9yYXJ5IHJlZ2lzdGVyIGZpcnN0LgoKICAgICQgb3Ixay1l
+bGYtZ2NjIC1PMiAtYyAtbXJvciAuL2djYy90ZXN0c3VpdGUvZ2NjLnRhcmdldC9vcjFrL3Jvci00
+LmMgCiAgICAkIG9yMWstZWxmLW9iamR1bXAgLWQgcm9yLTQubyAKCglyb3ItNC5vOiAgICAgZmls
+ZSBmb3JtYXQgZWxmMzItb3IxawoKCURpc2Fzc2VtYmx5IG9mIHNlY3Rpb24gLnRleHQ6CgoJMDAw
+MDAwMDAgPHJvdGF0ZTY+OgoJICAgMDogICBhYSAyMCAwMCAwNiAgICAgbC5vcmkgcjE3LHIwLDB4
+NgoJICAgNDogICA0NCAwMCA0OCAwMCAgICAgbC5qciByOQoJICAgODogICBlMSA2MyA4OCBjOCAg
+ICAgbC5yb3IgcjExLHIzLHIxNwoKLVN0YWZmb3JkCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0
+cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29w
+ZW5yaXNjCg==
