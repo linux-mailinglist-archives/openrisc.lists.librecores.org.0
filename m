@@ -2,41 +2,44 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B9CD7BEF3
-	for <lists+openrisc@lfdr.de>; Wed, 31 Jul 2019 13:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7043C910FB
+	for <lists+openrisc@lfdr.de>; Sat, 17 Aug 2019 17:02:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 66380203C3;
-	Wed, 31 Jul 2019 13:09:08 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id A23BF204C1;
+	Sat, 17 Aug 2019 17:02:32 +0200 (CEST)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by mail.librecores.org (Postfix) with ESMTPS id 8666D2019D
- for <openrisc@lists.librecores.org>; Fri, 26 Jul 2019 15:05:46 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 4CA742011C
+ for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 09:35:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:
- From:Date:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=v25fSyTOpn+HLVJ1/RYUYjo/p2HKkKXuypllJV6JuFU=; b=FGTl2rF5Ekw99U5eWA0qO4ViY
- ezxgPoNckrfd02rKeR5DfhI5n58vJTcEz7aQ3diHZkRmGndI5Rrlekc33Ay4TibbLOwpG1XKCSloG
- 82pJRxtCcnQvPslNG7xO/8DHeER9qlTWSUhlaF/iNE0YUnkdxnIGvBgg9Brpdp4iVK9JkJjbm0TvY
- TcCvfrG3NaxcqzRwVsiX1+l5U3fjf1yQEEnGnZRs2iZazrP26MkKBj4gTVChmnzy3Hz3krFh/Kx2g
- S6dj3Qi5GKN2Rfpl0jR+wq9OXeL8jT6dpW75i/Mr7cpWYS51GnMWuFS7A6xMmFALsHG7f3ly85U0p
- sDY3Ty9HA==;
-Received: from [179.95.31.157] (helo=coco.lan)
+ bh=8stPQbNrg3B/R2Xd5KO2eeuMSLol2LwoVvz90ca57Uc=; b=W0bwqZTtbBiXb6VnEfyfA9mVE
+ 9W9bQiZ+oFFnztrtL29HNStHhzgEzKZRwR0Y2Yt9fbTPXro2ana913j8J/x4VOrNIf7Vpp1s5xTBT
+ JBBgWHNPJDHxK8YM2EH/1iy4ZFyxsqX/E8MVm9oFi7/haC79fhkUSp31sjsxo5ixN+LjUtq5YiE/H
+ JgzEH6lBn4zXt6f6tZUImXk13a1mBaoeUkv03QCkMCv+JI9Ou3L3XpKNVs1qsGQXI8TQioogd4019
+ +YKCAK/dGkmyOlN7PU2frQDwzB/jnJxCvAQI78eDWfALqX6NNPVPNQ7KrDd1EV17QZV7xNJeKsN2w
+ pL/zibEBg==;
+Received: from 089144199030.atnat0008.highway.a1.net ([89.144.199.30]
+ helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hqzun-0004Yn-F9; Fri, 26 Jul 2019 13:05:42 +0000
-Date: Fri, 26 Jul 2019 10:05:33 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20190726100521.5d379300@coco.lan>
-In-Reply-To: <cover.1564145354.git.mchehab+samsung@kernel.org>
-References: <cover.1564145354.git.mchehab+samsung@kernel.org>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+ id 1hytEw-0005B4-6B; Sat, 17 Aug 2019 07:35:06 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Arnd Bergmann <arnd@arndb.de>, Guo Ren <guoren@kernel.org>,
+ Michal Simek <monstr@monstr.eu>, Greentime Hu <green.hu@gmail.com>,
+ Vincent Chen <deanbo422@gmail.com>, Guan Xuetao <gxt@pku.edu.cn>,
+ x86@kernel.org
+Date: Sat, 17 Aug 2019 09:32:27 +0200
+Message-Id: <20190817073253.27819-1-hch@lst.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 31 Jul 2019 13:09:05 +0200
-Subject: Re: [OpenRISC] [PATCH v2 00/26] ReST conversion of text files
- without .txt extension
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Sat, 17 Aug 2019 17:02:30 +0200
+Subject: [OpenRISC] generic ioremap (and lots of cleanups)
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -49,38 +52,30 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-i2c@vger.kernel.org, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-scsi@vger.kernel.org, devel@lists.orangefs.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org, rcu@vger.kernel.org,
- openrisc@lists.librecores.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- dmaengine@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-rtc@vger.kernel.org
+Cc: linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-ia64@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ linux-xtensa@linux-xtensa.org, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ openrisc@lists.librecores.org, linux-mtd@lists.infradead.org,
+ linux-alpha@vger.kernel.org, sparclinux@vger.kernel.org,
+ nios2-dev@lists.rocketboards.org, linux-riscv@lists.infradead.org,
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-RW0gRnJpLCAyNiBKdWwgMjAxOSAwOTo1MToxMCAtMDMwMApNYXVybyBDYXJ2YWxobyBDaGVoYWIg
-PG1jaGVoYWIrc2Ftc3VuZ0BrZXJuZWwub3JnPiBlc2NyZXZldToKCj4gVGhpcyBzZXJpZXMgY29u
-dmVydHMgdGhlIHRleHQgZmlsZXMgdW5kZXIgRG9jdW1lbnRhdGlvbiB3aXRoIGRvZXNuJ3QgZW5k
-Cj4gbmVpdGhlciAudHh0IG9yIC5yc3QgYW5kIGFyZSBub3QgcGFydCBvZiBBQkkgb3IgZmVhdHVy
-ZXMuCj4gCj4gVGhpcyBzZXJpZXMgaXMgYXQ6Cj4gCWh0dHBzOi8vZ2l0LmxpbnV4dHYub3JnL21j
-aGVoYWIvZXhwZXJpbWVudGFsLmdpdC9sb2cvP2g9cnN0X2Zvcl81XzRfdjMKPiAKPiBBbmQgaXQg
-aXMgYmFzZWQgb24geWVzdGVyZGF5J3MgdXBzdHJlYW0gdHJlZS4KPiAKPiBBZnRlciB0aGlzIHNl
-cmllcywgd2UgaGF2ZSB+MzIwIGZpbGVzIGxlZnQgdG8gYmUgY29udmVydGVkIHRvIFJlU1QuCj4g
-Cj4gdjI6Cj4gICAtIEFkZGVkIDMgZmlsZXMgc3VibWl0dGVkIGZvciB2NS4zIHRoYXQgd2VyZW4n
-dCBtZXJnZWQgeWV0Owo+ICAgLSBtYXJrZG93biBwYXRjaCBicm9rZW4gaW50byB0d28sIHBlciBS
-b2IncyByZXF1ZXN0Owo+ICAgLSByZWJhc2VkIG9uIHRoZSB0b3Agb2YgdXBzdHJlYW0gbWFzdGVy
-IGJyYW5jaAo+IAo+IE1hdXJvIENhcnZhbGhvIENoZWhhYiAoMjYpOgoKPiAgIGRvY3M6IEFCSTog
-cmVtb3ZlIGV4dGVuc2lvbiBmcm9tIHN5c2ZzLWNsYXNzLW1pYy50eHQKCiAgICBeIEluIHRpbWU6
-IHRoaXMgb25lIHdhcyBhbHJlYWR5IG1lcmdlZC4KClRoYW5rcywKTWF1cm8KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0
-Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5v
-cmcvbGlzdGluZm8vb3BlbnJpc2MK
+SGkgYWxsLAoKdGhlIGxhc3QgcGF0Y2hlcyBpbiB0aGlzIHNlcmllcyBhZGQgYSBnZW5lcmljIGlv
+cmVtYXAgaW1wbGVtZW50YXRpb24sCmFuZCBzd2l0Y2ggb3VyIDMgbW9zdCByZWNlbnQgYW5kIHRo
+dXMgbW9zdCB0aWR5IGFyY2hpdGV0dXJlIHBvcnRzIG92ZXIKdG8gdXNlIGl0LiAgV2l0aCBhIGxp
+dHRsZSB3b3JrIGFuZCBhbiBhZGRpdGlvbmFsIGFyY2ggaG9vayBvciB0d28gdGhlCmltcGxlbWVu
+dGF0aW9uIHNob3VsZCBiZSBhYmxlIHRvIGV2ZW50dWFsbHkgY292ZXIgbW9yZSB0aGFuIGhhbGYg
+b2YKb3VyIHBvcnRzLgoKVGhlIHBhdGNoZXMgYmVmb3JlIHRoYXQgY2xlYW4gdXAgdmFyaW91cyBs
+b3NlIGVuZHMgaW4gdGhlIGlvcmVtYXAKYW5kIGlvdW5tYXAgaW1wbGVtZW50YXRpb25zLgoKQSBn
+aXQgdHJlZSBpcyBhbHNvIGF2YWlsYWJsZSBoZXJlOgoKICAgIGdpdDovL2dpdC5pbmZyYWRlYWQu
+b3JnL3VzZXJzL2hjaC9taXNjLmdpdCBnZW5lcmljLWlvcmVtYXAKCkdpdHdlYjoKCiAgICBodHRw
+Oi8vZ2l0LmluZnJhZGVhZC5vcmcvdXNlcnMvaGNoL21pc2MuZ2l0L3Nob3J0bG9nL3JlZnMvaGVh
+ZHMvZ2VuZXJpYy1pb3JlbWFwCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVz
+Lm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
