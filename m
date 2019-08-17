@@ -2,67 +2,60 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 86DBB97193
-	for <lists+openrisc@lfdr.de>; Wed, 21 Aug 2019 07:30:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3D5EB97194
+	for <lists+openrisc@lfdr.de>; Wed, 21 Aug 2019 07:30:45 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id C5625204A9;
-	Wed, 21 Aug 2019 07:30:43 +0200 (CEST)
-Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
- [209.85.167.65])
- by mail.librecores.org (Postfix) with ESMTPS id 09E2E20305
- for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 18:01:07 +0200 (CEST)
-Received: by mail-lf1-f65.google.com with SMTP id c9so6096431lfh.4
- for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 09:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=1+7TiPxmJ3iAAUyU8+nGKfNJ+qg4H69wdJGgYgGKXe4=;
- b=renwLVE4t6MRcP5ZcmILI4AbPfXwqYVjMBTfKIElNDtgfcIFYeU8tIrB/gUAytl6lf
- GUpFHkf80zb+V0K3tM4r1Ot/9rCYkg84zdkCVJdaGdaWLOpozsDhzbvufdrpihHrN3tR
- TMxRzxhlJOIgtqRCrMKBJjP0q/GTzQu3Y+xuowVJpW1Icfg6Gn+WBtpfMuxFGsqNj8oB
- RlW1kLKfSyibvLnhWNBdW0PJ1JnQ35HN0rADSVoKpu7sfG7Xl0X/7sr2FWTSDPYnsGg8
- aLYzSLDdBf8VJM9zqhQZCDbdbFM9CTE+LknLwNOfmvJpyWjg0Gz9hP3js+7ih/iHtfFi
- vrkw==
+	by mail.librecores.org (Postfix) with ESMTP id 0CD06204B9;
+	Wed, 21 Aug 2019 07:30:44 +0200 (CEST)
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ by mail.librecores.org (Postfix) with ESMTPS id 980A020199
+ for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 22:58:19 +0200 (CEST)
+Received: by mail-io1-f68.google.com with SMTP id j6so13175500ioa.5
+ for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 13:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sifive.com; s=google;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references
+ :user-agent:mime-version;
+ bh=NuXJCtDYAF42ezbdDjEFYfu2iBTjQndKb/Edf61OrOk=;
+ b=PCXESTLeUcBNUWogs1gHv/iSg/bRj7rmybc37GwKrHxDe7CTeYQGPE82FFro2CLT61
+ 8Q4IgUqoS7Jmsm9wuhAF9CCdJ8jA631YD8dGqkPPvzXyvuP2itYPnDRcHbp+2vkqaUSt
+ u4rxsZS9lGz/LPzZ8kGOEVrnbFqSW3syoXedbPJGimP78UP/Tg6J92XflG29pM3lwatF
+ OjAvDNX5+3tv2rh85pO4hmLeTRsEGL0KJ9d8KAbhP2qYNSdGVQpqF+mf38a8oxmStDJ9
+ 9nvCgcj7mRwE6p6VKc6zn+f1lPTm2K1/WP8Olg56A4X8/QbiEq8e7laZGSLETkAb5Egu
+ FN1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=1+7TiPxmJ3iAAUyU8+nGKfNJ+qg4H69wdJGgYgGKXe4=;
- b=EUlYqRfuLU+CrYSyB0P59b+nOvrDD5lS8K0hiLhKqaK4X5JWq1Bj8gYFHI6Hd7ScqS
- 5pAOEI2+ZqP0OWEb0Is9COs40+cKUt4eckM3abc8IS3Co8W8mUm4SgrlJ4rdxXOzH/Vq
- pGh2tqUl2MAogWs/Xbx0SD6Tz7lPKDSR4VQSUkpGsYBV0fGeGKggyXqr3KLmn1a6s5xt
- g5ol3OIjQ5jgfQaXv1vFyrmMck+IQD6L3UofOxCAC7ce1teOdILTIofd0J6eFj4z2r1e
- ucFr0+ROszOhbrPv1othIez0VnsOK9nKD+iZ4OXhLeXXtbbPQVQCrh6tClxL1E06zhNd
- Ry0Q==
-X-Gm-Message-State: APjAAAXUoJiZB6EDOdb0c0ausa2BACgwxhC9OfJb/GMK5w4ENQP+D2BA
- HvaCNnP6yH06lTQnIFN7LC6GnA==
-X-Google-Smtp-Source: APXvYqzgHOkrd316w+DBxyDOOMOwfJvlMQJHfKxSm3Tpn7OUxlUzLbfoBMdqodlTlf7xRwkY3y0i2g==
-X-Received: by 2002:ac2:456d:: with SMTP id k13mr7785781lfm.77.1566057666460; 
- Sat, 17 Aug 2019 09:01:06 -0700 (PDT)
-Received: from ?IPv6:2a00:1fa0:4817:8b14:6cce:9848:7977:d7d5?
- ([2a00:1fa0:4817:8b14:6cce:9848:7977:d7d5])
- by smtp.gmail.com with ESMTPSA id b10sm1517289ljk.79.2019.08.17.09.01.04
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 17 Aug 2019 09:01:05 -0700 (PDT)
-To: Christoph Hellwig <hch@lst.de>, Arnd Bergmann <arnd@arndb.de>,
- Guo Ren <guoren@kernel.org>, Michal Simek <monstr@monstr.eu>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- Guan Xuetao <gxt@pku.edu.cn>, x86@kernel.org
+ h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
+ :references:user-agent:mime-version;
+ bh=NuXJCtDYAF42ezbdDjEFYfu2iBTjQndKb/Edf61OrOk=;
+ b=fgoMIqdBE78jBz0koRpddrwcCbOHcJQkOkOLTImF7ezyY4lD66P+K/O8ZEuJL62Rpr
+ HzutefSvOwRVuZgycjI4IuRBE6XAt4nayvRKCaGeQIbahLdOT2BzaO+JqjahrQU2eRS/
+ tkLspP2H3MdXI3umBEPQRvsvot1gjI762yDo0vlUqp8ROCGOi5ausPf4R9+2JELOqhr/
+ Nlh5bDWtbMWl6IuAQbxaY3qeYzqlFRN3AQ0LOAjYufbhZd9GDhIF7f438YpntL7C6Heo
+ ayjjtdoTaXULEv3zrca9XlCVQvnOWbCFooHfspDveNh6rBz5Exbj+bMpbrH+MFIiQZjW
+ m3JA==
+X-Gm-Message-State: APjAAAW4RjFvfUi6kG2qiGYqV6trqS08RafN83IxrWgvvNj2jWOqu9XF
+ dPII/999m8Z9xSqt05I2Uxd9Kg==
+X-Google-Smtp-Source: APXvYqyKpLbmhNe3o5mV41HWvHYU+SiPLQTRVuTNOtg0cL831wKHUivDHHya6XYWHKa9ZnFnQ2CM9Q==
+X-Received: by 2002:a6b:8f0d:: with SMTP id r13mr15237433iod.121.1566075498344; 
+ Sat, 17 Aug 2019 13:58:18 -0700 (PDT)
+Received: from localhost (c-73-95-159-87.hsd1.co.comcast.net. [73.95.159.87])
+ by smtp.gmail.com with ESMTPSA id
+ 6sm9905577iog.40.2019.08.17.13.58.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 Aug 2019 13:58:17 -0700 (PDT)
+Date: Sat, 17 Aug 2019 13:58:16 -0700 (PDT)
+From: Paul Walmsley <paul.walmsley@sifive.com>
+X-X-Sender: paulw@viisi.sifive.com
+To: Christoph Hellwig <hch@lst.de>
+In-Reply-To: <20190817073253.27819-15-hch@lst.de>
+Message-ID: <alpine.DEB.2.21.9999.1908171357180.4130@viisi.sifive.com>
 References: <20190817073253.27819-1-hch@lst.de>
- <20190817073253.27819-7-hch@lst.de>
-From: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
-Message-ID: <b19607c1-07aa-e361-3c26-8bcb063ed8c1@cogentembedded.com>
-Date: Sat, 17 Aug 2019 19:00:48 +0300
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <20190817073253.27819-15-hch@lst.de>
+User-Agent: Alpine 2.21.9999 (DEB 301 2018-08-15)
 MIME-Version: 1.0
-In-Reply-To: <20190817073253.27819-7-hch@lst.de>
-Content-Language: en-US
 X-Mailman-Approved-At: Wed, 21 Aug 2019 07:30:43 +0200
-Subject: Re: [OpenRISC] [PATCH 06/26] ia64: rename ioremap_nocache to
- ioremap_uc
+Subject: Re: [OpenRISC] [PATCH 14/26] asm-generic: don't provide __ioremap
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,31 +68,31 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-ia64@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-hexagon@vger.kernel.org,
- linux-xtensa@linux-xtensa.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- openrisc@lists.librecores.org, linux-mtd@lists.infradead.org,
- linux-alpha@vger.kernel.org, sparclinux@vger.kernel.org,
- nios2-dev@lists.rocketboards.org, linux-riscv@lists.infradead.org,
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Cc: linux-ia64@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guo Ren <guoren@kernel.org>,
+ sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Vincent Chen <deanbo422@gmail.com>, linux-arch@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-hexagon@vger.kernel.org, x86@kernel.org,
+ linux-snps-arc@lists.infradead.org, linux-xtensa@linux-xtensa.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-m68k@lists.linux-m68k.org,
+ openrisc@lists.librecores.org, Greentime Hu <green.hu@gmail.com>,
+ linux-mtd@lists.infradead.org, Guan Xuetao <gxt@pku.edu.cn>,
+ linux-arm-kernel@lists.infradead.org, Michal Simek <monstr@monstr.eu>,
+ linux-parisc@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-alpha@vger.kernel.org, nios2-dev@lists.rocketboards.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGVsbG8hCgpPbiAxNy4wOC4yMDE5IDEwOjMyLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90ZToKCj4g
-T24gaWE2NCBpb3JlbWFwX25vY2FjaGUgZmFpbHMgaWYgYXR0cmlidXRzIGRvbid0IG1hdGNoLiAg
-Tm90IG90aGVyCgogICAgQXR0cmlidXRlcy4gOi0pCgo+IGFyY2hpdGVjdHVyZXMgZG9lcyB0aGlz
-LCBhbmQgd2UgcGxhbiB0byBnZXQgcmlkIG9mIGlvcmVtYXBfbm9jYWNoZS4KPiBTbyBnZXQgcmlk
-IG9mIHRoZSBzcGVjaWFsIHNlbWFudGljcyBhbmQgZGVmaW5lIGlvcmVtYXBfbm9jYWNoZSBpbgo+
-IHRlcm1zIG9mIGlvcmVtYXAgYXMgbm8gcG9ydGFibGUgZHJpdmVyIGNvdWxkIHJlbHkgb24gdGhl
-IGJlaGF2aW9yCj4gYW55d2F5Lgo+IAo+IEhvd2V2ZXIgeDg2IGltcGxlbWVudHMgaW9yZW1hcF91
-YyB3aXRoIGEgaW4gYSBzaW1pbGFyIHdheSBhcyB0aGUgaWE2NAoKICAgICJXaXRoIGEiIG5vdCBy
-ZWFsbHkgbmVlZGVkPwoKPiB2ZXJzaW9uIG9mIGlvcmVtYXBfbm9jYWNoZSwgc28gaW1wbGVtZW50
-IHRoYXQgaW5zdGVhZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNo
-QGxzdC5kZT4KWy4uLl0KCk1CUiwgU2VyZ2VpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5s
-aWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5y
-aXNjCg==
+T24gU2F0LCAxNyBBdWcgMjAxOSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cgo+IF9faW9yZW1h
+cCBpcyBub3QgYSBrZXJuZWwgQVBJLCBidXQgdXNlZCBmb3IgaGVscGVycyB3aXRoIGRpZmZlcmlu
+Zwo+IHNlbWFudGljcyBpbiBhcmNoIGNvZGUuICBXZSBzaG91bGQgbm90IHByb3ZpZGUgaXQgaW4g
+YXMtZ2VuZXJpYy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxz
+dC5kZT4KClJldmlld2VkLWJ5OiBQYXVsIFdhbG1zbGV5IDxwYXVsLndhbG1zbGV5QHNpZml2ZS5j
+b20+ClRlc3RlZC1ieTogUGF1bCBXYWxtc2xleSA8cGF1bC53YWxtc2xleUBzaWZpdmUuY29tPiAj
+IHJ2MzIsIHJ2NjQgYm9vdApBY2tlZC1ieTogUGF1bCBXYWxtc2xleSA8cGF1bC53YWxtc2xleUBz
+aWZpdmUuY29tPiAjIGFyY2gvcmlzY3YKCgotIFBhdWwKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxp
+c3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8v
+b3BlbnJpc2MK
