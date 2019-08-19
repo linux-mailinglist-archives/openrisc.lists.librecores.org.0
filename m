@@ -2,62 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B8AC097199
-	for <lists+openrisc@lfdr.de>; Wed, 21 Aug 2019 07:30:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 114A39719A
+	for <lists+openrisc@lfdr.de>; Wed, 21 Aug 2019 07:30:48 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 2439F20184;
+	by mail.librecores.org (Postfix) with ESMTP id B12A120199;
 	Wed, 21 Aug 2019 07:30:45 +0200 (CEST)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
- [209.85.166.68])
- by mail.librecores.org (Postfix) with ESMTPS id A7F3520332
- for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 23:27:04 +0200 (CEST)
-Received: by mail-io1-f68.google.com with SMTP id 18so13267508ioe.10
- for <openrisc@lists.librecores.org>; Sat, 17 Aug 2019 14:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sifive.com; s=google;
- h=date:from:to:cc:subject:in-reply-to:message-id:references
- :user-agent:mime-version;
- bh=RWNnky4tg4pNafhn5H03aH8PwpXjgmBSavfJgIeX0Ak=;
- b=hov3AcxQ6M0mcpBwyir6wMfwuFoM/2pj4MlCmv+T09knj2Mmqt8UJz4bLEelDU0dEY
- q35RSput0GqdXzjDl39iW6e96fi6ZvYG7hVSedcruoQ/r2si3vSEQf+S3NbKo/JWKMFz
- l1Pncvs1WA7x9utXPIZU7hNH8C4hBPXAZA2OymhT4WgZagRVCnEht474gNpFzrJa6Xjg
- FvMhl4KIMbZ3FFtCmeGSVrAzUl96LhDRs8lD2zGj/KFGyr4hodIlFUOwRQsA6Da7S+zZ
- ouRU8O2CZBVhaSm1B4pGrx6QOwfw1b8VOQgHVh5JaC0Jm1cxHTFnZdggwnO1D5Ig+YJ1
- Lkvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
- :references:user-agent:mime-version;
- bh=RWNnky4tg4pNafhn5H03aH8PwpXjgmBSavfJgIeX0Ak=;
- b=Fm4Mm3X92AVPtInNxxraLoqzKaGDQpJy7ko26vDbS78wQAlujm0htgKVPcSZbUyj+V
- 0Tv/iyIYZs+tE5TFdAOSLRYQPAXqHw0ueZoUqtIVnoXkPM0dIJhB3hteSuFFekrxQVcE
- 8ZAWHkCod8FX/KmiFyKFNNuUbL58AGAbUk+f4alMX+zZWckMrXxYpBEOKWVENUAzQPKL
- R6B+s1MSbPnbfWkvt6Sejh2DHmRnS4iDrNVAWApvYQOVRRvfktGtRfHTdmk910ehT7os
- PU8u3X0g5IwS52rBtiQ6U+pllUkxX8zMNPzAX16zyQSGlv+CnvoDBX/UXqzeh5DGYkJi
- lu8g==
-X-Gm-Message-State: APjAAAVMqC5MXiP+IegrDKB7SiZl5nwAeJEkYKo15SE13EkGxitYF6a2
- BMvbOCUXqX5oCOmtNw5XhLbwCw==
-X-Google-Smtp-Source: APXvYqwKE/3SM/rVpl4teujkfN9+UilDZaKhxrZT/14FwdMPovoCNf3aYcPot40i7G8y5JQK54ukCg==
-X-Received: by 2002:a6b:b9c2:: with SMTP id
- j185mr15509819iof.148.1566077223658; 
- Sat, 17 Aug 2019 14:27:03 -0700 (PDT)
-Received: from localhost (c-73-95-159-87.hsd1.co.comcast.net. [73.95.159.87])
- by smtp.gmail.com with ESMTPSA id
- v23sm11488293ioh.58.2019.08.17.14.27.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Aug 2019 14:27:03 -0700 (PDT)
-Date: Sat, 17 Aug 2019 14:27:02 -0700 (PDT)
-From: Paul Walmsley <paul.walmsley@sifive.com>
-X-X-Sender: paulw@viisi.sifive.com
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mail.librecores.org (Postfix) with ESMTPS id AF19D20200
+ for <openrisc@lists.librecores.org>; Mon, 19 Aug 2019 09:36:10 +0200 (CEST)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2608C2086C;
+ Mon, 19 Aug 2019 07:36:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1566200169;
+ bh=kEBAsv6X4r+CES0f8/n93x03kus6b78gzWZGhEXZpw4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZN3P1/69MIOg2B81SBINNz+rGfKhZFusbOaGyLqQb9Blsv2mSti1MWTsa90w0MESp
+ jadhaU0lZuPw9eWpwjH+XOFMUB/Sje+alD+6KyK2Fb4eskV8ocTyIHvbtygC57mPxu
+ nNYqk608qsL0SWijHJgztgoabuo0beTwpG+bcwSU=
+Date: Mon, 19 Aug 2019 08:36:02 +0100
+From: Will Deacon <will@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <alpine.DEB.2.21.9999.1908171357180.4130@viisi.sifive.com>
-Message-ID: <alpine.DEB.2.21.9999.1908171426390.4130@viisi.sifive.com>
+Message-ID: <20190819073601.4yxjvmyjtpi7tk56@willie-the-truck>
 References: <20190817073253.27819-1-hch@lst.de>
- <20190817073253.27819-15-hch@lst.de>
- <alpine.DEB.2.21.9999.1908171357180.4130@viisi.sifive.com>
-User-Agent: Alpine 2.21.9999 (DEB 301 2018-08-15)
+ <20190817073253.27819-20-hch@lst.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190817073253.27819-20-hch@lst.de>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-Mailman-Approved-At: Wed, 21 Aug 2019 07:30:43 +0200
-Subject: Re: [OpenRISC] [PATCH 14/26] asm-generic: don't provide __ioremap
+Subject: Re: [OpenRISC] [PATCH 19/26] arm64: remove __iounmap
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -87,10 +63,13 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gU2F0LCAxNyBBdWcgMjAxOSwgUGF1bCBXYWxtc2xleSB3cm90ZToKCj4gQWNrZWQtYnk6IFBh
-dWwgV2FsbXNsZXkgPHBhdWwud2FsbXNsZXlAc2lmaXZlLmNvbT4gIyBhcmNoL3Jpc2N2CgpUaGlz
-IGFjayBpcyBzdXBlcmZsdW91cyBzaW5jZSB0aGUgcGF0Y2ggZG9lc24ndCB0b3VjaCBhcmNoL3Jp
-c2N2OyBmZWVsIApmcmVlIHRvIGRyb3AgaXQKCgotIFBhdWwKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVND
-QGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGlu
-Zm8vb3BlbnJpc2MK
+T24gU2F0LCBBdWcgMTcsIDIwMTkgYXQgMDk6MzI6NDZBTSArMDIwMCwgQ2hyaXN0b3BoIEhlbGx3
+aWcgd3JvdGU6Cj4gTm8gbmVlZCB0byBpbmRpcmVjdCBpb3VubWFwIGZvciBhcm02NC4KPiAKPiBT
+aWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KPiAtLS0KPiAgYXJj
+aC9hcm02NC9pbmNsdWRlL2FzbS9pby5oIHwgMyArLS0KPiAgYXJjaC9hcm02NC9tbS9pb3JlbWFw
+LmMgICAgIHwgNCArKy0tCj4gIDIgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCA0IGRl
+bGV0aW9ucygtKQoKTm90IHN1cmUgd2h5IHdlIGRpZCBpdCBsaWtlIHRoaXMuLi4KCkFja2VkLWJ5
+OiBXaWxsIERlYWNvbiA8d2lsbEBrZXJuZWwub3JnPgoKV2lsbApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJ
+U0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0
+aW5mby9vcGVucmlzYwo=
