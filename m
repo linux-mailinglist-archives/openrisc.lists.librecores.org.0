@@ -2,81 +2,59 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id AB5AC9ABAA
-	for <lists+openrisc@lfdr.de>; Fri, 23 Aug 2019 11:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E26209B0EE
+	for <lists+openrisc@lfdr.de>; Fri, 23 Aug 2019 15:28:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 514392048B;
-	Fri, 23 Aug 2019 11:50:23 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- by mail.librecores.org (Postfix) with ESMTPS id F23F620114
- for <openrisc@lists.librecores.org>; Fri, 23 Aug 2019 11:50:20 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 983B230832DC;
- Fri, 23 Aug 2019 09:50:19 +0000 (UTC)
-Received: from [10.36.117.60] (ovpn-117-60.ams2.redhat.com [10.36.117.60])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4C61001B33;
- Fri, 23 Aug 2019 09:50:18 +0000 (UTC)
-To: Stafford Horne <shorne@gmail.com>, GNU Binutils <binutils@sourceware.org>
+	by mail.librecores.org (Postfix) with ESMTP id 9AB872049B;
+	Fri, 23 Aug 2019 15:28:33 +0200 (CEST)
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+ [209.85.214.195])
+ by mail.librecores.org (Postfix) with ESMTPS id 3A599200FE
+ for <openrisc@lists.librecores.org>; Fri, 23 Aug 2019 15:28:32 +0200 (CEST)
+Received: by mail-pl1-f195.google.com with SMTP id c2so5590027plz.13
+ for <openrisc@lists.librecores.org>; Fri, 23 Aug 2019 06:28:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=6DlY4yBUDLuYoB3AZnilydsyu0CKflqiIICzr8eCHrE=;
+ b=lzbHv0vVuD7jpwPBqHgqb8uDH2bhojVEznWbFSZi+KyzlU5cdd/Lt6oh8o9NQ31f/a
+ jk1X3rsJoWQJWaVT4DUFU3V7QLbDzWPU9GWOahBpht+6HJEzNeEvZTZJW3njB0vKki9e
+ GyXwjUwBCX1g9Y2A6BxfbAAj1jFRQkhDeBLXJDQ03iQJ89sWz97eKpsZOML1g58jVroJ
+ hQ1h0FTbLFLIOUhD7s4r0rxfWqkYDfBq4a4mCDR1ufPFzdzDFBv22vyZudJY+EC7QbKw
+ OekPRtLorAHWwpD3G9aeGl+pTve9SJGGShuwzBX/5nTEkAKCdgpoJUSRNxKSSGQWH4Ul
+ taGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=6DlY4yBUDLuYoB3AZnilydsyu0CKflqiIICzr8eCHrE=;
+ b=Kr7EwXrTIGOds1rfMewCKiODEPEhld3BZM5IaOmejy9h8E4Xj5fEY22YJ/oJbiCPCO
+ ZLV5RAwoSNN07Ny2oZjsFpWHfmEjpCPiCxX+F8L8bKGxdY0sJjt4h0tLMUrsISMQZ6Lw
+ vY1uyUXsSrabbRvmh+qAhc0Qy0JJkLWLfzjzU2LEQP7IT8WFp5GTiWzjaW0z76lgjFB1
+ BiMq3zBrPBUfkfU59w9AuQObiHnM6zQRR+nyARGHHTBC1lvq6fNqjhLX2WCnNrcw+CJ7
+ RU8RWufkhYJi8xM8X6ft4szGHlok7ZNwyhnqU8AXs8QgEYCN9X8TY0FM4oQ+xF8d22F+
+ VAJA==
+X-Gm-Message-State: APjAAAXnh6qu7XMfRH5A2pz9QGRZM/n65vu5inwVZtAEEgnTXr/Q2Pja
+ hhPD6mtos7cSB19liK6rOTM=
+X-Google-Smtp-Source: APXvYqwA7PsasHFAjxd0JtwwuUYZ+Lz8LFXkU72pL+NvCV695fXRM8Z0T8hluDXnEcYD0ZladEqTbg==
+X-Received: by 2002:a17:902:346:: with SMTP id
+ 64mr4849158pld.151.1566566910387; 
+ Fri, 23 Aug 2019 06:28:30 -0700 (PDT)
+Received: from localhost (g75.222-224-160.ppp.wakwak.ne.jp. [222.224.160.75])
+ by smtp.gmail.com with ESMTPSA id
+ r61sm2353985pjb.7.2019.08.23.06.28.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Aug 2019 06:28:29 -0700 (PDT)
+Date: Fri, 23 Aug 2019 22:28:26 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: Nick Clifton <nickc@redhat.com>
+Message-ID: <20190823132826.GA24874@lianli.shorne-pla.net>
 References: <20190822112757.32751-1-shorne@gmail.com>
-From: Nick Clifton <nickc@redhat.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=nickc@redhat.com; prefer-encrypt=mutual; keydata=
- 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
- 6susi2ReUyNJEJaSnjO5z13TQ1U=
-Organization: Red Hat
-Message-ID: <9117019e-3b9c-447e-749d-1200d5b61a12@redhat.com>
-Date: Fri, 23 Aug 2019 10:50:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ <9117019e-3b9c-447e-749d-1200d5b61a12@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20190822112757.32751-1-shorne@gmail.com>
-Content-Language: en-GB
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.44]); Fri, 23 Aug 2019 09:50:19 +0000 (UTC)
+Content-Disposition: inline
+In-Reply-To: <9117019e-3b9c-447e-749d-1200d5b61a12@redhat.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
 Subject: Re: [OpenRISC] [PATCH] or1k: Fix incorrect value in PLT GOT entries,
  causing infinite loop
 X-BeenThere: openrisc@lists.librecores.org
@@ -91,15 +69,18 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>
+Cc: Openrisc <openrisc@lists.librecores.org>,
+ GNU Binutils <binutils@sourceware.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGkgU3RhZmZvcmQsCgo+IGJmZC9DaGFuZ2VMb2c6Cj4gCj4gCSogZWxmMzItb3Ixay5jIChvcjFr
-X2VsZl9maW5pc2hfZHluYW1pY19zeW1ib2wpOiBVc2UgY29ycmVjdCB2YWx1ZSBmb3IKPiAJUExU
-IEdPVCBlbnRyaWVzLgoKQXBwcm92ZWQgLSBwbGVhc2UgYXBwbHkuCgpDaGVlcnMKICBOaWNrCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1h
-aWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxp
-YnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+T24gRnJpLCBBdWcgMjMsIDIwMTkgYXQgMTA6NTA6MTdBTSArMDEwMCwgTmljayBDbGlmdG9uIHdy
+b3RlOgo+IEhpIFN0YWZmb3JkLAo+IAo+ID4gYmZkL0NoYW5nZUxvZzoKPiA+IAo+ID4gCSogZWxm
+MzItb3Ixay5jIChvcjFrX2VsZl9maW5pc2hfZHluYW1pY19zeW1ib2wpOiBVc2UgY29ycmVjdCB2
+YWx1ZSBmb3IKPiA+IAlQTFQgR09UIGVudHJpZXMuCj4gCj4gQXBwcm92ZWQgLSBwbGVhc2UgYXBw
+bHkuCgpEb25lIG5vdy4KClRoYW5rcywKCi1TdGFmZm9yZApfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NA
+bGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5m
+by9vcGVucmlzYwo=
