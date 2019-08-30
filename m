@@ -2,28 +2,29 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3963DA562A
+	by mail.lfdr.de (Postfix) with ESMTP id C23D9A562B
 	for <lists+openrisc@lfdr.de>; Mon,  2 Sep 2019 14:35:38 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id F062C2053C;
-	Mon,  2 Sep 2019 14:35:36 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 19D5C20539;
+	Mon,  2 Sep 2019 14:35:37 +0200 (CEST)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by mail.librecores.org (Postfix) with ESMTPS id 48E9920330
- for <openrisc@lists.librecores.org>; Fri, 30 Aug 2019 18:04:56 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 4B75C20465
+ for <openrisc@lists.librecores.org>; Fri, 30 Aug 2019 18:05:18 +0200 (CEST)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 95CE5227A8A; Fri, 30 Aug 2019 18:04:54 +0200 (CEST)
-Date: Fri, 30 Aug 2019 18:04:54 +0200
+ id 7296E227A8A; Fri, 30 Aug 2019 18:05:16 +0200 (CEST)
+Date: Fri, 30 Aug 2019 18:05:15 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: Ingo Molnar <mingo@kernel.org>
-Message-ID: <20190830160454.GB26887@lst.de>
+To: Will Deacon <will@kernel.org>
+Message-ID: <20190830160515.GC26887@lst.de>
 References: <20190817073253.27819-1-hch@lst.de>
- <20190817073253.27819-13-hch@lst.de> <20190817103402.GA7602@gmail.com>
+ <20190817073253.27819-20-hch@lst.de>
+ <20190819073601.4yxjvmyjtpi7tk56@willie-the-truck>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190817103402.GA7602@gmail.com>
+In-Reply-To: <20190819073601.4yxjvmyjtpi7tk56@willie-the-truck>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Mon, 02 Sep 2019 14:35:35 +0200
-Subject: Re: [OpenRISC] [PATCH 12/26] x86: clean up ioremap
+Subject: Re: [OpenRISC] [PATCH 19/26] arm64: remove __iounmap
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -54,18 +55,15 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gU2F0LCBBdWcgMTcsIDIwMTkgYXQgMTI6MzQ6MDJQTSArMDIwMCwgSW5nbyBNb2xuYXIgd3Jv
-dGU6Cj4gCj4gKiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4gd3JvdGU6Cj4gCj4gPiBV
-c2UgaW9yZW1hcCBhcyB0aGUgbWFpbiBpbXBsZW1lbnRlZCBmdW5jdGlvbiwgYW5kIGRlZmluZWQK
-PiA+IGlvcmVtYXBfbm9jYWNoZSB0byBpdCBhcyBhIGRlcHJlY2F0ZWQgYWxpYXMuCj4gPiAKPiA+
-IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+ID4gLS0tCj4g
-PiAgYXJjaC94ODYvaW5jbHVkZS9hc20vaW8uaCB8IDggKystLS0tLS0KPiA+ICBhcmNoL3g4Ni9t
-bS9pb3JlbWFwLmMgICAgIHwgOCArKysrLS0tLQo+ID4gIGFyY2gveDg2L21tL3BhZ2VhdHRyLmMg
-ICAgfCA0ICsrLS0KPiA+ICAzIGZpbGVzIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMTIgZGVs
-ZXRpb25zKC0pCj4gCj4gQWNrZWQtYnk6IEluZ28gTW9sbmFyIDxtaW5nb0BrZXJuZWwub3JnPgoK
-Q2FuIHlvdSBwaWNrIGl0IHVwIHRocm91Z2ggdGlwIGZvciA1LjQ/ICBUaGF0IHdheSB3ZSBjYW4g
-Z2V0IG1vc3QKYml0cyBpbiB0aHJvdWdoIHRoZWlyIG1haW50YWluZXIgdHJlZXMsIGFuZCB0aGVu
-IEknbGwgcmVzdWJtaXQgdGhlCnJlc3QgZm9yIHRoZSBuZXh0IG1lcmdlIHdpbmRvdy4KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGlu
-ZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVj
-b3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+T24gTW9uLCBBdWcgMTksIDIwMTkgYXQgMDg6MzY6MDJBTSArMDEwMCwgV2lsbCBEZWFjb24gd3Jv
+dGU6Cj4gT24gU2F0LCBBdWcgMTcsIDIwMTkgYXQgMDk6MzI6NDZBTSArMDIwMCwgQ2hyaXN0b3Bo
+IEhlbGx3aWcgd3JvdGU6Cj4gPiBObyBuZWVkIHRvIGluZGlyZWN0IGlvdW5tYXAgZm9yIGFybTY0
+Lgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4K
+PiA+IC0tLQo+ID4gIGFyY2gvYXJtNjQvaW5jbHVkZS9hc20vaW8uaCB8IDMgKy0tCj4gPiAgYXJj
+aC9hcm02NC9tbS9pb3JlbWFwLmMgICAgIHwgNCArKy0tCj4gPiAgMiBmaWxlcyBjaGFuZ2VkLCAz
+IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gTm90IHN1cmUgd2h5IHdlIGRpZCBp
+dCBsaWtlIHRoaXMuLi4KPiAKPiBBY2tlZC1ieTogV2lsbCBEZWFjb24gPHdpbGxAa2VybmVsLm9y
+Zz4KCkNhbiB5b3UganVzdCBwaWNrIHRoaXMgb25lIHVwIHRocm91Z2ggdGhlIGFybTY0IHRyZWUg
+Zm9yIDUuND8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+T3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBz
+Oi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
