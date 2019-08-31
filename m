@@ -2,63 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 610C0A562F
+	by mail.lfdr.de (Postfix) with ESMTP id A4CB1A5630
 	for <lists+openrisc@lfdr.de>; Mon,  2 Sep 2019 14:35:40 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A1D4E20546;
-	Mon,  2 Sep 2019 14:35:37 +0200 (CEST)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
- by mail.librecores.org (Postfix) with ESMTPS id BD4F3201E8
- for <openrisc@lists.librecores.org>; Fri, 30 Aug 2019 23:45:16 +0200 (CEST)
-Received: by mail-pl1-f195.google.com with SMTP id d3so3946637plr.1
- for <openrisc@lists.librecores.org>; Fri, 30 Aug 2019 14:45:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=CyAnPYKlnqoE6HYrk4XrrLs/lfWC1furlwMXZwIbdJM=;
- b=Ey9XQvoj8H/Rnwv8NzD/KreDQNAtk/Y1mAfNtWWSPWRvpRHkSG3qzrkTUiyqzLyy8y
- FhYeM7nvgl239YS8plycKvLT74pvzlcX8njCo82d73vUDrqGOQIz8oARAkP7UKilrwM5
- NDqVYaJdxQw5YtmBNy2VGaqetGKnvddyuLZTFzzrXm1WRH2hh5P7VzQIaPjNRzRh/cM8
- +iOgz2nm0iGcnxDUVyloWrKJlS93KDGv8twzcGSeFsCL8uqXFf9uQEZtHNVy3yjgG/aD
- DEMAEjrPTZxgLBaKb3rpS25bBzOjAWuXx/Z+kiRAvu2tepHCjzQrK3HOb0q7by4MMmYW
- wmeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=CyAnPYKlnqoE6HYrk4XrrLs/lfWC1furlwMXZwIbdJM=;
- b=iYHsEoQIXvedXon3vBldp1dUU2AzjabY4M79lrhTqA07lD6aGu0LHRJRW6Dgwtx224
- qg6HEXzsVATVl0swNa6jR2cWrQ65KPanQGUhzecqyFQQfLJAlgrqnnmhSeQQFlJ//tq3
- eI9FAmcAarwKb+hnEpQLruAkPRyTN279KyZn4uTffXCSqajKIWtGcSs7D6/c4pP+iWN4
- QF3hS1UzRlk62ROIUgNx+xJifxG7slwP9WSL04DOzlts5URGo/6C3Yg/8PnM2smoNViF
- jhx842vNZ273gKHhq87xzJR6eJiu1AJS/IJVGByCouXGnHJv+FtOasTGPogMTNdAn1Ob
- ekIw==
-X-Gm-Message-State: APjAAAWkXSojKD5HQDO40ZYw+x9x+8zdHrR7O5TH8hgylhMRuBEX15dH
- A8YJQSIeIy5ofCRov70oLN0=
-X-Google-Smtp-Source: APXvYqzQSc6jNbxZKUcovD9FZLciwfGuo7Kt2wn5aZSHSDm6zSKrBIeIlpBZCEWXRcfFUHXs7Afe6Q==
-X-Received: by 2002:a17:902:9b8f:: with SMTP id
- y15mr18714988plp.194.1567201515169; 
- Fri, 30 Aug 2019 14:45:15 -0700 (PDT)
-Received: from localhost (g75.222-224-160.ppp.wakwak.ne.jp. [222.224.160.75])
- by smtp.gmail.com with ESMTPSA id
- q69sm5777108pjb.0.2019.08.30.14.45.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Aug 2019 14:45:14 -0700 (PDT)
-Date: Sat, 31 Aug 2019 06:45:12 +0900
-From: Stafford Horne <shorne@gmail.com>
+	by mail.librecores.org (Postfix) with ESMTP id 0CBCC20548;
+	Mon,  2 Sep 2019 14:35:38 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mail.librecores.org (Postfix) with ESMTPS id 4EF392010F
+ for <openrisc@lists.librecores.org>; Sat, 31 Aug 2019 18:29:47 +0200 (CEST)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2253522D37;
+ Sat, 31 Aug 2019 16:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1567268985;
+ bh=oCFqDXfnxrqpiBFRCwyD8nHXvoMvSjbxCsJhrxHTYqM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=vX6b95IdsVrDjTXh55KZNhoPNMKUITWlit4Ldb9kHZhxWpNoqZwiOB5EF5DJcLfuZ
+ wmt8nfF1pggofVEAUJWY4K2cI3w83kg0ds8vBO0zGI/+b8iJT5NQEI4dH3G3L57NyD
+ AwNlHxXQFvARoZXdkRSB9gHwMtmjWPnHQrjl8Gx4=
+Date: Sat, 31 Aug 2019 17:29:38 +0100
+From: Will Deacon <will@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20190830214512.GX24874@lianli.shorne-pla.net>
+Message-ID: <20190831162937.5ybulvaa4eq7mybs@willie-the-truck>
 References: <20190817073253.27819-1-hch@lst.de>
- <20190817073253.27819-6-hch@lst.de>
- <20190823135539.GC24874@lianli.shorne-pla.net>
- <20190830160705.GF26887@lst.de>
+ <20190817073253.27819-20-hch@lst.de>
+ <20190819073601.4yxjvmyjtpi7tk56@willie-the-truck>
+ <20190830160515.GC26887@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190830160705.GF26887@lst.de>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+In-Reply-To: <20190830160515.GC26887@lst.de>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-Mailman-Approved-At: Mon, 02 Sep 2019 14:35:35 +0200
-Subject: Re: [OpenRISC] [PATCH 05/26] openrisc: map as uncached in ioremap
+Subject: Re: [OpenRISC] [PATCH 19/26] arm64: remove __iounmap
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -88,22 +65,20 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gRnJpLCBBdWcgMzAsIDIwMTkgYXQgMDY6MDc6MDVQTSArMDIwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gT24gRnJpLCBBdWcgMjMsIDIwMTkgYXQgMTA6NTU6MzlQTSArMDkwMCwgU3Rh
-ZmZvcmQgSG9ybmUgd3JvdGU6Cj4gPiBPbiBTYXQsIEF1ZyAxNywgMjAxOSBhdCAwOTozMjozMkFN
-ICswMjAwLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90ZToKPiA+ID4gT3BlbnJpc2MgaXMgdGhlIG9u
-bHkgYXJjaGl0ZWN0dXJlIG5vdCBtYXBwaW5nIGlvcmVtYXAgYXMgdW5jYWNoZWQsCj4gPiA+IHdo
-aWNoIGhhcyBiZWVuIHRoZSBkZWZhdWx0IHNpbmNlIHRoZSBMaW51eCAyLjYueCBkYXlzLiAgU3dp
-dGNoIGl0Cj4gPiA+IG92ZXIgdG8gaW1wbGVtZW50IHVuY2FjaGVkIHNlbWFudGljcyBieSBkZWZh
-dWx0Lgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBs
-c3QuZGU+Cj4gPiA+IC0tLQo+ID4gPiAgYXJjaC9vcGVucmlzYy9pbmNsdWRlL2FzbS9pby5oICAg
-ICAgfCAyMCArKystLS0tLS0tLS0tLS0tLS0tLQo+ID4gPiAgYXJjaC9vcGVucmlzYy9pbmNsdWRl
-L2FzbS9wZ3RhYmxlLmggfCAgMiArLQo+ID4gPiAgYXJjaC9vcGVucmlzYy9tbS9pb3JlbWFwLmMg
-ICAgICAgICAgfCAgOCArKysrLS0tLQo+ID4gPiAgMyBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlv
-bnMoKyksIDIyIGRlbGV0aW9ucygtKQo+ID4gCj4gPiBBY2tlZC1ieTogU3RhZmZvcmQgSG9ybmUg
-PHNob3JuZUBnbWFpbC5jb20+Cj4gCj4gQ2FuIHlvdSBzZW5kIHRoaXMgb25lIHRvIExpbnVzIGZv
-ciA1LjQ/ICBUaGF0IHdvdWxkIGhlbHAgd2l0aCB0aGUKPiBwb3NzaWJpbGl0eSB0byByZW1vdmUg
-aW9yZW1hcF9ub2NhY2hlIGFmdGVyIHRoYXQuCgpTdXJlLCBJIHdpbGwgcGljayB0aGlzIHVwLgoK
-LVN0YWZmb3JkCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Ck9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRw
-czovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+SGkgQ2hyaXN0b3BoLAoKT24gRnJpLCBBdWcgMzAsIDIwMTkgYXQgMDY6MDU6MTVQTSArMDIwMCwg
+Q2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gT24gTW9uLCBBdWcgMTksIDIwMTkgYXQgMDg6MzY6
+MDJBTSArMDEwMCwgV2lsbCBEZWFjb24gd3JvdGU6Cj4gPiBPbiBTYXQsIEF1ZyAxNywgMjAxOSBh
+dCAwOTozMjo0NkFNICswMjAwLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90ZToKPiA+ID4gTm8gbmVl
+ZCB0byBpbmRpcmVjdCBpb3VubWFwIGZvciBhcm02NC4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYt
+Ynk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+ID4gPiAtLS0KPiA+ID4gIGFyY2gv
+YXJtNjQvaW5jbHVkZS9hc20vaW8uaCB8IDMgKy0tCj4gPiA+ICBhcmNoL2FybTY0L21tL2lvcmVt
+YXAuYyAgICAgfCA0ICsrLS0KPiA+ID4gIDIgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCsp
+LCA0IGRlbGV0aW9ucygtKQo+ID4gCj4gPiBOb3Qgc3VyZSB3aHkgd2UgZGlkIGl0IGxpa2UgdGhp
+cy4uLgo+ID4gCj4gPiBBY2tlZC1ieTogV2lsbCBEZWFjb24gPHdpbGxAa2VybmVsLm9yZz4KPiAK
+PiBDYW4geW91IGp1c3QgcGljayB0aGlzIG9uZSB1cCB0aHJvdWdoIHRoZSBhcm02NCB0cmVlIGZv
+ciA1LjQ/CgpVbmZvcnR1bmF0ZWx5LCBpdCBkb2Vzbid0IGFwcGx5IGJlY2F1c2UgdGhlIHRyZWUg
+eW91J3ZlIGJhc2VkIGl0IG9uIGhhcwpyZW1vdmVkIGlvcmVtYXBfd3QoKS4gSWYgeW91IHNlbmQg
+YSB2ZXJzaW9uIGJhc2VkIG9uIG1haW5saW5lLCBJIGNhbgpxdWV1ZSBpdC4KCkNoZWVycywKCldp
+bGwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJ
+U0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlz
+dHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
