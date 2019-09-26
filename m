@@ -2,53 +2,74 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id C9CD3C4718
-	for <lists+openrisc@lfdr.de>; Wed,  2 Oct 2019 07:44:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3EAA4C4719
+	for <lists+openrisc@lfdr.de>; Wed,  2 Oct 2019 07:44:09 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 49BE920120;
-	Wed,  2 Oct 2019 07:44:06 +0200 (CEST)
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
- by mail.librecores.org (Postfix) with ESMTPS id AAEEE20279
- for <openrisc@lists.librecores.org>; Thu, 26 Sep 2019 15:10:05 +0200 (CEST)
-Received: by mail-io1-f67.google.com with SMTP id u8so6346703iom.5
- for <openrisc@lists.librecores.org>; Thu, 26 Sep 2019 06:10:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FZIPxOACSyBTtRH5A7Lgyz9YR30y4W13jpD2I+1mgJM=;
- b=M0MOZVUz4t6WU55SoJjNSOp7QYn65o/NCOkDutq5p4891fxVHa6jIYc0GzSPoE5NgC
- Y/F31CMUMd8X4Qdqfc4MGmYyhNuR+uHG233WadTHQa0xsWxFJv5rl8RVwaE3bu3pB7qr
- wri0795JXn4yi9BdL9A4kIX8Eq3Xd1Myt3BkKJ+99RFh8if3n6D0lMDd1/A4PUTHHLSY
- mi041pBhTLwJRt9cj7XQ/sDkCPZZAFKFgXm6Ri5VzL7A0Gk1JZg/oHQRycR2/sZb03c2
- lzEE4rwwCW+uRuqgQOz+nrJU3ZVzQbE+b9nB1IS53yKZV5lYYrQXdFhuW1+ZKBjhKOVA
- lysg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FZIPxOACSyBTtRH5A7Lgyz9YR30y4W13jpD2I+1mgJM=;
- b=fZLJIEGXpO2xqGHxNUK7Rm+zofG0l1YSba8Qq5oPqSziQvz04/V/JAqK5oaCqgB1bc
- X7SF/3u0zGsjkLu6cWmGXfJkokuEAoVsefTbght3LXlkB3TS4uJsi3KPFyQRDXaeUgXp
- 2eSVfdYKdPDa7M7+ws14eNa7f0p2iAJeetKWwHnH4yfwMn3sfCFWjxMtkHBwpHPsPF4S
- U0TEh1SetteOQ7qtE7AY5c/sMwEC6+DYDQlUkYPQwpQSdp8RPnb7ImBeYzC2yRUen/1h
- QhAk8oUXat49H02LyMmrlegAgMDze/uJhBWfU+t+zQItEE/YihcXRtjPU5A8EVvN0v4P
- 7vTA==
-X-Gm-Message-State: APjAAAWUu0KEctL2c/G/d92SeC4qz5+cTjD5w5ZOHoXhrdtFA3mva90/
- rXDEdsLJy2P6V3AMxsGBGTr4qNNceXzIj48yPqY=
-X-Google-Smtp-Source: APXvYqzlyCi4JSGY6XghEeQ/E8vAIH7ViuIHrzxvUyMsua1GZWLVjXjlSiGwrvjIiebbaCWFI8rRhtB8cjRotnhYNKg=
-X-Received: by 2002:a6b:d601:: with SMTP id w1mr3118098ioa.158.1569503404009; 
- Thu, 26 Sep 2019 06:10:04 -0700 (PDT)
-MIME-Version: 1.0
+	by mail.librecores.org (Postfix) with ESMTP id 31E3C20385;
+	Wed,  2 Oct 2019 07:44:07 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by mail.librecores.org (Postfix) with ESMTPS id 5611B200E4
+ for <openrisc@lists.librecores.org>; Thu, 26 Sep 2019 18:05:00 +0200 (CEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x8QFqmJr004562
+ for <openrisc@lists.librecores.org>; Thu, 26 Sep 2019 12:04:56 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2v8yw22114-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openrisc@lists.librecores.org>; Thu, 26 Sep 2019 12:04:56 -0400
+Received: from localhost
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openrisc@lists.librecores.org> from <rppt@linux.ibm.com>;
+ Thu, 26 Sep 2019 17:04:53 +0100
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 26 Sep 2019 17:04:41 +0100
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x8QG4eJ744761120
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 26 Sep 2019 16:04:40 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C49C4A4054;
+ Thu, 26 Sep 2019 16:04:40 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9A5B1A405C;
+ Thu, 26 Sep 2019 16:04:36 +0000 (GMT)
+Received: from linux.ibm.com (unknown [9.148.8.153])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 26 Sep 2019 16:04:36 +0000 (GMT)
+Date: Thu, 26 Sep 2019 19:04:34 +0300
+From: Mike Rapoport <rppt@linux.ibm.com>
+To: Adam Ford <aford173@gmail.com>
 References: <1548057848-15136-1-git-send-email-rppt@linux.ibm.com>
  <CAHCN7x+Jv7yGPoB0Gm=TJ30ObLJduw2XomHkd++KqFEURYQcGg@mail.gmail.com>
  <CAOMZO5A_U4aYC4XZXK1r9JaLg-eRdXy8m6z4GatQp62rK4HZ6A@mail.gmail.com>
  <CAHCN7xJdzEppn8-74SvzACsA25bUHGdV7v=CfS08xzSi59Z2uw@mail.gmail.com>
  <CAOMZO5D2uzR6Sz1QnX3G-Ce_juxU-0PO_vBZX+nR1mpQB8s8-w@mail.gmail.com>
-In-Reply-To: <CAOMZO5D2uzR6Sz1QnX3G-Ce_juxU-0PO_vBZX+nR1mpQB8s8-w@mail.gmail.com>
-From: Adam Ford <aford173@gmail.com>
-Date: Thu, 26 Sep 2019 08:09:52 -0500
-Message-ID: <CAHCN7xJ32BYZu-DVTVLSzv222U50JDb8F0A_tLDERbb8kPdRxg@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
+ <CAHCN7xJ32BYZu-DVTVLSzv222U50JDb8F0A_tLDERbb8kPdRxg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAHCN7xJ32BYZu-DVTVLSzv222U50JDb8F0A_tLDERbb8kPdRxg@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-TM-AS-GCONF: 00
+x-cbid: 19092616-0016-0000-0000-000002B10922
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19092616-0017-0000-0000-00003311D734
+Message-Id: <20190926160433.GD32311@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-09-26_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1909260142
 X-Mailman-Approved-At: Wed, 02 Oct 2019 07:44:03 +0200
 Subject: Re: [OpenRISC] [PATCH v2 00/21] Refine memblock API
 X-BeenThere: openrisc@lists.librecores.org
@@ -68,16 +89,16 @@ Cc: Rich Felker <dalias@libc.org>, linux-ia64@vger.kernel.org,
  Heiko Carstens <heiko.carstens@de.ibm.com>, linux-mips@vger.kernel.org,
  Max Filippov <jcmvbkbc@gmail.com>, devicetree <devicetree@vger.kernel.org>,
  Guo Ren <guoren@kernel.org>, sparclinux@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-s390@vger.kernel.org,
- linux-c6x-dev@linux-c6x.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Fabio Estevam <festevam@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ linux-s390@vger.kernel.org, linux-c6x-dev@linux-c6x.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
  Richard Weinberger <richard@nod.at>, x86@kernel.org,
  Russell King <linux@armlinux.org.uk>, kasan-dev <kasan-dev@googlegroups.com>,
- Mike Rapoport <rppt@linux.ibm.com>, Mark Salter <msalter@redhat.com>,
- Dennis Zhou <dennis@kernel.org>, Matt Turner <mattst88@gmail.com>,
- linux-snps-arc@lists.infradead.org, Chris Healy <cphealy@gmail.com>,
- uclinux-h8-devel@lists.sourceforge.jp, Petr Mladek <pmladek@suse.com>,
- linux-xtensa@linux-xtensa.org, linux-alpha@vger.kernel.org,
- linux-um@lists.infradead.org,
+ Mark Salter <msalter@redhat.com>, Dennis Zhou <dennis@kernel.org>,
+ Matt Turner <mattst88@gmail.com>, linux-snps-arc@lists.infradead.org,
+ Chris Healy <cphealy@gmail.com>, uclinux-h8-devel@lists.sourceforge.jp,
+ Petr Mladek <pmladek@suse.com>, linux-xtensa@linux-xtensa.org,
+ linux-alpha@vger.kernel.org, linux-um@lists.infradead.org,
  The etnaviv authors <etnaviv@lists.freedesktop.org>,
  linux-m68k@lists.linux-m68k.org, Rob Herring <robh+dt@kernel.org>,
  Greentime Hu <green.hu@gmail.com>, xen-devel@lists.xenproject.org,
@@ -96,24 +117,34 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBTZXAgMjUsIDIwMTkgYXQgMTA6MTcgQU0gRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1A
-Z21haWwuY29tPiB3cm90ZToKPgo+IE9uIFdlZCwgU2VwIDI1LCAyMDE5IGF0IDk6MTcgQU0gQWRh
-bSBGb3JkIDxhZm9yZDE3M0BnbWFpbC5jb20+IHdyb3RlOgo+Cj4gPiBJIHRyaWVkIGNtYT0yNTZN
-IGFuZCBub3RpY2VkIHRoZSBjbWEgZHVtcCBhdCB0aGUgYmVnaW5uaW5nIGRpZG4ndAo+ID4gY2hh
-bmdlLiAgRG8gd2UgbmVlZCB0byBzZXR1cCBhIHJlc2VydmVkLW1lbW9yeSBub2RlIGxpa2UKPiA+
-IGlteDZ1bC1jY2lteDZ1bHNvbS5kdHNpIGRpZD8KPgo+IEkgZG9uJ3QgdGhpbmsgc28uCj4KPiBX
-ZXJlIHlvdSBhYmxlIHRvIGlkZW50aWZ5IHdoYXQgd2FzIHRoZSBleGFjdCBjb21taXQgdGhhdCBj
-YXVzZWQgc3VjaCByZWdyZXNzaW9uPwoKSSB3YXMgYWJsZSB0byBuYXJyb3cgaXQgZG93biB0aGUg
-OTJkMTJmOTU0NGI3ICgibWVtYmxvY2s6IHJlZmFjdG9yCmludGVybmFsIGFsbG9jYXRpb24gZnVu
-Y3Rpb25zIikgdGhhdCBjYXVzZWQgdGhlIHJlZ3Jlc3Npb24gd2l0aApFdG5hdml2LgoKSSBhbHNv
-IG5vdGljZWQgdGhhdCBpZiBJIGNyZWF0ZSBhIHJlc2VydmVkIG1lbW9yeSBub2RlIGFzIHdhcyBk
-b25lIG9uZQppbXg2dWwtY2NpbXg2dWxzb20uZHRzaSB0aGUgM0Qgc2VlbXMgdG8gd29yayBhZ2Fp
-biwgYnV0IHdpdGhvdXQgaXQsIEkKd2FzIGdldHRpbmcgZXJyb3JzIHJlZ2FyZGxlc3Mgb2YgdGhl
-ICdjbWE9MjU2TScgb3Igbm90LgpJIGRvbid0IGhhdmUgYSBwcm9ibGVtIHVzaW5nIHRoZSByZXNl
-cnZlZCBtZW1vcnksIGJ1dCBJIGd1ZXNzIEkgYW0gbm90CnN1cmUgd2hhdCB0aGUgYW1vdW50IHNo
-b3VsZCBiZS4gIEkga25vdyBmb3IgdGhlIHZpZGVvIGRlY29kaW5nIDEwODBwLApJIGhhdmUgaGlz
-dG9yaWNhbGx5IHVzZWQgY21hPTEyOE0sIGJ1dCB3aXRoIHRoZSAzRCBhbHNvIG5lZWRpbmcgc29t
-ZQptZW1vcnkgYWxsb2NhdGlvbiwgaXMgdGhhdCBlbm91Z2ggb3Igc2hvdWxkIEkgdXNlIDI1Nk0/
-CgphZGFtCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9w
-ZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczov
-L2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+SGksCgpPbiBUaHUsIFNlcCAyNiwgMjAxOSBhdCAwODowOTo1MkFNIC0wNTAwLCBBZGFtIEZvcmQg
+d3JvdGU6Cj4gT24gV2VkLCBTZXAgMjUsIDIwMTkgYXQgMTA6MTcgQU0gRmFiaW8gRXN0ZXZhbSA8
+ZmVzdGV2YW1AZ21haWwuY29tPiB3cm90ZToKPiA+Cj4gPiBPbiBXZWQsIFNlcCAyNSwgMjAxOSBh
+dCA5OjE3IEFNIEFkYW0gRm9yZCA8YWZvcmQxNzNAZ21haWwuY29tPiB3cm90ZToKPiA+Cj4gPiA+
+IEkgdHJpZWQgY21hPTI1Nk0gYW5kIG5vdGljZWQgdGhlIGNtYSBkdW1wIGF0IHRoZSBiZWdpbm5p
+bmcgZGlkbid0Cj4gPiA+IGNoYW5nZS4gIERvIHdlIG5lZWQgdG8gc2V0dXAgYSByZXNlcnZlZC1t
+ZW1vcnkgbm9kZSBsaWtlCj4gPiA+IGlteDZ1bC1jY2lteDZ1bHNvbS5kdHNpIGRpZD8KPiA+Cj4g
+PiBJIGRvbid0IHRoaW5rIHNvLgo+ID4KPiA+IFdlcmUgeW91IGFibGUgdG8gaWRlbnRpZnkgd2hh
+dCB3YXMgdGhlIGV4YWN0IGNvbW1pdCB0aGF0IGNhdXNlZCBzdWNoIHJlZ3Jlc3Npb24/Cj4gCj4g
+SSB3YXMgYWJsZSB0byBuYXJyb3cgaXQgZG93biB0aGUgOTJkMTJmOTU0NGI3ICgibWVtYmxvY2s6
+IHJlZmFjdG9yCj4gaW50ZXJuYWwgYWxsb2NhdGlvbiBmdW5jdGlvbnMiKSB0aGF0IGNhdXNlZCB0
+aGUgcmVncmVzc2lvbiB3aXRoCj4gRXRuYXZpdi4KCgpDYW4geW91IHBsZWFzZSB0ZXN0IHdpdGgg
+dGhpcyBjaGFuZ2U6CgpkaWZmIC0tZ2l0IGEvbW0vbWVtYmxvY2suYyBiL21tL21lbWJsb2NrLmMK
+aW5kZXggN2Q0ZjYxYS4uMWY1YTBlYiAxMDA2NDQKLS0tIGEvbW0vbWVtYmxvY2suYworKysgYi9t
+bS9tZW1ibG9jay5jCkBAIC0xMzU2LDkgKzEzNTYsNiBAQCBzdGF0aWMgcGh5c19hZGRyX3QgX19p
+bml0IG1lbWJsb2NrX2FsbG9jX3JhbmdlX25pZChwaHlzX2FkZHJfdCBzaXplLAogCQlhbGlnbiA9
+IFNNUF9DQUNIRV9CWVRFUzsKIAl9CiAKLQlpZiAoZW5kID4gbWVtYmxvY2suY3VycmVudF9saW1p
+dCkKLQkJZW5kID0gbWVtYmxvY2suY3VycmVudF9saW1pdDsKLQogYWdhaW46CiAJZm91bmQgPSBt
+ZW1ibG9ja19maW5kX2luX3JhbmdlX25vZGUoc2l6ZSwgYWxpZ24sIHN0YXJ0LCBlbmQsIG5pZCwK
+IAkJCQkJICAgIGZsYWdzKTsKIAo+IEkgYWxzbyBub3RpY2VkIHRoYXQgaWYgSSBjcmVhdGUgYSBy
+ZXNlcnZlZCBtZW1vcnkgbm9kZSBhcyB3YXMgZG9uZSBvbmUKPiBpbXg2dWwtY2NpbXg2dWxzb20u
+ZHRzaSB0aGUgM0Qgc2VlbXMgdG8gd29yayBhZ2FpbiwgYnV0IHdpdGhvdXQgaXQsIEkKPiB3YXMg
+Z2V0dGluZyBlcnJvcnMgcmVnYXJkbGVzcyBvZiB0aGUgJ2NtYT0yNTZNJyBvciBub3QuCj4gSSBk
+b24ndCBoYXZlIGEgcHJvYmxlbSB1c2luZyB0aGUgcmVzZXJ2ZWQgbWVtb3J5LCBidXQgSSBndWVz
+cyBJIGFtIG5vdAo+IHN1cmUgd2hhdCB0aGUgYW1vdW50IHNob3VsZCBiZS4gIEkga25vdyBmb3Ig
+dGhlIHZpZGVvIGRlY29kaW5nIDEwODBwLAo+IEkgaGF2ZSBoaXN0b3JpY2FsbHkgdXNlZCBjbWE9
+MTI4TSwgYnV0IHdpdGggdGhlIDNEIGFsc28gbmVlZGluZyBzb21lCj4gbWVtb3J5IGFsbG9jYXRp
+b24sIGlzIHRoYXQgZW5vdWdoIG9yIHNob3VsZCBJIHVzZSAyNTZNPwo+IAo+IGFkYW0KCi0tIApT
+aW5jZXJlbHkgeW91cnMsCk1pa2UuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVj
+b3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
