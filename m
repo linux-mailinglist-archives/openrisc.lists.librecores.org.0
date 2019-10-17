@@ -2,30 +2,53 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 008C1DB0A2
-	for <lists+openrisc@lfdr.de>; Thu, 17 Oct 2019 17:01:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0BB7BDB927
+	for <lists+openrisc@lfdr.de>; Thu, 17 Oct 2019 23:41:52 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 8D23E206B9;
-	Thu, 17 Oct 2019 17:01:04 +0200 (CEST)
-Received: from llsd409-a17.servidoresdns.net (llsd409-a17.servidoresdns.net
- [82.223.190.34])
- by mail.librecores.org (Postfix) with ESMTPS id 2135E2047B
- for <openrisc@lists.librecores.org>; Thu, 17 Oct 2019 17:01:03 +0200 (CEST)
-Received: from EW10PR1SI054 (unknown [185.70.174.4])
- by llsd409-a17.servidoresdns.net (Postfix) with ESMTPA id 46vC6555f4z1wTp;
- Thu, 17 Oct 2019 17:01:01 +0200 (CEST)
-From: <ecalvo@2se.es>
-To: "'Stafford Horne'" <shorne@gmail.com>,
- "'Openrisc'" <openrisc@lists.librecores.org>
+	by mail.librecores.org (Postfix) with ESMTP id A84EB203AE;
+	Thu, 17 Oct 2019 23:41:51 +0200 (CEST)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
+ [209.85.217.53])
+ by mail.librecores.org (Postfix) with ESMTPS id 27C5820106
+ for <openrisc@lists.librecores.org>; Thu, 17 Oct 2019 23:41:49 +0200 (CEST)
+Received: by mail-vs1-f53.google.com with SMTP id b123so2643474vsb.5
+ for <openrisc@lists.librecores.org>; Thu, 17 Oct 2019 14:41:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=fv0Ke6NcVPTDWTxjzOIrUE90j+PCSZQ1l+kAHsDfDrY=;
+ b=q/mXu5Sp5CrFfIcLqjhNDrjY0ErfIkxrMUKUyc4G4yivWttzL8lxfK55JWTrQVPQX9
+ vKarxQn/gi4RRGLkvOcS2LzSbJn/NuzQJFH39cSvT09x4UtMdD4yJrsobPUHCI6gTF9o
+ UTp0trGAqMuuU1QtwpAK90vI2OvMreQXxo6ywE2ziHar5z5MG8TvKr6hikxqV9jaNi4X
+ FrIQrydMynwSZKPxjC11jcJIETm8ACanHByy5ldIWw0dLajQYMvOCHJw18ZoAhWLAeG7
+ E6iukOhb5ma/SST4SYozTaCuT5ZmZBcwhXKv2aTBs1nMfrTZpnPohlIR/7GkoKcHOi44
+ zrGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=fv0Ke6NcVPTDWTxjzOIrUE90j+PCSZQ1l+kAHsDfDrY=;
+ b=kNy7vzRg+rOZ8z+45u/claZUeNwRfwvynsW1rt2UaE3y7LeBJnxClQt2P8vnzJ/EY/
+ zAlQVdzgdFMEge5DaporsLmgC9QCn3c6wvDKI6CgxboaJVv9NA79frd5Ccdp0ejKaQcC
+ M6my29RMCN07V4sOXCJ5GY2brpw345P5HqRcCwXFdOWHLk9srXYL0+cSToqmZnwJZzPg
+ /N+4vCY/MUHVNynfx/7Pv8xi05IBjINqnuFybul/mhqkrW7PmE2BcssDDSqJhU1NTwbh
+ wYB4+XUssW9+Ko9K5ynwal0oWbPf8hskjpALCtsRLb9VNp1z4vvHmotFY1OCFGH+CG4m
+ 9qOQ==
+X-Gm-Message-State: APjAAAUOJittzn7r6eQnsHhbdZS5IiAeJr1FADziRlsXBCk3W+atcpp2
+ vtp7pl9fIPkbw7fKNQzFubLvEz/P9dt3rRlMSWrtqqbJ
+X-Google-Smtp-Source: APXvYqw7TcTHQfYLGAkf1+UKTw6AlW8K4XKv267Vm/IUE3bfNljZ5Ghzajcs2rTztMBNkRrC3XQKf5QbwKmT7Gj/pW8=
+X-Received: by 2002:a05:6102:22d1:: with SMTP id
+ a17mr3679251vsh.27.1571348507109; 
+ Thu, 17 Oct 2019 14:41:47 -0700 (PDT)
+MIME-Version: 1.0
 References: <009d01d58416$7125fe80$5371fb80$@2se.es>
  <CAAfxs76G9Tyygv-5F+y-v9WkKyqO99W2aiBtejB54-qV-OBiFQ@mail.gmail.com>
-In-Reply-To: <CAAfxs76G9Tyygv-5F+y-v9WkKyqO99W2aiBtejB54-qV-OBiFQ@mail.gmail.com>
-Date: Thu, 17 Oct 2019 17:01:03 +0200
-Message-ID: <00ef01d584fb$b271ae30$17550a90$@2se.es>
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGt80GvhaiLZskMfgaoczNFlXkQZQHXM3Ftp59MqjA=
-Content-Language: es
+ <00ef01d584fb$b271ae30$17550a90$@2se.es>
+In-Reply-To: <00ef01d584fb$b271ae30$17550a90$@2se.es>
+From: Stafford Horne <shorne@gmail.com>
+Date: Fri, 18 Oct 2019 06:41:35 +0900
+Message-ID: <CAAfxs75YD4D1twr2q=KcoN-QmWTq-cpEAEw1+3H7kZju=DmYwA@mail.gmail.com>
+To: ecalvo@2se.es
 Subject: Re: [OpenRISC] PCCR and PCRM registers
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -39,1124 +62,275 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4067613193719795269=="
+Cc: Openrisc <openrisc@lists.librecores.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-This is a multipart message in MIME format.
-
---===============4067613193719795269==
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_000_00F0_01D5850C.75FCC820"
-Content-Language: es
-
-This is a multipart message in MIME format.
-
-------=_NextPart_000_00F0_01D5850C.75FCC820
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Stafford,=20
-
-=20
-
-Yes, I am using newlib. I had discovered both files; these registers in =
-sprs.h=20
-
-=20
-
-/******************************/
-
-/* Performance Counters Group */
-
-/******************************/
-
-#define OR1K_SPR_PERF_GROUP 0x07
-
-=20
-
-/* Performance Counters Count Registers */
-
-#define OR1K_SPR_PERF_PCCR_BASE     OR1K_UNSIGNED(0x000)
-
-#define OR1K_SPR_PERF_PCCR_COUNT    OR1K_UNSIGNED(0x008)
-
-#define OR1K_SPR_PERF_PCCR_STEP     OR1K_UNSIGNED(0x001)
-
-#define OR1K_SPR_PERF_PCCR_INDEX(N) (OR1K_SPR_PERF_PCCR_BASE + ((N) * =
-OR1K_SPR_PERF_PCCR_STEP))
-
-#define OR1K_SPR_PERF_PCCR_ADDR(N)  ((OR1K_SPR_PERF_GROUP << =
-OR1K_SPR_GROUP_LSB) | OR1K_SPR_PERF_PCCR_INDEX(N))
-
-=20
-
-/* Performance Counters Mode Registers */
-
-#define OR1K_SPR_PERF_PCMR_BASE     OR1K_UNSIGNED(0x008)
-
-#define OR1K_SPR_PERF_PCMR_COUNT    OR1K_UNSIGNED(0x008)
-
-#define OR1K_SPR_PERF_PCMR_STEP     OR1K_UNSIGNED(0x001)
-
-#define OR1K_SPR_PERF_PCMR_INDEX(N) (OR1K_SPR_PERF_PCMR_BASE + ((N) =
-*OR1K_SPR_PERF_PCMR_STEP))
-
-#define OR1K_SPR_PERF_PCMR_ADDR(N)  ((OR1K_SPR_PERF_GROUP << =
-OR1K_SPR_GROUP_LSB) | OR1K_SPR_PERF_PCMR_INDEX(N))
-
-=20
-
-/* Performance Counters Configuration */
-
-#define OR1K_SPR_SYS_PCCFGR_INDEX OR1K_UNSIGNED(0x008)
-
-#define OR1K_SPR_SYS_PCCFGR_ADDR  OR1K_UNSIGNED(0x0008)
-
-=20
-
-/* Number of Performance Counters */
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_LSB    0
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_MSB    2
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_BITS   3
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_MASK   OR1K_UNSIGNED(0x00000007)
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_GET(X) (((X) >> 0) & =
-OR1K_UNSIGNED(0x00000007))
-
-#define OR1K_SPR_SYS_PCCFGR_NPC_SET(X, Y) (((X) & =
-OR1K_UNSIGNED(0xfffffff8)) | ((Y) << 0))
-
-=20
-
-And these functions in support.h
-
-=20
-
-static inline void or1k_mtspr (uint32_t spr, uint32_t value)
-
-static inline uint32_t or1k_mfspr (uint32_t spr)
-
-=20
-
-Despite this I don=E2=80=99t have clear how to use it.=20
-
-=20
-
-1.	If I do: or1k_mtspr (OR1K_SPR_SYS_PCCFGR_ADDR , 0)  -> Does it allow =
-me to configure the PCCFGR to one performance counter?
-
-Is This the same than or1k_mtspr (OR1K_SPR_SYS_PCCFGR_ADDR , =
-OR1K_SPR_SYS_PCCFGR_NPC_LSB ) or  Do OR1K_SPR_SYS_PCCFGR_NPC_LSB   , =
-OR1K_SPR_SYS_PCCFGR_NPC_MSB, etc. provide different functions on each =
-one performance counter?
-
-2.	What is the meaning of PCCR_BASE,  PCCR_COUNT, PCCR_STEP, =
-PCMR_INDEX(N), PCMR_ADDR(N) ? (the same for PCMR) (Is BASE the base =
-address of all PCCR and ADDR the position of each one of them? =
-=E2=80=A6.why PCMR_BASE and COUNT hasta de same value =
-OR1K_UNSIGNED(0x008)? )     =20
-3.	Should I define first PCCFGR, second PCMR and last get PCCR?
-
-=20
-
-Thanks and sorry for the inconveniences.
-
-Elisa
-
-=20
-
-De: Stafford Horne <shorne@gmail.com>=20
-Enviado el: jueves, 17 de octubre de 2019 7:14
-Para: ecalvo@2se.es; Openrisc <openrisc@lists.librecores.org>
-Asunto: Re: PCCR and PCRM registers
-
-=20
-
-+cc mailing list,
-
-=20
-
-Hi Elisa,
-
-=20
-
-Which toolchain are you using? I guess newlib?
-
-=20
-
-It has functions like or1k_mfspr() and or1k_mtspr() see or1k-support.h =
-and or1k-sprs.h headers for details.
-
-=20
-
--Stafford
-
-On Wed, Oct 16, 2019, 8:40 PM < <mailto:ecalvo@2se.es> ecalvo@2se.es> =
-wrote:
-
-Hi Stafford,=20
-
-I am with PCCR and PCRM registers. I have seen that I can access from =
-asm language, but there is functions to access from C? Have you got any =
-example about their usage?
-
-I have already confirmed my subscription to the mailing list.=20
-
-Thanks=20
-Elisa
-
------Mensaje original-----
-De: Stafford Horne < <mailto:shorne@gmail.com> shorne@gmail.com>=20
-Enviado el: mi=C3=A9rcoles, 9 de octubre de 2019 13:38
-Para:  <mailto:ecalvo@2se.es> ecalvo@2se.es; Julius Baxter < =
-<mailto:juliusbaxter@gmail.com> juliusbaxter@gmail.com>
-Asunto: Re: other doubt
-
-Hello Elisa,
-
-If you simulate with Icarus or modelsim you will be able to measure =
-pretty much the same performance characteristics as FPGA. So there is no =
-need to go straight to FPGA.
-
-In terms of my example C code is one option.  You can also read timer =
-data directly from the tick timer in assembly and achieve the same =
-thing.
-
-If you are interested we can CC the mailing list and get more opinions.
-
--Stafford
-
-On Wed, Oct 9, 2019 at 5:09 PM < <mailto:ecalvo@2se.es> ecalvo@2se.es> =
-wrote:
->
-> Hi Stafford,
->
-> Nice to meet you and, first of all, thanks a lot for your guidance. I =
-am new on this, and although there is some documentation, sometimes it =
-is difficult some point which maybe it is basic.
->
-> Ok, to your comments. If.."A simulator like QEMU or or1ksim will not =
-give and exact representation of the CPUs real time =
-performance"...then...if I simulate directly the processor with =
-modelsim, icarus or a similar tool...neither I get a real performance, =
-don=E2=80=99t I? And values for the counters that you tell me to enable, =
-neither are real, isn't it? should I execute it directly on the FPGA and =
-it will depends on the implementation?
->
-> Ok, to C code. I have understood the dependency with toolchain.
->
-> Thanks a lot again.
-> Best regards,
-> Elisa
->
->
-> -----Mensaje original-----
-> De: Stafford Horne < <mailto:shorne@gmail.com> shorne@gmail.com>
-> Enviado el: martes, 8 de octubre de 2019 16:18
-> Para: Julius Baxter < <mailto:juliusbaxter@gmail.com> =
-juliusbaxter@gmail.com>
-> CC:  <mailto:ecalvo@2se.es> ecalvo@2se.es
-> Asunto: Re: other doubt
->
-> Hi Elisa,
->
-> OpenRISC cpu's can run any algorithm, but how well it will perform =
-depends on many things:
->
->   - Compiler optimization flags (i.e. -O3)
->   - Whether or not you are doing FPU instructions and have FPU enabled
->   - Whether or not you use multiply and divide and have these =
-instructions
->     enabled
->   - The frequency you are running
->   - Cache settings Icache Dcache
->   - The type of algorithm, does it require lots of data which will =
-cause many
->     cache misses?
->
-> A simulator like QEMU or or1ksim will not give and exact =
-representation of the CPUs real time performance.  It can tell you which =
-intructions will be executed, but not how fast those will run or how =
-many pipeline stalls of cache misses will happen.
->
-> You can use the performance counters, they are supported in mor1kx if =
-you enable them with the FEATURE_PERFCOUNTERS=3D'ENABLED' parameter.  =
-They can help count how many events happen between certain events.  Then =
-you can combine them with a timer and watchpoints to detect how many =
-times a loop can execute in 1000 clock cycles etc.  Please read about =
-PCCRn and PCMRn in the architecture manual.
->
-> It might be just as easy to use simple timing in a c program though, =
-depending on the toolchain you use you can compare times between runs of =
-your algorithm.
-> i.e.
->
->     #include <time.h>
->     #include <stdio.h>
->
->     static long to_micro(struct timespec *time) {
->       return (time->tv_sec * 1000000) + (time->tv_nsec / 1000);
->     }
->
->     int main() {
->       int i, j =3D 0;
->
->       struct timespec before, after;
->
->       clock_gettime(CLOCK_MONOTONIC, &before);
->       /* Super complex algorithm */
->       for (int i =3D 0; i < 100; i++) {
->         j =3D (j+1) * (j+2);
->       }
->       clock_gettime(CLOCK_MONOTONIC, &after);
->
->       printf("time to run algorithm %ld uSecs\n", to_micro(&after) -=20
-> to_micro(&before));
->
->       return 0;
->     }
->
-> $ or1k-smh-linux-gnu-gcc timer.c
-> $ ./glibc-build-scripts/qemu-or1k-libc ./a.out time to run algorithm=20
-> 164 uSecs
->
-> I hope it helps.
->
-> -Stafford
->
-> On Tue, Oct 08, 2019 at 10:54:29PM +1100, Julius Baxter wrote:
-> > Hi,
-> >
-> > No problem.
-> >
-> > There are performance counters in the OpenRISC architecture but=20
-> > whether they're implemented in a particular implementation is =
-another matter.
-> >
-> > You can use these registers to measure various things the CPU is=20
-> > doing while it's executing. If you read the ISA document it'll tell=20
-> > you about them.
-> >
-> > I'm CCing Stafford because he's the main OpenRISC man these days and =
-
-> > probably knows about the state of the performance counter registers=20
-> > in various simulators and RTL implementations.
-> >
-> > Cheers,
-> > Julius
-> >
-> > On Tue., 8 Oct. 2019, 10:43 pm , < <mailto:ecalvo@2se.es> =
-ecalvo@2se.es> wrote:
-> >
-> > > Hi Julius,
-> > >
-> > >
-> > >
-> > > Sorry for bothering you again =E2=98=B9. Can I do you other fast =
-question=20
-> > > related to openrisc? If not, ignore the email please.
-> > >
-> > >
-> > >
-> > > Is there any way to characterize the type of application that I=20
-> > > can run in openrisc? I mean, could you measure (with numbers) if=20
-> > > an algorithm can be executed on it and the speed that it will =
-achieve?
-> > > Is it possible to do it using orksim?
-> > >
-> > >
-> > >
-> > > Sorry because maybe it is so basic and general =E2=98=B9
-> > >
-> > >
-> > >
-> > > Thanks in advance
-> > >
-> > > Elisa
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > *De:* Julius Baxter < <mailto:juliusbaxter@gmail.com> =
-juliusbaxter@gmail.com> *Enviado el:* lunes,=20
-> > > 16 de septiembre de 2019 13:11
-> > > *Para:*  <mailto:ecalvo@2se.es> ecalvo@2se.es
-> > > *Asunto:* Re: Starting with OpenRISC - IOBs
-> > >
-> > >
-> > >
-> > > Also! To let you know, if you're in Spain, we will soon be having=20
-> > > our ORConf conference in Europe, and it's in Bordeaux, France,=20
-> > > just across the border. :)
-> > >
-> > >
-> > >
-> > > There are several people there who can help you get up to speed,=20
-> > > one of whom is Stafford Horne who knows most about the OpenRISC IP =
-
-> > > lately. He will be presenting. If you can attend, it'd be helpful, =
-I'm sure.
-> > >
-> > >
-> > >
-> > > All info at  <https://orconf.org> https://orconf.org
-> > >
-> > >
-> > >
-> > > Cheers,
-> > >
-> > > Julius
-> > >
-> > >
-> > >
-> > > On Mon, 16 Sep 2019 at 21:09, Julius Baxter=20
-> > > < <mailto:juliusbaxter@gmail.com> juliusbaxter@gmail.com>
-> > > wrote:
-> > >
-> > > Hi Elisa,
-> > >
-> > >
-> > >
-> > > Sorry for the delay in this response.
-> > >
-> > >
-> > >
-> > > You should be using an SoC toplevel. FPGAs have everything you=20
-> > > need on board like memories and IO blocks and lots of other FPGA=20
-> > > fabric for you to implement other pieces of hardware.
-> > >
-> > >
-> > >
-> > > FuseSoC provides a really nice and easy way to build an mor1kx=20
-> > > design for the DE0 nano I believe:
-> > >
-> > >
-> > >
-> > >  <https://github.com/olofk/de0_nano> =
-https://github.com/olofk/de0_nano
-> > >
-> > >
-> > >
-> > > That github page has a rough guide to getting it going.
-> > >
-> > >
-> > >
-> > > If you need help I recommend posting to the OpenRISC mailing list=20
-> > > and people will respond probably more promptly than I. (I=20
-> > > recommend getting to know how to use mailing lists.
-> > >  <https://openrisc.io/community> https://openrisc.io/community
-> > >
-> > >
-> > >
-> > > There are more resources here:  <https://openrisc.io/tutorials> =
-https://openrisc.io/tutorials
-> > >
-> > >
-> > >
-> > > I hope that's helpful.
-> > >
-> > >
-> > >
-> > > Cheers,
-> > >
-> > > Julius
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > On Wed, 11 Sep 2019 at 20:09, < <mailto:ecalvo@2se.es> =
-ecalvo@2se.es> wrote:
-> > >
-> > > Hi Julius,
-> > >
-> > >
-> > >
-> > > Thanks a lot for the quick answer.
-> > >
-> > >
-> > >
-> > > Yes, this is the problem: I am using as top level the mor1kx=20
-> > > module itself. You mean that I need to synthetize also in=20
-> > > reconfigurable logic these cores, don=E2=80=99t you? I thought =
-that I=20
-> > > could have these elements as external in a development board.
-> > >
-> > >
-> > >
-> > > Thanks again,
-> > >
-> > > Cheers
-> > >
-> > > Elisa
-> > >
-> > >
-> > >
-> > > *De:* Julius Baxter < <mailto:juliusbaxter@gmail.com> =
-juliusbaxter@gmail.com> *Enviado el:*=20
-> > > mi=C3=A9rcoles, 11 de septiembre de 2019 12:02
-> > > *Para:*  <mailto:ecalvo@2se.es> ecalvo@2se.es
-> > > *Asunto:* Re: Starting with OpenRISC - IOBs
-> > >
-> > >
-> > >
-> > > Hi Elisa,
-> > >
-> > >
-> > >
-> > > Thanks for getting in touch, that sounds like a cool project.
-> > >
-> > >
-> > >
-> > > Can you tell me about the toplevel - are you using a system=20
-> > > toplevel, or is your toplevel the mor1kx module itself?
-> > >
-> > >
-> > >
-> > > If it's the latter, then that's not the best way to do it - you=20
-> > > need a system toplevel which instantiates memories and some reset=20
-> > > circuitry and likely some IO (UART, GPIO, JTAG debug, etc.) to =
-talk to the outside world.
-> > >
-> > >
-> > >
-> > > Is that helpful?
-> > >
-> > >
-> > >
-> > > Cheers,
-> > >
-> > > Julius
-> > >
-> > >
-> > >
-> > > On Wed, 11 Sep 2019 at 19:47, < <mailto:ecalvo@2se.es> =
-ecalvo@2se.es> wrote:
-> > >
-> > > Dear Dr. Baxter,
-> > >
-> > >
-> > >
-> > > My name is Elisa Calvo Gallego. I am writing you because I have=20
-> > > started to work with OpenRISC in the framework of a research=20
-> > > project developed in the company where I am working (Space=20
-> > > Submicron Electronics, 2SE), and I am having some basic troubles. =
-Could you help me?
-> > >
-> > >
-> > >
-> > > Although the FPGA that we are planning to use is larger, I have=20
-> > > synthetized mor1kx for a DE0 nano board as first step (this is the =
-
-> > > board used in the majority of guides and tutorials). My problem is =
-
-> > > that the results that I have obtained are similar in area and=20
-> > > resources, except for IOBs, which are more than available IOBs in=20
-> > > the device. Do you know what I am doing wrong? Should I comment=20
-> > > debug lines or something like that? I apologize if the question is =
-
-> > > immediate. I didn't find the answer and I'm new in this.
-> > >
-> > >
-> > >
-> > > Thanks very much in advance.
-> > >
-> > > Best regards,
-> > >
-> > >
-> > >
-> > > Elisa
-> > >
-> > >
->
-
-
-------=_NextPart_000_00F0_01D5850C.75FCC820
-Content-Type: text/html;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta =
-name=3DGenerator content=3D"Microsoft Word 15 (filtered =
-medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI Emoji";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Texto sin formato Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.TextosinformatoCar
-	{mso-style-name:"Texto sin formato Car";
-	mso-style-priority:99;
-	mso-style-link:"Texto sin formato";
-	font-family:"Calibri",sans-serif;}
-span.EstiloCorreo20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:585842301;
-	mso-list-template-ids:-73650184;}
-@list l1
-	{mso-list-id:1185751508;
-	mso-list-type:hybrid;
-	mso-list-template-ids:728278270 -520213632 201981977 201981979 =
-201981967 201981977 201981979 201981967 201981977 201981979;}
-@list l1:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:53.25pt;
-	text-indent:-18.0pt;}
-@list l1:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:89.25pt;
-	text-indent:-18.0pt;}
-@list l1:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:125.25pt;
-	text-indent:-9.0pt;}
-@list l1:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:161.25pt;
-	text-indent:-18.0pt;}
-@list l1:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:197.25pt;
-	text-indent:-18.0pt;}
-@list l1:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:233.25pt;
-	text-indent:-9.0pt;}
-@list l1:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:269.25pt;
-	text-indent:-18.0pt;}
-@list l1:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:305.25pt;
-	text-indent:-18.0pt;}
-@list l1:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:341.25pt;
-	text-indent:-9.0pt;}
-@list l2
-	{mso-list-id:2075003323;
-	mso-list-type:hybrid;
-	mso-list-template-ids:88607292 201981967 201981977 201981979 201981967 =
-201981977 201981979 201981967 201981977 201981979;}
-@list l2:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DES link=3Dblue =
-vlink=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><span =
-lang=3DEN-GB style=3D'mso-fareast-language:EN-US'>Hi Stafford, =
-<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>Yes, I am using newlib. I had =
-discovered both files; these registers in sprs.h =
-<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoPlainText><span =
-lang=3DEN-GB>/******************************/<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>/* Performance Counters Group =
-*/<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>/******************************/<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>#define OR1K_SPR_PERF_GROUP =
-0x07<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>/* Performance Counters Count Registers =
-*/<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCCR_BASE=C2=A0=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x000)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCCR_COUNT=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x008)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCCR_STEP=C2=A0=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x001)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCCR_INDEX(N) =
-(OR1K_SPR_PERF_PCCR_BASE + ((N) * =
-OR1K_SPR_PERF_PCCR_STEP))<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>#define =
-OR1K_SPR_PERF_PCCR_ADDR(N)=C2=A0 ((OR1K_SPR_PERF_GROUP &lt;&lt; =
-OR1K_SPR_GROUP_LSB) | =
-OR1K_SPR_PERF_PCCR_INDEX(N))<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>/* Performance Counters Mode =
-Registers */<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCMR_BASE=C2=A0=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x008)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCMR_COUNT=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x008)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCMR_STEP=C2=A0=C2=A0=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x001)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_PERF_PCMR_INDEX(N) =
-(OR1K_SPR_PERF_PCMR_BASE + ((N) =
-*OR1K_SPR_PERF_PCMR_STEP))<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>#define =
-OR1K_SPR_PERF_PCMR_ADDR(N)=C2=A0 ((OR1K_SPR_PERF_GROUP &lt;&lt; =
-OR1K_SPR_GROUP_LSB) | =
-OR1K_SPR_PERF_PCMR_INDEX(N))<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>/* Performance Counters =
-Configuration */<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_INDEX =
-OR1K_UNSIGNED(0x008)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_ADDR=C2=A0 =
-OR1K_UNSIGNED(0x0008)<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>/* Number of Performance Counters =
-*/<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_NPC_LSB=C2=A0=C2=A0=C2=A0 =
-0<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_NPC_MSB=C2=A0=C2=A0=C2=A0 =
-2<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_NPC_BITS=C2=A0=C2=A0 =
-3<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>#define OR1K_SPR_SYS_PCCFGR_NPC_MASK=C2=A0=C2=A0 =
-OR1K_UNSIGNED(0x00000007)<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>#define =
-OR1K_SPR_SYS_PCCFGR_NPC_GET(X) (((X) &gt;&gt; 0) &amp; =
-OR1K_UNSIGNED(0x00000007))<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>#define =
-OR1K_SPR_SYS_PCCFGR_NPC_SET(X, Y) (((X) &amp; OR1K_UNSIGNED(0xfffffff8)) =
-| ((Y) &lt;&lt; 0))<o:p></o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><span =
-lang=3DEN-GB>And these functions in support.h<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>static inline void or1k_mtspr =
-(uint32_t spr, uint32_t value)<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>static inline uint32_t =
-or1k_mfspr (uint32_t spr)<o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB>Despite this I don=E2=80=99t =
-have clear how to use it. <o:p></o:p></span></p><p =
-class=3DMsoPlainText><span lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><ol =
-style=3D'margin-top:0cm' start=3D1 type=3D1><li class=3DMsoPlainText =
-style=3D'mso-list:l2 level1 lfo3'><span lang=3DEN-GB>If I do: or1k_mtspr =
-(OR1K_SPR_SYS_PCCFGR_ADDR , 0) =C2=A0-&gt; Does it allow me to configure =
-the PCCFGR to one performance counter?<o:p></o:p></span></li></ol><p =
-class=3DMsoPlainText style=3D'margin-left:36.0pt'><span lang=3DEN-GB>Is =
-This the same than or1k_mtspr (OR1K_SPR_SYS_PCCFGR_ADDR , =
-OR1K_SPR_SYS_PCCFGR_NPC_LSB ) or =C2=A0Do =
-OR1K_SPR_SYS_PCCFGR_NPC_LSB=C2=A0=C2=A0 , OR1K_SPR_SYS_PCCFGR_NPC_MSB, =
-etc. provide different functions on each one performance =
-counter?<o:p></o:p></span></p><ol style=3D'margin-top:0cm' start=3D2 =
-type=3D1><li class=3DMsoPlainText style=3D'mso-list:l2 level1 =
-lfo3'><span lang=3DEN-GB>What is the meaning of PCCR_BASE,=C2=A0 =
-PCCR_COUNT, PCCR_STEP, PCMR_INDEX(N), PCMR_ADDR(N) ? (the same for PCMR) =
-(Is BASE the base address of all PCCR and ADDR the position of each one =
-of them? =E2=80=A6.why PCMR_BASE and COUNT hasta de same value =
-OR1K_UNSIGNED(0x008)? )=C2=A0=C2=A0=C2=A0 =
-=C2=A0=C2=A0<o:p></o:p></span></li><li class=3DMsoPlainText =
-style=3D'mso-list:l2 level1 lfo3'><span lang=3DEN-GB>Should I define =
-first PCCFGR, second PCMR and last get =
-PCCR?<o:p></o:p></span></li></ol><p class=3DMsoPlainText><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-GB style=3D'mso-fareast-language:EN-US'>Thanks and sorry for =
-the inconveniences.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>Elisa<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><b>De:</b> Stafford Horne &lt;shorne@gmail.com&gt; =
-<br><b>Enviado el:</b> jueves, 17 de octubre de 2019 =
-7:14<br><b>Para:</b> ecalvo@2se.es; Openrisc =
-&lt;openrisc@lists.librecores.org&gt;<br><b>Asunto:</b> Re: PCCR and =
-PCRM registers<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><div><p =
-class=3DMsoNormal><span lang=3DEN-GB>+cc mailing =
-list,<o:p></o:p></span></p></div><div><p class=3DMsoNormal><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p></div><div><p =
-class=3DMsoNormal><span lang=3DEN-GB>Hi =
-Elisa,<o:p></o:p></span></p></div><div><p class=3DMsoNormal><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p></div><div><p =
-class=3DMsoNormal><span lang=3DEN-GB>Which toolchain are you using? I =
-guess newlib?<o:p></o:p></span></p></div><div><p class=3DMsoNormal><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p></div><div><p =
-class=3DMsoNormal><span lang=3DEN-GB>It has functions like or1k_mfspr() =
-and or1k_mtspr() see or1k-support.h and or1k-sprs.h headers for =
-details.<o:p></o:p></span></p></div><div><p class=3DMsoNormal><span =
-lang=3DEN-GB><o:p>&nbsp;</o:p></span></p></div><div><p class=3DMsoNormal =
-style=3D'margin-bottom:12.0pt'><span =
-lang=3DEN-GB>-Stafford<o:p></o:p></span></p><div><div><p =
-class=3DMsoNormal><span lang=3DEN-GB>On Wed, Oct 16, 2019, 8:40 PM =
-&lt;</span><a href=3D"mailto:ecalvo@2se.es"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:<o:p></o:p></span></p></div><blockquote =
-style=3D'border:none;border-left:solid #CCCCCC 1.0pt;padding:0cm 0cm 0cm =
-6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-bottom:5=
-.0pt'><p class=3DMsoNormal style=3D'margin-bottom:12.0pt'><span =
-lang=3DEN-GB>Hi Stafford, <br><br>I am with PCCR and PCRM registers. I =
-have seen that I can access from asm language, but there is functions to =
-access from C? Have you got any example about their usage?<br><br>I have =
-already confirmed my subscription to the mailing list. <br><br>Thanks =
-<br>Elisa<br><br>-----Mensaje original-----<br>De: Stafford Horne =
-&lt;</span><a href=3D"mailto:shorne@gmail.com" target=3D"_blank"><span =
-lang=3DEN-GB>shorne@gmail.com</span></a><span lang=3DEN-GB>&gt; =
-<br>Enviado el: mi=C3=A9rcoles, 9 de octubre de 2019 13:38<br>Para: =
-</span><a href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>; Julius Baxter =
-&lt;</span><a href=3D"mailto:juliusbaxter@gmail.com" =
-target=3D"_blank"><span =
-lang=3DEN-GB>juliusbaxter@gmail.com</span></a><span =
-lang=3DEN-GB>&gt;<br>Asunto: Re: other doubt<br><br>Hello =
-Elisa,<br><br>If you simulate with Icarus or modelsim you will be able =
-to measure pretty much the same performance characteristics as FPGA. So =
-there is no need to go straight to FPGA.<br><br>In terms of my example C =
-code is one option.&nbsp; You can also read timer data directly from the =
-tick timer in assembly and achieve the same thing.<br><br>If you are =
-interested we can CC the mailing list and get more =
-opinions.<br><br>-Stafford<br><br>On Wed, Oct 9, 2019 at 5:09 PM =
-&lt;</span><a href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:<br>&gt;<br>&gt; Hi Stafford,<br>&gt;<br>&gt; Nice to meet you =
-and, first of all, thanks a lot for your guidance. I am new on this, and =
-although there is some documentation, sometimes it is difficult some =
-point which maybe it is basic.<br>&gt;<br>&gt; Ok, to your comments. =
-If..&quot;A simulator like QEMU or or1ksim will not give and exact =
-representation of the CPUs real time performance&quot;...then...if I =
-simulate directly the processor with modelsim, icarus or a similar =
-tool...neither I get a real performance, don=E2=80=99t I? And values for =
-the counters that you tell me to enable, neither are real, isn't it? =
-should I execute it directly on the FPGA and it will depends on the =
-implementation?<br>&gt;<br>&gt; Ok, to C code. I have understood the =
-dependency with toolchain.<br>&gt;<br>&gt; Thanks a lot again.<br>&gt; =
-Best regards,<br>&gt; Elisa<br>&gt;<br>&gt;<br>&gt; -----Mensaje =
-original-----<br>&gt; De: Stafford Horne &lt;</span><a =
-href=3D"mailto:shorne@gmail.com" target=3D"_blank"><span =
-lang=3DEN-GB>shorne@gmail.com</span></a><span lang=3DEN-GB>&gt;<br>&gt; =
-Enviado el: martes, 8 de octubre de 2019 16:18<br>&gt; Para: Julius =
-Baxter &lt;</span><a href=3D"mailto:juliusbaxter@gmail.com" =
-target=3D"_blank"><span =
-lang=3DEN-GB>juliusbaxter@gmail.com</span></a><span =
-lang=3DEN-GB>&gt;<br>&gt; CC: </span><a href=3D"mailto:ecalvo@2se.es" =
-target=3D"_blank"><span lang=3DEN-GB>ecalvo@2se.es</span></a><span =
-lang=3DEN-GB><br>&gt; Asunto: Re: other doubt<br>&gt;<br>&gt; Hi =
-Elisa,<br>&gt;<br>&gt; OpenRISC cpu's can run any algorithm, but how =
-well it will perform depends on many things:<br>&gt;<br>&gt;&nbsp; =
-&nbsp;- Compiler optimization flags (i.e. -O3)<br>&gt;&nbsp; &nbsp;- =
-Whether or not you are doing FPU instructions and have FPU =
-enabled<br>&gt;&nbsp; &nbsp;- Whether or not you use multiply and divide =
-and have these instructions<br>&gt;&nbsp; &nbsp; =
-&nbsp;enabled<br>&gt;&nbsp; &nbsp;- The frequency you are =
-running<br>&gt;&nbsp; &nbsp;- Cache settings Icache Dcache<br>&gt;&nbsp; =
-&nbsp;- The type of algorithm, does it require lots of data which will =
-cause many<br>&gt;&nbsp; &nbsp; &nbsp;cache misses?<br>&gt;<br>&gt; A =
-simulator like QEMU or or1ksim will not give and exact representation of =
-the CPUs real time performance.&nbsp; It can tell you which intructions =
-will be executed, but not how fast those will run or how many pipeline =
-stalls of cache misses will happen.<br>&gt;<br>&gt; You can use the =
-performance counters, they are supported in mor1kx if you enable them =
-with the FEATURE_PERFCOUNTERS=3D'ENABLED' parameter.&nbsp; They can help =
-count how many events happen between certain events.&nbsp; Then you can =
-combine them with a timer and watchpoints to detect how many times a =
-loop can execute in 1000 clock cycles etc.&nbsp; Please read about PCCRn =
-and PCMRn in the architecture manual.<br>&gt;<br>&gt; It might be just =
-as easy to use simple timing in a c program though, depending on the =
-toolchain you use you can compare times between runs of your =
-algorithm.<br>&gt; i.e.<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp;#include =
-&lt;time.h&gt;<br>&gt;&nbsp; &nbsp; &nbsp;#include =
-&lt;stdio.h&gt;<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp;static long =
-to_micro(struct timespec *time) {<br>&gt;&nbsp; &nbsp; &nbsp; =
-&nbsp;return (time-&gt;tv_sec * 1000000) + (time-&gt;tv_nsec / =
-1000);<br>&gt;&nbsp; &nbsp; &nbsp;}<br>&gt;<br>&gt;&nbsp; &nbsp; =
-&nbsp;int main() {<br>&gt;&nbsp; &nbsp; &nbsp; &nbsp;int i, j =3D =
-0;<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp; &nbsp;struct timespec before, =
-after;<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp; =
-&nbsp;clock_gettime(CLOCK_MONOTONIC, &amp;before);<br>&gt;&nbsp; &nbsp; =
-&nbsp; &nbsp;/* Super complex algorithm */<br>&gt;&nbsp; &nbsp; &nbsp; =
-&nbsp;for (int i =3D 0; i &lt; 100; i++) {<br>&gt;&nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp;j =3D (j+1) * (j+2);<br>&gt;&nbsp; &nbsp; &nbsp; =
-&nbsp;}<br>&gt;&nbsp; &nbsp; &nbsp; &nbsp;clock_gettime(CLOCK_MONOTONIC, =
-&amp;after);<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp; &nbsp;printf(&quot;time =
-to run algorithm %ld uSecs\n&quot;, to_micro(&amp;after) - <br>&gt; =
-to_micro(&amp;before));<br>&gt;<br>&gt;&nbsp; &nbsp; &nbsp; &nbsp;return =
-0;<br>&gt;&nbsp; &nbsp; &nbsp;}<br>&gt;<br>&gt; $ or1k-smh-linux-gnu-gcc =
-timer.c<br>&gt; $ ./glibc-build-scripts/qemu-or1k-libc ./a.out time to =
-run algorithm <br>&gt; 164 uSecs<br>&gt;<br>&gt; I hope it =
-helps.<br>&gt;<br>&gt; -Stafford<br>&gt;<br>&gt; On Tue, Oct 08, 2019 at =
-10:54:29PM +1100, Julius Baxter wrote:<br>&gt; &gt; Hi,<br>&gt; =
-&gt;<br>&gt; &gt; No problem.<br>&gt; &gt;<br>&gt; &gt; There are =
-performance counters in the OpenRISC architecture but <br>&gt; &gt; =
-whether they're implemented in a particular implementation is another =
-matter.<br>&gt; &gt;<br>&gt; &gt; You can use these registers to measure =
-various things the CPU is <br>&gt; &gt; doing while it's executing. If =
-you read the ISA document it'll tell <br>&gt; &gt; you about =
-them.<br>&gt; &gt;<br>&gt; &gt; I'm CCing Stafford because he's the main =
-OpenRISC man these days and <br>&gt; &gt; probably knows about the state =
-of the performance counter registers <br>&gt; &gt; in various simulators =
-and RTL implementations.<br>&gt; &gt;<br>&gt; &gt; Cheers,<br>&gt; &gt; =
-Julius<br>&gt; &gt;<br>&gt; &gt; On Tue., 8 Oct. 2019, 10:43 pm , =
-&lt;</span><a href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:<br>&gt; &gt;<br>&gt; &gt; &gt; Hi Julius,<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Sorry for =
-bothering you again </span><span lang=3DEN-GB =
-style=3D'font-family:"Segoe UI Emoji",sans-serif'>=E2=98=B9</span><span =
-lang=3DEN-GB>. Can I do you other fast question <br>&gt; &gt; &gt; =
-related to openrisc? If not, ignore the email please.<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Is there any =
-way to characterize the type of application that I <br>&gt; &gt; &gt; =
-can run in openrisc? I mean, could you measure (with numbers) if =
-<br>&gt; &gt; &gt; an algorithm can be executed on it and the speed that =
-it will achieve?<br>&gt; &gt; &gt; Is it possible to do it using =
-orksim?<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; Sorry because maybe it is so basic and general </span><span =
-lang=3DEN-GB style=3D'font-family:"Segoe UI =
-Emoji",sans-serif'>=E2=98=B9</span><span lang=3DEN-GB><br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Thanks in =
-advance<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Elisa<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; *De:* Julius Baxter &lt;</span><a =
-href=3D"mailto:juliusbaxter@gmail.com" target=3D"_blank"><span =
-lang=3DEN-GB>juliusbaxter@gmail.com</span></a><span lang=3DEN-GB>&gt; =
-*Enviado el:* lunes, <br>&gt; &gt; &gt; 16 de septiembre de 2019 =
-13:11<br>&gt; &gt; &gt; *Para:* </span><a href=3D"mailto:ecalvo@2se.es" =
-target=3D"_blank"><span lang=3DEN-GB>ecalvo@2se.es</span></a><span =
-lang=3DEN-GB><br>&gt; &gt; &gt; *Asunto:* Re: Starting with OpenRISC - =
-IOBs<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt; Also! To let you know, if you're in Spain, we will soon be having =
-<br>&gt; &gt; &gt; our ORConf conference in Europe, and it's in =
-Bordeaux, France, <br>&gt; &gt; &gt; just across the border. :)<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; There =
-are several people there who can help you get up to speed, <br>&gt; &gt; =
-&gt; one of whom is Stafford Horne who knows most about the OpenRISC IP =
-<br>&gt; &gt; &gt; lately. He will be presenting. If you can attend, =
-it'd be helpful, I'm sure.<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt; All info at </span><a =
-href=3D"https://orconf.org" target=3D"_blank"><span =
-lang=3DEN-GB>https://orconf.org</span></a><span lang=3DEN-GB><br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; =
-Cheers,<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Julius<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; On Mon, 16 =
-Sep 2019 at 21:09, Julius Baxter <br>&gt; &gt; &gt; &lt;</span><a =
-href=3D"mailto:juliusbaxter@gmail.com" target=3D"_blank"><span =
-lang=3DEN-GB>juliusbaxter@gmail.com</span></a><span =
-lang=3DEN-GB>&gt;<br>&gt; &gt; &gt; wrote:<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; Hi Elisa,<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Sorry for the delay in this response.<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; You =
-should be using an SoC toplevel. FPGAs have everything you <br>&gt; &gt; =
-&gt; need on board like memories and IO blocks and lots of other FPGA =
-<br>&gt; &gt; &gt; fabric for you to implement other pieces of =
-hardware.<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; FuseSoC provides a really nice and easy way to build an mor1kx =
-<br>&gt; &gt; &gt; design for the DE0 nano I believe:<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; </span><a =
-href=3D"https://github.com/olofk/de0_nano" target=3D"_blank"><span =
-lang=3DEN-GB>https://github.com/olofk/de0_nano</span></a><span =
-lang=3DEN-GB><br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; That github page has a rough guide to getting it =
-going.<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; If you need help I recommend posting to the OpenRISC mailing =
-list <br>&gt; &gt; &gt; and people will respond probably more promptly =
-than I. (I <br>&gt; &gt; &gt; recommend getting to know how to use =
-mailing lists.<br>&gt; &gt; &gt; </span><a =
-href=3D"https://openrisc.io/community" target=3D"_blank"><span =
-lang=3DEN-GB>https://openrisc.io/community</span></a><span =
-lang=3DEN-GB><br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; There are more resources here: </span><a =
-href=3D"https://openrisc.io/tutorials" target=3D"_blank"><span =
-lang=3DEN-GB>https://openrisc.io/tutorials</span></a><span =
-lang=3DEN-GB><br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; I hope that's helpful.<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Cheers,<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Julius<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt; On Wed, 11 Sep 2019 at 20:09, &lt;</span><a =
-href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Hi Julius,<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Thanks a lot =
-for the quick answer.<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Yes, this is the problem: I am using as top level =
-the mor1kx <br>&gt; &gt; &gt; module itself. You mean that I need to =
-synthetize also in <br>&gt; &gt; &gt; reconfigurable logic these cores, =
-don=E2=80=99t you? I thought that I <br>&gt; &gt; &gt; could have these =
-elements as external in a development board.<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Thanks again,<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Cheers<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; =
-Elisa<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt; *De:* Julius Baxter &lt;</span><a =
-href=3D"mailto:juliusbaxter@gmail.com" target=3D"_blank"><span =
-lang=3DEN-GB>juliusbaxter@gmail.com</span></a><span lang=3DEN-GB>&gt; =
-*Enviado el:* <br>&gt; &gt; &gt; mi=C3=A9rcoles, 11 de septiembre de =
-2019 12:02<br>&gt; &gt; &gt; *Para:* </span><a =
-href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB><br>&gt; &gt; =
-&gt; *Asunto:* Re: Starting with OpenRISC - IOBs<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Hi =
-Elisa,<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; Thanks for getting in touch, that sounds like a cool =
-project.<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; Can you tell me about the toplevel - are you using a system =
-<br>&gt; &gt; &gt; toplevel, or is your toplevel the mor1kx module =
-itself?<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; If it's the latter, then that's not the best way to do it - =
-you <br>&gt; &gt; &gt; need a system toplevel which instantiates =
-memories and some reset <br>&gt; &gt; &gt; circuitry and likely some IO =
-(UART, GPIO, JTAG debug, etc.) to talk to the outside world.<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Is that =
-helpful?<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; Cheers,<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Julius<br>&gt; =
-&gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; On Wed, =
-11 Sep 2019 at 19:47, &lt;</span><a href=3D"mailto:ecalvo@2se.es" =
-target=3D"_blank"><span lang=3DEN-GB>ecalvo@2se.es</span></a><span =
-lang=3DEN-GB>&gt; wrote:<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Dear Dr. =
-Baxter,<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; =
-&gt; &gt; My name is Elisa Calvo Gallego. I am writing you because I =
-have <br>&gt; &gt; &gt; started to work with OpenRISC in the framework =
-of a research <br>&gt; &gt; &gt; project developed in the company where =
-I am working (Space <br>&gt; &gt; &gt; Submicron Electronics, 2SE), and =
-I am having some basic troubles. Could you help me?<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Although the =
-FPGA that we are planning to use is larger, I have <br>&gt; &gt; &gt; =
-synthetized mor1kx for a DE0 nano board as first step (this is the =
-<br>&gt; &gt; &gt; board used in the majority of guides and tutorials). =
-My problem is <br>&gt; &gt; &gt; that the results that I have obtained =
-are similar in area and <br>&gt; &gt; &gt; resources, except for IOBs, =
-which are more than available IOBs in <br>&gt; &gt; &gt; the device. Do =
-you know what I am doing wrong? Should I comment <br>&gt; &gt; &gt; =
-debug lines or something like that? I apologize if the question is =
-<br>&gt; &gt; &gt; immediate. I didn't find the answer and I'm new in =
-this.<br></span>&gt; &gt; &gt;<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Thanks very much in advance.<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt; Best regards,<br>&gt; &gt; &gt;<br>&gt; &gt; =
-&gt;<br>&gt; &gt; &gt;<br>&gt; &gt; &gt; Elisa<br>&gt; &gt; &gt;<br>&gt; =
-&gt; =
-&gt;<br>&gt;<o:p></o:p></p></blockquote></div></div></div></div></body></=
-html>
-------=_NextPart_000_00F0_01D5850C.75FCC820--
-
-
---===============4067613193719795269==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============4067613193719795269==--
-
+SGkgRWxpc2EsCgpSaWdodCwgdGhlc2UgYXJlIHRoZSBmdW5jdGlvbnMuICBZb3Ugb25seSBuZWVk
+IHRvIGJlIGNvbmNlcm5lZCB3aXRoOgogIE9SMUtfU1BSX1BFUkZfUENDUl9BRERSKG4pCiAgT1Ix
+S19TUFJfUEVSRl9QQ01SX0FERFIobikKICBPUjFLX1NQUl9TWVNfUENDRkdSX0FERFIKICBPUjFL
+X1NQUl9TWVNfUENDRkdSX05QQ19HRVQoeCkKClRoZSBvdGhlcnMgYXJlIHVzZWQgaW50ZXJuYWxs
+eS4KVGhlIFBDQ0ZHUiBpcyByZWFkIG9ubHksIGl0IHNwZWNpZmllcyBob3cgbWFueSBwZXJmb3Jt
+YW5jZSBjb3VudGVycwp5b3VyIENQVSBoYXMgYnVpbHQgaW4uICBJdCBtYXkgYmUgMC03LgoKQW4g
+ZXhhbXBsZSBvZiBob3cgdG8gdXNlIHRoZW06CgojaW5jbHVkZSA8b3Ixay1zdXBwb3J0Lmg+CiNp
+bmNsdWRlIDxvcjFrLXNwcnMuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CgojZGVmaW5lIFBDTVJfQ0lT
+TSAxPDwzCiNkZWZpbmUgUENNUl9DSVVNIDE8PDMKI2RlZmluZSBQQ01SX0lGICAgMTw8NgoKaW50
+IG1haW4oKSB7CgogIGludCBudW1iZXJfb2ZfcGNzOwogIHVpbnQzMl90IHBjbXIsIHBjY3IsIHVw
+ciwgcGNjZmdyOwoKICAvKiBDaGVjayBpZiBQQ3MgYXJlIGV2ZW4gYXZhaWxhYmxlICovCiAgdXBy
+ID0gb3Ixa19tZnNwcihPUjFLX1NQUl9TWVNfVVBSX0FERFIpOwoKICBpZiAoT1IxS19TUFJfU1lT
+X1VQUl9QQ1VQX0dFVCh1cHIpKSB7CgogICAgcGNjZmdyID0gb3Ixa19tZnNwcihPUjFLX1NQUl9T
+WVNfUENDRkdSX0FERFIpOwogICAgbnVtYmVyX29mX3BjcyA9IE9SMUtfU1BSX1NZU19QQ0NGR1Jf
+TlBDX0dFVChwY2NmZ3IpICsgMTsKCiAgICBwcmludGYgKCJXZSBoYXZlICVkIHByb2dyYW0gY291
+bnRlcnMuXG4iLCBudW1iZXJfb2ZfcGNzKTsKCiAgICBwY2NyID0gb3Ixa19tZnNwcihPUjFLX1NQ
+Ul9QRVJGX1BDQ1JfQUREUigwKSk7CiAgICBwcmludGYgKCJQQ0NSIGJlZm9yZSBzZXR1cCAleFxu
+IiwgcGNjcik7CgogICAgLyogVHVybiBvbiBjb3VudGVyIGFuZCBlbmFibGUgaW5zdHJ1Y3Rpb24g
+ZmV0Y2ggY291bnRpbmcgKi8KICAgIHBjbXIgPSBvcjFrX21mc3ByKE9SMUtfU1BSX1BFUkZfUENN
+Ul9BRERSKDApKTsKICAgIHBjbXIgfD0gUENNUl9DSVNNIHwgUENNUl9DSVVNIHwgUENNUl9JRjsK
+ICAgIG9yMWtfbXRzcHIoT1IxS19TUFJfUEVSRl9QQ01SX0FERFIoMCksIHBjbXIpOwoKICAgIC8q
+IFJlYWQgdGhlIFBDQ1IgYWZ0ZXIgd2UgYXJlIGRvbmUgKi8KICAgIHByaW50ZiAoIlJ1biBhIHBy
+aW50Zi4iKTsKICAgIHBjY3IgPSBvcjFrX21mc3ByKE9SMUtfU1BSX1BFUkZfUENDUl9BRERSKDAp
+KTsKICAgIHByaW50ZiAoIlBDQ1IgYWZ0ZXIgcHJpbnRmICV4XG4iLCBwY2NyKTsKICB9IGVsc2Ug
+ewogICAgcHJpbnRmICgiTm8gcGVyZm9ybWFuY2UgY291bnRlcnMgYXZhaWxhYmxlLlxuIik7CiAg
+fQoKICByZXR1cm4gMDsKfQoKT24gRnJpLCBPY3QgMTgsIDIwMTkgYXQgMTI6MDEgQU0gPGVjYWx2
+b0Ayc2UuZXM+IHdyb3RlOgo+Cj4gSGkgU3RhZmZvcmQsCj4KPgo+Cj4gWWVzLCBJIGFtIHVzaW5n
+IG5ld2xpYi4gSSBoYWQgZGlzY292ZXJlZCBib3RoIGZpbGVzOyB0aGVzZSByZWdpc3RlcnMgaW4g
+c3Bycy5oCj4KPgo+Cj4gLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8KPgo+IC8qIFBl
+cmZvcm1hbmNlIENvdW50ZXJzIEdyb3VwICovCj4KPiAvKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqLwo+Cj4gI2RlZmluZSBPUjFLX1NQUl9QRVJGX0dST1VQIDB4MDcKPgo+Cj4KPiAvKiBQ
+ZXJmb3JtYW5jZSBDb3VudGVycyBDb3VudCBSZWdpc3RlcnMgKi8KPgo+ICNkZWZpbmUgT1IxS19T
+UFJfUEVSRl9QQ0NSX0JBU0UgICAgIE9SMUtfVU5TSUdORUQoMHgwMDApCj4KPiAjZGVmaW5lIE9S
+MUtfU1BSX1BFUkZfUENDUl9DT1VOVCAgICBPUjFLX1VOU0lHTkVEKDB4MDA4KQo+Cj4gI2RlZmlu
+ZSBPUjFLX1NQUl9QRVJGX1BDQ1JfU1RFUCAgICAgT1IxS19VTlNJR05FRCgweDAwMSkKPgo+ICNk
+ZWZpbmUgT1IxS19TUFJfUEVSRl9QQ0NSX0lOREVYKE4pIChPUjFLX1NQUl9QRVJGX1BDQ1JfQkFT
+RSArICgoTikgKiBPUjFLX1NQUl9QRVJGX1BDQ1JfU1RFUCkpCj4KPiAjZGVmaW5lIE9SMUtfU1BS
+X1BFUkZfUENDUl9BRERSKE4pICAoKE9SMUtfU1BSX1BFUkZfR1JPVVAgPDwgT1IxS19TUFJfR1JP
+VVBfTFNCKSB8IE9SMUtfU1BSX1BFUkZfUENDUl9JTkRFWChOKSkKPgo+Cj4KPiAvKiBQZXJmb3Jt
+YW5jZSBDb3VudGVycyBNb2RlIFJlZ2lzdGVycyAqLwo+Cj4gI2RlZmluZSBPUjFLX1NQUl9QRVJG
+X1BDTVJfQkFTRSAgICAgT1IxS19VTlNJR05FRCgweDAwOCkKPgo+ICNkZWZpbmUgT1IxS19TUFJf
+UEVSRl9QQ01SX0NPVU5UICAgIE9SMUtfVU5TSUdORUQoMHgwMDgpCj4KPiAjZGVmaW5lIE9SMUtf
+U1BSX1BFUkZfUENNUl9TVEVQICAgICBPUjFLX1VOU0lHTkVEKDB4MDAxKQo+Cj4gI2RlZmluZSBP
+UjFLX1NQUl9QRVJGX1BDTVJfSU5ERVgoTikgKE9SMUtfU1BSX1BFUkZfUENNUl9CQVNFICsgKChO
+KSAqT1IxS19TUFJfUEVSRl9QQ01SX1NURVApKQo+Cj4gI2RlZmluZSBPUjFLX1NQUl9QRVJGX1BD
+TVJfQUREUihOKSAgKChPUjFLX1NQUl9QRVJGX0dST1VQIDw8IE9SMUtfU1BSX0dST1VQX0xTQikg
+fCBPUjFLX1NQUl9QRVJGX1BDTVJfSU5ERVgoTikpCj4KPgo+Cj4gLyogUGVyZm9ybWFuY2UgQ291
+bnRlcnMgQ29uZmlndXJhdGlvbiAqLwo+Cj4gI2RlZmluZSBPUjFLX1NQUl9TWVNfUENDRkdSX0lO
+REVYIE9SMUtfVU5TSUdORUQoMHgwMDgpCj4KPiAjZGVmaW5lIE9SMUtfU1BSX1NZU19QQ0NGR1Jf
+QUREUiAgT1IxS19VTlNJR05FRCgweDAwMDgpCj4KPgo+Cj4gLyogTnVtYmVyIG9mIFBlcmZvcm1h
+bmNlIENvdW50ZXJzICovCj4KPiAjZGVmaW5lIE9SMUtfU1BSX1NZU19QQ0NGR1JfTlBDX0xTQiAg
+ICAwCj4KPiAjZGVmaW5lIE9SMUtfU1BSX1NZU19QQ0NGR1JfTlBDX01TQiAgICAyCj4KPiAjZGVm
+aW5lIE9SMUtfU1BSX1NZU19QQ0NGR1JfTlBDX0JJVFMgICAzCj4KPiAjZGVmaW5lIE9SMUtfU1BS
+X1NZU19QQ0NGR1JfTlBDX01BU0sgICBPUjFLX1VOU0lHTkVEKDB4MDAwMDAwMDcpCj4KPiAjZGVm
+aW5lIE9SMUtfU1BSX1NZU19QQ0NGR1JfTlBDX0dFVChYKSAoKChYKSA+PiAwKSAmIE9SMUtfVU5T
+SUdORUQoMHgwMDAwMDAwNykpCj4KPiAjZGVmaW5lIE9SMUtfU1BSX1NZU19QQ0NGR1JfTlBDX1NF
+VChYLCBZKSAoKChYKSAmIE9SMUtfVU5TSUdORUQoMHhmZmZmZmZmOCkpIHwgKChZKSA8PCAwKSkK
+Pgo+Cj4KPiBBbmQgdGhlc2UgZnVuY3Rpb25zIGluIHN1cHBvcnQuaAo+Cj4KPgo+IHN0YXRpYyBp
+bmxpbmUgdm9pZCBvcjFrX210c3ByICh1aW50MzJfdCBzcHIsIHVpbnQzMl90IHZhbHVlKQo+Cj4g
+c3RhdGljIGlubGluZSB1aW50MzJfdCBvcjFrX21mc3ByICh1aW50MzJfdCBzcHIpCj4KPgo+Cj4g
+RGVzcGl0ZSB0aGlzIEkgZG9u4oCZdCBoYXZlIGNsZWFyIGhvdyB0byB1c2UgaXQuCj4KPgo+Cj4g
+SWYgSSBkbzogb3Ixa19tdHNwciAoT1IxS19TUFJfU1lTX1BDQ0ZHUl9BRERSICwgMCkgIC0+IERv
+ZXMgaXQgYWxsb3cgbWUgdG8gY29uZmlndXJlIHRoZSBQQ0NGR1IgdG8gb25lIHBlcmZvcm1hbmNl
+IGNvdW50ZXI/Cj4KPiBJcyBUaGlzIHRoZSBzYW1lIHRoYW4gb3Ixa19tdHNwciAoT1IxS19TUFJf
+U1lTX1BDQ0ZHUl9BRERSICwgT1IxS19TUFJfU1lTX1BDQ0ZHUl9OUENfTFNCICkgb3IgIERvIE9S
+MUtfU1BSX1NZU19QQ0NGR1JfTlBDX0xTQiAgICwgT1IxS19TUFJfU1lTX1BDQ0ZHUl9OUENfTVNC
+LCBldGMuIHByb3ZpZGUgZGlmZmVyZW50IGZ1bmN0aW9ucyBvbiBlYWNoIG9uZSBwZXJmb3JtYW5j
+ZSBjb3VudGVyPwo+Cj4gV2hhdCBpcyB0aGUgbWVhbmluZyBvZiBQQ0NSX0JBU0UsICBQQ0NSX0NP
+VU5ULCBQQ0NSX1NURVAsIFBDTVJfSU5ERVgoTiksIFBDTVJfQUREUihOKSA/ICh0aGUgc2FtZSBm
+b3IgUENNUikgKElzIEJBU0UgdGhlIGJhc2UgYWRkcmVzcyBvZiBhbGwgUENDUiBhbmQgQUREUiB0
+aGUgcG9zaXRpb24gb2YgZWFjaCBvbmUgb2YgdGhlbT8g4oCmLndoeSBQQ01SX0JBU0UgYW5kIENP
+VU5UIGhhc3RhIGRlIHNhbWUgdmFsdWUgT1IxS19VTlNJR05FRCgweDAwOCk/ICkKPiBTaG91bGQg
+SSBkZWZpbmUgZmlyc3QgUENDRkdSLCBzZWNvbmQgUENNUiBhbmQgbGFzdCBnZXQgUENDUj8KPgo+
+Cj4KPiBUaGFua3MgYW5kIHNvcnJ5IGZvciB0aGUgaW5jb252ZW5pZW5jZXMuCj4KPiBFbGlzYQo+
+Cj4KPgo+IERlOiBTdGFmZm9yZCBIb3JuZSA8c2hvcm5lQGdtYWlsLmNvbT4KPiBFbnZpYWRvIGVs
+OiBqdWV2ZXMsIDE3IGRlIG9jdHVicmUgZGUgMjAxOSA3OjE0Cj4gUGFyYTogZWNhbHZvQDJzZS5l
+czsgT3BlbnJpc2MgPG9wZW5yaXNjQGxpc3RzLmxpYnJlY29yZXMub3JnPgo+IEFzdW50bzogUmU6
+IFBDQ1IgYW5kIFBDUk0gcmVnaXN0ZXJzCj4KPgo+Cj4gK2NjIG1haWxpbmcgbGlzdCwKPgo+Cj4K
+PiBIaSBFbGlzYSwKPgo+Cj4KPiBXaGljaCB0b29sY2hhaW4gYXJlIHlvdSB1c2luZz8gSSBndWVz
+cyBuZXdsaWI/Cj4KPgo+Cj4gSXQgaGFzIGZ1bmN0aW9ucyBsaWtlIG9yMWtfbWZzcHIoKSBhbmQg
+b3Ixa19tdHNwcigpIHNlZSBvcjFrLXN1cHBvcnQuaCBhbmQgb3Ixay1zcHJzLmggaGVhZGVycyBm
+b3IgZGV0YWlscy4KPgo+Cj4KPiAtU3RhZmZvcmQKPgo+IE9uIFdlZCwgT2N0IDE2LCAyMDE5LCA4
+OjQwIFBNIDxlY2Fsdm9AMnNlLmVzPiB3cm90ZToKPgo+IEhpIFN0YWZmb3JkLAo+Cj4gSSBhbSB3
+aXRoIFBDQ1IgYW5kIFBDUk0gcmVnaXN0ZXJzLiBJIGhhdmUgc2VlbiB0aGF0IEkgY2FuIGFjY2Vz
+cyBmcm9tIGFzbSBsYW5ndWFnZSwgYnV0IHRoZXJlIGlzIGZ1bmN0aW9ucyB0byBhY2Nlc3MgZnJv
+bSBDPyBIYXZlIHlvdSBnb3QgYW55IGV4YW1wbGUgYWJvdXQgdGhlaXIgdXNhZ2U/Cj4KPiBJIGhh
+dmUgYWxyZWFkeSBjb25maXJtZWQgbXkgc3Vic2NyaXB0aW9uIHRvIHRoZSBtYWlsaW5nIGxpc3Qu
+Cj4KPiBUaGFua3MKPiBFbGlzYQo+Cj4gLS0tLS1NZW5zYWplIG9yaWdpbmFsLS0tLS0KPiBEZTog
+U3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFpbC5jb20+Cj4gRW52aWFkbyBlbDogbWnDqXJjb2xl
+cywgOSBkZSBvY3R1YnJlIGRlIDIwMTkgMTM6MzgKPiBQYXJhOiBlY2Fsdm9AMnNlLmVzOyBKdWxp
+dXMgQmF4dGVyIDxqdWxpdXNiYXh0ZXJAZ21haWwuY29tPgo+IEFzdW50bzogUmU6IG90aGVyIGRv
+dWJ0Cj4KPiBIZWxsbyBFbGlzYSwKPgo+IElmIHlvdSBzaW11bGF0ZSB3aXRoIEljYXJ1cyBvciBt
+b2RlbHNpbSB5b3Ugd2lsbCBiZSBhYmxlIHRvIG1lYXN1cmUgcHJldHR5IG11Y2ggdGhlIHNhbWUg
+cGVyZm9ybWFuY2UgY2hhcmFjdGVyaXN0aWNzIGFzIEZQR0EuIFNvIHRoZXJlIGlzIG5vIG5lZWQg
+dG8gZ28gc3RyYWlnaHQgdG8gRlBHQS4KPgo+IEluIHRlcm1zIG9mIG15IGV4YW1wbGUgQyBjb2Rl
+IGlzIG9uZSBvcHRpb24uICBZb3UgY2FuIGFsc28gcmVhZCB0aW1lciBkYXRhIGRpcmVjdGx5IGZy
+b20gdGhlIHRpY2sgdGltZXIgaW4gYXNzZW1ibHkgYW5kIGFjaGlldmUgdGhlIHNhbWUgdGhpbmcu
+Cj4KPiBJZiB5b3UgYXJlIGludGVyZXN0ZWQgd2UgY2FuIENDIHRoZSBtYWlsaW5nIGxpc3QgYW5k
+IGdldCBtb3JlIG9waW5pb25zLgo+Cj4gLVN0YWZmb3JkCj4KPiBPbiBXZWQsIE9jdCA5LCAyMDE5
+IGF0IDU6MDkgUE0gPGVjYWx2b0Ayc2UuZXM+IHdyb3RlOgo+ID4KPiA+IEhpIFN0YWZmb3JkLAo+
+ID4KPiA+IE5pY2UgdG8gbWVldCB5b3UgYW5kLCBmaXJzdCBvZiBhbGwsIHRoYW5rcyBhIGxvdCBm
+b3IgeW91ciBndWlkYW5jZS4gSSBhbSBuZXcgb24gdGhpcywgYW5kIGFsdGhvdWdoIHRoZXJlIGlz
+IHNvbWUgZG9jdW1lbnRhdGlvbiwgc29tZXRpbWVzIGl0IGlzIGRpZmZpY3VsdCBzb21lIHBvaW50
+IHdoaWNoIG1heWJlIGl0IGlzIGJhc2ljLgo+ID4KPiA+IE9rLCB0byB5b3VyIGNvbW1lbnRzLiBJ
+Zi4uIkEgc2ltdWxhdG9yIGxpa2UgUUVNVSBvciBvcjFrc2ltIHdpbGwgbm90IGdpdmUgYW5kIGV4
+YWN0IHJlcHJlc2VudGF0aW9uIG9mIHRoZSBDUFVzIHJlYWwgdGltZSBwZXJmb3JtYW5jZSIuLi50
+aGVuLi4uaWYgSSBzaW11bGF0ZSBkaXJlY3RseSB0aGUgcHJvY2Vzc29yIHdpdGggbW9kZWxzaW0s
+IGljYXJ1cyBvciBhIHNpbWlsYXIgdG9vbC4uLm5laXRoZXIgSSBnZXQgYSByZWFsIHBlcmZvcm1h
+bmNlLCBkb27igJl0IEk/IEFuZCB2YWx1ZXMgZm9yIHRoZSBjb3VudGVycyB0aGF0IHlvdSB0ZWxs
+IG1lIHRvIGVuYWJsZSwgbmVpdGhlciBhcmUgcmVhbCwgaXNuJ3QgaXQ/IHNob3VsZCBJIGV4ZWN1
+dGUgaXQgZGlyZWN0bHkgb24gdGhlIEZQR0EgYW5kIGl0IHdpbGwgZGVwZW5kcyBvbiB0aGUgaW1w
+bGVtZW50YXRpb24/Cj4gPgo+ID4gT2ssIHRvIEMgY29kZS4gSSBoYXZlIHVuZGVyc3Rvb2QgdGhl
+IGRlcGVuZGVuY3kgd2l0aCB0b29sY2hhaW4uCj4gPgo+ID4gVGhhbmtzIGEgbG90IGFnYWluLgo+
+ID4gQmVzdCByZWdhcmRzLAo+ID4gRWxpc2EKPiA+Cj4gPgo+ID4gLS0tLS1NZW5zYWplIG9yaWdp
+bmFsLS0tLS0KPiA+IERlOiBTdGFmZm9yZCBIb3JuZSA8c2hvcm5lQGdtYWlsLmNvbT4KPiA+IEVu
+dmlhZG8gZWw6IG1hcnRlcywgOCBkZSBvY3R1YnJlIGRlIDIwMTkgMTY6MTgKPiA+IFBhcmE6IEp1
+bGl1cyBCYXh0ZXIgPGp1bGl1c2JheHRlckBnbWFpbC5jb20+Cj4gPiBDQzogZWNhbHZvQDJzZS5l
+cwo+ID4gQXN1bnRvOiBSZTogb3RoZXIgZG91YnQKPiA+Cj4gPiBIaSBFbGlzYSwKPiA+Cj4gPiBP
+cGVuUklTQyBjcHUncyBjYW4gcnVuIGFueSBhbGdvcml0aG0sIGJ1dCBob3cgd2VsbCBpdCB3aWxs
+IHBlcmZvcm0gZGVwZW5kcyBvbiBtYW55IHRoaW5nczoKPiA+Cj4gPiAgIC0gQ29tcGlsZXIgb3B0
+aW1pemF0aW9uIGZsYWdzIChpLmUuIC1PMykKPiA+ICAgLSBXaGV0aGVyIG9yIG5vdCB5b3UgYXJl
+IGRvaW5nIEZQVSBpbnN0cnVjdGlvbnMgYW5kIGhhdmUgRlBVIGVuYWJsZWQKPiA+ICAgLSBXaGV0
+aGVyIG9yIG5vdCB5b3UgdXNlIG11bHRpcGx5IGFuZCBkaXZpZGUgYW5kIGhhdmUgdGhlc2UgaW5z
+dHJ1Y3Rpb25zCj4gPiAgICAgZW5hYmxlZAo+ID4gICAtIFRoZSBmcmVxdWVuY3kgeW91IGFyZSBy
+dW5uaW5nCj4gPiAgIC0gQ2FjaGUgc2V0dGluZ3MgSWNhY2hlIERjYWNoZQo+ID4gICAtIFRoZSB0
+eXBlIG9mIGFsZ29yaXRobSwgZG9lcyBpdCByZXF1aXJlIGxvdHMgb2YgZGF0YSB3aGljaCB3aWxs
+IGNhdXNlIG1hbnkKPiA+ICAgICBjYWNoZSBtaXNzZXM/Cj4gPgo+ID4gQSBzaW11bGF0b3IgbGlr
+ZSBRRU1VIG9yIG9yMWtzaW0gd2lsbCBub3QgZ2l2ZSBhbmQgZXhhY3QgcmVwcmVzZW50YXRpb24g
+b2YgdGhlIENQVXMgcmVhbCB0aW1lIHBlcmZvcm1hbmNlLiAgSXQgY2FuIHRlbGwgeW91IHdoaWNo
+IGludHJ1Y3Rpb25zIHdpbGwgYmUgZXhlY3V0ZWQsIGJ1dCBub3QgaG93IGZhc3QgdGhvc2Ugd2ls
+bCBydW4gb3IgaG93IG1hbnkgcGlwZWxpbmUgc3RhbGxzIG9mIGNhY2hlIG1pc3NlcyB3aWxsIGhh
+cHBlbi4KPiA+Cj4gPiBZb3UgY2FuIHVzZSB0aGUgcGVyZm9ybWFuY2UgY291bnRlcnMsIHRoZXkg
+YXJlIHN1cHBvcnRlZCBpbiBtb3Ixa3ggaWYgeW91IGVuYWJsZSB0aGVtIHdpdGggdGhlIEZFQVRV
+UkVfUEVSRkNPVU5URVJTPSdFTkFCTEVEJyBwYXJhbWV0ZXIuICBUaGV5IGNhbiBoZWxwIGNvdW50
+IGhvdyBtYW55IGV2ZW50cyBoYXBwZW4gYmV0d2VlbiBjZXJ0YWluIGV2ZW50cy4gIFRoZW4geW91
+IGNhbiBjb21iaW5lIHRoZW0gd2l0aCBhIHRpbWVyIGFuZCB3YXRjaHBvaW50cyB0byBkZXRlY3Qg
+aG93IG1hbnkgdGltZXMgYSBsb29wIGNhbiBleGVjdXRlIGluIDEwMDAgY2xvY2sgY3ljbGVzIGV0
+Yy4gIFBsZWFzZSByZWFkIGFib3V0IFBDQ1JuIGFuZCBQQ01SbiBpbiB0aGUgYXJjaGl0ZWN0dXJl
+IG1hbnVhbC4KPiA+Cj4gPiBJdCBtaWdodCBiZSBqdXN0IGFzIGVhc3kgdG8gdXNlIHNpbXBsZSB0
+aW1pbmcgaW4gYSBjIHByb2dyYW0gdGhvdWdoLCBkZXBlbmRpbmcgb24gdGhlIHRvb2xjaGFpbiB5
+b3UgdXNlIHlvdSBjYW4gY29tcGFyZSB0aW1lcyBiZXR3ZWVuIHJ1bnMgb2YgeW91ciBhbGdvcml0
+aG0uCj4gPiBpLmUuCj4gPgo+ID4gICAgICNpbmNsdWRlIDx0aW1lLmg+Cj4gPiAgICAgI2luY2x1
+ZGUgPHN0ZGlvLmg+Cj4gPgo+ID4gICAgIHN0YXRpYyBsb25nIHRvX21pY3JvKHN0cnVjdCB0aW1l
+c3BlYyAqdGltZSkgewo+ID4gICAgICAgcmV0dXJuICh0aW1lLT50dl9zZWMgKiAxMDAwMDAwKSAr
+ICh0aW1lLT50dl9uc2VjIC8gMTAwMCk7Cj4gPiAgICAgfQo+ID4KPiA+ICAgICBpbnQgbWFpbigp
+IHsKPiA+ICAgICAgIGludCBpLCBqID0gMDsKPiA+Cj4gPiAgICAgICBzdHJ1Y3QgdGltZXNwZWMg
+YmVmb3JlLCBhZnRlcjsKPiA+Cj4gPiAgICAgICBjbG9ja19nZXR0aW1lKENMT0NLX01PTk9UT05J
+QywgJmJlZm9yZSk7Cj4gPiAgICAgICAvKiBTdXBlciBjb21wbGV4IGFsZ29yaXRobSAqLwo+ID4g
+ICAgICAgZm9yIChpbnQgaSA9IDA7IGkgPCAxMDA7IGkrKykgewo+ID4gICAgICAgICBqID0gKGor
+MSkgKiAoaisyKTsKPiA+ICAgICAgIH0KPiA+ICAgICAgIGNsb2NrX2dldHRpbWUoQ0xPQ0tfTU9O
+T1RPTklDLCAmYWZ0ZXIpOwo+ID4KPiA+ICAgICAgIHByaW50ZigidGltZSB0byBydW4gYWxnb3Jp
+dGhtICVsZCB1U2Vjc1xuIiwgdG9fbWljcm8oJmFmdGVyKSAtCj4gPiB0b19taWNybygmYmVmb3Jl
+KSk7Cj4gPgo+ID4gICAgICAgcmV0dXJuIDA7Cj4gPiAgICAgfQo+ID4KPiA+ICQgb3Ixay1zbWgt
+bGludXgtZ251LWdjYyB0aW1lci5jCj4gPiAkIC4vZ2xpYmMtYnVpbGQtc2NyaXB0cy9xZW11LW9y
+MWstbGliYyAuL2Eub3V0IHRpbWUgdG8gcnVuIGFsZ29yaXRobQo+ID4gMTY0IHVTZWNzCj4gPgo+
+ID4gSSBob3BlIGl0IGhlbHBzLgo+ID4KPiA+IC1TdGFmZm9yZAo+ID4KPiA+IE9uIFR1ZSwgT2N0
+IDA4LCAyMDE5IGF0IDEwOjU0OjI5UE0gKzExMDAsIEp1bGl1cyBCYXh0ZXIgd3JvdGU6Cj4gPiA+
+IEhpLAo+ID4gPgo+ID4gPiBObyBwcm9ibGVtLgo+ID4gPgo+ID4gPiBUaGVyZSBhcmUgcGVyZm9y
+bWFuY2UgY291bnRlcnMgaW4gdGhlIE9wZW5SSVNDIGFyY2hpdGVjdHVyZSBidXQKPiA+ID4gd2hl
+dGhlciB0aGV5J3JlIGltcGxlbWVudGVkIGluIGEgcGFydGljdWxhciBpbXBsZW1lbnRhdGlvbiBp
+cyBhbm90aGVyIG1hdHRlci4KPiA+ID4KPiA+ID4gWW91IGNhbiB1c2UgdGhlc2UgcmVnaXN0ZXJz
+IHRvIG1lYXN1cmUgdmFyaW91cyB0aGluZ3MgdGhlIENQVSBpcwo+ID4gPiBkb2luZyB3aGlsZSBp
+dCdzIGV4ZWN1dGluZy4gSWYgeW91IHJlYWQgdGhlIElTQSBkb2N1bWVudCBpdCdsbCB0ZWxsCj4g
+PiA+IHlvdSBhYm91dCB0aGVtLgo+ID4gPgo+ID4gPiBJJ20gQ0NpbmcgU3RhZmZvcmQgYmVjYXVz
+ZSBoZSdzIHRoZSBtYWluIE9wZW5SSVNDIG1hbiB0aGVzZSBkYXlzIGFuZAo+ID4gPiBwcm9iYWJs
+eSBrbm93cyBhYm91dCB0aGUgc3RhdGUgb2YgdGhlIHBlcmZvcm1hbmNlIGNvdW50ZXIgcmVnaXN0
+ZXJzCj4gPiA+IGluIHZhcmlvdXMgc2ltdWxhdG9ycyBhbmQgUlRMIGltcGxlbWVudGF0aW9ucy4K
+PiA+ID4KPiA+ID4gQ2hlZXJzLAo+ID4gPiBKdWxpdXMKPiA+ID4KPiA+ID4gT24gVHVlLiwgOCBP
+Y3QuIDIwMTksIDEwOjQzIHBtICwgPGVjYWx2b0Ayc2UuZXM+IHdyb3RlOgo+ID4gPgo+ID4gPiA+
+IEhpIEp1bGl1cywKPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBTb3JyeSBmb3IgYm90
+aGVyaW5nIHlvdSBhZ2FpbiDimLkuIENhbiBJIGRvIHlvdSBvdGhlciBmYXN0IHF1ZXN0aW9uCj4g
+PiA+ID4gcmVsYXRlZCB0byBvcGVucmlzYz8gSWYgbm90LCBpZ25vcmUgdGhlIGVtYWlsIHBsZWFz
+ZS4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBJcyB0aGVyZSBhbnkgd2F5IHRvIGNo
+YXJhY3Rlcml6ZSB0aGUgdHlwZSBvZiBhcHBsaWNhdGlvbiB0aGF0IEkKPiA+ID4gPiBjYW4gcnVu
+IGluIG9wZW5yaXNjPyBJIG1lYW4sIGNvdWxkIHlvdSBtZWFzdXJlICh3aXRoIG51bWJlcnMpIGlm
+Cj4gPiA+ID4gYW4gYWxnb3JpdGhtIGNhbiBiZSBleGVjdXRlZCBvbiBpdCBhbmQgdGhlIHNwZWVk
+IHRoYXQgaXQgd2lsbCBhY2hpZXZlPwo+ID4gPiA+IElzIGl0IHBvc3NpYmxlIHRvIGRvIGl0IHVz
+aW5nIG9ya3NpbT8KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBTb3JyeSBiZWNhdXNl
+IG1heWJlIGl0IGlzIHNvIGJhc2ljIGFuZCBnZW5lcmFsIOKYuQo+ID4gPiA+Cj4gPiA+ID4KPiA+
+ID4gPgo+ID4gPiA+IFRoYW5rcyBpbiBhZHZhbmNlCj4gPiA+ID4KPiA+ID4gPiBFbGlzYQo+ID4g
+PiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiAqRGU6KiBKdWxpdXMg
+QmF4dGVyIDxqdWxpdXNiYXh0ZXJAZ21haWwuY29tPiAqRW52aWFkbyBlbDoqIGx1bmVzLAo+ID4g
+PiA+IDE2IGRlIHNlcHRpZW1icmUgZGUgMjAxOSAxMzoxMQo+ID4gPiA+ICpQYXJhOiogZWNhbHZv
+QDJzZS5lcwo+ID4gPiA+ICpBc3VudG86KiBSZTogU3RhcnRpbmcgd2l0aCBPcGVuUklTQyAtIElP
+QnMKPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBBbHNvISBUbyBsZXQgeW91IGtub3cs
+IGlmIHlvdSdyZSBpbiBTcGFpbiwgd2Ugd2lsbCBzb29uIGJlIGhhdmluZwo+ID4gPiA+IG91ciBP
+UkNvbmYgY29uZmVyZW5jZSBpbiBFdXJvcGUsIGFuZCBpdCdzIGluIEJvcmRlYXV4LCBGcmFuY2Us
+Cj4gPiA+ID4ganVzdCBhY3Jvc3MgdGhlIGJvcmRlci4gOikKPiA+ID4gPgo+ID4gPiA+Cj4gPiA+
+ID4KPiA+ID4gPiBUaGVyZSBhcmUgc2V2ZXJhbCBwZW9wbGUgdGhlcmUgd2hvIGNhbiBoZWxwIHlv
+dSBnZXQgdXAgdG8gc3BlZWQsCj4gPiA+ID4gb25lIG9mIHdob20gaXMgU3RhZmZvcmQgSG9ybmUg
+d2hvIGtub3dzIG1vc3QgYWJvdXQgdGhlIE9wZW5SSVNDIElQCj4gPiA+ID4gbGF0ZWx5LiBIZSB3
+aWxsIGJlIHByZXNlbnRpbmcuIElmIHlvdSBjYW4gYXR0ZW5kLCBpdCdkIGJlIGhlbHBmdWwsIEkn
+bSBzdXJlLgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IEFsbCBpbmZvIGF0IGh0dHBz
+Oi8vb3Jjb25mLm9yZwo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IENoZWVycywKPiA+
+ID4gPgo+ID4gPiA+IEp1bGl1cwo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IE9uIE1v
+biwgMTYgU2VwIDIwMTkgYXQgMjE6MDksIEp1bGl1cyBCYXh0ZXIKPiA+ID4gPiA8anVsaXVzYmF4
+dGVyQGdtYWlsLmNvbT4KPiA+ID4gPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+IEhpIEVsaXNhLAo+
+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IFNvcnJ5IGZvciB0aGUgZGVsYXkgaW4gdGhp
+cyByZXNwb25zZS4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBZb3Ugc2hvdWxkIGJl
+IHVzaW5nIGFuIFNvQyB0b3BsZXZlbC4gRlBHQXMgaGF2ZSBldmVyeXRoaW5nIHlvdQo+ID4gPiA+
+IG5lZWQgb24gYm9hcmQgbGlrZSBtZW1vcmllcyBhbmQgSU8gYmxvY2tzIGFuZCBsb3RzIG9mIG90
+aGVyIEZQR0EKPiA+ID4gPiBmYWJyaWMgZm9yIHlvdSB0byBpbXBsZW1lbnQgb3RoZXIgcGllY2Vz
+IG9mIGhhcmR3YXJlLgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IEZ1c2VTb0MgcHJv
+dmlkZXMgYSByZWFsbHkgbmljZSBhbmQgZWFzeSB3YXkgdG8gYnVpbGQgYW4gbW9yMWt4Cj4gPiA+
+ID4gZGVzaWduIGZvciB0aGUgREUwIG5hbm8gSSBiZWxpZXZlOgo+ID4gPiA+Cj4gPiA+ID4KPiA+
+ID4gPgo+ID4gPiA+IGh0dHBzOi8vZ2l0aHViLmNvbS9vbG9may9kZTBfbmFubwo+ID4gPiA+Cj4g
+PiA+ID4KPiA+ID4gPgo+ID4gPiA+IFRoYXQgZ2l0aHViIHBhZ2UgaGFzIGEgcm91Z2ggZ3VpZGUg
+dG8gZ2V0dGluZyBpdCBnb2luZy4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBJZiB5
+b3UgbmVlZCBoZWxwIEkgcmVjb21tZW5kIHBvc3RpbmcgdG8gdGhlIE9wZW5SSVNDIG1haWxpbmcg
+bGlzdAo+ID4gPiA+IGFuZCBwZW9wbGUgd2lsbCByZXNwb25kIHByb2JhYmx5IG1vcmUgcHJvbXB0
+bHkgdGhhbiBJLiAoSQo+ID4gPiA+IHJlY29tbWVuZCBnZXR0aW5nIHRvIGtub3cgaG93IHRvIHVz
+ZSBtYWlsaW5nIGxpc3RzLgo+ID4gPiA+IGh0dHBzOi8vb3BlbnJpc2MuaW8vY29tbXVuaXR5Cj4g
+PiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gVGhlcmUgYXJlIG1vcmUgcmVzb3VyY2VzIGhl
+cmU6IGh0dHBzOi8vb3BlbnJpc2MuaW8vdHV0b3JpYWxzCj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+
+Cj4gPiA+ID4gSSBob3BlIHRoYXQncyBoZWxwZnVsLgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+
+ID4gPiA+IENoZWVycywKPiA+ID4gPgo+ID4gPiA+IEp1bGl1cwo+ID4gPiA+Cj4gPiA+ID4KPiA+
+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBPbiBXZWQsIDExIFNlcCAyMDE5IGF0IDIwOjA5
+LCA8ZWNhbHZvQDJzZS5lcz4gd3JvdGU6Cj4gPiA+ID4KPiA+ID4gPiBIaSBKdWxpdXMsCj4gPiA+
+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gVGhhbmtzIGEgbG90IGZvciB0aGUgcXVpY2sgYW5z
+d2VyLgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+IFllcywgdGhpcyBpcyB0aGUgcHJv
+YmxlbTogSSBhbSB1c2luZyBhcyB0b3AgbGV2ZWwgdGhlIG1vcjFreAo+ID4gPiA+IG1vZHVsZSBp
+dHNlbGYuIFlvdSBtZWFuIHRoYXQgSSBuZWVkIHRvIHN5bnRoZXRpemUgYWxzbyBpbgo+ID4gPiA+
+IHJlY29uZmlndXJhYmxlIGxvZ2ljIHRoZXNlIGNvcmVzLCBkb27igJl0IHlvdT8gSSB0aG91Z2h0
+IHRoYXQgSQo+ID4gPiA+IGNvdWxkIGhhdmUgdGhlc2UgZWxlbWVudHMgYXMgZXh0ZXJuYWwgaW4g
+YSBkZXZlbG9wbWVudCBib2FyZC4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBUaGFu
+a3MgYWdhaW4sCj4gPiA+ID4KPiA+ID4gPiBDaGVlcnMKPiA+ID4gPgo+ID4gPiA+IEVsaXNhCj4g
+PiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gKkRlOiogSnVsaXVzIEJheHRlciA8anVsaXVz
+YmF4dGVyQGdtYWlsLmNvbT4gKkVudmlhZG8gZWw6Kgo+ID4gPiA+IG1pw6lyY29sZXMsIDExIGRl
+IHNlcHRpZW1icmUgZGUgMjAxOSAxMjowMgo+ID4gPiA+ICpQYXJhOiogZWNhbHZvQDJzZS5lcwo+
+ID4gPiA+ICpBc3VudG86KiBSZTogU3RhcnRpbmcgd2l0aCBPcGVuUklTQyAtIElPQnMKPiA+ID4g
+Pgo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBIaSBFbGlzYSwKPiA+ID4gPgo+ID4gPiA+Cj4gPiA+
+ID4KPiA+ID4gPiBUaGFua3MgZm9yIGdldHRpbmcgaW4gdG91Y2gsIHRoYXQgc291bmRzIGxpa2Ug
+YSBjb29sIHByb2plY3QuCj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gQ2FuIHlvdSB0
+ZWxsIG1lIGFib3V0IHRoZSB0b3BsZXZlbCAtIGFyZSB5b3UgdXNpbmcgYSBzeXN0ZW0KPiA+ID4g
+PiB0b3BsZXZlbCwgb3IgaXMgeW91ciB0b3BsZXZlbCB0aGUgbW9yMWt4IG1vZHVsZSBpdHNlbGY/
+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gSWYgaXQncyB0aGUgbGF0dGVyLCB0aGVu
+IHRoYXQncyBub3QgdGhlIGJlc3Qgd2F5IHRvIGRvIGl0IC0geW91Cj4gPiA+ID4gbmVlZCBhIHN5
+c3RlbSB0b3BsZXZlbCB3aGljaCBpbnN0YW50aWF0ZXMgbWVtb3JpZXMgYW5kIHNvbWUgcmVzZXQK
+PiA+ID4gPiBjaXJjdWl0cnkgYW5kIGxpa2VseSBzb21lIElPIChVQVJULCBHUElPLCBKVEFHIGRl
+YnVnLCBldGMuKSB0byB0YWxrIHRvIHRoZSBvdXRzaWRlIHdvcmxkLgo+ID4gPiA+Cj4gPiA+ID4K
+PiA+ID4gPgo+ID4gPiA+IElzIHRoYXQgaGVscGZ1bD8KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4K
+PiA+ID4gPiBDaGVlcnMsCj4gPiA+ID4KPiA+ID4gPiBKdWxpdXMKPiA+ID4gPgo+ID4gPiA+Cj4g
+PiA+ID4KPiA+ID4gPiBPbiBXZWQsIDExIFNlcCAyMDE5IGF0IDE5OjQ3LCA8ZWNhbHZvQDJzZS5l
+cz4gd3JvdGU6Cj4gPiA+ID4KPiA+ID4gPiBEZWFyIERyLiBCYXh0ZXIsCj4gPiA+ID4KPiA+ID4g
+Pgo+ID4gPiA+Cj4gPiA+ID4gTXkgbmFtZSBpcyBFbGlzYSBDYWx2byBHYWxsZWdvLiBJIGFtIHdy
+aXRpbmcgeW91IGJlY2F1c2UgSSBoYXZlCj4gPiA+ID4gc3RhcnRlZCB0byB3b3JrIHdpdGggT3Bl
+blJJU0MgaW4gdGhlIGZyYW1ld29yayBvZiBhIHJlc2VhcmNoCj4gPiA+ID4gcHJvamVjdCBkZXZl
+bG9wZWQgaW4gdGhlIGNvbXBhbnkgd2hlcmUgSSBhbSB3b3JraW5nIChTcGFjZQo+ID4gPiA+IFN1
+Ym1pY3JvbiBFbGVjdHJvbmljcywgMlNFKSwgYW5kIEkgYW0gaGF2aW5nIHNvbWUgYmFzaWMgdHJv
+dWJsZXMuIENvdWxkIHlvdSBoZWxwIG1lPwo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+
+IEFsdGhvdWdoIHRoZSBGUEdBIHRoYXQgd2UgYXJlIHBsYW5uaW5nIHRvIHVzZSBpcyBsYXJnZXIs
+IEkgaGF2ZQo+ID4gPiA+IHN5bnRoZXRpemVkIG1vcjFreCBmb3IgYSBERTAgbmFubyBib2FyZCBh
+cyBmaXJzdCBzdGVwICh0aGlzIGlzIHRoZQo+ID4gPiA+IGJvYXJkIHVzZWQgaW4gdGhlIG1ham9y
+aXR5IG9mIGd1aWRlcyBhbmQgdHV0b3JpYWxzKS4gTXkgcHJvYmxlbSBpcwo+ID4gPiA+IHRoYXQg
+dGhlIHJlc3VsdHMgdGhhdCBJIGhhdmUgb2J0YWluZWQgYXJlIHNpbWlsYXIgaW4gYXJlYSBhbmQK
+PiA+ID4gPiByZXNvdXJjZXMsIGV4Y2VwdCBmb3IgSU9Ccywgd2hpY2ggYXJlIG1vcmUgdGhhbiBh
+dmFpbGFibGUgSU9CcyBpbgo+ID4gPiA+IHRoZSBkZXZpY2UuIERvIHlvdSBrbm93IHdoYXQgSSBh
+bSBkb2luZyB3cm9uZz8gU2hvdWxkIEkgY29tbWVudAo+ID4gPiA+IGRlYnVnIGxpbmVzIG9yIHNv
+bWV0aGluZyBsaWtlIHRoYXQ/IEkgYXBvbG9naXplIGlmIHRoZSBxdWVzdGlvbiBpcwo+ID4gPiA+
+IGltbWVkaWF0ZS4gSSBkaWRuJ3QgZmluZCB0aGUgYW5zd2VyIGFuZCBJJ20gbmV3IGluIHRoaXMu
+Cj4gPiA+ID4KPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gVGhhbmtzIHZlcnkgbXVjaCBpbiBhZHZh
+bmNlLgo+ID4gPiA+Cj4gPiA+ID4gQmVzdCByZWdhcmRzLAo+ID4gPiA+Cj4gPiA+ID4KPiA+ID4g
+Pgo+ID4gPiA+IEVsaXNhCj4gPiA+ID4KPiA+ID4gPgo+ID4KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVND
+QGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGlu
+Zm8vb3BlbnJpc2MK
