@@ -2,38 +2,27 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A47C8F7412
-	for <lists+openrisc@lfdr.de>; Mon, 11 Nov 2019 13:37:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1FF02F7413
+	for <lists+openrisc@lfdr.de>; Mon, 11 Nov 2019 13:37:43 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 73EC720774;
+	by mail.librecores.org (Postfix) with ESMTP id F423F20710;
 	Mon, 11 Nov 2019 13:37:42 +0100 (CET)
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
- by mail.librecores.org (Postfix) with ESMTPS id E8D502074E
- for <openrisc@lists.librecores.org>; Fri,  8 Nov 2019 05:53:01 +0100 (CET)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 478SZB0Shjz9s7T;
- Fri,  8 Nov 2019 15:52:50 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
- s=201702; t=1573188777;
- bh=lsTl8lWOKmxCnD0se991UB82l6huuBGMFOozceyJHpc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Aga5bP62YWYX6iNtz585PAG4ScKlPSlTrEjqwE3ki+YzY7ybieoqKfiAYYHN3ZWFB
- dgeiWeIzKbrAc1LjDEbqb+7n6BKo8ZoNAEGb/GpuSMY/qWGblDc3ftTHDFdi/3SYk7
- f1uv5aZrwD6T5U/U9em7j4VZ9CxAvSzmWzmiTf/WhUxI4t1uwco2iMnRw+QceM6uTZ
- tLRh0cdl4StpJ6QyKwe/vbR2oz7U5o4mUFwxyUqRMMEe92kUlQJVrFAdfZZd5xU9JS
- ZYhkfWeXPzcZdut4sV7iiXkFFIh/Y1JyCFSYtdaVfsbRy5iI42riGD6QP401UVoRGe
- p7+WJZ1Mo/MGA==
-Date: Fri, 8 Nov 2019 15:52:48 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20191108155248.0a32a03a@canb.auug.org.au>
-In-Reply-To: <20191108132000.3e7bd5b8@canb.auug.org.au>
-References: <20191029064834.23438-1-hch@lst.de> <20191107204743.GA22863@lst.de>
- <20191108132000.3e7bd5b8@canb.auug.org.au>
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by mail.librecores.org (Postfix) with ESMTPS id A39BB20753
+ for <openrisc@lists.librecores.org>; Fri,  8 Nov 2019 06:14:36 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 6282368BE1; Fri,  8 Nov 2019 06:14:34 +0100 (CET)
+Date: Fri, 8 Nov 2019 06:14:33 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-ID: <20191108051433.GA29611@lst.de>
+References: <20191029064834.23438-1-hch@lst.de>
+ <20191107204743.GA22863@lst.de> <20191108132000.3e7bd5b8@canb.auug.org.au>
+ <20191108155248.0a32a03a@canb.auug.org.au>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191108155248.0a32a03a@canb.auug.org.au>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Mon, 11 Nov 2019 13:37:30 +0100
 Subject: Re: [OpenRISC] generic-iomap tree for linux-next
 X-BeenThere: openrisc@lists.librecores.org
@@ -51,92 +40,30 @@ List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
 Cc: linux-ia64@vger.kernel.org, linux-sh@vger.kernel.org,
  linux-kernel@vger.kernel.org, Guo Ren <guoren@kernel.org>,
  sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
- Vincent Chen <deanbo422@gmail.com>, linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-hexagon@vger.kernel.org, x86@kernel.org,
+ Vincent Chen <deanbo422@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, x86@kernel.org,
  linux-snps-arc@lists.infradead.org, linux-xtensa@linux-xtensa.org,
  Arnd Bergmann <arnd@arndb.de>, linux-m68k@lists.linux-m68k.org,
  openrisc@lists.librecores.org, Greentime Hu <green.hu@gmail.com>,
- linux-mtd@lists.infradead.org, Guan Xuetao <gxt@pku.edu.cn>,
+ nios2-dev@lists.rocketboards.org, Guan Xuetao <gxt@pku.edu.cn>,
  linux-arm-kernel@lists.infradead.org, Michal Simek <monstr@monstr.eu>,
  linux-parisc@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-alpha@vger.kernel.org, nios2-dev@lists.rocketboards.org
-Content-Type: multipart/mixed; boundary="===============0330361138487350863=="
+ linux-alpha@vger.kernel.org, linux-mtd@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============0330361138487350863==
-Content-Type: multipart/signed; boundary="Sig_/tVtmaodFaJa/ooywirx=fo/";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/tVtmaodFaJa/ooywirx=fo/
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christoph,
-
-On Fri, 8 Nov 2019 13:20:00 +1100 Stephen Rothwell <sfr@canb.auug.org.au> w=
-rote:
->
-> On Thu, 7 Nov 2019 21:47:43 +0100 Christoph Hellwig <hch@lst.de> wrote:
-> >
-> > can you add the generic-ioremap tree:
-> >=20
-> >    git://git.infradead.org/users/hch/ioremap.git
-> >=20
-> > to linux-next?  =20
->=20
-> I assume you mean the for-next branch?
-
-With that assumption, added from today.
-
-Thanks for adding your subsystem tree as a participant of linux-next.  As
-you may know, this is not a judgement of your code.  The purpose of
-linux-next is for integration testing and to lower the impact of
-conflicts between subsystems in the next merge window.=20
-
-You will need to ensure that the patches/commits in your tree/series have
-been:
-     * submitted under GPL v2 (or later) and include the Contributor's
-        Signed-off-by,
-     * posted to the relevant mailing list,
-     * reviewed by you (or another maintainer of your subsystem tree),
-     * successfully unit tested, and=20
-     * destined for the current or next Linux merge window.
-
-Basically, this should be just what you would send to Linus (or ask him
-to fetch).  It is allowed to be rebased if you deem it necessary.
-
---=20
-Cheers,
-Stephen Rothwell=20
-sfr@canb.auug.org.au
-
---Sig_/tVtmaodFaJa/ooywirx=fo/
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAl3E9KAACgkQAVBC80lX
-0GzmWwf+Klgi0tTyTa+t0RWIsOgTgCRRshcd2R+zC2TAQiqpOvNWxiNkHSOO6rPt
-AIwk9/iB+0v8JHEaYe+JqqmAtlRJjfMKtLkGBCB8WLQ/Sw+V+BW+2kZfZbMDL47C
-Q2NA/MqqCVxs38kWlJA+gd3xF1FJLjYYuHlhaksjzlHUVGVcCxeXRrd521DYPcwm
-9ZzSoL0488rxdiISFluZ44y3nKSgX3Ye5J4DnymJod7hsctYKZvWL+GxoizD+i6m
-HgzcYw5CxoMeQcS9WgBNCafeABW7i7w3jfCsmBjTNWCuUkE+Pruoct6C6G6Q5LqS
-jgJAqa5QBfJCS5OsMXSaf1cZapFTkQ==
-=R1aO
------END PGP SIGNATURE-----
-
---Sig_/tVtmaodFaJa/ooywirx=fo/--
-
---===============0330361138487350863==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============0330361138487350863==--
+T24gRnJpLCBOb3YgMDgsIDIwMTkgYXQgMDM6NTI6NDhQTSArMTEwMCwgU3RlcGhlbiBSb3Rod2Vs
+bCB3cm90ZToKPiBIaSBDaHJpc3RvcGgsCj4gCj4gT24gRnJpLCA4IE5vdiAyMDE5IDEzOjIwOjAw
+ICsxMTAwIFN0ZXBoZW4gUm90aHdlbGwgPHNmckBjYW5iLmF1dWcub3JnLmF1PiB3cm90ZToKPiA+
+Cj4gPiBPbiBUaHUsIDcgTm92IDIwMTkgMjE6NDc6NDMgKzAxMDAgQ2hyaXN0b3BoIEhlbGx3aWcg
+PGhjaEBsc3QuZGU+IHdyb3RlOgo+ID4gPgo+ID4gPiBjYW4geW91IGFkZCB0aGUgZ2VuZXJpYy1p
+b3JlbWFwIHRyZWU6Cj4gPiA+IAo+ID4gPiAgICBnaXQ6Ly9naXQuaW5mcmFkZWFkLm9yZy91c2Vy
+cy9oY2gvaW9yZW1hcC5naXQKPiA+ID4gCj4gPiA+IHRvIGxpbnV4LW5leHQ/ICAgCj4gPiAKPiA+
+IEkgYXNzdW1lIHlvdSBtZWFuIHRoZSBmb3ItbmV4dCBicmFuY2g/Cj4gCj4gV2l0aCB0aGF0IGFz
+c3VtcHRpb24sIGFkZGVkIGZyb20gdG9kYXkuCgpZZXMsIGFuZCB0aGFua3MhCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlz
+dApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMu
+b3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
