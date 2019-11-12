@@ -2,50 +2,52 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A152101F1F
+	by mail.lfdr.de (Postfix) with ESMTP id D2B86101F20
 	for <lists+openrisc@lfdr.de>; Tue, 19 Nov 2019 10:04:20 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 34BB6207BA;
+	by mail.librecores.org (Postfix) with ESMTP id 65F93207BD;
 	Tue, 19 Nov 2019 10:04:19 +0100 (CET)
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
- [209.85.128.67])
- by mail.librecores.org (Postfix) with ESMTPS id 733E520136
- for <openrisc@lists.librecores.org>; Tue, 12 Nov 2019 03:40:20 +0100 (CET)
-Received: by mail-wm1-f67.google.com with SMTP id b11so1392560wmb.5
- for <openrisc@lists.librecores.org>; Mon, 11 Nov 2019 18:40:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arista.com; s=googlenew;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=hc0bl6ua3Awo0puTEJJtiCFLlsTJGov09J6GyMYDUcw=;
- b=MX42aMTTzAgzmolo19ziCaVvJW01j4llkcsSSsPBgIZf5M/QJqFnu0ykgQ+YU9I1XM
- lWWUfFOOmvWQUbOV/+iKy4yX6WRH0x7F+7sbAobnLPJdwSzb9YWyJ9/pnJvSWZVMB+xV
- UFEneok+5nQrKqWY1H/ryexuorVth0ci9XQccgC0yNGEatwsWoLWkeJcz3zYnXhenkJH
- nhLbJhqGH8CSvC3ekwmNTkFJs9KRa26JVi5KOJ0GN3lmDlPGH14xef5YqFU0Sk8qUi0p
- NtXZ7DYgZXwHf2rN/1LtOFtVEw8aJlkAZJ8tf3acCKNzLndcz00BKo1YrVsWG4zo53JF
- Pi/g==
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
+ by mail.librecores.org (Postfix) with ESMTPS id 3747720132
+ for <openrisc@lists.librecores.org>; Tue, 12 Nov 2019 05:25:51 +0100 (CET)
+Received: by mail-pl1-f196.google.com with SMTP id w8so8832722plq.5
+ for <openrisc@lists.librecores.org>; Mon, 11 Nov 2019 20:25:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=9VefD4i9ErvjrjSu5lBHBfa2VMuQnRlhyfcHWoSsFGA=;
+ b=cdGWTYNC6NHRu+kvA4I6kS1Y2LfiO2jKF0r2reR+0mRqcG8yKudKBCw9I9DOXABIX4
+ /3TUFbNC4J3e6CiNMFB22KOrjhFeNSMw6A4f5zE4eujUVPhwdAy4UE6JiknhjlsRGWe7
+ RTgQRbIczKqjQpk9q9jHQE31BO+69ykoGYVcUuJlUop2q+ad5Zn3tErki59ff20RUtZo
+ yWETgjDNltG315ymhYBMnymIi7dXr1HTD7KD2QIijuj5xF7vcEzw9cliyVtugI35e748
+ tq7YxpziGywkq1lpdx1pl1YBrcMuX71SP1knncXeWdL4sRO4vx39eBLBEYWFTo///pwr
+ NCHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=hc0bl6ua3Awo0puTEJJtiCFLlsTJGov09J6GyMYDUcw=;
- b=ONhsuY/5vAXNIV8YEjYBaIR0ubFLllPPyejefxnxgJgML4yXDyolMtH9RUJ/SJUCBi
- wY8roeZfZsXl1J5siMLd2v+6KPBeERkgbS+0fIdAMHh+CMYPo+D00IRu2G5EJytiHwas
- +1gVh1myjn13WxdogL+ph/CM2cZO0NNUIci5FFb/oBzEO4tmxhmMzIkaShtRz86hy6JA
- ClQwugxurpNAyTqBWvFmS5kLk/UqAdTJ0/EqSV8t63z9MbjdyXps7HcKRqKVYPd0m7f5
- 43LMQf4gbDt7G5Q1RO2m8ZAoazMTckKJ9C3NHftPj/eguuruE24lrZejFjJAomkPM+kB
- TiCQ==
-X-Gm-Message-State: APjAAAXy1Is/NL/ZWic83O28/BY6p1t6skk1VXY8SOwoCD4qdQJV8b/W
- f6wad3dYHl0DmWOjzsTlUAQfcw==
-X-Google-Smtp-Source: APXvYqwGQmDILzErOejMnS6vcYmyu3aXwuweLJ3fDyVGcyV1rhcTRlJUkjSBJvf4yqYURAoU8N6Q/w==
-X-Received: by 2002:a7b:c211:: with SMTP id x17mr1567811wmi.71.1573526420054; 
- Mon, 11 Nov 2019 18:40:20 -0800 (PST)
-Received: from [10.83.36.153] ([217.173.96.166])
- by smtp.gmail.com with ESMTPSA id u26sm1511046wmj.9.2019.11.11.18.40.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2019 18:40:19 -0800 (PST)
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=9VefD4i9ErvjrjSu5lBHBfa2VMuQnRlhyfcHWoSsFGA=;
+ b=pF425R6YNLEJtqrFZgcaKHPCj2JspciVXdXGoJlcJtRyAEGjhOWNd2ayzQzyTo1oit
+ CTgQNIXYsXpxcqirtVnzvXanTUkAuWCmTpjPQLwHWayyDbNcnL8jhncGqaKV/uPg89q+
+ zD5s504rSAVyMZ+/mlFUwDSdHZGRRkcT4OEqzkiIvRZpNCDBtommr/2DJNvz4pUIRJFK
+ bd0XX4Qu0Myy7imLINGo68ka3eaV4+2pDxQvcKl5ryPNA4vl9oF/9oZFYb+W93QGiMoD
+ dZ1VXS2TqZ/zJtG/BFvFkPkIloVHVjF4qcMkVSxh+JS0IUviONa7EbJ5GB7ldOE46Y04
+ sfEg==
+X-Gm-Message-State: APjAAAVqI9Z2yPOTyCUHNNJr/gn/U0mdMYXQOzjYYGjHAKwreYcaN7j4
+ JYauPnOCyE23RT00ZQUCfTk=
+X-Google-Smtp-Source: APXvYqyjkigrHz92j3yARMh7vwLk0eQQU3iBJc8XJ3FFSXhKkmIaB79Wx/YFJE8etx6MkatMc7zyFg==
+X-Received: by 2002:a17:902:246:: with SMTP id
+ 64mr28628529plc.339.1573532749511; 
+ Mon, 11 Nov 2019 20:25:49 -0800 (PST)
+Received: from localhost ([2401:fa00:8f:203:250d:e71d:5a0a:9afe])
+ by smtp.gmail.com with ESMTPSA id 186sm23754823pfb.99.2019.11.11.20.25.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Nov 2019 20:25:48 -0800 (PST)
+Date: Tue, 12 Nov 2019 13:25:46 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: Dmitry Safonov <dima@arista.com>
+Message-ID: <20191112042546.GA119579@google.com>
 References: <20191106030542.868541-1-dima@arista.com>
  <20191106083538.z5nlpuf64cigxigh@pathway.suse.cz>
  <20191108103719.GB175344@google.com>
@@ -53,14 +55,11 @@ References: <20191106030542.868541-1-dima@arista.com>
  <20191111012336.GA85185@google.com>
  <13e72b62-c842-8ed5-5b41-bc1692b28f53@arista.com>
  <20191112021747.GA68506@google.com>
-From: Dmitry Safonov <dima@arista.com>
-Message-ID: <25cb9647-007a-9c18-4784-49c0aef4f54b@arista.com>
-Date: Tue, 12 Nov 2019 02:40:11 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.0
+ <25cb9647-007a-9c18-4784-49c0aef4f54b@arista.com>
 MIME-Version: 1.0
-In-Reply-To: <20191112021747.GA68506@google.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <25cb9647-007a-9c18-4784-49c0aef4f54b@arista.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Tue, 19 Nov 2019 10:04:17 +0100
 Subject: Re: [OpenRISC] [PATCH 00/50] Add log level to show_stack()
 X-BeenThere: openrisc@lists.librecores.org
@@ -75,14 +74,15 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, linux-sh@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>, Ben Segall <bsegall@google.com>,
- Guo Ren <guoren@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Vincent Guittot <vincent.guittot@linaro.org>,
+Cc: Juri Lelli <juri.lelli@redhat.com>,
+ Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>,
+ linux-sh@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+ Ben Segall <bsegall@google.com>, Guo Ren <guoren@kernel.org>,
+ Pavel Machek <pavel@ucw.cz>, Vincent Guittot <vincent.guittot@linaro.org>,
  Paul Burton <paulburton@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
  Mel Gorman <mgorman@suse.de>, Jiri Slaby <jslaby@suse.com>,
  Matt Turner <mattst88@gmail.com>, uclinux-h8-devel@lists.sourceforge.jp,
- Len Brown <len.brown@intel.com>, linux-pm@vger.kernel.org,
+ Petr Mladek <pmladek@suse.com>, linux-pm@vger.kernel.org,
  Heiko Carstens <heiko.carstens@de.ibm.com>, linux-um@lists.infradead.org,
  Thomas Gleixner <tglx@linutronix.de>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
@@ -114,7 +114,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-sh@vger.kernel.org,
  Guan Xuetao <gxt@pku.edu.cn>, linux-parisc@vger.kernel.org,
  linux-alpha@vger.kernel.org, Ley Foon Tan <lftan@altera.com>,
  "David S. Miller" <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
- Petr Mladek <pmladek@suse.com>, Peter Zijlstra <peterz@infradead.org>,
+ Len Brown <len.brown@intel.com>, Peter Zijlstra <peterz@infradead.org>,
  "H. Peter Anvin" <hpa@zytor.com>, sparclinux@vger.kernel.org,
  linux-riscv@lists.infradead.org,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>,
@@ -132,27 +132,29 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGkgU2VyZ2V5LAoKT24gMTEvMTIvMTkgMjoxNyBBTSwgU2VyZ2V5IFNlbm96aGF0c2t5IHdyb3Rl
-Ogo+IE9uICgxOS8xMS8xMSAxOTo0NyksIERtaXRyeSBTYWZvbm92IHdyb3RlOgpbLi5dCj4+IFdo
-YXQgSSdtIGdvaW5nIHRvIGRvIC0gaXMgdG8gZml4IGFsbCBidWlsZCBhbmQgcmVwb3J0ZWQgaXNz
-dWVzLCBJJ2xsCj4+IHNlbmQgdjIgdGhpcyB3ZWVrIGFuZCBmZWVsIGZyZWUgdG8gTkFLIGl0LCBJ
-IHdpbGwgZm9yZ2V0IGFib3V0IHRob3NlCj4+IHBhdGNoZXMgYW5kIHdvbid0IGJlIG9mZmVuZGVk
-Lgo+IAo+IExvdmVseS4KPiBBbmQgLSBubywgSSdtIG5vdCBnb2luZyB0byBOQUsgcGxhdGZvcm0g
-c3BlY2lmaWMgY2hhbmdlcy4gSnVzdCBzbyB5b3Uga25vdy4KPiAKPiAqQWxsKiBJJ20gdGFsa2lu
-ZyBhYm91dCBpcyBhbiBhbHRlcm5hdGl2ZSwgbGVzcyAiZ28gYW5kIHRvdWNoIGEgdG9uIG9mCj4g
-cGxhdGZvcm0gY29kZSIgYXBwcm9hY2guIFRoZSBhcmd1bWVudCAiSSBwYXRjaGVkIHNvIG1hbnkg
-ZmlsZXMgdGhhdCBJJ20KPiBub3QgZXZlbiBnb2luZyB0byBkaXNjdXNzIGFueXRoaW5nIG5vdyIg
-aXMgbm90IHByb2R1Y3RpdmUsIHRvIHNheSB0aGUKPiBsZWFzdC4gSG9wZSB0aGlzIGNsYXJpZmll
-cy4KCkl0IHByb2JhYmx5IHdhcyBhIHdyb25nIGltcHJlc3Npb24gZnJvbSB0aGUgYm90aCBzaWRl
-cy4KTXkgaW1wcmVzc2lvbiB3YXMgIllvdSB0b3VjaCBldmVyeSBhcmNoaXRlY3R1cmUgLSB3ZSB3
-b24ndCBldmVuIGNvbnNpZGVyCnRoYXQiLiBTb3JyeSBmb3IgdGhlIHRoZSB3cm9uZyBpbXByZXNz
-aW9uIGZyb20gbXkgc2lkZSAtIEknbSBvcGVuIGZvcgpkaXNjdXNzaW9uLgoKSW4gbXkgcG9pbnQg
-b2YgdmlldyB0aGUgY29zdCBvZiBvbmUtdGltZSBbbW9zdGx5IGJ1aWxkXSB0ZXN0aW5nIGV2ZXJ5
-CmFyY2hpdGVjdHVyZSBpcyBjaGVhcGVyIHRoYW4gaW50cm9kdWNpbmcgc29tZSBuZXcgc21hcnQg
-Y29kZSB0aGF0IHdpbGwKbGl2ZSBmb3JldmVyLiBUaG91Z2gsIGFnYWluIHlvdSBhbmQgUGV0ciB1
-bmRlcnN0YW5kIG1vcmUgdGhhbiBtZSBpbgpwcmludGsoKSBjb2RlLCBzbyBJJ20gbm90IGFueSBp
-bnNpc3RpbmcuCgpJJ2xsIHJlcGx5IHRvIHlvdXIgc3VnZ2VzdGlvbiB0b21vcnJvdywgaXQncyBh
-IGJpdCBsYXRlIGluIG15IHR6LgoKVGhhbmtzLAogICAgICAgICAgRG1pdHJ5Cl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlz
-dApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMu
-b3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+T24gKDE5LzExLzEyIDAyOjQwKSwgRG1pdHJ5IFNhZm9ub3Ygd3JvdGU6ClsuLl0KPiBJbiBteSBw
+b2ludCBvZiB2aWV3IHRoZSBjb3N0IG9mIG9uZS10aW1lIFttb3N0bHkgYnVpbGRdIHRlc3Rpbmcg
+ZXZlcnkKPiBhcmNoaXRlY3R1cmUgaXMgY2hlYXBlciB0aGFuIGludHJvZHVjaW5nIHNvbWUgbmV3
+IHNtYXJ0IGNvZGUgdGhhdCB3aWxsCj4gbGl2ZSBmb3JldmVyLgoKV2VsbCwgdGhlcmUgbWF5IGJl
+IHRoZSBuZWVkIHRvIHBhc3MgbG9nbGV2ZWwgZGVlcGVyIGR1ZSB0byAiaGV5IF9fc2hvd19zdGFj
+aygpCm9uIHRoYXQgYXJjaCBpbnZva2VzIGJhcigpLCB3aGljaCBpbnZva2VzIGZvbygpIGFuZCBu
+b3cgZm9vKCkgZG9lcyBwcmludGsoKSwKYnV0IHdlIGRvbid0IHNlZSBpdCIuIFRoZSBjb250ZXh0
+IHdoaWNoIGRlY2lkZWQgdG8gYmFja3RhcmFjZXMgZGVjaWRlZAp0byBkbyBzbyBmb3IgYSByZWFz
+b24sIHByb2JhYmx5LCBzbyBJIGd1ZXNzIHdlIGNhbiBsb29rIGF0IGl0IGFzICJhIHNwZWNpYWwK
+ZXJyb3IgcmVwb3J0aW5nIGNvZGUgYmxvY2siLgoKVGhlIHByb3Bvc2VkIHBhdGNoIHNldCBwYXNz
+ZXMgbG9nbGV2ZWwgdmlhIHNsaWdodGx5IHVudXN1YWwgY2hhbm5lbCAtCnZpYSBzcHJpbnRmKCku
+IFdlIHByb2JhYmx5IGNhbiBkbyBpdCwgYnV0IEkgd291bGQgcHJlZmVyIHRvIG1pbmltaXplCnRo
+ZSBudW1iZXIgb2Ygc3VjaCBwcmludGstcyBpbiB0aGUga2VybmVsLiBUaGUgY29kZSBzbmlwcGV0
+IHdoaWNoIEkKcG9zdGVkIGFsc28gZG9lcyBwcmV0dHkgdW51c3VhbCB0aGluZyB3LnIudCBsb2ds
+ZXZlbC4gQm90aCBhcHByb2FjaGVzCmFyZSAibm9uLXN0YW5kYXJkIiBmcm9tIHRoYXQgUE9WLgoK
+PiBJJ2xsIHJlcGx5IHRvIHlvdXIgc3VnZ2VzdGlvbiB0b21vcnJvdywgaXQncyBhIGJpdCBsYXRl
+IGluIG15IHR6LgoKU3VyZS4KClRvIGFueW9uZSB3aG8gd2lsbCBjb21tZW50IG9uIHRoYXQgY29k
+ZSBzbmlwcGV0IC0gdGhpcyBpcyBub3QgYQoibG9vaywgaGVyZSBpcyB3aGF0IHlvdSBuZWVkIHRv
+IGRvIiB0eXBlIG9mIHByb3Bvc2FsLiBKdXN0IGFuCmFsdGVybmF0aXZlIGFwcHJvYWNoIHdpdGgg
+aXRzIHByb3MgYW5kIGNvbnMuCgpXZSBoYWQgc2V2ZXJhbCByZXF1ZXN0cyBvdmVyIHRoZSB5ZWFy
+cyB0byBoYXZlIHNvbWV0aGluZyBsaWtlICJmb3JjaWJseQphbGxvdyBhbGwgdW5kZXJseWluZyBw
+cmludGstcyBmcm9tIGhlcmUgdG8gaGVyZSIgb3IgImZvcmNpYmx5IHN1cHByZXNzCm9yIHBvc3Rw
+b25lIHVuZGVybHlpbmcgcHJpbnRrLXMgZnJvbSBoZXJlIHRvIGhlcmUiLCBldGMuCgoJLXNzCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1h
+aWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxp
+YnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
