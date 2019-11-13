@@ -2,32 +2,29 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C12A101F2B
-	for <lists+openrisc@lfdr.de>; Tue, 19 Nov 2019 10:04:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 583FB101F2C
+	for <lists+openrisc@lfdr.de>; Tue, 19 Nov 2019 10:04:26 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 58E9820617;
-	Tue, 19 Nov 2019 10:04:25 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id 2BEC9205F6;
+	Tue, 19 Nov 2019 10:04:26 +0100 (CET)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 79DE8205F5
- for <openrisc@lists.librecores.org>; Wed, 13 Nov 2019 16:39:33 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id B921D20749
+ for <openrisc@lists.librecores.org>; Wed, 13 Nov 2019 16:41:31 +0100 (CET)
 Received: from gandalf.local.home (cpe-66-24-58-225.stny.res.rr.com
  [66.24.58.225])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 688C62248C;
- Wed, 13 Nov 2019 15:39:24 +0000 (UTC)
-Date: Wed, 13 Nov 2019 10:39:22 -0500
+ by mail.kernel.org (Postfix) with ESMTPSA id 29788224EF;
+ Wed, 13 Nov 2019 15:41:23 +0000 (UTC)
+Date: Wed, 13 Nov 2019 10:41:21 -0500
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-Message-ID: <20191113103922.3dc3e8e9@gandalf.local.home>
-In-Reply-To: <20191112021747.GA68506@google.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Message-ID: <20191113104121.696c9093@gandalf.local.home>
+In-Reply-To: <20191106203440.GH3079@worktop.programming.kicks-ass.net>
 References: <20191106030542.868541-1-dima@arista.com>
- <20191106083538.z5nlpuf64cigxigh@pathway.suse.cz>
- <20191108103719.GB175344@google.com>
- <20191108130447.h3wfgo4efjkto56f@pathway.suse.cz>
- <20191111012336.GA85185@google.com>
- <13e72b62-c842-8ed5-5b41-bc1692b28f53@arista.com>
- <20191112021747.GA68506@google.com>
+ <20191106092039.GT4131@hirez.programming.kicks-ass.net>
+ <10db6fa1-5b17-ebe6-09e0-6335e09e4db8@arista.com>
+ <20191106203440.GH3079@worktop.programming.kicks-ass.net>
 X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 19 Nov 2019 10:04:17 +0100
@@ -83,8 +80,8 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-sh@vger.kernel.org,
  linux-parisc@vger.kernel.org, linux-alpha@vger.kernel.org,
  Ley Foon Tan <lftan@altera.com>, "David S. Miller" <davem@davemloft.net>,
  Rich Felker <dalias@libc.org>, Petr Mladek <pmladek@suse.com>,
- Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
- sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
+ "H. Peter Anvin" <hpa@zytor.com>, sparclinux@vger.kernel.org,
+ linux-riscv@lists.infradead.org,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>,
  Jonas Bonn <jonas@southpole.se>, Richard Weinberger <richard@nod.at>,
  x86@kernel.org, Russell King <linux@armlinux.org.uk>,
@@ -100,19 +97,17 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVHVlLCAxMiBOb3YgMjAxOSAxMToxNzo0NyArMDkwMApTZXJnZXkgU2Vub3poYXRza3kgPHNl
-cmdleS5zZW5vemhhdHNreS53b3JrQGdtYWlsLmNvbT4gd3JvdGU6Cgo+IHZvaWQgc2hvd19zdGFj
-ayhzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRhc2ssIHVuc2lnbmVkIGxvbmcgKnNwLCBpbnQgbG9nX2xl
-dmVsKQo+IHsKPiAJcHJpbnRrX2VtZXJnZW5jeV9lbnRlcihsb2dfbGV2ZWwpOwo+IAlfX3Nob3df
-c3RhY2sodGFzaywgc3ApOwo+IAlwcmludGtfZW1lcmdlbmN5X2V4aXQoKTsKPiB9Cj4gLy8gLSAt
-IC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0g
-LSAvLwo+IAo+IHNob3dfc3RhY2soKSBuZXZlciBzY2hlZHVsZXMsIGRpc2FibGluZyBwcmVlbXB0
-aW9uIGFyb3VuZCBpdCBzaG91bGQKPiBub3QgY2hhbmdlIGFueXRoaW5nLiBTaG91bGQgaXQgYmUg
-aW50ZXJydXB0ZWQsIHdlIHdpbGwgaGFuZGxlIGl0IHZpYQo+IHByZWVtcHQgY291bnQuCgpQbGVh
-c2Ugbm8hIFRoZSB3aG9sZSBwb2ludCBvZiB0aGUgcHJpbnRrIHJld3JpdGUgd2FzIHRvIGFsbG93
-IGZvcgpwcmludGsgdG8gYmUgcHJlZW1wdGlibGUgYW5kIHVzZWQgaW4gbW9yZSBjb250ZXh0cy4g
-VGhlIHNob3dfc3RhY2soKSBjYW4KYmUgYWxsIG92ZXIgdGhlIHBsYWNlIGFuZCBpcyBub3QgYSBm
-YXN0IGZ1bmN0aW9uLiBMZXQncyBub3QgZGlzYWJsZQpwcmVlbXB0aW9uIGZvciBpdC4KCi0tIFN0
-ZXZlCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5S
-SVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xp
-c3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+T24gV2VkLCA2IE5vdiAyMDE5IDIxOjM0OjQwICswMTAwClBldGVyIFppamxzdHJhIDxwZXRlcnpA
+aW5mcmFkZWFkLm9yZz4gd3JvdGU6Cgo+IEkgc3VwcG9zZSBJJ20gc3VycHJpc2VkIHRoZXJlIGFy
+ZSBiYWNrdHJhY2VzIHRoYXQgYXJlIG5vdCBpbXBvcnRhbnQuCj4gRWl0aGVyIGJhZG5lc3MgaGFw
+cGVuZWQgYW5kIGl0IG5lZWRzIHByaW50aW5nLCBvciB0aGUgdXNlciBhc2tlZCBmb3IgaXQKPiBh
+bmQgaXQgbmVlZHMgcHJpbnRpbmcuCgpVbmZvcnR1bmF0ZWx5IHRoYXQgaXMgdGhlIGNhc2UuIEFz
+IG15IHRlc3RzIHdpbGwgZmFpbCBpZiBhIGJhY2t0cmFjZSBpcwpkZXRlY3RlZC4KCj4gCj4gUGVy
+aGFwcyB3ZSBzaG91bGQgYmUgcmVtb3ZpbmcgYmFja3RyYWNlcyBpZiB0aGV5J3JlIG5vdCBpbXBv
+cnRhbnQKPiBpbnN0ZWFkIG9mIGFsbG93aW5nIHRvIHByaW50IHRoZW0gYXMgbG93ZXIgbG9nbGV2
+ZWxzPwoKSSB1c3VhbGx5IGVuZCB1cCByZW1vdmluZyBiYWNrdHJhY2VzIGZvciBteSB0ZXN0cywg
+c28gSSdtIGZvciB0aGlzLgpTcGVjaWZpY2FsbHkgdGhpcyBoYXBwZW5zIGluIHRoZSBkcm0gYW5k
+IGk5MTUgZHJpdmVycyA6LXAKCi0tIFN0ZXZlCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMu
+bGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVu
+cmlzYwo=
