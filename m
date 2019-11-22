@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 37D4F10D430
+	by mail.lfdr.de (Postfix) with ESMTP id 7E4B710D431
 	for <lists+openrisc@lfdr.de>; Fri, 29 Nov 2019 11:33:12 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 0B64420132;
+	by mail.librecores.org (Postfix) with ESMTP id A443020143;
 	Fri, 29 Nov 2019 11:33:11 +0100 (CET)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 45B3D205F6
- for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 07:02:15 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id 41F2020564
+ for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 07:13:41 +0100 (CET)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1222A20714;
- Fri, 22 Nov 2019 06:02:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 13B9D20718;
+ Fri, 22 Nov 2019 06:13:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574402533;
+ s=default; t=1574403219;
  bh=KfUUKl4OJ/iRiB6WP0nLVctzTrRXlSgHQu7Wc1fD4IY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JiICAdxUsXaFIVrmBFiMXWCEgbF0X7vF5JeM4KL2d/Hq8BKCbjWkpwRDmUThmndm1
- 5WckBTFdc2QkhNLC26WqKWR3Y7bhoLrteDefuGqqp6lpjb5thBUVdVuXOUSP8t2Cnp
- 3UQocA48IlvqBUeyiUtGNyHEvKMzHLSx6Kggp0pI=
+ b=qeH+R4ohdNFfMPpWRN+LluCdlARyNunXbdmd+DBfxaw1I6Q4WGogQF/Cg1i0kwWwR
+ qR0W3IvxVcOerrj8HLFdYB0K+NUFXCuZ6BOQtjIWL4j6EA6jIdsJX5x1K5KLLlcH/4
+ EgIdlHNtAwNSPnIGjFqbCDCvDOvNGd0SdeOSANV0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 22 Nov 2019 01:00:39 -0500
-Message-Id: <20191122060129.4239-40-sashal@kernel.org>
+Date: Fri, 22 Nov 2019 01:12:27 -0500
+Message-Id: <20191122061301.4947-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191122060129.4239-1-sashal@kernel.org>
-References: <20191122060129.4239-1-sashal@kernel.org>
+In-Reply-To: <20191122061301.4947-1-sashal@kernel.org>
+References: <20191122061301.4947-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Approved-At: Fri, 29 Nov 2019 11:33:08 +0100
-Subject: [OpenRISC] [PATCH AUTOSEL 4.9 41/91] openrisc: Fix broken paths to
+Subject: [OpenRISC] [PATCH AUTOSEL 4.4 34/68] openrisc: Fix broken paths to
  arch/or32
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
