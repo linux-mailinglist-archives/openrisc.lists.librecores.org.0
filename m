@@ -2,57 +2,27 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id E0466107189
-	for <lists+openrisc@lfdr.de>; Fri, 22 Nov 2019 12:39:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C67FE107382
+	for <lists+openrisc@lfdr.de>; Fri, 22 Nov 2019 14:41:27 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 82D2E20787;
-	Fri, 22 Nov 2019 12:39:52 +0100 (CET)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
- by mail.librecores.org (Postfix) with ESMTPS id 97F6F2074A
- for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 12:39:50 +0100 (CET)
-Received: by mail-pf1-f195.google.com with SMTP id n13so3385593pff.1
- for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 03:39:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YUGJKVrycnJTlGVKAo+rQ9RRZBSMb8QTIRmNqH2bNwI=;
- b=BQQWRgqowYXJKMkQvn45vZTga2rmiDy03er8pX6KXj/45IWh8+gQ32A0SiRVut4Tpn
- smRhcNpZ1rCFmUOYZWRS4LUnkPBcPYS8yYvH0HwE2M9P2f+D0sKZE8KdhdK9fBcu0+Sv
- 9g0BykkVPsFI/txDTfxnbXAKJpNmT+ggjMOuSTgt9eHHGLBg+Xj1cpFmxIaYgr1bsXIs
- qDsDCYEir3HM5CtJC60bhivL1wSvnpFbtfXlEznlS41TDbpjDCa9jloT3Tf/6k3RPlvF
- lQ42SBVbuq+un3Oy116l+5fIwLRwpeBBauWqk+8i5mXSdKSQ7n0SaLa6I8EP5HVKo2eU
- 6pgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YUGJKVrycnJTlGVKAo+rQ9RRZBSMb8QTIRmNqH2bNwI=;
- b=m/Phlx26WHIIuWBhwZU+mWzOaRaJKD8cYWJPtmGnMF1KZaGn8+wyCpORAf9KWMrdwD
- 8uGcETiuL8Cs+jI3TkyqzEukWnDA1WU0zVuaxxhcEyAlQMhQJTu7yqz1sWmBVITnk0qM
- 0WHXCVDEhu3//fpbx6toCPv7hBdOlwJrYniLgceMnlLAy63H2MkMh2WXdIMydmPTNjcT
- oGbwModfPXQSLJvnEb47joSDyoy2FmDdZy/TZrHdZ0XQb1gc2UU7lK6oxybx+kJc54vI
- nxYPN4vDfto7X5KHgZZNidQNaV/3TS2YbfsyDc83BLMzVJVYzo31Fr4Bzo4wtngkMwDU
- J3sQ==
-X-Gm-Message-State: APjAAAXNfqH5IXzEYORHWekSRAouWdb3WyoB0NfEzSzmwAFjVDAnyEp3
- +jglnCjnGCNR+OBoBQMEcos=
-X-Google-Smtp-Source: APXvYqwdNHIlJNS7n1P1nOUqGYy2fQ+PEoU+AxoFvydk8nziOOuPaW79miW0+sSOm6bmSQpCqZAkSQ==
-X-Received: by 2002:a63:190a:: with SMTP id z10mr11025834pgl.153.1574422788779; 
- Fri, 22 Nov 2019 03:39:48 -0800 (PST)
-Received: from localhost (g143.222-224-150.ppp.wakwak.ne.jp. [222.224.150.143])
- by smtp.gmail.com with ESMTPSA id z10sm7432600pfr.139.2019.11.22.03.39.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Nov 2019 03:39:48 -0800 (PST)
-Date: Fri, 22 Nov 2019 20:39:45 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20191122113945.GL24874@lianli.shorne-pla.net>
-References: <20191120133712.12066-1-krzk@kernel.org>
+	by mail.librecores.org (Postfix) with ESMTP id 7C8072077F;
+	Fri, 22 Nov 2019 14:41:27 +0100 (CET)
+Received: from llsa735-a17.servidoresdns.net (llsa735-a17.servidoresdns.net
+ [82.223.190.26])
+ by mail.librecores.org (Postfix) with ESMTPS id E0B292077F
+ for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 14:41:25 +0100 (CET)
+Received: from EW10PR1SI054 (unknown [185.70.174.4])
+ by llsa735-a17.servidoresdns.net (Postfix) with ESMTPA id 47KHdc6rDyz2tCq
+ for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 14:41:24 +0100 (CET)
+From: <ecalvo@2se.es>
+To: "'Openrisc'" <openrisc@lists.librecores.org>
+Date: Fri, 22 Nov 2019 14:41:25 +0100
+Message-ID: <00a201d5a13a$89b42f80$9d1c8e80$@2se.es>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191120133712.12066-1-krzk@kernel.org>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Subject: Re: [OpenRISC] [PATCH] openrisc: Fix Kconfig indentation
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdWhOoia52Limp8uSOmp+dZFEqzr+Q==
+Content-Language: es
+Subject: [OpenRISC] tick timer doubt
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,61 +35,222 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, openrisc@lists.librecores.org,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7620663041349691257=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBOb3YgMjAsIDIwMTkgYXQgMDk6Mzc6MTJQTSArMDgwMCwgS3J6eXN6dG9mIEtvemxv
-d3NraSB3cm90ZToKPiBBZGp1c3QgaW5kZW50YXRpb24gZnJvbSBzcGFjZXMgdG8gdGFiICgrb3B0
-aW9uYWwgdHdvIHNwYWNlcykgYXMgaW4KPiBjb2Rpbmcgc3R5bGUgd2l0aCBjb21tYW5kIGxpa2U6
-Cj4gCSQgc2VkIC1lICdzL14gICAgICAgIC9cdC8nIC1pICovS2NvbmZpZwo+IAo+IFNpZ25lZC1v
-ZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KCkFja2VkLWJ5OiBT
-dGFmZm9yZCBIb3JuZSA8c2hvcm5lQGdtYWlsLmNvbT4KClRoYW5rcywgSSBtdXN0IGhhdmUgZm9y
-Z290IHRvIGhpdCB0aGUgVEFCIGJ1dHRvbiBvbiBhIGZldyBvZiB0aGVzZS4gIEkgd2lsbApxdWV1
-ZSB0aGVzZSB1cCBmb3IgdGhlIG5leHQgcmVsZWFzZSB1bmxlc3MgeW91IGhhdmUgYSBxdWV1ZSB5
-b3Ugd2FudCB0byBtZXJnZQp0aGVtIG9uLgoKLVN0YWZmb3JkCgo+IC0tLQo+ICBhcmNoL29wZW5y
-aXNjL0tjb25maWcgfCAyNiArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hh
-bmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBh
-L2FyY2gvb3BlbnJpc2MvS2NvbmZpZyBiL2FyY2gvb3BlbnJpc2MvS2NvbmZpZwo+IGluZGV4IGJm
-MzI2ZjBlZGQyZi4uMTkyOGUwNjFmZjk2IDEwMDY0NAo+IC0tLSBhL2FyY2gvb3BlbnJpc2MvS2Nv
-bmZpZwo+ICsrKyBiL2FyY2gvb3BlbnJpc2MvS2NvbmZpZwo+IEBAIC0xMyw3ICsxMyw3IEBAIGNv
-bmZpZyBPUEVOUklTQwo+ICAJc2VsZWN0IElSUV9ET01BSU4KPiAgCXNlbGVjdCBIQU5ETEVfRE9N
-QUlOX0lSUQo+ICAJc2VsZWN0IEdQSU9MSUIKPiAtICAgICAgICBzZWxlY3QgSEFWRV9BUkNIX1RS
-QUNFSE9PSwo+ICsJc2VsZWN0IEhBVkVfQVJDSF9UUkFDRUhPT0sKPiAgCXNlbGVjdCBTUEFSU0Vf
-SVJRCj4gIAlzZWxlY3QgR0VORVJJQ19JUlFfQ0hJUAo+ICAJc2VsZWN0IEdFTkVSSUNfSVJRX1BS
-T0JFCj4gQEAgLTUxLDEyICs1MSwxMiBAQCBjb25maWcgTk9fSU9QT1JUX01BUAo+ICAJZGVmX2Jv
-b2wgeQo+ICAKPiAgY29uZmlnIFRSQUNFX0lSUUZMQUdTX1NVUFBPUlQKPiAtICAgICAgICBkZWZf
-Ym9vbCB5Cj4gKwlkZWZfYm9vbCB5Cj4gIAo+ICAjIEZvciBub3csIHVzZSBnZW5lcmljIGNoZWNr
-c3VtIGZ1bmN0aW9ucwo+ICAjVGhlc2UgY2FuIGJlIHJlaW1wbGVtZW50ZWQgaW4gYXNzZW1ibHkg
-bGF0ZXIgaWYgc28gaW5jbGluZWQKPiAgY29uZmlnIEdFTkVSSUNfQ1NVTQo+IC0gICAgICAgIGRl
-Zl9ib29sIHkKPiArCWRlZl9ib29sIHkKPiAgCj4gIGNvbmZpZyBTVEFDS1RSQUNFX1NVUFBPUlQK
-PiAgCWRlZl9ib29sIHkKPiBAQCAtODksOCArODksOCBAQCBjb25maWcgRENBQ0hFX1dSSVRFVEhS
-T1VHSAo+ICAJICBJZiB1bnN1cmUgc2F5IE4gaGVyZQo+ICAKPiAgY29uZmlnIE9QRU5SSVNDX0JV
-SUxUSU5fRFRCCj4gLSAgICAgICAgc3RyaW5nICJCdWlsdGluIERUQiIKPiAtICAgICAgICBkZWZh
-dWx0ICIiCj4gKwlzdHJpbmcgIkJ1aWx0aW4gRFRCIgo+ICsJZGVmYXVsdCAiIgo+ICAKPiAgbWVu
-dSAiQ2xhc3MgSUkgSW5zdHJ1Y3Rpb25zIgo+ICAKPiBAQCAtMTYxLDEzICsxNjEsMTMgQEAgY29u
-ZmlnIE9QRU5SSVNDX0hBVkVfU0hBRE9XX0dQUlMKPiAgCSAgT24gYSB1bmljb3JlIHN5c3RlbSBp
-dCdzIHNhZmUgdG8gc2F5IE4gaGVyZSBpZiB5b3UgYXJlIHVuc3VyZS4KPiAgCj4gIGNvbmZpZyBD
-TURMSU5FCj4gLSAgICAgICAgc3RyaW5nICJEZWZhdWx0IGtlcm5lbCBjb21tYW5kIHN0cmluZyIK
-PiAtICAgICAgICBkZWZhdWx0ICIiCj4gLSAgICAgICAgaGVscAo+IC0gICAgICAgICAgT24gc29t
-ZSBhcmNoaXRlY3R1cmVzIHRoZXJlIGlzIGN1cnJlbnRseSBubyB3YXkgZm9yIHRoZSBib290IGxv
-YWRlcgo+IC0gICAgICAgICAgdG8gcGFzcyBhcmd1bWVudHMgdG8gdGhlIGtlcm5lbC4gRm9yIHRo
-ZXNlIGFyY2hpdGVjdHVyZXMsIHlvdSBzaG91bGQKPiAtICAgICAgICAgIHN1cHBseSBzb21lIGNv
-bW1hbmQtbGluZSBvcHRpb25zIGF0IGJ1aWxkIHRpbWUgYnkgZW50ZXJpbmcgdGhlbQo+IC0gICAg
-ICAgICAgaGVyZS4KPiArCXN0cmluZyAiRGVmYXVsdCBrZXJuZWwgY29tbWFuZCBzdHJpbmciCj4g
-KwlkZWZhdWx0ICIiCj4gKwloZWxwCj4gKwkgIE9uIHNvbWUgYXJjaGl0ZWN0dXJlcyB0aGVyZSBp
-cyBjdXJyZW50bHkgbm8gd2F5IGZvciB0aGUgYm9vdCBsb2FkZXIKPiArCSAgdG8gcGFzcyBhcmd1
-bWVudHMgdG8gdGhlIGtlcm5lbC4gRm9yIHRoZXNlIGFyY2hpdGVjdHVyZXMsIHlvdSBzaG91bGQK
-PiArCSAgc3VwcGx5IHNvbWUgY29tbWFuZC1saW5lIG9wdGlvbnMgYXQgYnVpbGQgdGltZSBieSBl
-bnRlcmluZyB0aGVtCj4gKwkgIGhlcmUuCj4gIAo+ICBtZW51ICJEZWJ1Z2dpbmcgb3B0aW9ucyIK
-PiAgCj4gQEAgLTE4NSw3ICsxODUsNyBAQCBjb25maWcgT1BFTlJJU0NfRVNSX0VYQ0VQVElPTl9C
-VUdfQ0hFQ0sKPiAgCWRlZmF1bHQgbgo+ICAJaGVscAo+ICAJICBUaGlzIG9wdGlvbiBlbmFibGVz
-IHNvbWUgY2hlY2tzIHRoYXQgbWlnaHQgZXhwb3NlIHNvbWUgcHJvYmxlbXMKPiAtICAgICAgICAg
-IGluIGtlcm5lbC4KPiArCSAgaW4ga2VybmVsLgo+ICAKPiAgCSAgU2F5IE4gaWYgeW91IGFyZSB1
-bnN1cmUuCj4gIAo+IC0tIAo+IDIuMTcuMQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMu
-bGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVu
-cmlzYwo=
+This is a multipart message in MIME format.
+
+--===============7620663041349691257==
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_00A3_01D5A142.EB7D7980"
+Content-Language: es
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_00A3_01D5A142.EB7D7980
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+Hi!!
+
+ 
+
+I have some doubts about the tick timer. Could someone help me? I explain
+them below
+
+ 
+
+*	I don't understand really well the example of or1k timer control
+that is in that file: For example, how is ticks variable updated? 
+*	If it was updated, I understand that if frequency is 100Hz, a new
+tick takes place each 0.01 seg and with 100 ticks, a second has elapsed.
+However, If I compile and run this code and, and I open with gtkwave the
+generated vcd, I don't understand why the value of TTMR register is 1000000.
+Is The value of TTMR register fixed by software using or1k_timer_set_period
+function? Is it measured in Hz?
+
+ 
+
+Thanks in advance
+
+
+------=_NextPart_000_00A3_01D5A142.EB7D7980
+Content-Type: text/html;
+	charset="US-ASCII"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+span.EstiloCorreo17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:505021750;
+	mso-list-type:hybrid;
+	mso-list-template-ids:956083296 -1448449528 201981955 201981957 =
+201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DES =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal>Hi!!<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal><span =
+lang=3DEN-GB>I have some doubts about the tick timer. Could someone help =
+me? I explain them below<o:p></o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><ul style=3D'margin-top:0cm' =
+type=3Ddisc><li class=3DMsoListParagraph =
+style=3D'margin-left:0cm;mso-list:l0 level1 lfo1'><span lang=3DEN-GB>I =
+don&#8217;t understand really well the example of or1k timer control =
+that is in that file: For example, how is ticks variable updated? =
+<o:p></o:p></span></li><li class=3DMsoListParagraph =
+style=3D'margin-left:0cm;mso-list:l0 level1 lfo1'><span lang=3DEN-GB>If =
+it was updated, I understand that if frequency is 100Hz, a new tick =
+takes place each 0.01 seg and with 100 ticks, a second has elapsed. =
+However, If I compile and run this code and, and I open with gtkwave the =
+generated vcd, I don&#8217;t understand why the value of TTMR register =
+is 1000000. Is The value of TTMR register fixed by software using =
+or1k_timer_set_period function? Is it measured in =
+Hz?<o:p></o:p></span></li></ul><p class=3DMsoNormal><span =
+lang=3DEN-GB><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span =
+lang=3DEN-GB>Thanks in advance<o:p></o:p></span></p></div></body></html>
+------=_NextPart_000_00A3_01D5A142.EB7D7980--
+
+
+--===============7620663041349691257==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============7620663041349691257==--
+
