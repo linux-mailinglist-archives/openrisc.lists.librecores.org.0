@@ -2,33 +2,57 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 97536108ECD
-	for <lists+openrisc@lfdr.de>; Mon, 25 Nov 2019 14:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B7A6910965D
+	for <lists+openrisc@lfdr.de>; Tue, 26 Nov 2019 00:12:21 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 2F0162079F;
-	Mon, 25 Nov 2019 14:24:20 +0100 (CET)
-Received: from llsc497-a17.servidoresdns.net (llsc497-a17.servidoresdns.net
- [82.223.190.48])
- by mail.librecores.org (Postfix) with ESMTPS id 3173E20103
- for <openrisc@lists.librecores.org>; Mon, 25 Nov 2019 14:24:19 +0100 (CET)
-Received: from EW10PR1SI054 (unknown [185.70.174.4])
- by llsc497-a17.servidoresdns.net (Postfix) with ESMTPA id 47M76T4nLvz2t98;
- Mon, 25 Nov 2019 14:24:17 +0100 (CET)
-From: <ecalvo@2se.es>
-To: "'Stafford Horne'" <shorne@gmail.com>
+	by mail.librecores.org (Postfix) with ESMTP id 55DEB2079C;
+	Tue, 26 Nov 2019 00:12:21 +0100 (CET)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
+ [209.85.217.47])
+ by mail.librecores.org (Postfix) with ESMTPS id 51D5320106
+ for <openrisc@lists.librecores.org>; Tue, 26 Nov 2019 00:12:19 +0100 (CET)
+Received: by mail-vs1-f47.google.com with SMTP id m5so6725668vsj.3
+ for <openrisc@lists.librecores.org>; Mon, 25 Nov 2019 15:12:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=wfZykQ+Ntk+JNkapA3vvM77C4e4pY5onZE03bZhIygE=;
+ b=vh8pGtW6HeVnvtw1IWu9HFe0F+G9K8VJ7s1TPFziRTrDY30VoUPryb7ORk/LAiPxnt
+ HLjUFUBDmAe+VffulxAPhmJaI1vIt+Cg3w12XEOG9fgkqOvv7QPjBGWhDaE2kLoayrhG
+ n+DgUaA0z284mcoKPhTJeIdGJOOMN4SGul/e0A2wk+iiHzAm5/6T+SGuKU5K3qg2aP2o
+ 4yDDVrZJ+Eq/uKo+95MThAmQLvOUyx7J9NREHv5oa/JiSicX+8RMZgRtbprDnuorz+x/
+ JgxkXlDaFz9i/Nn5o+OzP6eKnZ7hvbPHAonDMt+x2QofkrG0HySCWUTbVGPyKJoKRRlm
+ Rnqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wfZykQ+Ntk+JNkapA3vvM77C4e4pY5onZE03bZhIygE=;
+ b=S+8tYb8Ajx6epe2gP0lcKBE5OVEvVBX1mGqLMJL81gLjg8H20H3/oNDQyuPVOW9sGv
+ JP5yjALZvRFeYqQtR7qhV3RFQvnZRXDnupv25HLsacrxRo2DojbLvCUkua0oIxZcgIiy
+ GjvZVyN3AxTMeSQ/3m+c9cK/xHWr5moHQUA9f/eaTk0zTtMltTsgZH/OWmkpHaYhth1Q
+ tifOPiyaTD5DxCMl0hf93HLysYQ3apBOgJ1eOA1h57u4g0LJHH4K0lw/H6pzzTzInGST
+ UWS9IW39tF1ympBNaVZyBk7r/Z26EuWmdpCjrxOFk24GuC9tCA50kuZKLaxVGqbyfbzL
+ jnVw==
+X-Gm-Message-State: APjAAAWEFPjNp6kA0HWDogPqu6UnDylVMDnDIlY3A8kqzH6rwwElRRbi
+ 9G9FpkfKNQhJKBlVVEYWGlsienpoH+BrB2wp1vMVEA==
+X-Google-Smtp-Source: APXvYqzo0XWbjhWIKfnTIKUq9nrkd0a1PMETy+Ejp+ili+q7yYMEAWPvMOOi+vwAhc9rbBCUMGoDVSPLVXC3Emi1OXA=
+X-Received: by 2002:a05:6102:1d2:: with SMTP id
+ s18mr21336177vsq.197.1574723537503; 
+ Mon, 25 Nov 2019 15:12:17 -0800 (PST)
+MIME-Version: 1.0
 References: <00a201d5a13a$89b42f80$9d1c8e80$@2se.es>
  <CAAfxs75A61B8H8iBS1ibXo2SGg=fY9jBjsNAucSFASBVP=rp+g@mail.gmail.com>
  <00b501d5a369$2b89ea90$829dbfb0$@2se.es>
  <CAAfxs75RqOV_0BVB_-5uyFjJrK2fFqU-_-rtQq65yy4EN0KgTQ@mail.gmail.com>
  <00e601d5a378$5e11b740$1a3525c0$@2se.es>
  <CAAfxs76L3GOo1T3twudD_ZG+bZy8O5339EMfndG1jH-iT1B6Xw@mail.gmail.com>
-In-Reply-To: <CAAfxs76L3GOo1T3twudD_ZG+bZy8O5339EMfndG1jH-iT1B6Xw@mail.gmail.com>
-Date: Mon, 25 Nov 2019 14:24:19 +0100
-Message-ID: <011001d5a393$a5461050$efd230f0$@2se.es>
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKtbKg5s03zrnGo6CAnu1DEvIetTQImu6BkAbG7p1YCYsRqBwG+n468AhA0HCmlm/g5UA==
-Content-Language: es
+ <011001d5a393$a5461050$efd230f0$@2se.es>
+In-Reply-To: <011001d5a393$a5461050$efd230f0$@2se.es>
+From: Stafford Horne <shorne@gmail.com>
+Date: Tue, 26 Nov 2019 08:12:05 +0900
+Message-ID: <CAAfxs75JBS32O3072=D=-9FxHJfKuCamAARw+ubBj_kKofXpEg@mail.gmail.com>
+To: ecalvo@2se.es
+Content-Type: multipart/mixed; boundary="0000000000001345f8059833e5cb"
 Subject: Re: [OpenRISC] tick timer doubt
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -42,1136 +66,726 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: 'Openrisc' <openrisc@lists.librecores.org>
-Content-Type: multipart/mixed; boundary="===============4348967249864656005=="
+Cc: Openrisc <openrisc@lists.librecores.org>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-This is a multipart message in MIME format.
+--0000000000001345f8059833e5cb
+Content-Type: multipart/alternative; boundary="0000000000001345f5059833e5c9"
 
---===============4348967249864656005==
-Content-Type: multipart/related;
-	boundary="----=_NextPart_000_0111_01D5A39C.070F3340"
-Content-Language: es
-
-This is a multipart message in MIME format.
-
-------=_NextPart_000_0111_01D5A39C.070F3340
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_001_0112_01D5A39C.070F3340"
-
-
-------=_NextPart_001_0112_01D5A39C.070F3340
-Content-Type: text/plain;
-	charset="utf-8"
+--0000000000001345f5059833e5c9
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-
-Thanks for the example. It is really useful for me.=20
-
-=20
-
-1.	Okkk to the update of ticks variable.=20
-2.	When you disable timer interrupts, I have read (also here: =
-https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf76086=
-7d2f9d04f0c101c4c4975b0616) that timer counting doesn=E2=80=99t stop. =
-But when I execute it, with a loop in that position, I don=E2=80=99t get =
-difference in ticks before and later=E2=80=A6.
-
-=20
-
-About the question with ork_timer_init and ttmr=E2=80=A6
-
-1.	What does =E2=80=9CTTMR has 0x2710, it should be 100,000,000 / =
-10,000, which is 10,000 0x2710.=E2=80=9D Mean? (red part). when I open =
-gtkwave ttmr register does not have the same value.If I set with =
-ork_timer_init function 100, ttmr counts up to 1000000, whereas if I set =
-1000, it counts up to 100000.=20
-2.	In page 333 of the architecture specification, Figure 15,1, I =
-understand that you fix a value that compares with the output of a =
-counter. If they are equals, the output is the interruption. But I =
-understand that this is dependent on the clock frequency of RISC. How I =
-can fix from software with  or1k_timer_init the frequency? I =
-don=E2=80=99t know if I am explaining myself=E2=80=A6.
-
-=20
-
-Thanks again
-
-=20
-
-De: Stafford Horne <shorne@gmail.com>=20
-Enviado el: lunes, 25 de noviembre de 2019 14:04
-Para: ecalvo@2se.es
-CC: Openrisc <openrisc@lists.librecores.org>
-Asunto: Re: [OpenRISC] tick timer doubt
-
-=20
 
 Hello,
 
-=20
-
-Yes ttmr will be updated with the value set in or1k_timer_init().  Seem =
-my test below it seems to work fine on mor1kx and marocchino for me.
-
-=20
-
-I tested this out and it seems to work fine:
-
-=20
-
-#include <or1k-support.h>
-#include <stdio.h>
-
-#define TICK_HZ 10000
-
-int main() {
-   uint32_t ticks =3D 0;
-   uint32_t timerstate;
-   or1k_timer_init(TICK_HZ);
-   or1k_timer_enable();
-
-   printf("starting timer\n");
-
-   while (1) {
-     while (ticks =3D=3D or1k_timer_get_ticks()) {=20
-       /* Wait for timer to change */=20
-     }
-
-     timerstate =3D or1k_timer_disable();
-     /* disable timer interrupts, do something atomic */
-     or1k_timer_restore(timerstate);
-
-     printf("Timer is %ld\n", ticks);
-
-     if (ticks =3D=3D TICK_HZ) {
-       printf("A second elapsed\n");
-       or1k_timer_reset_ticks();
-       ticks =3D 0;
-    } else {
-       ticks =3D or1k_timer_get_ticks();
-    }
-  }
-}
-
-=20
-
-Note, I added the line to update the ticks value, to get the ticks to =
-actually update and I updated some comments.
-
-=20
-
-If I run this program it seems to count correctly.  If I simulate it =
-with 100Hz it takes too long to actually count.
-
-=20
-
-elf-loader: /home/shorne/work/openrisc/a.out was loaded
-Loading       21481 words
-                   0 : Illegal Wishbone B3 cycle type (xxx)
-starting timer
-Timer is 0
-Timer is 1
-
-...
-
-=20
-
-See the VCD with 10_000 hz.
-
-=20
-
-=20
-
-Enabling the Timer
-
-TTMR has 0x2710, it should be 100,000,000 / 10,000, which is 10,000 =
-0x2710.
-
-=20
-
-The TTCR starts to count up after enabled.
-
-=20
-
-
-
-=20
-
-=20
-
-Timer Ticks 1 time
-
-=20
-
-We can see the interrupt bit of TTMR goes high and the timer exception =
-is raised and handled with the TTMR matches the TTCR.=20
-
-
-
-=20
-
-=20
-
-On Mon, Nov 25, 2019 at 7:09 PM <ecalvo@2se.es <mailto:ecalvo@2se.es> > =
-wrote:
-
-Okk, but, independently of the ticks variable updating,  ttmr =
-register=E2=80=A6 should it have the value that has been configured with =
- =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga432f3=
-4016f4f559c29b0be4fbc87e623> or1k_timer_init?
-
-=20
-
-=20
-
-De: Stafford Horne <shorne@gmail.com <mailto:shorne@gmail.com> >=20
-Enviado el: lunes, 25 de noviembre de 2019 10:22
-Para: ecalvo@2se.es <mailto:ecalvo@2se.es>=20
-CC: Openrisc <openrisc@lists.librecores.org =
-<mailto:openrisc@lists.librecores.org> >
-Asunto: Re: [OpenRISC] tick timer doubt
-
-=20
-
-Good point,
-
-=20
-
-I think it's missing a line to update the ticks variable.
-
-=20
-
-I terms of ttmr I am not sure if there is anything won't there.  I'll =
-try to run it and fix it when I get a chance.
-
-=20
-
-On Mon, Nov 25, 2019, 5:20 PM < <mailto:ecalvo@2se.es> ecalvo@2se.es> =
-wrote:
-
-Hello,=20
-
-=20
-
-=20
-
-Yeah, I think that I have understood what you have sent me in the =
-screenshot.=20
-
-=20
-
-The example that I am referring is this one:=20
-
-=20
-
-Example for using the default mode:
-
-int main() {
-
-uint32_t ticks =3D 0;
-
-uint32_t timerstate;
-
- =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga432f3=
-4016f4f559c29b0be4fbc87e623> or1k_timer_init(100);
-
- =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga36913=
-8d63850f2a4dfe216315c31f3d4> or1k_timer_enable();
-
-while (1) {
-
-while (ticks =3D=3D  =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga2baa1=
-8c5153c793b7d2a85c6e224cea0> or1k_timer_get_ticks()) { }
-
-timerstate =3D  =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gab4047=
-3a360aa82273575cdbc4381ac93> or1k_timer_disable();
-
-// do something atomar
-
- =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga0e392=
-edcf73b9cf1c0279471ae59d241> or1k_timer_restore(timerstate);
-
-if (ticks =3D=3D 100) {
-
-printf("A second elapsed\n");
-
- =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga456bc=
-40cdfbbbdfd62c936c065457cc2> or1k_timer_reset_ticks();
-
-ticks =3D 0;
-
-}
-
-}
-
-}
-
-It is in the file and also here:  =
-<https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf7608=
-67d2f9d04f0c101c4c4975b0616> =
-https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf76086=
+Can you send a picture or output showing ttmr counting?   It should not
+count ttcr counts.
+
+Some points.
+
+1. The function of or1k_timer_init is to set up ttmr counter mask bits.
+The default board selected by newlib or1ksim has a frequency of
+100,000,000.  You can change that with -mboard=3D... See:
+https://gcc.gnu.org/onlinedocs/gcc-9.2.0/gcc/OpenRISC-Options.html
+
+2. The mask value placed in ttmr will be board-frequency divided by
+requested-frequency.
+
+3. The or1k_timer_enable() call will enable timer interrupts updating the
+ttmr register again.
+
+4. An interrupt handler is setup to be called at that frequency and update
+an internal ticks variable every time it's called.
+
+5. The internal ticks variable can be read with or1k_timer_get_ticks().
+That value will change at the frequency set in step 1.
+
+
+Counting does not stop when interrupts are disabled.  This allows to
+maintain stable timer event frequency.
+
+On Mon, Nov 25, 2019, 10:24 PM <ecalvo@2se.es> wrote:
+
+> Thanks for the example. It is really useful for me.
+>
+>
+>
+>    1. Okkk to the update of ticks variable.
+>    2. When you disable timer interrupts, I have read (also here:
+>    https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf76=
+0867d2f9d04f0c101c4c4975b0616)
+>    that timer counting doesn=E2=80=99t stop. But when I execute it, with =
+a loop in
+>    that position, I don=E2=80=99t get difference in ticks before and late=
+r=E2=80=A6.
+>
+>
+>
+> About the question with ork_timer_init and ttmr=E2=80=A6
+>
+>    1. What does =E2=80=9CTTMR has 0x2710, it should be 100,000,000 / 10,0=
+00,
+>    which is 10,000 0x2710.=E2=80=9D Mean? (red part). when I open gtkwave=
+ ttmr
+>    register does not have the same value.If I set with ork_timer_init fun=
+ction
+>    100, ttmr counts up to 1000000, whereas if I set 1000, it counts up to
+>    100000.
+>    2. In page 333 of the architecture specification, Figure 15,1, I
+>    understand that you fix a value that compares with the output of a cou=
+nter.
+>    If they are equals, the output is the interruption. But I understand t=
+hat
+>    this is dependent on the clock frequency of RISC. How I can fix from
+>    software with  or1k_timer_init the frequency? I don=E2=80=99t know if =
+I am
+>    explaining myself=E2=80=A6.
+>
+>
+>
+> Thanks again
+>
+>
+>
+> *De:* Stafford Horne <shorne@gmail.com>
+> *Enviado el:* lunes, 25 de noviembre de 2019 14:04
+> *Para:* ecalvo@2se.es
+> *CC:* Openrisc <openrisc@lists.librecores.org>
+> *Asunto:* Re: [OpenRISC] tick timer doubt
+>
+>
+>
+> Hello,
+>
+>
+>
+> Yes ttmr will be updated with the value set in or1k_timer_init().  Seem m=
+y
+> test below it seems to work fine on mor1kx and marocchino for me.
+>
+>
+>
+> I tested this out and it seems to work fine:
+>
+>
+>
+> #include <or1k-support.h>
+> #include <stdio.h>
+>
+> #define TICK_HZ 10000
+>
+> int main() {
+>    uint32_t ticks =3D 0;
+>    uint32_t timerstate;
+>    or1k_timer_init(TICK_HZ);
+>    or1k_timer_enable();
+>
+>    printf("starting timer\n");
+>
+>    while (1) {
+>      while (ticks =3D=3D or1k_timer_get_ticks()) {
+>        /* Wait for timer to change */
+>      }
+>
+>      timerstate =3D or1k_timer_disable();
+>      /* disable timer interrupts, do something atomic */
+>      or1k_timer_restore(timerstate);
+>
+>      printf("Timer is %ld\n", ticks);
+>
+>      if (ticks =3D=3D TICK_HZ) {
+>        printf("A second elapsed\n");
+>        or1k_timer_reset_ticks();
+>        ticks =3D 0;
+>     } else {
+>        ticks =3D or1k_timer_get_ticks();
+>     }
+>   }
+> }
+>
+>
+>
+> Note, I added the line to update the ticks value, to get the ticks to
+> actually update and I updated some comments.
+>
+>
+>
+> If I run this program it seems to count correctly.  If I simulate it with
+> 100Hz it takes too long to actually count.
+>
+>
+>
+> elf-loader: /home/shorne/work/openrisc/a.out was loaded
+> Loading       21481 words
+>                    0 : Illegal Wishbone B3 cycle type (xxx)
+> starting timer
+> Timer is 0
+> Timer is 1
+>
+> ...
+>
+>
+>
+> See the VCD with 10_000 hz.
+>
+>
+>
+>
+>
+> *Enabling the Timer*
+>
+> TTMR has 0x2710, it should be 100,000,000 / 10,000, which is 10,000 0x271=
+0.
+>
+>
+>
+> The TTCR starts to count up after enabled.
+>
+>
+>
+> [image: Screenshot from 2019-11-25 21-42-36.png]
+>
+>
+>
+>
+>
+> *Timer Ticks 1 time*
+>
+>
+>
+> We can see the interrupt bit of TTMR goes high and the timer exception is
+> raised and handled with the TTMR matches the TTCR.
+>
+> [image: Screenshot from 2019-11-25 21-45-56.png]
+>
+>
+>
+>
+>
+> On Mon, Nov 25, 2019 at 7:09 PM <ecalvo@2se.es> wrote:
+>
+> Okk, but, independently of the ticks variable updating,  ttmr register=E2=
+=80=A6
+> should it have the value that has been configured with or1k_timer_init
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga432f3=
+4016f4f559c29b0be4fbc87e623>
+> ?
+>
+>
+>
+>
+>
+> *De:* Stafford Horne <shorne@gmail.com>
+> *Enviado el:* lunes, 25 de noviembre de 2019 10:22
+> *Para:* ecalvo@2se.es
+> *CC:* Openrisc <openrisc@lists.librecores.org>
+> *Asunto:* Re: [OpenRISC] tick timer doubt
+>
+>
+>
+> Good point,
+>
+>
+>
+> I think it's missing a line to update the ticks variable.
+>
+>
+>
+> I terms of ttmr I am not sure if there is anything won't there.  I'll try
+> to run it and fix it when I get a chance.
+>
+>
+>
+> On Mon, Nov 25, 2019, 5:20 PM <ecalvo@2se.es> wrote:
+>
+> Hello,
+>
+>
+>
+>
+>
+> Yeah, I think that I have understood what you have sent me in the
+> screenshot.
+>
+>
+>
+> The example that I am referring is this one:
+>
+>
+>
+> Example for using the default mode:
+>
+> int main() {
+>
+> uint32_t ticks =3D 0;
+>
+> uint32_t timerstate;
+>
+> or1k_timer_init
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga432f3=
+4016f4f559c29b0be4fbc87e623>
+> (100);
+>
+> or1k_timer_enable
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga36913=
+8d63850f2a4dfe216315c31f3d4>
+> ();
+>
+> while (1) {
+>
+> while (ticks =3D=3D or1k_timer_get_ticks
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga2baa1=
+8c5153c793b7d2a85c6e224cea0>())
+> { }
+>
+> timerstate =3D or1k_timer_disable
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gab4047=
+3a360aa82273575cdbc4381ac93>
+> ();
+>
+> // do something atomar
+>
+> or1k_timer_restore
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga0e392=
+edcf73b9cf1c0279471ae59d241>
+> (timerstate);
+>
+> if (ticks =3D=3D 100) {
+>
+> printf("A second elapsed\n");
+>
+> or1k_timer_reset_ticks
+> <https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga456bc=
+40cdfbbbdfd62c936c065457cc2>
+> ();
+>
+> ticks =3D 0;
+>
+> }
+>
+> }
+>
+> }
+>
+> It is in the file and also here:
+> https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf76086=
 7d2f9d04f0c101c4c4975b0616
+>
+>
+>
+> Elisa
+>
+>
+>
+> *De:* Stafford Horne <shorne@gmail.com>
+> *Enviado el:* domingo, 24 de noviembre de 2019 1:05
+> *Para:* ecalvo@2se.es
+> *CC:* Openrisc <openrisc@lists.librecores.org>
+> *Asunto:* Re: [OpenRISC] tick timer doubt
+>
+>
+>
+> Hello,
+>
+>
+>
+> Which example are you referring to?  Have you been able to read the
+> architecture specification and understand section 15 on tick timer
+> facility?  There ttmr is explained, the value 10000000 I think indicates =
+a
+> pending timer interrupt.
+>
+>
+>
+> See the attached screenshot.
+>
+>
+>
+> -stafford
+>
+>
+>
+> On Fri, Nov 22, 2019, 10:41 PM <ecalvo@2se.es> wrote:
+>
+> Hi!!
+>
+>
+>
+> I have some doubts about the tick timer. Could someone help me? I explain
+> them below
+>
+>
+>
+>    - I don=E2=80=99t understand really well the example of or1k timer con=
+trol
+>    that is in that file: For example, how is ticks variable updated?
+>    - If it was updated, I understand that if frequency is 100Hz, a new
+>    tick takes place each 0.01 seg and with 100 ticks, a second has elapse=
+d.
+>    However, If I compile and run this code and, and I open with gtkwave t=
+he
+>    generated vcd, I don=E2=80=99t understand why the value of TTMR regist=
+er is
+>    1000000. Is The value of TTMR register fixed by software using
+>    or1k_timer_set_period function? Is it measured in Hz?
+>
+>
+>
+> Thanks in advance
+>
+> _______________________________________________
+> OpenRISC mailing list
+> OpenRISC@lists.librecores.org
+> https://lists.librecores.org/listinfo/openrisc
+>
+>
 
-=20
-
-Elisa
-
-=20
-
-De: Stafford Horne <shorne@gmail.com <mailto:shorne@gmail.com> >=20
-Enviado el: domingo, 24 de noviembre de 2019 1:05
-Para: ecalvo@2se.es <mailto:ecalvo@2se.es>=20
-CC: Openrisc <openrisc@lists.librecores.org =
-<mailto:openrisc@lists.librecores.org> >
-Asunto: Re: [OpenRISC] tick timer doubt
-
-=20
-
-Hello,
-
-=20
-
-Which example are you referring to?  Have you been able to read the =
-architecture specification and understand section 15 on tick timer =
-facility?  There ttmr is explained, the value 10000000 I think indicates =
-a pending timer interrupt.
-
-=20
-
-See the attached screenshot.
-
-=20
-
--stafford
-
-=20
-
-On Fri, Nov 22, 2019, 10:41 PM < <mailto:ecalvo@2se.es> ecalvo@2se.es> =
-wrote:
-
-Hi!!
-
-=20
-
-I have some doubts about the tick timer. Could someone help me? I =
-explain them below
-
-=20
-
-*	I don=E2=80=99t understand really well the example of or1k timer =
-control that is in that file: For example, how is ticks variable =
-updated?=20
-*	If it was updated, I understand that if frequency is 100Hz, a new tick =
-takes place each 0.01 seg and with 100 ticks, a second has elapsed. =
-However, If I compile and run this code and, and I open with gtkwave the =
-generated vcd, I don=E2=80=99t understand why the value of TTMR register =
-is 1000000. Is The value of TTMR register fixed by software using =
-or1k_timer_set_period function? Is it measured in Hz?
-
-=20
-
-Thanks in advance
-
-_______________________________________________
-OpenRISC mailing list
- <mailto:OpenRISC@lists.librecores.org> OpenRISC@lists.librecores.org
- <https://lists.librecores.org/listinfo/openrisc> =
-https://lists.librecores.org/listinfo/openrisc
-
-
-------=_NextPart_001_0112_01D5A39C.070F3340
-Content-Type: text/html;
-	charset="utf-8"
+--0000000000001345f5059833e5c9
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta =
-name=3DGenerator content=3D"Microsoft Word 15 (filtered medium)"><!--[if =
-!mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Roboto;
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.gmail-m4876078856871374827m-8809720454035437317m-5271582089663214313mso=
-listparagraph, =
-li.gmail-m4876078856871374827m-8809720454035437317m-5271582089663214313ms=
-olistparagraph, =
-div.gmail-m4876078856871374827m-8809720454035437317m-5271582089663214313m=
-solistparagraph
-	=
-{mso-style-name:gmail-m_4876078856871374827m-8809720454035437317m-5271582=
-089663214313msolistparagraph;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EstiloCorreo19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:212817138;
-	mso-list-template-ids:667845030;}
-@list l0:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:36.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:72.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:108.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:144.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:180.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:216.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:252.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:288.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:324.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1
-	{mso-list-id:1031495826;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-548514334 201981967 201981977 201981979 =
-201981967 201981977 201981979 201981967 201981977 201981979;}
-@list l1:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l1:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2
-	{mso-list-id:1596553930;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-614434634 1651262920 201981977 201981979 =
-201981967 201981977 201981979 201981967 201981977 201981979;}
-@list l2:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	mso-ascii-font-family:Calibri;
-	mso-fareast-font-family:Calibri;
-	mso-hansi-font-family:Calibri;
-	mso-bidi-font-family:"Times New Roman";}
-@list l2:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l2:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l3
-	{mso-list-id:1764836671;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-14367728 1384831068 201981955 201981957 =
-201981953 201981955 201981957 201981953 201981955 201981957;}
-@list l3:level1
-	{mso-level-start-at:2;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;}
-@list l3:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:"Courier New";}
-@list l3:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:Wingdings;}
-@list l3:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:Symbol;}
-@list l3:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:"Courier New";}
-@list l3:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:Wingdings;}
-@list l3:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:Symbol;}
-@list l3:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:"Courier New";}
-@list l3:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:=EF=82=A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DES link=3Dblue =
-vlink=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><span =
-lang=3DEN-GB style=3D'mso-fareast-language:EN-US'>Thanks for the =
-example. It is really useful for me. <o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><ol =
-style=3D'margin-top:0cm' start=3D1 type=3D1><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l1 level1 lfo2'><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>Okkk to the update of ticks =
-variable. <o:p></o:p></span></li><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l1 level1 lfo2'><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>When you disable timer interrupts, =
-I have read (also here: <a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-gaf760867d2f9d04f0c101c4c4975b0616">https://www.openrisc.io/newlib/docs/h=
-tml/group__or1k__timer.html#gaf760867d2f9d04f0c101c4c4975b0616</a>) that =
-timer counting doesn=E2=80=99t stop. But when I execute it, with a loop =
-in that position, I don=E2=80=99t get difference in ticks before and =
-later=E2=80=A6.<o:p></o:p></span></li></ol><p class=3DMsoNormal =
-style=3D'margin-left:18.0pt'><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>About the question with =
-ork_timer_init and ttmr=E2=80=A6<o:p></o:p></span></p><ol =
-style=3D'margin-top:0cm' start=3D1 type=3D1><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l2 level1 lfo4'><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>What does =E2=80=9C</span><span =
-lang=3DEN-GB>TTMR has 0x2710, <span style=3D'color:red'>it should be =
-100,000,000 / 10,000</span>, which is 10,000 0x2710.</span><span =
-lang=3DEN-GB style=3D'mso-fareast-language:EN-US'>=E2=80=9D Mean? (red =
-part). when I open gtkwave ttmr register does not have the same value.If =
-I set with ork_timer_init function 100, ttmr counts up to 1000000, =
-whereas if I set 1000, it counts up to 100000. =
-<o:p></o:p></span></li><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l2 level1 lfo4'><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>In page 333 of the architecture =
-specification, Figure 15,1, I understand that you fix a value that =
-compares with the output of a counter. If they are equals, the output is =
-the interruption. But I understand that this is dependent on the clock =
-frequency of RISC. How I can fix from software with =C2=A0</span><span =
-lang=3DEN-GB>or1k_timer_init the frequency? I don=E2=80=99t know if I am =
-explaining myself=E2=80=A6.</span><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p></o:p></span></li></ol><p =
-class=3DMsoListParagraph><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'>Thanks =
-again<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-GB =
-style=3D'mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><b>De:</b> Stafford Horne &lt;shorne@gmail.com&gt; =
-<br><b>Enviado el:</b> lunes, 25 de noviembre de 2019 =
-14:04<br><b>Para:</b> ecalvo@2se.es<br><b>CC:</b> Openrisc =
-&lt;openrisc@lists.librecores.org&gt;<br><b>Asunto:</b> Re: [OpenRISC] =
-tick timer doubt<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><div><div><div><div><div><div=
-><p class=3DMsoNormal>Hello,<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal>Yes ttmr will be updated with the value set in =
-or1k_timer_init().&nbsp; Seem my test below it seems to work fine on =
-mor1kx and marocchino for me.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p class=3DMsoNormal>I =
-tested this out and it seems to work fine:<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div =
-style=3D'margin-left:30.0pt'><p class=3DMsoNormal><span =
-style=3D'font-family:"Courier New"'>#include =
-&lt;or1k-support.h&gt;<br>#include &lt;stdio.h&gt;<br><br>#define =
-TICK_HZ 10000<br><br>int main() {<br>&nbsp; &nbsp;uint32_t ticks =3D =
-0;<br>&nbsp; &nbsp;uint32_t timerstate;<br>&nbsp; =
-&nbsp;or1k_timer_init(TICK_HZ);<br>&nbsp; =
-&nbsp;or1k_timer_enable();<br><br>&nbsp; &nbsp;<span =
-style=3D'color:black;background:#FFF2CC'>printf(&quot;starting =
-timer\n&quot;);</span><br><br>&nbsp; &nbsp;while (1) {<br>&nbsp; &nbsp; =
-&nbsp;while (ticks =3D=3D or1k_timer_get_ticks()) { <br>&nbsp; &nbsp; =
-&nbsp; &nbsp;<span style=3D'color:black;background:#FFF2CC'>/* Wait for =
-timer to change */ </span><br>&nbsp; &nbsp; &nbsp;}<br><br>&nbsp; &nbsp; =
-&nbsp;timerstate =3D or1k_timer_disable();<br>&nbsp; &nbsp; &nbsp;<span =
-style=3D'color:black;background:#FFF2CC'>/* disable timer interrupts, do =
-something atomic */</span><br>&nbsp; &nbsp; =
-&nbsp;or1k_timer_restore(timerstate);<br><br>&nbsp; &nbsp; &nbsp;<span =
-style=3D'color:black;background:#FFF2CC'>printf(&quot;Timer is =
-%ld\n&quot;, ticks);</span><br><br>&nbsp; &nbsp; &nbsp;if (ticks =3D=3D =
-TICK_HZ) {<br>&nbsp; &nbsp; &nbsp; &nbsp;printf(&quot;A second =
-elapsed\n&quot;);<br>&nbsp; &nbsp; &nbsp; =
-&nbsp;or1k_timer_reset_ticks();<br>&nbsp; &nbsp; &nbsp; &nbsp;ticks =3D =
-0;<br>&nbsp; &nbsp; } else {<br>&nbsp; &nbsp; &nbsp; &nbsp;<span =
-style=3D'color:black;background:#FFF2CC'>ticks =3D =
-or1k_timer_get_ticks();</span><br>&nbsp; &nbsp; }<br>&nbsp; =
-}<br>}</span><o:p></o:p></p></div><div style=3D'margin-left:30.0pt'><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><p class=3DMsoNormal>Note, =
-I added the line to update the ticks value, to get the ticks to actually =
-update and I updated some comments.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal>If I run this program it seems to count =
-correctly.&nbsp; If I simulate it with 100Hz it takes too long to =
-actually count.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div =
-style=3D'margin-left:30.0pt'><p class=3DMsoNormal><span =
-style=3D'font-family:"Courier New"'>elf-loader: =
-/home/shorne/work/openrisc/a.out was loaded<br>Loading &nbsp; &nbsp; =
-&nbsp; 21481 words<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;0 : Illegal Wishbone B3 cycle type (xxx)<br>starting =
-timer<br>Timer is 0<br>Timer is 1</span><o:p></o:p></p></div><div =
-style=3D'margin-left:30.0pt'><p class=3DMsoNormal><span =
-style=3D'font-family:"Courier =
-New"'>...</span><o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal>See the VCD with 10_000 =
-hz.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal><b>Enabling the =
-Timer</b><o:p></o:p></p></div><div><div><p class=3DMsoNormal>TTMR has =
-0x2710, it should be 100,000,000 / 10,000, which is 10,000 =
-0x2710.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal>The TTCR starts to count up after =
-enabled.<o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal><img border=3D0 width=3D1000 height=3D400 =
-style=3D'width:10.4166in;height:4.1666in' id=3D"_x0000_i1025" =
-src=3D"cid:image001.png@01D5A39A.3843B4B0" alt=3D"Screenshot from =
-2019-11-25 21-42-36.png"><o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal><b>Timer Ticks 1 time</b><o:p></o:p></p></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
-class=3DMsoNormal>We can see the interrupt bit of TTMR goes high and the =
-timer exception is raised and handled with the TTMR matches the TTCR. =
-<o:p></o:p></p></div><div><div><p class=3DMsoNormal><img border=3D0 =
-width=3D1000 height=3D400 style=3D'width:10.4166in;height:4.1666in' =
-id=3D"_x0000_i1026" src=3D"cid:image002.png@01D5A39A.3843B4B0" =
-alt=3D"Screenshot from 2019-11-25 =
-21-45-56.png"><o:p></o:p></p></div></div><div><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></div></div></div></div></di=
-v></div><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><div><p =
-class=3DMsoNormal>On Mon, Nov 25, 2019 at 7:09 PM &lt;<a =
-href=3D"mailto:ecalvo@2se.es">ecalvo@2se.es</a>&gt; =
-wrote:<o:p></o:p></p></div><blockquote =
-style=3D'border:none;border-left:solid #CCCCCC 1.0pt;padding:0cm 0cm 0cm =
-6.0pt;margin-left:4.8pt;margin-right:0cm'><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Okk, but, independently of the ticks variable =
-updating,&nbsp; ttmr register=E2=80=A6 should it have the value that has =
-been configured with </span><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga432f34016f4f559c29b0be4fbc87e623" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_init</span></a><span =
-lang=3DEN-GB>?</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b>De:</b> =
-Stafford Horne &lt;<a href=3D"mailto:shorne@gmail.com" =
-target=3D"_blank">shorne@gmail.com</a>&gt; <br><b>Enviado el:</b> lunes, =
-25 de noviembre de 2019 10:22<br><b>Para:</b> <a =
-href=3D"mailto:ecalvo@2se.es" =
-target=3D"_blank">ecalvo@2se.es</a><br><b>CC:</b> Openrisc &lt;<a =
-href=3D"mailto:openrisc@lists.librecores.org" =
-target=3D"_blank">openrisc@lists.librecores.org</a>&gt;<br><b>Asunto:</b>=
- Re: [OpenRISC] tick timer doubt<o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>&nbsp;<o:p><=
-/o:p></p><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Good point,</span><o:p></o:p></p></div><div><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p></div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>I think it's missing a line to update the ticks =
-variable.</span><o:p></o:p></p><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>I terms of ttmr I am not sure if there is anything won't =
-there.&nbsp; I'll try to run it and fix it when I get a =
-chance.</span><o:p></o:p></p></div></div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>On Mon, Nov 25, 2019, 5:20 PM &lt;</span><a =
-href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:</span><o:p></o:p></p></div><blockquote =
-style=3D'border:none;border-left:solid windowtext 1.0pt;padding:0cm 0cm =
-0cm =
-6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-bottom:5=
-.0pt;border-color:currentcolor currentcolor currentcolor =
-rgb(204,204,204)'><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Hello, </span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Yeah, I think that I have understood what you have sent me =
-in the screenshot. </span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>The example that I am referring is this one: =
-</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;line-height:1=
-6.5pt'><span lang=3DEN-GB =
-style=3D'font-size:10.5pt;font-family:Roboto;color:black'>Example for =
-using the default mode:</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#604020'>int</span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> main() =
-{</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>uint32_t ticks =3D 0;</span><o:p></o:p></p><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>uint32_t timerstate;</span><o:p></o:p></p><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span =
-style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga432f34016f4f559c29b0be4fbc87e623" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_init</span></a></span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>(100);</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span =
-style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga369138d63850f2a4dfe216315c31f3d4" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_enable</span></a></span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>();</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#E08000'>while</span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> (1) =
-{</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#E08000'>while</span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> (ticks =
-=3D=3D </span><span style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga2baa18c5153c793b7d2a85c6e224cea0" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_get_ticks</span></a></span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>()) { }</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>timerstate =3D </span><span style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-gab40473a360aa82273575cdbc4381ac93" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_disable</span></a></span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>();</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:maroon'>// do =
-something atomar</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span =
-style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga0e392edcf73b9cf1c0279471ae59d241" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_restore</span></a></span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>(timerstate);</span><o:p></o:p></p><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#E08000'>if</span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'> (ticks =
-=3D=3D 100) {</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>printf(</span><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#002080'>&quot;A second elapsed\n&quot;</span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>);</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span =
-style=3D'color:black'><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-ga456bc40cdfbbbdfd62c936c065457cc2" target=3D"_blank"><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:#4665A2'>or1k_timer_reset_ticks</span></a></span><span =
-lang=3DEN-GB style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>();</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>ticks =
-=3D 0;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>}</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>}</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;margin-right:6.0pt;mso-margin-bottom-alt=
-:auto;margin-left:1.5pt;background:#FBFCFD;background-attachment:scroll;b=
-ackground-position-x:0%;background-position-y:0%'><span lang=3DEN-GB =
-style=3D'font-size:10.0pt;font-family:"Courier =
-New";color:black'>}</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>It is in the file and also here: </span><a =
-href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#=
-gaf760867d2f9d04f0c101c4c4975b0616" target=3D"_blank"><span =
-lang=3DEN-GB>https://www.openrisc.io/newlib/docs/html/group__or1k__timer.=
-html#gaf760867d2f9d04f0c101c4c4975b0616</span></a><o:p></o:p></p><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>Elisa<o:p></=
-o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>&nbsp;<o:p><=
-/o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b>De:</b> =
-Stafford Horne &lt;<a href=3D"mailto:shorne@gmail.com" =
-target=3D"_blank">shorne@gmail.com</a>&gt; <br><b>Enviado el:</b> =
-domingo, 24 de noviembre de 2019 1:05<br><b>Para:</b> <a =
-href=3D"mailto:ecalvo@2se.es" =
-target=3D"_blank">ecalvo@2se.es</a><br><b>CC:</b> Openrisc &lt;<a =
-href=3D"mailto:openrisc@lists.librecores.org" =
-target=3D"_blank">openrisc@lists.librecores.org</a>&gt;<br><b>Asunto:</b>=
- Re: [OpenRISC] tick timer doubt<o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>&nbsp;<o:p><=
-/o:p></p><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Hello,</span><o:p></o:p></p><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Which example are you referring to?&nbsp; Have you been =
-able to read the architecture specification and understand section 15 on =
-tick timer facility?&nbsp; There ttmr is explained, the value 10000000 I =
-think indicates a pending timer =
-interrupt.</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>See the attached =
-screenshot.</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p></div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>-stafford</span><o:p></o:p></p></div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>On Fri, Nov 22, 2019, 10:41 PM &lt;</span><a =
-href=3D"mailto:ecalvo@2se.es" target=3D"_blank"><span =
-lang=3DEN-GB>ecalvo@2se.es</span></a><span lang=3DEN-GB>&gt; =
-wrote:</span><o:p></o:p></p></div><blockquote =
-style=3D'border:none;border-left:solid windowtext 1.0pt;padding:0cm 0cm =
-0cm =
-6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-bottom:5=
-.0pt;border-color:currentcolor currentcolor currentcolor =
-rgb(204,204,204)'><div><div><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Hi!!</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>I have some doubts about the tick timer. Could someone help =
-me? I explain them below</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><ul type=3Ddisc><li =
-class=3Dgmail-m4876078856871374827m-8809720454035437317m-5271582089663214=
-313msolistparagraph style=3D'mso-list:l0 level1 lfo1'><span =
-lang=3DEN-GB>I don=E2=80=99t understand really well the example of or1k =
-timer control that is in that file: For example, how is ticks variable =
-updated? </span><o:p></o:p></li><li =
-class=3Dgmail-m4876078856871374827m-8809720454035437317m-5271582089663214=
-313msolistparagraph style=3D'mso-list:l0 level1 lfo1'><span =
-lang=3DEN-GB>If it was updated, I understand that if frequency is 100Hz, =
-a new tick takes place each 0.01 seg and with 100 ticks, a second has =
-elapsed. However, If I compile and run this code and, and I open with =
-gtkwave the generated vcd, I don=E2=80=99t understand why the value of =
-TTMR register is 1000000. Is The value of TTMR register fixed by =
-software using or1k_timer_set_period function? Is it measured in =
-Hz?</span><o:p></o:p></li></ul><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>&nbsp;</span><o:p></o:p></p><p class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>Thanks in advance</span><o:p></o:p></p></div></div><p =
-class=3DMsoNormal =
-style=3D'mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span =
-lang=3DEN-GB>_______________________________________________<br>OpenRISC =
-mailing list<br></span><a href=3D"mailto:OpenRISC@lists.librecores.org" =
-target=3D"_blank"><span =
-lang=3DEN-GB>OpenRISC@lists.librecores.org</span></a><span =
-lang=3DEN-GB><br></span><a =
-href=3D"https://lists.librecores.org/listinfo/openrisc" =
-target=3D"_blank"><span =
-lang=3DEN-GB>https://lists.librecores.org/listinfo/openrisc</span></a><o:=
-p></o:p></p></blockquote></div></div></div></div></blockquote></div></div=
-></div></blockquote></div></div></body></html>
-------=_NextPart_001_0112_01D5A39C.070F3340--
+<div dir=3D"auto">Hello,<div dir=3D"auto"><br></div><div dir=3D"auto">Can y=
+ou send a picture or output showing ttmr counting?=C2=A0 =C2=A0It should no=
+t count ttcr counts.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Som=
+e points.</div><div dir=3D"auto"><br></div><div dir=3D"auto">1. The functio=
+n of=C2=A0<span style=3D"font-family:&quot;courier new&quot;">or1k_timer_in=
+it</span>=C2=A0is to set up ttmr counter mask bits.=C2=A0 The default board=
+ selected by newlib or1ksim has a frequency of 100,000,000.=C2=A0 You can c=
+hange that with -mboard=3D... See:=C2=A0<a href=3D"https://gcc.gnu.org/onli=
+nedocs/gcc-9.2.0/gcc/OpenRISC-Options.html">https://gcc.gnu.org/onlinedocs/=
+gcc-9.2.0/gcc/OpenRISC-Options.html</a></div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">2. The mask value placed in ttmr will be board-frequency di=
+vided by requested-frequency.</div><div dir=3D"auto"><br></div><div dir=3D"=
+auto">3. The=C2=A0<span style=3D"font-family:&quot;courier new&quot;">or1k_=
+timer_enable()</span>=C2=A0call will enable timer interrupts updating the t=
+tmr register again.</div><div dir=3D"auto"><br></div><div dir=3D"auto">4. A=
+n interrupt handler is setup to be called at that frequency and update an i=
+nternal ticks variable every time it&#39;s called.</div><div dir=3D"auto"><=
+br></div><div dir=3D"auto">5. The internal ticks variable can be read with=
+=C2=A0<span style=3D"font-family:&quot;courier new&quot;">or1k_timer_get_ti=
+cks()</span>.=C2=A0 That value will change at the frequency set in step 1.<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"au=
+to">Counting does not stop when interrupts are disabled.=C2=A0 This allows =
+to maintain stable timer event frequency.</div><br><div class=3D"gmail_quot=
+e" dir=3D"auto"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 25, 2019,=
+ 10:24 PM  &lt;<a href=3D"mailto:ecalvo@2se.es" target=3D"_blank" rel=3D"no=
+referrer">ecalvo@2se.es</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
+ex"><div lang=3D"ES" link=3D"blue" vlink=3D"purple"><div><p class=3D"MsoNor=
+mal"><span lang=3D"EN-GB">Thanks for the example. It is really useful for m=
+e. <u></u><u></u></span></p><p class=3D"MsoNormal"><span lang=3D"EN-GB"><u>=
+</u>=C2=A0<u></u></span></p><ol style=3D"margin-top:0cm" start=3D"1" type=
+=3D"1"><li style=3D"margin-left:0cm"><span lang=3D"EN-GB">Okkk to the updat=
+e of ticks variable. <u></u><u></u></span></li><li style=3D"margin-left:0cm=
+"><span lang=3D"EN-GB">When you disable timer interrupts, I have read (also=
+ here: <a href=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__tim=
+er.html#gaf760867d2f9d04f0c101c4c4975b0616" rel=3D"noreferrer noreferrer" t=
+arget=3D"_blank">https://www.openrisc.io/newlib/docs/html/group__or1k__time=
+r.html#gaf760867d2f9d04f0c101c4c4975b0616</a>) that timer counting doesn=E2=
+=80=99t stop. But when I execute it, with a loop in that position, I don=E2=
+=80=99t get difference in ticks before and later=E2=80=A6.<u></u><u></u></s=
+pan></li></ol><p class=3D"MsoNormal" style=3D"margin-left:18.0pt"><span lan=
+g=3D"EN-GB"><u></u>=C2=A0<u></u></span></p><p class=3D"MsoNormal"><span lan=
+g=3D"EN-GB">About the question with ork_timer_init and ttmr=E2=80=A6<u></u>=
+<u></u></span></p><ol style=3D"margin-top:0cm" start=3D"1" type=3D"1"><li s=
+tyle=3D"margin-left:0cm"><span lang=3D"EN-GB">What does =E2=80=9C</span><sp=
+an lang=3D"EN-GB">TTMR has 0x2710, <span style=3D"color:red">it should be 1=
+00,000,000 / 10,000</span>, which is 10,000 0x2710.</span><span lang=3D"EN-=
+GB">=E2=80=9D Mean? (red part). when I open gtkwave ttmr register does not =
+have the same value.If I set with ork_timer_init function 100, ttmr counts =
+up to 1000000, whereas if I set 1000, it counts up to 100000. <u></u><u></u=
+></span></li><li style=3D"margin-left:0cm"><span lang=3D"EN-GB">In page 333=
+ of the architecture specification, Figure 15,1, I understand that you fix =
+a value that compares with the output of a counter. If they are equals, the=
+ output is the interruption. But I understand that this is dependent on the=
+ clock frequency of RISC. How I can fix from software with =C2=A0</span><sp=
+an lang=3D"EN-GB">or1k_timer_init the frequency? I don=E2=80=99t know if I =
+am explaining myself=E2=80=A6.</span><span lang=3D"EN-GB"><u></u><u></u></s=
+pan></li></ol><p><span lang=3D"EN-GB"><u></u>=C2=A0<u></u></span></p><p cla=
+ss=3D"MsoNormal"><span lang=3D"EN-GB">Thanks again<u></u><u></u></span></p>=
+<p class=3D"MsoNormal"><span lang=3D"EN-GB"><u></u>=C2=A0<u></u></span></p>=
+<p class=3D"MsoNormal"><b>De:</b> Stafford Horne &lt;<a href=3D"mailto:shor=
+ne@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blank">shorne@gmail.=
+com</a>&gt; <br><b>Enviado el:</b> lunes, 25 de noviembre de 2019 14:04<br>=
+<b>Para:</b> <a href=3D"mailto:ecalvo@2se.es" rel=3D"noreferrer noreferrer"=
+ target=3D"_blank">ecalvo@2se.es</a><br><b>CC:</b> Openrisc &lt;<a href=3D"=
+mailto:openrisc@lists.librecores.org" rel=3D"noreferrer noreferrer" target=
+=3D"_blank">openrisc@lists.librecores.org</a>&gt;<br><b>Asunto:</b> Re: [Op=
+enRISC] tick timer doubt<u></u><u></u></p><p class=3D"MsoNormal"><u></u>=C2=
+=A0<u></u></p><div><div><div><div><div><div><div><p class=3D"MsoNormal">Hel=
+lo,<u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u>=
+</p></div><div><p class=3D"MsoNormal">Yes ttmr will be updated with the val=
+ue set in or1k_timer_init().=C2=A0 Seem my test below it seems to work fine=
+ on mor1kx and marocchino for me.<u></u><u></u></p></div><div><p class=3D"M=
+soNormal"><u></u>=C2=A0<u></u></p></div><div><p class=3D"MsoNormal">I teste=
+d this out and it seems to work fine:<u></u><u></u></p></div><div><p class=
+=3D"MsoNormal"><u></u>=C2=A0<u></u></p></div><div style=3D"margin-left:30.0=
+pt"><p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quo=
+t;">#include &lt;or1k-support.h&gt;<br>#include &lt;stdio.h&gt;<br><br>#def=
+ine TICK_HZ 10000<br><br>int main() {<br>=C2=A0 =C2=A0uint32_t ticks =3D 0;=
+<br>=C2=A0 =C2=A0uint32_t timerstate;<br>=C2=A0 =C2=A0or1k_timer_init(TICK_=
+HZ);<br>=C2=A0 =C2=A0or1k_timer_enable();<br><br>=C2=A0 =C2=A0<span style=
+=3D"color:black;background:#fff2cc">printf(&quot;starting timer\n&quot;);</=
+span><br><br>=C2=A0 =C2=A0while (1) {<br>=C2=A0 =C2=A0 =C2=A0while (ticks =
+=3D=3D or1k_timer_get_ticks()) { <br>=C2=A0 =C2=A0 =C2=A0 =C2=A0<span style=
+=3D"color:black;background:#fff2cc">/* Wait for timer to change */ </span><=
+br>=C2=A0 =C2=A0 =C2=A0}<br><br>=C2=A0 =C2=A0 =C2=A0timerstate =3D or1k_tim=
+er_disable();<br>=C2=A0 =C2=A0 =C2=A0<span style=3D"color:black;background:=
+#fff2cc">/* disable timer interrupts, do something atomic */</span><br>=C2=
+=A0 =C2=A0 =C2=A0or1k_timer_restore(timerstate);<br><br>=C2=A0 =C2=A0 =C2=
+=A0<span style=3D"color:black;background:#fff2cc">printf(&quot;Timer is %ld=
+\n&quot;, ticks);</span><br><br>=C2=A0 =C2=A0 =C2=A0if (ticks =3D=3D TICK_H=
+Z) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0printf(&quot;A second elapsed\n&quot;);<=
+br>=C2=A0 =C2=A0 =C2=A0 =C2=A0or1k_timer_reset_ticks();<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0ticks =3D 0;<br>=C2=A0 =C2=A0 } else {<br>=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0<span style=3D"color:black;background:#fff2cc">ticks =3D or1k_timer_=
+get_ticks();</span><br>=C2=A0 =C2=A0 }<br>=C2=A0 }<br>}</span><u></u><u></u=
+></p></div><div style=3D"margin-left:30.0pt"><p class=3D"MsoNormal"><u></u>=
+=C2=A0<u></u></p></div><p class=3D"MsoNormal">Note, I added the line to upd=
+ate the ticks value, to get the ticks to actually update and I updated some=
+ comments.<u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u>=C2=A0=
+<u></u></p></div><div><p class=3D"MsoNormal">If I run this program it seems=
+ to count correctly.=C2=A0 If I simulate it with 100Hz it takes too long to=
+ actually count.<u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u>=
+=C2=A0<u></u></p></div><div style=3D"margin-left:30.0pt"><p class=3D"MsoNor=
+mal"><span style=3D"font-family:&quot;Courier New&quot;">elf-loader: /home/=
+shorne/work/openrisc/a.out was loaded<br>Loading =C2=A0 =C2=A0 =C2=A0 21481=
+ words<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A00 : Illegal Wishbone B3 cycle type (xxx)<br>starting timer<br>Timer i=
+s 0<br>Timer is 1</span><u></u><u></u></p></div><div style=3D"margin-left:3=
+0.0pt"><p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&=
+quot;">...</span><u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u=
+>=C2=A0<u></u></p></div><div><p class=3D"MsoNormal">See the VCD with 10_000=
+ hz.<u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u=
+></p></div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p></div><div><=
+p class=3D"MsoNormal"><b>Enabling the Timer</b><u></u><u></u></p></div><div=
+><div><p class=3D"MsoNormal">TTMR has 0x2710, it should be 100,000,000 / 10=
+,000, which is 10,000 0x2710.<u></u><u></u></p></div><div><p class=3D"MsoNo=
+rmal"><u></u>=C2=A0<u></u></p></div><div><p class=3D"MsoNormal">The TTCR st=
+arts to count up after enabled.<u></u><u></u></p></div><div><p class=3D"Mso=
+Normal"><u></u>=C2=A0<u></u></p></div><div><p class=3D"MsoNormal"><img bord=
+er=3D"0" width=3D"1000" height=3D"400" style=3D"width:10.4166in;height:4.16=
+66in" id=3D"m_-6919991207399146644m_-3039341802722035348_x0000_i1025" src=
+=3D"cid:image001.png@01D5A39A.3843B4B0" alt=3D"Screenshot from 2019-11-25 2=
+1-42-36.png"><u></u><u></u></p></div><div><p class=3D"MsoNormal"><u></u>=C2=
+=A0<u></u></p></div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p></d=
+iv><div><p class=3D"MsoNormal"><b>Timer Ticks 1 time</b><u></u><u></u></p><=
+/div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p></div><div><p clas=
+s=3D"MsoNormal">We can see the interrupt bit of TTMR goes high and the time=
+r exception is raised and handled with the TTMR matches the TTCR. <u></u><u=
+></u></p></div><div><div><p class=3D"MsoNormal"><img border=3D"0" width=3D"=
+1000" height=3D"400" style=3D"width:10.4166in;height:4.1666in" id=3D"m_-691=
+9991207399146644m_-3039341802722035348_x0000_i1026" src=3D"cid:image002.png=
+@01D5A39A.3843B4B0" alt=3D"Screenshot from 2019-11-25 21-45-56.png"><u></u>=
+<u></u></p></div></div><div><p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>=
+</div></div></div></div></div></div></div><p class=3D"MsoNormal"><u></u>=C2=
+=A0<u></u></p><div><div><p class=3D"MsoNormal">On Mon, Nov 25, 2019 at 7:09=
+ PM &lt;<a href=3D"mailto:ecalvo@2se.es" rel=3D"noreferrer noreferrer" targ=
+et=3D"_blank">ecalvo@2se.es</a>&gt; wrote:<u></u><u></u></p></div><blockquo=
+te style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0cm 0cm 0cm=
+ 6.0pt;margin-left:4.8pt;margin-right:0cm"><div><div><p class=3D"MsoNormal"=
+><span lang=3D"EN-GB">Okk, but, independently of the ticks variable updatin=
+g,=C2=A0 ttmr register=E2=80=A6 should it have the value that has been conf=
+igured with </span><a href=3D"https://www.openrisc.io/newlib/docs/html/grou=
+p__or1k__timer.html#ga432f34016f4f559c29b0be4fbc87e623" rel=3D"noreferrer n=
+oreferrer" target=3D"_blank"><span lang=3D"EN-GB" style=3D"font-size:10.0pt=
+;font-family:&quot;Courier New&quot;;color:#4665a2">or1k_timer_init</span><=
+/a><span lang=3D"EN-GB">?</span><u></u><u></u></p><p class=3D"MsoNormal"><s=
+pan lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p><p class=3D"MsoNormal"><s=
+pan lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p><p class=3D"MsoNormal"><b=
+>De:</b> Stafford Horne &lt;<a href=3D"mailto:shorne@gmail.com" rel=3D"nore=
+ferrer noreferrer" target=3D"_blank">shorne@gmail.com</a>&gt; <br><b>Enviad=
+o el:</b> lunes, 25 de noviembre de 2019 10:22<br><b>Para:</b> <a href=3D"m=
+ailto:ecalvo@2se.es" rel=3D"noreferrer noreferrer" target=3D"_blank">ecalvo=
+@2se.es</a><br><b>CC:</b> Openrisc &lt;<a href=3D"mailto:openrisc@lists.lib=
+recores.org" rel=3D"noreferrer noreferrer" target=3D"_blank">openrisc@lists=
+.librecores.org</a>&gt;<br><b>Asunto:</b> Re: [OpenRISC] tick timer doubt<u=
+></u><u></u></p><p class=3D"MsoNormal">=C2=A0<u></u><u></u></p><div><div><p=
+ class=3D"MsoNormal"><span lang=3D"EN-GB">Good point,</span><u></u><u></u><=
+/p></div><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u><=
+/u><u></u></p></div><p class=3D"MsoNormal"><span lang=3D"EN-GB">I think it&=
+#39;s missing a line to update the ticks variable.</span><u></u><u></u></p>=
+<div><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u=
+></p></div><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">I terms of ttmr=
+ I am not sure if there is anything won&#39;t there.=C2=A0 I&#39;ll try to =
+run it and fix it when I get a chance.</span><u></u><u></u></p></div></div>=
+<p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p>=
+<div><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">On Mon, Nov 25, 2019,=
+ 5:20 PM &lt;</span><a href=3D"mailto:ecalvo@2se.es" rel=3D"noreferrer nore=
+ferrer" target=3D"_blank"><span lang=3D"EN-GB">ecalvo@2se.es</span></a><spa=
+n lang=3D"EN-GB">&gt; wrote:</span><u></u><u></u></p></div><blockquote styl=
+e=3D"border:none;border-left:solid windowtext 1.0pt;padding:0cm 0cm 0cm 6.0=
+pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-bottom:5.0pt;=
+border-color:currentcolor currentcolor currentcolor rgb(204,204,204)"><div>=
+<div><p class=3D"MsoNormal"><span lang=3D"EN-GB">Hello, </span><u></u><u></=
+u></p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></=
+u></p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></=
+u></p><p class=3D"MsoNormal"><span lang=3D"EN-GB">Yeah, I think that I have=
+ understood what you have sent me in the screenshot. </span><u></u><u></u><=
+/p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u><=
+/p><p class=3D"MsoNormal"><span lang=3D"EN-GB">The example that I am referr=
+ing is this one: </span><u></u><u></u></p><p class=3D"MsoNormal"><span lang=
+=3D"EN-GB">=C2=A0</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"l=
+ine-height:16.5pt"><span lang=3D"EN-GB" style=3D"font-size:10.5pt;font-fami=
+ly:Roboto;color:black">Example for using the default mode:</span><u></u><u>=
+</u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left:1.5p=
+t;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-f=
+amily:&quot;Courier New&quot;;color:#604020">int</span><span lang=3D"EN-GB"=
+ style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:black"=
+> main() {</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin-r=
+ight:6.0pt;margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=
+=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:black">uint3=
+2_t ticks =3D 0;</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"ma=
+rgin-right:6.0pt;margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB"=
+ style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:black"=
+>uint32_t timerstate;</span><u></u><u></u></p><p class=3D"MsoNormal" style=
+=3D"margin-right:6.0pt;margin-left:1.5pt;background:#fbfcfd"><span style=3D=
+"color:black"><a href=3D"https://www.openrisc.io/newlib/docs/html/group__or=
+1k__timer.html#ga432f34016f4f559c29b0be4fbc87e623" rel=3D"noreferrer norefe=
+rrer" target=3D"_blank"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font=
+-family:&quot;Courier New&quot;;color:#4665a2">or1k_timer_init</span></a></=
+span><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Couri=
+er New&quot;;color:black">(100);</span><u></u><u></u></p><p class=3D"MsoNor=
+mal" style=3D"margin-right:6.0pt;margin-left:1.5pt;background:#fbfcfd"><spa=
+n style=3D"color:black"><a href=3D"https://www.openrisc.io/newlib/docs/html=
+/group__or1k__timer.html#ga369138d63850f2a4dfe216315c31f3d4" rel=3D"norefer=
+rer noreferrer" target=3D"_blank"><span lang=3D"EN-GB" style=3D"font-size:1=
+0.0pt;font-family:&quot;Courier New&quot;;color:#4665a2">or1k_timer_enable<=
+/span></a></span><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family=
+:&quot;Courier New&quot;;color:black">();</span><u></u><u></u></p><p class=
+=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left:1.5pt;background:#fb=
+fcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Cour=
+ier New&quot;;color:#e08000">while</span><span lang=3D"EN-GB" style=3D"font=
+-size:10.0pt;font-family:&quot;Courier New&quot;;color:black"> (1) {</span>=
+<u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin=
+-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.=
+0pt;font-family:&quot;Courier New&quot;;color:#e08000">while</span><span la=
+ng=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;=
+color:black"> (ticks =3D=3D </span><span style=3D"color:black"><a href=3D"h=
+ttps://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga2baa18c51=
+53c793b7d2a85c6e224cea0" rel=3D"noreferrer noreferrer" target=3D"_blank"><s=
+pan lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier New&=
+quot;;color:#4665a2">or1k_timer_get_ticks</span></a></span><span lang=3D"EN=
+-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:bl=
+ack">()) { }</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin=
+-right:6.0pt;margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" sty=
+le=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:black">tim=
+erstate =3D </span><span style=3D"color:black"><a href=3D"https://www.openr=
+isc.io/newlib/docs/html/group__or1k__timer.html#gab40473a360aa82273575cdbc4=
+381ac93" rel=3D"noreferrer noreferrer" target=3D"_blank"><span lang=3D"EN-G=
+B" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:#466=
+5a2">or1k_timer_disable</span></a></span><span lang=3D"EN-GB" style=3D"font=
+-size:10.0pt;font-family:&quot;Courier New&quot;;color:black">();</span><u>=
+</u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-le=
+ft:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt=
+;font-family:&quot;Courier New&quot;;color:maroon">// do something atomar</=
+span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;m=
+argin-left:1.5pt;background:#fbfcfd"><span style=3D"color:black"><a href=3D=
+"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga0e392ed=
+cf73b9cf1c0279471ae59d241" rel=3D"noreferrer noreferrer" target=3D"_blank">=
+<span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier Ne=
+w&quot;;color:#4665a2">or1k_timer_restore</span></a></span><span lang=3D"EN=
+-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:bl=
+ack">(timerstate);</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"=
+margin-right:6.0pt;margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-G=
+B" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:#e08=
+000">if</span><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&q=
+uot;Courier New&quot;;color:black"> (ticks =3D=3D 100) {</span><u></u><u></=
+u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left:1.5pt;=
+background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-fam=
+ily:&quot;Courier New&quot;;color:black">printf(</span><span lang=3D"EN-GB"=
+ style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:#00208=
+0">&quot;A second elapsed\n&quot;</span><span lang=3D"EN-GB" style=3D"font-=
+size:10.0pt;font-family:&quot;Courier New&quot;;color:black">);</span><u></=
+u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left=
+:1.5pt;background:#fbfcfd"><span style=3D"color:black"><a href=3D"https://w=
+ww.openrisc.io/newlib/docs/html/group__or1k__timer.html#ga456bc40cdfbbbdfd6=
+2c936c065457cc2" rel=3D"noreferrer noreferrer" target=3D"_blank"><span lang=
+=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;co=
+lor:#4665a2">or1k_timer_reset_ticks</span></a></span><span lang=3D"EN-GB" s=
+tyle=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;;color:black">(=
+);</span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0=
+pt;margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font=
+-size:10.0pt;font-family:&quot;Courier New&quot;;color:black">ticks =3D 0;<=
+/span><u></u><u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;=
+margin-left:1.5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-si=
+ze:10.0pt;font-family:&quot;Courier New&quot;;color:black">}</span><u></u><=
+u></u></p><p class=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left:1.=
+5pt;background:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font=
+-family:&quot;Courier New&quot;;color:black">}</span><u></u><u></u></p><p c=
+lass=3D"MsoNormal" style=3D"margin-right:6.0pt;margin-left:1.5pt;background=
+:#fbfcfd"><span lang=3D"EN-GB" style=3D"font-size:10.0pt;font-family:&quot;=
+Courier New&quot;;color:black">}</span><u></u><u></u></p><p class=3D"MsoNor=
+mal"><span lang=3D"EN-GB">It is in the file and also here: </span><a href=
+=3D"https://www.openrisc.io/newlib/docs/html/group__or1k__timer.html#gaf760=
+867d2f9d04f0c101c4c4975b0616" rel=3D"noreferrer noreferrer" target=3D"_blan=
+k"><span lang=3D"EN-GB">https://www.openrisc.io/newlib/docs/html/group__or1=
+k__timer.html#gaf760867d2f9d04f0c101c4c4975b0616</span></a><u></u><u></u></=
+p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></=
+p><p class=3D"MsoNormal">Elisa<u></u><u></u></p><p class=3D"MsoNormal">=C2=
+=A0<u></u><u></u></p><p class=3D"MsoNormal"><b>De:</b> Stafford Horne &lt;<=
+a href=3D"mailto:shorne@gmail.com" rel=3D"noreferrer noreferrer" target=3D"=
+_blank">shorne@gmail.com</a>&gt; <br><b>Enviado el:</b> domingo, 24 de novi=
+embre de 2019 1:05<br><b>Para:</b> <a href=3D"mailto:ecalvo@2se.es" rel=3D"=
+noreferrer noreferrer" target=3D"_blank">ecalvo@2se.es</a><br><b>CC:</b> Op=
+enrisc &lt;<a href=3D"mailto:openrisc@lists.librecores.org" rel=3D"noreferr=
+er noreferrer" target=3D"_blank">openrisc@lists.librecores.org</a>&gt;<br><=
+b>Asunto:</b> Re: [OpenRISC] tick timer doubt<u></u><u></u></p><p class=3D"=
+MsoNormal">=C2=A0<u></u><u></u></p><div><p class=3D"MsoNormal"><span lang=
+=3D"EN-GB">Hello,</span><u></u><u></u></p><div><p class=3D"MsoNormal"><span=
+ lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p></div><div><p class=3D"MsoNo=
+rmal"><span lang=3D"EN-GB">Which example are you referring to?=C2=A0 Have y=
+ou been able to read the architecture specification and understand section =
+15 on tick timer facility?=C2=A0 There ttmr is explained, the value 1000000=
+0 I think indicates a pending timer interrupt.</span><u></u><u></u></p></di=
+v><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u><=
+/u></p></div><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">See the attac=
+hed screenshot.</span><u></u><u></u></p></div><div><p class=3D"MsoNormal"><=
+span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p></div><div><p class=3D"M=
+soNormal"><span lang=3D"EN-GB">-stafford</span><u></u><u></u></p></div><p c=
+lass=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p><div=
+><div><p class=3D"MsoNormal"><span lang=3D"EN-GB">On Fri, Nov 22, 2019, 10:=
+41 PM &lt;</span><a href=3D"mailto:ecalvo@2se.es" rel=3D"noreferrer norefer=
+rer" target=3D"_blank"><span lang=3D"EN-GB">ecalvo@2se.es</span></a><span l=
+ang=3D"EN-GB">&gt; wrote:</span><u></u><u></u></p></div><blockquote style=
+=3D"border:none;border-left:solid windowtext 1.0pt;padding:0cm 0cm 0cm 6.0p=
+t;margin-left:4.8pt;margin-top:5.0pt;margin-right:0cm;margin-bottom:5.0pt;b=
+order-color:currentcolor currentcolor currentcolor rgb(204,204,204)"><div><=
+div><p class=3D"MsoNormal"><span lang=3D"EN-GB">Hi!!</span><u></u><u></u></=
+p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></=
+p><p class=3D"MsoNormal"><span lang=3D"EN-GB">I have some doubts about the =
+tick timer. Could someone help me? I explain them below</span><u></u><u></u=
+></p><p class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u=
+></p><ul type=3D"disc"><li><span lang=3D"EN-GB">I don=E2=80=99t understand =
+really well the example of or1k timer control that is in that file: For exa=
+mple, how is ticks variable updated? </span><u></u><u></u></li><li><span la=
+ng=3D"EN-GB">If it was updated, I understand that if frequency is 100Hz, a =
+new tick takes place each 0.01 seg and with 100 ticks, a second has elapsed=
+. However, If I compile and run this code and, and I open with gtkwave the =
+generated vcd, I don=E2=80=99t understand why the value of TTMR register is=
+ 1000000. Is The value of TTMR register fixed by software using or1k_timer_=
+set_period function? Is it measured in Hz?</span><u></u><u></u></li></ul><p=
+ class=3D"MsoNormal"><span lang=3D"EN-GB">=C2=A0</span><u></u><u></u></p><p=
+ class=3D"MsoNormal"><span lang=3D"EN-GB">Thanks in advance</span><u></u><u=
+></u></p></div></div><p class=3D"MsoNormal"><span lang=3D"EN-GB">__________=
+_____________________________________<br>OpenRISC mailing list<br></span><a=
+ href=3D"mailto:OpenRISC@lists.librecores.org" rel=3D"noreferrer noreferrer=
+" target=3D"_blank"><span lang=3D"EN-GB">OpenRISC@lists.librecores.org</spa=
+n></a><span lang=3D"EN-GB"><br></span><a href=3D"https://lists.librecores.o=
+rg/listinfo/openrisc" rel=3D"noreferrer noreferrer" target=3D"_blank"><span=
+ lang=3D"EN-GB">https://lists.librecores.org/listinfo/openrisc</span></a><u=
+></u><u></u></p></blockquote></div></div></div></div></blockquote></div></d=
+iv></div></blockquote></div></div></div></blockquote></div></div>
 
-------=_NextPart_000_0111_01D5A39C.070F3340
-Content-Type: image/png;
-	name="image001.png"
+--0000000000001345f5059833e5c9--
+
+--0000000000001345f8059833e5cb
+Content-Type: image/png; name="image001.png"
+Content-Disposition: attachment; filename="image001.png"
 Content-Transfer-Encoding: base64
-Content-ID: <image001.png@01D5A39A.3843B4B0>
+Content-ID: <>
+X-Attachment-Id: 
 
 iVBORw0KGgoAAAANSUhEUgAAA+gAAAGQCAYAAAA9TUphAAAABHNCSVQICAgIfAhkiAAAABl0RVh0
 U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAAtdEVYdENyZWF0aW9uIFRpbWUATW9uIDI1
@@ -2170,12 +1784,12 @@ G/NVXFwc6pgsISmptXr37qPU1Ham9m/OOSIXgfM3h8EQFRWlHpmZ6pHJdzuBlorPAQAAIovpReLS
 0tKVlpYeylgiHjk6glwAAAAAgH9YmQUAAAAAAAswPYIOwPq6ZZwY7hAABAHPMgAALRMj6AAAAAAA
 WECtI+h5eblNHQcAAAAAAC1ajQI9J6dvOOIAAAAAAKBF4zvoQIRjxgvQPPAsAwAACnQggjHjBWge
 eJYBAIDEInEAAAAAAFiCrbBwjxHuIAAAAAAAaOn+H1p2zs4H2YkIAAAAAElFTkSuQmCC
-
-------=_NextPart_000_0111_01D5A39C.070F3340
-Content-Type: image/png;
-	name="image002.png"
+--0000000000001345f8059833e5cb
+Content-Type: image/png; name="image002.png"
+Content-Disposition: attachment; filename="image002.png"
 Content-Transfer-Encoding: base64
-Content-ID: <image002.png@01D5A39A.3843B4B0>
+Content-ID: <>
+X-Attachment-Id: 
 
 iVBORw0KGgoAAAANSUhEUgAAA+gAAAGQCAYAAAA9TUphAAAABHNCSVQICAgIfAhkiAAAABl0RVh0
 U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAAtdEVYdENyZWF0aW9uIFRpbWUATW9uIDI1
@@ -3210,11 +2824,7 @@ NRVm/ixpqtcEABC6PCrQW7VqLafTqS1bNungwYP+jskU4uKaKyuruxITW3m0fSjniFw0nLc59AWr
 5tc5tVOgQwDgA7yXAQBomuhBBwAAAADABGrsQc/NzWnsOAAAAAAAaNKqFejZ2T0CEQcAAAAAAE0a
 30EHghwjXoDQwHsZAABQoANBjBEvQGjgvQwAACQmiQMAAAAAwBQshYV7jEAHAQAAAABAU/f/u44X
 atbAdNsAAAAASUVORK5CYII=
-
-------=_NextPart_000_0111_01D5A39C.070F3340--
-
-
---===============4348967249864656005==
+--0000000000001345f8059833e5cb
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -3224,5 +2834,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
 bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
 bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
 
---===============4348967249864656005==--
-
+--0000000000001345f8059833e5cb--
