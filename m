@@ -2,41 +2,55 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E4B710D431
-	for <lists+openrisc@lfdr.de>; Fri, 29 Nov 2019 11:33:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4662110DD5F
+	for <lists+openrisc@lfdr.de>; Sat, 30 Nov 2019 11:26:20 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A443020143;
-	Fri, 29 Nov 2019 11:33:11 +0100 (CET)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 41F2020564
- for <openrisc@lists.librecores.org>; Fri, 22 Nov 2019 07:13:41 +0100 (CET)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 13B9D20718;
- Fri, 22 Nov 2019 06:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574403219;
- bh=KfUUKl4OJ/iRiB6WP0nLVctzTrRXlSgHQu7Wc1fD4IY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qeH+R4ohdNFfMPpWRN+LluCdlARyNunXbdmd+DBfxaw1I6Q4WGogQF/Cg1i0kwWwR
- qR0W3IvxVcOerrj8HLFdYB0K+NUFXCuZ6BOQtjIWL4j6EA6jIdsJX5x1K5KLLlcH/4
- EgIdlHNtAwNSPnIGjFqbCDCvDOvNGd0SdeOSANV0=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri, 22 Nov 2019 01:12:27 -0500
-Message-Id: <20191122061301.4947-33-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191122061301.4947-1-sashal@kernel.org>
-References: <20191122061301.4947-1-sashal@kernel.org>
+	by mail.librecores.org (Postfix) with ESMTP id BC2752077E;
+	Sat, 30 Nov 2019 11:26:19 +0100 (CET)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by mail.librecores.org (Postfix) with ESMTPS id 380082074C
+ for <openrisc@lists.librecores.org>; Sat, 30 Nov 2019 11:26:18 +0100 (CET)
+Received: by mail-pl1-f181.google.com with SMTP id s10so13973876plp.2
+ for <openrisc@lists.librecores.org>; Sat, 30 Nov 2019 02:26:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=kDfUuY1cuioz694dW7rkbyarYLnDry3QiiLldoLB0tU=;
+ b=vBhfQwOyoPlu3qDWjFddu2s/+9qy1HE40vORnl85eybZ2pekup3vRxYVhVE2XfwvNh
+ 9UcSdi4LvjNYMNJxgJB8h1Lse/5eGiogdcFBJI6h6kIkqfwxunIHA9XTVhvR+QgTx5Vb
+ pQZcMyLrofpx4ST9/qxyU6plRyTiwwoYpN5cVrSeQ1lvXv8Ob3TcE74H37b4Ji14OaDS
+ nAGxUgp44ClpNDSvwbUjt9/Avo9Uv6QqkEyFqSPT2vl2miDm4zLAqyVPuCvMiZJ1FGLt
+ y8AdqWvlFP63DsaetOx5gPRiqwKs+632Pfzzy+ObW+DPQT0xi3p7PxvhdOvbN2l/5EBn
+ fWzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=kDfUuY1cuioz694dW7rkbyarYLnDry3QiiLldoLB0tU=;
+ b=WFMhmzB4mtaUt0vK4m+yxtQl9UG6e36R6JgCscAf0Rl2LoleoXb+WNrLPf//2w8EfJ
+ wWQuAz6suDW0gaVlxdZYotpClNCsouCMQI5Ej01frzwWeHvPEkA1WapTpCvHIENujpRG
+ wbXAdJpaUoDrAmeFk8oMFVHVI78QobUyX7tHhBifHvfaaQu8HGLUBlB4gk+oqlXnJOXJ
+ 4qAyCai4+84CUn5JEpUDUx0b8QoTbQhsZrCnXzWV+F6mPwBtRBi8ZOaBo1Bo7hiL9fVp
+ zKz5sPrNCIjlLikvguRH8uOqfb7RevTR4F/MEDZJoWnyP7TRjgY1/aX3bKTBMdy6M0Mz
+ 5Viw==
+X-Gm-Message-State: APjAAAVhbJx9tZWRxSjy2tKbzIgcxcoQA6CwJ9Q2EC7lmH/tkDzL0E3Y
+ wm2IPlVZbpN9vPndXBWHDQo=
+X-Google-Smtp-Source: APXvYqztTbaQsQo/efAR1zQ9z8rvZtDF0mtY3khlEx7lppPrl/HJ4IbseSMGpbOupT5/dh+KPLBWqg==
+X-Received: by 2002:a17:902:b101:: with SMTP id
+ q1mr18894046plr.154.1575109576340; 
+ Sat, 30 Nov 2019 02:26:16 -0800 (PST)
+Received: from localhost (g143.222-224-150.ppp.wakwak.ne.jp. [222.224.150.143])
+ by smtp.gmail.com with ESMTPSA id w6sm6598774pfq.99.2019.11.30.02.26.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 Nov 2019 02:26:15 -0800 (PST)
+Date: Sat, 30 Nov 2019 19:26:13 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: dalias@libc.org
+Message-ID: <20191130102613.GM24874@lianli.shorne-pla.net>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-Mailman-Approved-At: Fri, 29 Nov 2019 11:33:08 +0100
-Subject: [OpenRISC] [PATCH AUTOSEL 4.4 34/68] openrisc: Fix broken paths to
- arch/or32
+Content-Disposition: inline
+User-Agent: Mutt/1.11.4 (2019-03-13)
+Subject: [OpenRISC] OpenRISC gas bug
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -49,38 +63,20 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, openrisc@lists.librecores.org
+Cc: Openrisc <openrisc@lists.librecores.org>,
+ GNU Binutils <binutils@sourceware.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-RnJvbTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4KClsgVXBzdHJl
-YW0gY29tbWl0IDU3Y2U4YmEwZmQzYTk1YmYyOWVkNzQxZGYxYzUyYmQ1OTFiZjQzZmYgXQoKT3Bl
-blJJU0Mgd2FzIG1haW5saW5lZCBhcyAib3BlbnJpc2MiLCBub3QgIm9yMzIiLgp2bWxpbnV4Lmxk
-cyBpcyBnZW5lcmF0ZWQgZnJvbSB2bWxpbnV4Lmxkcy5TLgoKU2lnbmVkLW9mZi1ieTogR2VlcnQg
-VXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4KU2lnbmVkLW9mZi1ieTogU3RhZmZv
-cmQgSG9ybmUgPHNob3JuZUBnbWFpbC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxz
-YXNoYWxAa2VybmVsLm9yZz4KLS0tCiBhcmNoL29wZW5yaXNjL2tlcm5lbC9lbnRyeS5TIHwgMiAr
-LQogYXJjaC9vcGVucmlzYy9rZXJuZWwvaGVhZC5TICB8IDIgKy0KIDIgZmlsZXMgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gvb3BlbnJp
-c2Mva2VybmVsL2VudHJ5LlMgYi9hcmNoL29wZW5yaXNjL2tlcm5lbC9lbnRyeS5TCmluZGV4IGZl
-YzhiZjk3ZDgwNjQuLmMxN2U4NDUxZDk5NzggMTAwNjQ0Ci0tLSBhL2FyY2gvb3BlbnJpc2Mva2Vy
-bmVsL2VudHJ5LlMKKysrIGIvYXJjaC9vcGVucmlzYy9rZXJuZWwvZW50cnkuUwpAQCAtMTc5LDcg
-KzE3OSw3IEBAIGhhbmRsZXI6CQkJCQkJCTtcCiAgKgkgb2NjdXJlZC4gaW4gZmFjdCB0aGV5IG5l
-dmVyIGRvLiBpZiB5b3UgbmVlZCB0aGVtIHVzZQogICoJIHZhbHVlcyBzYXZlZCBvbiBzdGFjayAo
-Zm9yIFNQUl9FUEMsIFNQUl9FU1IpIG9yIGNvbnRlbnQKICAqICAgICAgIG9mIHI0IChmb3IgU1BS
-X0VFQVIpLiBmb3IgZGV0YWlscyBsb29rIGF0IEVYQ0VQVElPTl9IQU5ETEUoKQotICogICAgICAg
-aW4gJ2FyY2gvb3IzMi9rZXJuZWwvaGVhZC5TJworICogICAgICAgaW4gJ2FyY2gvb3BlbnJpc2Mv
-a2VybmVsL2hlYWQuUycKICAqLwogCiAvKiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PVsgZXhjZXB0aW9uc10gPT09ICovCmRpZmYgLS1naXQgYS9h
-cmNoL29wZW5yaXNjL2tlcm5lbC9oZWFkLlMgYi9hcmNoL29wZW5yaXNjL2tlcm5lbC9oZWFkLlMK
-aW5kZXggZjE0NzkzMzA2YjAzZi4uOThkZDY4NjBiYzBiOSAxMDA2NDQKLS0tIGEvYXJjaC9vcGVu
-cmlzYy9rZXJuZWwvaGVhZC5TCisrKyBiL2FyY2gvb3BlbnJpc2Mva2VybmVsL2hlYWQuUwpAQCAt
-MTU5Niw3ICsxNTk2LDcgQEAgX3N0cmluZ19lc3JfaXJxX2J1ZzoKIAogLyoKICAqIC5kYXRhIHNl
-Y3Rpb24gc2hvdWxkIGJlIHBhZ2UgYWxpZ25lZAotICoJKGxvb2sgaW50byBhcmNoL29yMzIva2Vy
-bmVsL3ZtbGludXgubGRzKQorICoJKGxvb2sgaW50byBhcmNoL29wZW5yaXNjL2tlcm5lbC92bWxp
-bnV4Lmxkcy5TKQogICovCiAJLnNlY3Rpb24gLmRhdGEsImF3IgogCS5hbGlnbgk4MTkyCi0tIAoy
-LjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9w
-ZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczov
-L2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+SGkgUmljaCwKCkkganVzdCBub3RpY2VkIHlvdXIgbWVzc2FnZSBhYm91dDoKCiAgaHR0cHM6Ly9z
+b3VyY2V3YXJlLm9yZy9idWd6aWxsYS9zaG93X2J1Zy5jZ2k/aWQ9MjUxODQKCkkgYW0gYWJsZSB0
+byByZXByb2R1Y2UgaXQgdGhlcmUgc2hvdWxkIGJlIGEgZml4IHNvb24uICBTb3JyeSwgZm9yIHNv
+bWUgcmVhc29uIG15CnNvdXJjZXdhcmUgYWNjb3VudCBpdCBub3QgYWNjZXNzaWJsZSBhbmQgcGFz
+c3dvcmQgcmVzZXRzIGFyZSBub3QgYmVpbmcgc2VudCB0bwptZS4gIEkgd2lsbCBzb3J0IHRoYXQg
+b3V0IHRvLCBidXQgZm9yIHRoZSBtb21lbnQgSSBqdXN0IHdhbnRlZCB0byBzZW5kIHlvdSBhCm1h
+aWwgbGV0dGluZyB5b3Uga25vdyB0aGF0IEkgd2FzIG9uIGl0LgoKLVN0YWZmb3JkCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcg
+bGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29y
+ZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
