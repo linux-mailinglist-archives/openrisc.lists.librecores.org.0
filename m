@@ -2,30 +2,60 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 89EBC17175D
-	for <lists+openrisc@lfdr.de>; Thu, 27 Feb 2020 13:35:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 09F4917175E
+	for <lists+openrisc@lfdr.de>; Thu, 27 Feb 2020 13:35:33 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 6EDBB2097C;
-	Thu, 27 Feb 2020 13:35:29 +0100 (CET)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by mail.librecores.org (Postfix) with ESMTPS id 81678208C3
- for <openrisc@lists.librecores.org>; Fri, 21 Feb 2020 15:16:59 +0100 (CET)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 36BC968BFE; Fri, 21 Feb 2020 15:16:57 +0100 (CET)
-Date: Fri, 21 Feb 2020 15:16:56 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20200221141656.GF6968@lst.de>
+	by mail.librecores.org (Postfix) with ESMTP id 3C5DE207EE;
+	Thu, 27 Feb 2020 13:35:30 +0100 (CET)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+ [209.85.215.193])
+ by mail.librecores.org (Postfix) with ESMTPS id D29872013B
+ for <openrisc@lists.librecores.org>; Fri, 21 Feb 2020 23:14:52 +0100 (CET)
+Received: by mail-pg1-f193.google.com with SMTP id j15so1684865pgm.6
+ for <openrisc@lists.librecores.org>; Fri, 21 Feb 2020 14:14:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=W8KaZGmDosurwlNJD9BGtUyzNAa4jQOZ04o70/FjZgc=;
+ b=kGkAs4Nbpvsh0LSiFUur6Wb/TbQ7PlbWJAOcbz65Qdv1Uw+Vl3ItNQQMcq77KAYZtJ
+ m2urSGoIRXXmBgm7E9zWqbYRJ+5nnXrjCjuYwEMSV5irgIy80/nbHWZ2XU6OXDiBPYJv
+ szqdDyeVflofbn6119zAg2Af45wfFrvegUCV58BoK/8EFrO8aWmVrRGB0AEm3jHvnZwq
+ g1wiEIh+kkSJDiHR4tM7g/to6tuY6/ds7sh5OENeLGPrw7vXXN0mSnsFAVAAIUn5CXPR
+ b8xb4ji8dTq0+IsQw7wVgeeGwqWP+aZc8EV+CmH2yRI8/SyKIhiNvK3/B5nUMCwO2jKu
+ gxvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=W8KaZGmDosurwlNJD9BGtUyzNAa4jQOZ04o70/FjZgc=;
+ b=RFH9SaaJAitjkWYBwjkEYa9+4LNa5hg4yPX+J6e1HCDCNa8SGo/bv1zwpyKy8skbzB
+ F1ymf+2WKhKf8KxPgD7i+bEsOyT9DgDKA3ybz6+Oid0fMPHn5CnSCj+qFjfpDP3U5IHS
+ P1X6to7Nk//pq8McTvhRyuPJUC7BffhJUUSnK+a6u/zTimUrnyTlv+hsyuiqxQuF6Cxl
+ 9Xc5Y/Hq24KfAgzeH/NgjpH96/KkpEUirf8pT0KT5vu9cQEa6zPZ0p7jg07m/2RWgcCd
+ 4wZGKpfs/k/TF59X2ZHe7oqID5/nW5RInYCH++0k1S/W9g8v3iymGkXVSBP4ZLcHTCni
+ XJxw==
+X-Gm-Message-State: APjAAAVBMtfaz2vBpqZHaNUjfMkYbWfaF14dmcI+TEggqgCYeIn6rCyk
+ MdTwy4WEG+7MsY6KlhFLI+8=
+X-Google-Smtp-Source: APXvYqzuFzGOe6xFIcYN9MIIJZs1pHKUSIf83YFRjQMgSwSuWxPGqeqGheyj2Ocv0clngLUDLTvy9A==
+X-Received: by 2002:aa7:8805:: with SMTP id c5mr17210828pfo.142.1582323291138; 
+ Fri, 21 Feb 2020 14:14:51 -0800 (PST)
+Received: from localhost (g183.222-224-185.ppp.wakwak.ne.jp. [222.224.185.183])
+ by smtp.gmail.com with ESMTPSA id h3sm4051033pfr.15.2020.02.21.14.14.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Feb 2020 14:14:50 -0800 (PST)
+Date: Sat, 22 Feb 2020 07:14:47 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20200221221447.GA7926@lianli.shorne-pla.net>
 References: <20200220170139.387354-1-hch@lst.de>
- <20200220170139.387354-2-hch@lst.de>
- <502fa745-ddad-f91b-52bc-52edecf8fdbc@arm.com>
+ <20200220170139.387354-3-hch@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <502fa745-ddad-f91b-52bc-52edecf8fdbc@arm.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20200220170139.387354-3-hch@lst.de>
+User-Agent: Mutt/1.11.4 (2019-03-13)
 X-Mailman-Approved-At: Thu, 27 Feb 2020 13:35:25 +0100
-Subject: Re: [OpenRISC] [PATCH 1/2] dma-mapping: support setting memory
- uncached in place
+Subject: Re: [OpenRISC] [PATCH 2/2] openrisc: use the generic in-place
+ uncached DMA allocator
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -39,9 +69,9 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Jonas Bonn <jonas@southpole.se>, Mark Rutland <mark.rutland@arm.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
- openrisc@lists.librecores.org, linux-arch@vger.kernel.org,
- Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, openrisc@lists.librecores.org,
+ linux-arch@vger.kernel.org, Will Deacon <will@kernel.org>,
  linux-arm-kernel@lists.infradead.org,
  Marek Szyprowski <m.szyprowski@samsung.com>
 Content-Type: text/plain; charset="utf-8"
@@ -49,25 +79,13 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBGZWIgMjAsIDIwMjAgYXQgMDU6MjE6MzVQTSArMDAwMCwgUm9iaW4gTXVycGh5IHdy
-b3RlOgo+PiBAQCAtMTk2LDEwICsxOTIsMTUgQEAgdm9pZCAqZG1hX2RpcmVjdF9hbGxvY19wYWdl
-cyhzdHJ1Y3QgZGV2aWNlICpkZXYsIHNpemVfdCBzaXplLAo+PiAgICAgCW1lbXNldChyZXQsIDAs
-IHNpemUpOwo+PiAgIC0JaWYgKElTX0VOQUJMRUQoQ09ORklHX0FSQ0hfSEFTX1VOQ0FDSEVEX1NF
-R01FTlQpICYmCj4+IC0JICAgIGRtYV9hbGxvY19uZWVkX3VuY2FjaGVkKGRldiwgYXR0cnMpKSB7
-Cj4+ICsJaWYgKGRtYV9hbGxvY19uZWVkX3VuY2FjaGVkKGRldiwgYXR0cnMpKSB7Cj4+ICAgCQlh
-cmNoX2RtYV9wcmVwX2NvaGVyZW50KHBhZ2UsIHNpemUpOwo+PiAtCQlyZXQgPSB1bmNhY2hlZF9r
-ZXJuZWxfYWRkcmVzcyhyZXQpOwo+PiArCj4+ICsJCWlmIChJU19FTkFCTEVEKENPTkZJR19BUkNI
-X0hBU19ETUFfU0VUX1VOQ0FDSEVEKSkgewo+PiArCQkJaWYgKCFhcmNoX2RtYV9zZXRfdW5jYWNo
-ZWQocmV0LCBzaXplKSkKPj4gKwkJCQlnb3RvIG91dF9mcmVlX3BhZ2VzOwo+PiArCQl9IGVsc2Ug
-aWYgKElTX0VOQUJMRUQoQ09ORklHX0FSQ0hfSEFTX1VOQ0FDSEVEX1NFR01FTlQpKSB7Cj4+ICsJ
-CQlyZXQgPSB1bmNhY2hlZF9rZXJuZWxfYWRkcmVzcyhyZXQpOwo+Cj4gSG1tLCB3b3VsZCB3ZSBh
-Y3R1YWxseSBuZWVkIHRvIGtlZXAgQVJDSF9IQVNfVU5DQUNIRURfU0VHTUVOVD8gSWYgCj4gYXJj
-aF9kbWFfc2V0X3VuY2FjaGVkKCkgcmV0dXJuZWQgdm9pZCovRVJSX1BUUiBpbnN0ZWFkLCB0aGVu
-IGl0IGNvdWxkIHdvcmsgCj4gZm9yIGJvdGggY2FzZXMgKHdpdGggYXJjaF9kbWFfY2xlYXJfdW5j
-YWNoZWQoKSBiZWluZyBhIG5vLW9wIGZvciBzZWdtZW50cykuCgpZZXMsIEkgdGhpbmsgc28uICBJ
-IHdhcyBhIGxpdHRsZSB3b3JyaWVkIGFib3V0IHdoYXQgdG8gZG8gd2l0aApjYWNoZWRfa2VybmVs
-X2FkZHJlc3MoKSBpbiB0aGF0IHNjaGVtZSwgYnV0IGl0IHR1cm5zIG91dCB3aXRoIHRoZSByZWNl
-bnQKcm91bmQgb2YgZG1hLWRpcmVjdCBjbGVhbnVwIHRoYXQgaXMgYWN0dWFsbHkgZW50aXJlbHkg
-dW51c2VkIG5vdy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0
-dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+T24gVGh1LCBGZWIgMjAsIDIwMjAgYXQgMDk6MDE6MzlBTSAtMDgwMCwgQ2hyaXN0b3BoIEhlbGx3
+aWcgd3JvdGU6Cj4gU3dpdGNoIG9wZW5yaXNjIHRvIHVzZSB0aGUgZG1hLWRpcmVjdCBhbGxvY2F0
+b3IgYW5kIGp1c3QgcHJvdmlkZSB0aGUKPiBob29rcyBmb3Igc2V0dGluZyBtZW1vcnkgdW5jYWNo
+ZWQgb3IgY2FjaGVkLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hA
+bHN0LmRlPgoKUmV2aWV3ZWQtYnk6IFN0YWZmb3JkIEhvcm5lIDxzaG9ybmVAZ21haWwuY29tPgoK
+QWxzbywgSSB0ZXN0IGJvb3RlZCBvcGVucmlzYyB3aXRoIGxpbnV4IDUuNSArIHRoZXNlIHBhdGNo
+ZXMuICBUaGFua3MgZm9yCmNvbnRpbnVpbmcgdG8gc2hyaW5rIG15IGNvZGUgYmFzZS4KIApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWls
+aW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJy
+ZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
