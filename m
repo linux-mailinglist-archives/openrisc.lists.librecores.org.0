@@ -2,60 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 09F4917175E
-	for <lists+openrisc@lfdr.de>; Thu, 27 Feb 2020 13:35:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 02B8F171762
+	for <lists+openrisc@lfdr.de>; Thu, 27 Feb 2020 13:35:35 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3C5DE207EE;
-	Thu, 27 Feb 2020 13:35:30 +0100 (CET)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- by mail.librecores.org (Postfix) with ESMTPS id D29872013B
- for <openrisc@lists.librecores.org>; Fri, 21 Feb 2020 23:14:52 +0100 (CET)
-Received: by mail-pg1-f193.google.com with SMTP id j15so1684865pgm.6
- for <openrisc@lists.librecores.org>; Fri, 21 Feb 2020 14:14:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=W8KaZGmDosurwlNJD9BGtUyzNAa4jQOZ04o70/FjZgc=;
- b=kGkAs4Nbpvsh0LSiFUur6Wb/TbQ7PlbWJAOcbz65Qdv1Uw+Vl3ItNQQMcq77KAYZtJ
- m2urSGoIRXXmBgm7E9zWqbYRJ+5nnXrjCjuYwEMSV5irgIy80/nbHWZ2XU6OXDiBPYJv
- szqdDyeVflofbn6119zAg2Af45wfFrvegUCV58BoK/8EFrO8aWmVrRGB0AEm3jHvnZwq
- g1wiEIh+kkSJDiHR4tM7g/to6tuY6/ds7sh5OENeLGPrw7vXXN0mSnsFAVAAIUn5CXPR
- b8xb4ji8dTq0+IsQw7wVgeeGwqWP+aZc8EV+CmH2yRI8/SyKIhiNvK3/B5nUMCwO2jKu
- gxvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=W8KaZGmDosurwlNJD9BGtUyzNAa4jQOZ04o70/FjZgc=;
- b=RFH9SaaJAitjkWYBwjkEYa9+4LNa5hg4yPX+J6e1HCDCNa8SGo/bv1zwpyKy8skbzB
- F1ymf+2WKhKf8KxPgD7i+bEsOyT9DgDKA3ybz6+Oid0fMPHn5CnSCj+qFjfpDP3U5IHS
- P1X6to7Nk//pq8McTvhRyuPJUC7BffhJUUSnK+a6u/zTimUrnyTlv+hsyuiqxQuF6Cxl
- 9Xc5Y/Hq24KfAgzeH/NgjpH96/KkpEUirf8pT0KT5vu9cQEa6zPZ0p7jg07m/2RWgcCd
- 4wZGKpfs/k/TF59X2ZHe7oqID5/nW5RInYCH++0k1S/W9g8v3iymGkXVSBP4ZLcHTCni
- XJxw==
-X-Gm-Message-State: APjAAAVBMtfaz2vBpqZHaNUjfMkYbWfaF14dmcI+TEggqgCYeIn6rCyk
- MdTwy4WEG+7MsY6KlhFLI+8=
-X-Google-Smtp-Source: APXvYqzuFzGOe6xFIcYN9MIIJZs1pHKUSIf83YFRjQMgSwSuWxPGqeqGheyj2Ocv0clngLUDLTvy9A==
-X-Received: by 2002:aa7:8805:: with SMTP id c5mr17210828pfo.142.1582323291138; 
- Fri, 21 Feb 2020 14:14:51 -0800 (PST)
-Received: from localhost (g183.222-224-185.ppp.wakwak.ne.jp. [222.224.185.183])
- by smtp.gmail.com with ESMTPSA id h3sm4051033pfr.15.2020.02.21.14.14.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2020 14:14:50 -0800 (PST)
-Date: Sat, 22 Feb 2020 07:14:47 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20200221221447.GA7926@lianli.shorne-pla.net>
-References: <20200220170139.387354-1-hch@lst.de>
- <20200220170139.387354-3-hch@lst.de>
+	by mail.librecores.org (Postfix) with ESMTP id 3B3DD209C2;
+	Thu, 27 Feb 2020 13:35:33 +0100 (CET)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by mail.librecores.org (Postfix) with ESMTPS id 1CBC0206AB
+ for <openrisc@lists.librecores.org>; Mon, 24 Feb 2020 20:45:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=Gm+CZDA4foMEAz/S+YdRBY9FpP1n0eNdAAovqDbFGNg=; b=kOdWiO2RLPJPCA0ELRlD0fILnT
+ Hi17mnHqCr3opBFn3tuitDQ9PxTd5CxA8RrpffuZlpZUQUuTCUbA/BMJ/yAzkokW5xwqVmVQl6DEo
+ Hi0W2vxjbyZnTDPXfH7Ijkrysfk6fHLOAzCzJ3e88xupPe+U0VuVbftERt+dg39KCPM8wZZAxckFC
+ 9KFd7o9hjEIGnP0u6hKYx5GMF3xVd8rv/AS2KPITioAVtYya/wB/YIzTZX0VXITAt1pqDLfdSzekD
+ SVtd+sn9CvtDhaY+TIbSPFpU1aQ52j6ym6jqrKZn1g3k+cLllQ2KdXym3e1aIJ/lbzDZw43sVXMFV
+ 13FNIrsA==;
+Received: from [4.28.11.157] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1j6Jeo-0006X6-W0; Mon, 24 Feb 2020 19:44:47 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jonas Bonn <jonas@southpole.se>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stafford Horne <shorne@gmail.com>
+Date: Mon, 24 Feb 2020 11:44:40 -0800
+Message-Id: <20200224194446.690816-1-hch@lst.de>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200220170139.387354-3-hch@lst.de>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Thu, 27 Feb 2020 13:35:25 +0100
-Subject: Re: [OpenRISC] [PATCH 2/2] openrisc: use the generic in-place
- uncached DMA allocator
+Subject: [OpenRISC] provide in-place uncached remapping for dma-direct v2
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,24 +48,26 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, Mark Rutland <mark.rutland@arm.com>,
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-arch@vger.kernel.org,
  Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
  iommu@lists.linux-foundation.org, openrisc@lists.librecores.org,
- linux-arch@vger.kernel.org, Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
+ Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Marek Szyprowski <m.szyprowski@samsung.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBGZWIgMjAsIDIwMjAgYXQgMDk6MDE6MzlBTSAtMDgwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gU3dpdGNoIG9wZW5yaXNjIHRvIHVzZSB0aGUgZG1hLWRpcmVjdCBhbGxvY2F0
-b3IgYW5kIGp1c3QgcHJvdmlkZSB0aGUKPiBob29rcyBmb3Igc2V0dGluZyBtZW1vcnkgdW5jYWNo
-ZWQgb3IgY2FjaGVkLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hA
-bHN0LmRlPgoKUmV2aWV3ZWQtYnk6IFN0YWZmb3JkIEhvcm5lIDxzaG9ybmVAZ21haWwuY29tPgoK
-QWxzbywgSSB0ZXN0IGJvb3RlZCBvcGVucmlzYyB3aXRoIGxpbnV4IDUuNSArIHRoZXNlIHBhdGNo
-ZXMuICBUaGFua3MgZm9yCmNvbnRpbnVpbmcgdG8gc2hyaW5rIG15IGNvZGUgYmFzZS4KIApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWls
-aW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJy
-ZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+SGkgYWxsLAoKdGhpcyBzZXJpZXMgcHJvdmlkZXMgc3VwcG9ydCBmb3IgcmVtYXBwaW5nIHBsYWNl
+cyB1bmNhY2hlZCBpbi1wbGFjZSBpbgp0aGUgZ2VuZXJpYyBkbWEtZGlyZWN0IGNvZGUsIGFuZCBt
+b3ZlcyBvcGVucmlzYyBvdmVyIGZyb20gaXRzIG93bgppbi1wbGFjZSByZW1hcHBpbmcgc2NoZW1l
+LiAgVGhlIGFybTY0IGZvbGtzIGFsc28gaGFkIGludGVyZXN0IGluIHN1Y2gKYSBzY2hlbWUgdG8g
+YXZvaWQgcHJvYmxlbXMgd2l0aCBzcGVjdWxhdGluZyBpbnRvIGNhY2hlIGFsaWFzZXMuCgpBbHNv
+IGFsbCBhcmNoaXRlY3R1cmVzIHRoYXQgYWx3YXlzIHVzZSBzbWFsbCBwYWdlIG1hcHBpbmdzIGZv
+ciB0aGUKa2VybmVsIGFuZCBoYXZlIG5vbi1jb2hlcmVudCBETUEgc2hvdWxkIGxvb2sgaW50byBl
+bmFibGluZyB0aGlzCnNjaGVtZSwgYXMgaXQgaXMgbXVjaCBtb3JlIGVmZmljaWVudCB0aGFuIHRo
+ZSB2bWFwIHJlbWFwcGluZy4KCkNoYW5nZXMgc2luY2UgdjE6CiAtIHNoYXJlIHRoZSBhcmNoIGhv
+b2sgZm9yIGlubGluZSByZW1hcCBhbmQgdW5jYWNoZWQgc2VnbWVudCBzdXBwb3J0Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcg
+bGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29y
+ZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
