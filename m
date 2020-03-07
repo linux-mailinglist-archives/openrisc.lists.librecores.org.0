@@ -2,34 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A71DD17D60F
+	by mail.lfdr.de (Postfix) with ESMTP id F2BB417D610
 	for <lists+openrisc@lfdr.de>; Sun,  8 Mar 2020 21:11:40 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 75D562075A;
-	Sun,  8 Mar 2020 21:11:38 +0100 (CET)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mail.librecores.org (Postfix) with ESMTP id 0DDD1207EA
- for <openrisc@lists.librecores.org>; Thu,  5 Mar 2020 08:34:35 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7F0E1FB;
- Wed,  4 Mar 2020 23:34:33 -0800 (PST)
-Received: from [10.163.1.88] (unknown [10.163.1.88])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B93CE3F534;
- Wed,  4 Mar 2020 23:38:16 -0800 (PST)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-mm@kvack.org, Ralf Baechle <ralf@linux-mips.org>,
- Paul Burton <paulburton@kernel.org>
-References: <1583114190-7678-1-git-send-email-anshuman.khandual@arm.com>
-Message-ID: <58aecdcf-ea16-c958-0deb-97541792e081@arm.com>
-Date: Thu, 5 Mar 2020 13:04:19 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <1583114190-7678-1-git-send-email-anshuman.khandual@arm.com>
-Content-Language: en-US
+	by mail.librecores.org (Postfix) with ESMTP id 321D820927;
+	Sun,  8 Mar 2020 21:11:39 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mail.librecores.org (Postfix) with ESMTPS id 6D18820927
+ for <openrisc@lists.librecores.org>; Sat,  7 Mar 2020 05:00:20 +0100 (CET)
+Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net
+ [73.231.172.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2B2EA206D5;
+ Sat,  7 Mar 2020 04:00:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1583553618;
+ bh=oV9dzypff0UA0jPadqQOWi55OmuNhXb+CU9VyawDDys=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=SGgOZOJ38TBhL5PMq2t97iVlOYiTJrLFrJZwUFY+PkmX4j8DweXDMSJ8amOibPULY
+ dukXRc++p/7grHQAkoJmRzC/WSXOXanM1qDKv14ejj7flbmiHB/27z6x/csQKB/k1O
+ jFq+DE3IugyBsaFEvfl6ba2s2SLpEYfJdkqCDacY=
+Date: Fri, 6 Mar 2020 20:00:16 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mike Rapoport <rppt@kernel.org>
+Message-Id: <20200306200016.6f3865ada0daa68b645fe5d7@linux-foundation.org>
+In-Reply-To: <20200227084608.18223-8-rppt@kernel.org>
+References: <20200227084608.18223-1-rppt@kernel.org>
+ <20200227084608.18223-8-rppt@kernel.org>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.31; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
 X-Mailman-Approved-At: Sun, 08 Mar 2020 21:11:35 +0100
-Subject: Re: [OpenRISC] [PATCH] mm/special: Create generic fallbacks for
- pte_special() and pte_mkspecial()
+Subject: Re: [OpenRISC] [PATCH v3 07/14] powerpc/32: drop get_pteptr()
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -42,58 +46,44 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-ia64@vger.kernel.org, linux-xtensa@linux-xtensa.org,
- linux-kernel@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
- linux-csky@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-hexagon@vger.kernel.org, Vincent Chen <deanbo422@gmail.com>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Jonas Bonn <jonas@southpole.se>, Brian Cain <bcain@codeaurora.org>,
- Richard Weinberger <richard@nod.at>, Helge Deller <deller@gmx.de>,
+Cc: Rich Felker <dalias@libc.org>, linux-ia64@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, linux-mm@kvack.org,
+ Paul Mackerras <paulus@samba.org>, linux-hexagon@vger.kernel.org,
+ Will Deacon <will@kernel.org>, kvmarm@lists.cs.columbia.edu,
+ Jonas Bonn <jonas@southpole.se>, linux-arch@vger.kernel.org,
+ Brian Cain <bcain@codeaurora.org>, Marc Zyngier <maz@kernel.org>,
  Russell King <linux@armlinux.org.uk>, Ley Foon Tan <ley.foon.tan@intel.com>,
- linux-arch@vger.kernel.org, Matt Turner <mattst88@gmail.com>,
- Sam Creasey <sammy@sammy.net>, Fenghua Yu <fenghua.yu@intel.com>,
- Jeff Dike <jdike@addtoit.com>, linux-um@lists.infradead.org,
- linux-m68k@lists.linux-m68k.org, openrisc@lists.librecores.org,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>, Greentime Hu <green.hu@gmail.com>,
+ Mike Rapoport <rppt@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Julien Thierry <julien.thierry.kdev@gmail.com>,
+ uclinux-h8-devel@lists.sourceforge.jp, Fenghua Yu <fenghua.yu@intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ kvm-ppc@vger.kernel.org, openrisc@lists.librecores.org,
  Guan Xuetao <gxt@pku.edu.cn>, linux-arm-kernel@lists.infradead.org,
- Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
- Tony Luck <tony.luck@intel.com>, linux-parisc@vger.kernel.org,
- Nick Hu <nickhu@andestech.com>, linux-mips@vger.kernel.org,
- linux-alpha@vger.kernel.org, nios2-dev@lists.rocketboards.org,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+ Christophe Leroy <christophe.leroy@c-s.fr>, Tony Luck <tony.luck@intel.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-kernel@vger.kernel.org,
+ James Morse <james.morse@arm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ nios2-dev@lists.rocketboards.org, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Ck9uIDAzLzAyLzIwMjAgMDc6MjYgQU0sIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+IGRpZmYg
-LS1naXQgYS9hcmNoL21pcHMvaW5jbHVkZS9hc20vcGd0YWJsZS5oIGIvYXJjaC9taXBzL2luY2x1
-ZGUvYXNtL3BndGFibGUuaAo+IGluZGV4IGFlZjUzNzhmOTA5Yy4uOGU0ZTRiZTFjYTAwIDEwMDY0
-NAo+IC0tLSBhL2FyY2gvbWlwcy9pbmNsdWRlL2FzbS9wZ3RhYmxlLmgKPiArKysgYi9hcmNoL21p
-cHMvaW5jbHVkZS9hc20vcGd0YWJsZS5oCj4gQEAgLTI2OSw2ICsyNjksMzYgQEAgc3RhdGljIGlu
-bGluZSB2b2lkIHNldF9wdGVfYXQoc3RydWN0IG1tX3N0cnVjdCAqbW0sIHVuc2lnbmVkIGxvbmcg
-YWRkciwKPiAgICovCj4gIGV4dGVybiBwZ2RfdCBzd2FwcGVyX3BnX2RpcltdOwo+ICAKPiArLyoK
-PiArICogUGxhdGZvcm0gc3BlY2lmaWMgcHRlX3NwZWNpYWwoKSBhbmQgcHRlX21rc3BlY2lhbCgp
-IGRlZmluaXRpb25zCj4gKyAqIGFyZSByZXF1aXJlZCBvbmx5IHdoZW4gQVJDSF9IQVNfUFRFX1NQ
-RUNJQUwgaXMgZW5hYmxlZC4KPiArICovCj4gKyNpZiAhZGVmaW5lZChDT05GSUdfMzJCSVQpICYm
-ICFkZWZpbmVkKENPTkZJR19DUFVfSEFTX1JJWEkpCj4gKyNpZiBkZWZpbmVkKENPTkZJR19QSFlT
-X0FERFJfVF82NEJJVCkgJiYgZGVmaW5lZChDT05GSUdfQ1BVX01JUFMzMikKPiArc3RhdGljIGlu
-bGluZSBpbnQgcHRlX3NwZWNpYWwocHRlX3QgcHRlKQo+ICt7Cj4gKwlyZXR1cm4gcHRlLnB0ZV9s
-b3cgJiBfUEFHRV9TUEVDSUFMOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHB0ZV90IHB0ZV9t
-a3NwZWNpYWwocHRlX3QgcHRlKQo+ICt7Cj4gKwlwdGUucHRlX2xvdyB8PSBfUEFHRV9TUEVDSUFM
-Owo+ICsJcmV0dXJuIHB0ZTsKPiArfQo+ICsjZWxzZQo+ICtzdGF0aWMgaW5saW5lIGludCBwdGVf
-c3BlY2lhbChwdGVfdCBwdGUpCj4gK3sKPiArCXJldHVybiBwdGVfdmFsKHB0ZSkgJiBfUEFHRV9T
-UEVDSUFMOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHB0ZV90IHB0ZV9ta3NwZWNpYWwocHRl
-X3QgcHRlKQo+ICt7Cj4gKwlwdGVfdmFsKHB0ZSkgfD0gX1BBR0VfU1BFQ0lBTDsKPiArCXJldHVy
-biBwdGU7Cj4gK30KPiArI2VuZGlmCj4gKyNlbmRpZgo+ICsKCkhlbGxvIFJhbGYvUGF1bCwKClRo
-aXMgY2hhbmdlIG5vdyByZXN0cmljdHMgbWlwcyBkZWZpbml0aW9ucyBmb3IgcHRlX3NwZWNpYWwo
-KSBhbmQgcHRlX21rc3BlY2lhbCgpCmFuZCBtYWtlcyB0aGVtIHZpc2libGUgb25seSBmb3IgY29u
-ZmlncyB3aGVyZSBBUkNIX0hBU19QVEVfU1BFQ0lBTCBpcyBlbmFibGVkLgpEb2VzIHRoaXMgbG9v
-ayBva2F5ID8gSW4gYWxtb3N0IGFsbCBvdGhlciBwbGF0Zm9ybXMgd2UgZHJvcCB0aGUgc3R1YiBk
-ZWZpbml0aW9ucwpmb3IgcHRlX3NwZWNpYWwoKSBhbmQgcHRlX21rc3BlY2lhbCgpLgoKLSBBbnNo
-dW1hbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVu
-UklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9s
-aXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+T24gVGh1LCAyNyBGZWIgMjAyMCAxMDo0NjowMSArMDIwMCBNaWtlIFJhcG9wb3J0IDxycHB0QGtl
+cm5lbC5vcmc+IHdyb3RlOgoKPiBDb21taXQgOGQzMGMxNGNhYjMwICgicG93ZXJwYy9tbTogUmV3
+b3JrIEkkL0QkIGNvaGVyZW5jeSAodjMpIikgYW5kCj4gY29tbWl0IDkwYWMxOWE4YjIxYiAoIltQ
+T1dFUlBDXSBBYm9saXNoIGlvcGEoKSwgbW1fcHRvdigpLAo+IGlvX2Jsb2NrX21hcHBpbmcoKSBm
+cm9tIGFyY2gvcG93ZXJwYyIpIHJlbW92ZWQgdGhlIHVzZSBvZiBnZXRfcHRlcHRyKCkKPiBvdXRz
+aWRlIG9mIG1tL3BndGFibGVfMzIuYwo+IAo+IEluIG1tL3BndGFibGVfMzIuYywgdGhlIG9ubHkg
+dXNlciBvZiBnZXRfcHRlcHRyKCkgaXMgX19jaGFuZ2VfcGFnZV9hdHRyKCkKPiB3aGljaCBvcGVy
+YXRlcyBvbiBrZXJuZWwgY29udGV4dCBhbmQgb24gbG93bWVtIHBhZ2VzIG9ubHkuCj4gCj4gTW92
+ZSBwYWdlIHRhYmxlIHRyYXZlcnNhbCB0byBfX2NoYW5nZV9wYWdlX2F0dHIoKSBhbmQgZHJvcCBn
+ZXRfcHRlcHRyKCkuCgpQZW9wbGUgaGF2ZSBiZWVuIGNoYW5naW5nIHRoaW5ncyBpbiBsaW51eC1u
+ZXh0IGFuZCB0aGUgcG93ZXJwYyBwYXRjaGVzCmFyZSBodXJ0aW5nLgoKSSdsbCBkaXNhYmxlIHRo
+aXMgcGF0Y2ggc2VyaWVzIGZvciBub3cuICBDYW4geW91IHBsZWFzZSByZWRvCnBvd2VycGMtMzIt
+ZHJvcC1nZXRfcHRlcHRyLnBhdGNoIGFuZApwb3dlcnBjLWFkZC1zdXBwb3J0LWZvci1mb2xkZWQt
+cDRkLXBhZ2UtdGFibGVzLnBhdGNoIChhbmQKcG93ZXJwYy1hZGQtc3VwcG9ydC1mb3ItZm9sZGVk
+LXA0ZC1wYWdlLXRhYmxlcy1maXgucGF0Y2gpPwoKVGhhbmtzLgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5S
+SVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlz
+dGluZm8vb3BlbnJpc2MK
