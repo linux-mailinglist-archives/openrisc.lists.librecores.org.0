@@ -2,55 +2,47 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 740F8189CB2
-	for <lists+openrisc@lfdr.de>; Wed, 18 Mar 2020 14:17:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E709B18C816
+	for <lists+openrisc@lfdr.de>; Fri, 20 Mar 2020 08:21:27 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 1F5A520A49;
-	Wed, 18 Mar 2020 14:17:12 +0100 (CET)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- by mail.librecores.org (Postfix) with ESMTPS id A3F0B20A57
- for <openrisc@lists.librecores.org>; Wed, 18 Mar 2020 14:17:09 +0100 (CET)
-Received: by mail-pg1-f193.google.com with SMTP id m15so13662696pgv.12
- for <openrisc@lists.librecores.org>; Wed, 18 Mar 2020 06:17:09 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 89FE620842;
+	Fri, 20 Mar 2020 08:21:27 +0100 (CET)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by mail.librecores.org (Postfix) with ESMTPS id B09852074A
+ for <openrisc@lists.librecores.org>; Fri, 20 Mar 2020 08:21:25 +0100 (CET)
+Received: by mail-wm1-f50.google.com with SMTP id z12so5151566wmf.5
+ for <openrisc@lists.librecores.org>; Fri, 20 Mar 2020 00:21:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2+U35ps0aH14e4QA9fUiYELl4BDn2bd+PIQVIun5WPY=;
- b=h0nSr2tSTlQIXvitLaXqVjVhyptb+pIh5uW38ibDY+gEeDJbqjb/cQfml6h4ZIAHD4
- hVC+EwORVwMojzkyIVXx+tZ7/5kaIne4/j5EMLj0Iy8a/WiQbvuhK4QiBnqJZ5k/hE3u
- 1nBXP5KVIo+8UyJmEyT9j9rs5xk6v/cm2lLWaklmUJi0yR2gEUkCJ0N90Ulq0taAyLsK
- 85nn1cHmsO4JHOfO5A24RK+NPCG+Qb2Pn4pxR43FrlFBJUja2GOAHo6wr35UcbBv0Qvp
- urZlq7OjYIQhF+ipvHtuVpmug77wR3pPODyGaaNV5TKhAR/QOBQwNQyyOLxCnM6OQT1o
- bSGw==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=3x7Ry8XzKgFIbFuudGzeQAF0OLQQLlGzKNO2Zn22HVk=;
+ b=CVENSbCkG8BF+Js3J7hblbXYzhX3UZgapDIgggW5djn67EP/sgG0ojTuu1nON0CMqW
+ icKeRffePYPL1nBm5oAcrcEfXojA2vzTvboRny5fRZu1SsqUpnp3u1Qqr49U3Ez261/m
+ 9rDa+itgFOYHD1qiDjPbbWa+xb5VhF53wGzfGabUM2SWcrFLFTRt+rkjl/0swce8qe3K
+ ty3s3oKc6FyiqVWXBoOh8XmJfk5egWD1J3Gv/z4IhaGMlg6/enQb0ZfkgjIOp1/96bFj
+ D1y4DaUkImbxLxudF0y5XkMvRf/t4Jm2xUtbpO9uxQssvnE46J8WxW4gXTfH0IX+qvEd
+ s3Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2+U35ps0aH14e4QA9fUiYELl4BDn2bd+PIQVIun5WPY=;
- b=iajLIkaaQ/0CZzjLWppjkp6wMBMOpe4qyt56OWt+EcOpoxKvOnIU+G1P+APzpKTy88
- WmVy10EAkV2PwKwZJ9tXwdiKIQrB8cdXVT7cF8jQJLvTvYjTpXKfQoBdXNtSele9BZ2S
- q9uF2ASNAatHiluV45IRNcGWiELuF5PROo1J4GTVmYK8D6myaOflBpE5oqv3b2Re76GH
- jFbh4obF3yq+oFAwma3udc7OYqAMfPo1rDq9jo77loTqzmm7hKzPIaX4FPOs4a/ASkwY
- 7KBFb4oI7le/CY2P/vFzz6KyM9xRLPIms2nmzxTFMClAJUEUsJyCABlrLHlbqtbUtZ6t
- HCGQ==
-X-Gm-Message-State: ANhLgQ0MQPizqrAyaJkuHPM28cX+9TGFOTjyUonE5Y+73X5qrqKR71Dw
- A15TD09T3dtiM2EwEW22zCA=
-X-Google-Smtp-Source: ADFU+vsTr5Mjb/W9VzG8oSt1VbdU5m6ZOzenwBs8ZuyKA6uu35mje+fFq/dhhtuMH/VVdatIUgYC1g==
-X-Received: by 2002:a63:375b:: with SMTP id g27mr4528506pgn.151.1584537428184; 
- Wed, 18 Mar 2020 06:17:08 -0700 (PDT)
-Received: from localhost (g44.115-65-203.ppp.wakwak.ne.jp. [115.65.203.44])
- by smtp.gmail.com with ESMTPSA id q20sm6573937pfh.89.2020.03.18.06.17.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Mar 2020 06:17:07 -0700 (PDT)
-From: Stafford Horne <shorne@gmail.com>
-To: LKML <linux-kernel@vger.kernel.org>
-Date: Wed, 18 Mar 2020 22:17:02 +0900
-Message-Id: <20200318131703.17601-1-shorne@gmail.com>
-X-Mailer: git-send-email 2.21.0
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=3x7Ry8XzKgFIbFuudGzeQAF0OLQQLlGzKNO2Zn22HVk=;
+ b=n6fOyHxkeexSBI/8JMJQAHvEE6Il6wM/Z0np+vQUujxNXxP8+on1gqd8VUNBVpQHEO
+ K+fkmkTnuXuUM6x/CPcYdsND7uhMfJU56ik9vDSmhMKgwwJSP8OYZQj8UC3Ctqz1J5P0
+ 4AmB7DbCn9WKNh6dgDnxiUgNa+FdLAazO4JELqlfwNLD8SCfb8MgW1e25/iODNzv2k0t
+ E7DJtmSG2lj6piZORRUWCTX55AhmAF2ADhZiKKuT4oUZHQ0yUYk1+rFhqmRlJJPDs+I6
+ uAcquXo1jSczzKXMKVWdjsnIl4cOKYvUnXWsdnURU+gwiJFFAcR+palLg3ytDXZuAMLX
+ E+JA==
+X-Gm-Message-State: ANhLgQ3FkYhSyHe44CqAQkpDiUQFKBQZoWlzaxo6mYb5wbQOIK9g81ph
+ 2vjtDqVv7BIuOi4P8u/MQZQylDgRftzKonSg4YEsPw==
+X-Google-Smtp-Source: ADFU+vv1CBBSFOBch8JzMfYyi5mAhSb5sNgGKCGzriZTlTepUVTK3bEE1Wtc+Ckf49GBksnGRCvwArNRuRMP9DwVcQ4=
+X-Received: by 2002:a1c:a102:: with SMTP id k2mr8052697wme.125.1584688885253; 
+ Fri, 20 Mar 2020 00:21:25 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [OpenRISC] [PATCH] openrisc: Remove obsolete show_trace_task
- function
+From: Stafford Horne <shorne@gmail.com>
+Date: Fri, 20 Mar 2020 16:21:14 +0900
+Message-ID: <CAAfxs75F6mcX_qHPYLzCbudeONXkSCOqNcXGRR4o+bgMDZ_VxQ@mail.gmail.com>
+To: BAndViG <bandvig@mail.ru>
+Subject: [OpenRISC] Fpu tininess
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,30 +55,85 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openrisc@lists.librecores.org,
- "Eric W. Biederman" <ebiederm@xmission.com>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Openrisc <openrisc@lists.librecores.org>
+Content-Type: multipart/mixed; boundary="===============7127272366049056646=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-VGhlIGZ1bmN0aW9uIHNob3dfdHJhY2VfdGFzaygpIHdhcyByZW1vdmVkIGR1cmluZyBsaW51eCAy
-LjUgZGV2ZWxvcG1lbnQKYW5kIHJlcGxhY2VkIHdpdGggc2hvd19zdGFjaygpLiAgVGhpcyB3YXMg
-bmV2ZXIgaW1wZW1lbnRlZCBmb3Igb3BlbnJpc2MKYnV0IG11c3QgaGF2ZSBnb3QgaW4gdmlhIGNv
-cHlpbmcgZnJvbSBhbm90aGVyIGFyY2hpdGVjdHVyZS4gIEp1c3QgcmVtb3ZlCml0LgoKU2lnbmVk
-LW9mZi1ieTogU3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFpbC5jb20+Ci0tLQogYXJjaC9vcGVu
-cmlzYy9rZXJuZWwvdHJhcHMuYyB8IDcgLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDcgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9vcGVucmlzYy9rZXJuZWwvdHJhcHMuYyBiL2FyY2gv
-b3BlbnJpc2Mva2VybmVsL3RyYXBzLmMKaW5kZXggOTMyYThlYzJiNTIwLi5jMTFhYTJlMTdjZTAg
-MTAwNjQ0Ci0tLSBhL2FyY2gvb3BlbnJpc2Mva2VybmVsL3RyYXBzLmMKKysrIGIvYXJjaC9vcGVu
-cmlzYy9rZXJuZWwvdHJhcHMuYwpAQCAtNTUsMTMgKzU1LDYgQEAgdm9pZCBzaG93X3N0YWNrKHN0
-cnVjdCB0YXNrX3N0cnVjdCAqdGFzaywgdW5zaWduZWQgbG9uZyAqZXNwKQogCXVud2luZF9zdGFj
-ayhOVUxMLCBlc3AsIHByaW50X3RyYWNlKTsKIH0KIAotdm9pZCBzaG93X3RyYWNlX3Rhc2soc3Ry
-dWN0IHRhc2tfc3RydWN0ICp0c2spCi17Ci0JLyoKLQkgKiBUT0RPOiBTeXNScS1UIHRyYWNlIGR1
-bXAuLi4KLQkgKi8KLX0KLQogdm9pZCBzaG93X3JlZ2lzdGVycyhzdHJ1Y3QgcHRfcmVncyAqcmVn
-cykKIHsKIAlpbnQgaTsKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxp
-YnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJp
-c2MK
+--===============7127272366049056646==
+Content-Type: multipart/alternative; boundary="00000000000015cd9f05a14422c9"
+
+--00000000000015cd9f05a14422c9
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Andrey,
+
+Thanks for replying to the question about fusesoc.
+
+I've been meaning to ask you a question about our fpu implementation.
+Currently for glibc most  floating point math routines use 64-bit double
+precision.  Anything not handled by the architecture is emulated.
+
+I have written the emulation patches but the tests are having issues with
+underflow flags being incorrectly set sometimes.
+
+I have a hunch it may be due to my tininess setting.   Do you know what we
+should set for:
+
+_FP_TININESS_AFTER_ROUNDING
+
+?
+
+The glibc patch
+https://github.com/openrisc/or1k-glibc/commit/4748177bdde92846974fc8ec523d212d6db74aa0
+
+The gcc patch
+https://github.com/stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305389053
+
+--00000000000015cd9f05a14422c9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Andrey,<div dir=3D"auto"><br></div><div dir=3D"auto">T=
+hanks for replying to the question about fusesoc.=C2=A0</div><div dir=3D"au=
+to"><br></div><div dir=3D"auto">I&#39;ve been meaning to ask you a question=
+ about our fpu implementation.=C2=A0 Currently for glibc most=C2=A0 floatin=
+g point math routines use 64-bit double precision.=C2=A0 Anything not handl=
+ed by the architecture is emulated.</div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto">I have written the emulation patches but the tests are having i=
+ssues with underflow flags being incorrectly set sometimes.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">I have a hunch it may be due to my ti=
+niness setting.=C2=A0 =C2=A0Do you know what we should set for:</div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto"><span style=3D"color:rgb(111,66,193=
+);font-family:sfmono-regular,consolas,&quot;liberation mono&quot;,menlo,mon=
+ospace;font-size:12px;white-space:pre;background-color:rgb(230,255,237)">_F=
+P_TININESS_AFTER_ROUNDING</span><br></div><div dir=3D"auto"><span style=3D"=
+color:rgb(111,66,193);font-family:sfmono-regular,consolas,&quot;liberation =
+mono&quot;,menlo,monospace;font-size:12px;white-space:pre;background-color:=
+rgb(230,255,237)"><br></span></div><div dir=3D"auto"><span style=3D"color:r=
+gb(111,66,193);font-family:sfmono-regular,consolas,&quot;liberation mono&qu=
+ot;,menlo,monospace;font-size:12px;white-space:pre;background-color:rgb(230=
+,255,237)">?</span></div><div dir=3D"auto"><br></div><div dir=3D"auto">The =
+glibc patch</div><div dir=3D"auto"><a href=3D"https://github.com/openrisc/o=
+r1k-glibc/commit/4748177bdde92846974fc8ec523d212d6db74aa0" rel=3D"noreferre=
+r noreferrer" target=3D"_blank">https://github.com/openrisc/or1k-glibc/comm=
+it/4748177bdde92846974fc8ec523d212d6db74aa0</a><br></div><div dir=3D"auto">=
+<br></div><div dir=3D"auto">The gcc patch</div><div dir=3D"auto"><a href=3D=
+"https://github.com/stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305=
+389053" rel=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/=
+stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305389053</a><br></div>=
+</div>
+
+--00000000000015cd9f05a14422c9--
+
+--===============7127272366049056646==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============7127272366049056646==--
