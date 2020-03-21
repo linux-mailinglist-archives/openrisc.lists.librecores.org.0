@@ -2,47 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id E709B18C816
-	for <lists+openrisc@lfdr.de>; Fri, 20 Mar 2020 08:21:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9CA8818E170
+	for <lists+openrisc@lfdr.de>; Sat, 21 Mar 2020 14:06:48 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 89FE620842;
-	Fri, 20 Mar 2020 08:21:27 +0100 (CET)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by mail.librecores.org (Postfix) with ESMTPS id B09852074A
- for <openrisc@lists.librecores.org>; Fri, 20 Mar 2020 08:21:25 +0100 (CET)
-Received: by mail-wm1-f50.google.com with SMTP id z12so5151566wmf.5
- for <openrisc@lists.librecores.org>; Fri, 20 Mar 2020 00:21:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=3x7Ry8XzKgFIbFuudGzeQAF0OLQQLlGzKNO2Zn22HVk=;
- b=CVENSbCkG8BF+Js3J7hblbXYzhX3UZgapDIgggW5djn67EP/sgG0ojTuu1nON0CMqW
- icKeRffePYPL1nBm5oAcrcEfXojA2vzTvboRny5fRZu1SsqUpnp3u1Qqr49U3Ez261/m
- 9rDa+itgFOYHD1qiDjPbbWa+xb5VhF53wGzfGabUM2SWcrFLFTRt+rkjl/0swce8qe3K
- ty3s3oKc6FyiqVWXBoOh8XmJfk5egWD1J3Gv/z4IhaGMlg6/enQb0ZfkgjIOp1/96bFj
- D1y4DaUkImbxLxudF0y5XkMvRf/t4Jm2xUtbpO9uxQssvnE46J8WxW4gXTfH0IX+qvEd
- s3Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=3x7Ry8XzKgFIbFuudGzeQAF0OLQQLlGzKNO2Zn22HVk=;
- b=n6fOyHxkeexSBI/8JMJQAHvEE6Il6wM/Z0np+vQUujxNXxP8+on1gqd8VUNBVpQHEO
- K+fkmkTnuXuUM6x/CPcYdsND7uhMfJU56ik9vDSmhMKgwwJSP8OYZQj8UC3Ctqz1J5P0
- 4AmB7DbCn9WKNh6dgDnxiUgNa+FdLAazO4JELqlfwNLD8SCfb8MgW1e25/iODNzv2k0t
- E7DJtmSG2lj6piZORRUWCTX55AhmAF2ADhZiKKuT4oUZHQ0yUYk1+rFhqmRlJJPDs+I6
- uAcquXo1jSczzKXMKVWdjsnIl4cOKYvUnXWsdnURU+gwiJFFAcR+palLg3ytDXZuAMLX
- E+JA==
-X-Gm-Message-State: ANhLgQ3FkYhSyHe44CqAQkpDiUQFKBQZoWlzaxo6mYb5wbQOIK9g81ph
- 2vjtDqVv7BIuOi4P8u/MQZQylDgRftzKonSg4YEsPw==
-X-Google-Smtp-Source: ADFU+vv1CBBSFOBch8JzMfYyi5mAhSb5sNgGKCGzriZTlTepUVTK3bEE1Wtc+Ckf49GBksnGRCvwArNRuRMP9DwVcQ4=
-X-Received: by 2002:a1c:a102:: with SMTP id k2mr8052697wme.125.1584688885253; 
- Fri, 20 Mar 2020 00:21:25 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 361F620A72;
+	Sat, 21 Mar 2020 14:06:48 +0100 (CET)
+Received: from smtp14.mail.ru (smtp14.mail.ru [94.100.181.95])
+ by mail.librecores.org (Postfix) with ESMTPS id CC4A020A6D
+ for <openrisc@lists.librecores.org>; Sat, 21 Mar 2020 14:06:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+ s=mail2; 
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=jSYME840CjhB5xbrk0zfeRQue70vLndCpll2rPKjocU=; 
+ b=h6CnoF1R1BlaY7I7peZctwp9Kz6xyZIMGdqlmgsVCneW3M5Hq68D08juQYKoplrMXhXztEXLkoOJSwVOdiqRr8aiB7MjwkAMumMifSUf3KR80BHIiAg3xckUKa1eufc0rc6sr0SjsDuSDiK4UqaWjEhgjvp3/m619MmSx1N167g=;
+Received: by smtp14.mail.ru with esmtpa (envelope-from <bandvig@mail.ru>)
+ id 1jFdpu-0003XO-5D; Sat, 21 Mar 2020 16:06:46 +0300
+To: Stafford Horne <shorne@gmail.com>
+References: <CAAfxs75F6mcX_qHPYLzCbudeONXkSCOqNcXGRR4o+bgMDZ_VxQ@mail.gmail.com>
+From: Andrey Bacherov <bandvig@mail.ru>
+Message-ID: <1cbd1694-51c1-9b3f-5bb1-6f378b4e703e@mail.ru>
+Date: Sat, 21 Mar 2020 16:06:45 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-From: Stafford Horne <shorne@gmail.com>
-Date: Fri, 20 Mar 2020 16:21:14 +0900
-Message-ID: <CAAfxs75F6mcX_qHPYLzCbudeONXkSCOqNcXGRR4o+bgMDZ_VxQ@mail.gmail.com>
-To: BAndViG <bandvig@mail.ru>
-Subject: [OpenRISC] Fpu tininess
+In-Reply-To: <CAAfxs75F6mcX_qHPYLzCbudeONXkSCOqNcXGRR4o+bgMDZ_VxQ@mail.gmail.com>
+Content-Language: en-US
+Authentication-Results: smtp14.mail.ru; auth=pass smtp.auth=bandvig@mail.ru
+ smtp.mailfrom=bandvig@mail.ru
+X-7564579A: B8F34718100C35BD
+X-77F55803: 0A44E481635329DB0E1AA8A03B392317D32E5E48865217365060145B739F5F5C5CFB2ACA337FD68BF688BCB05C26794DDD5DC9855921E213C6A3A9D383D9552AE458B8F2AA9B197B0B3FA7DEE5EB9AA6
+X-7FA49CB5: 0D63561A33F958A58CD4D37FE803D47420D67CF6D97A7A6303DA310AB2E2DC268941B15DA834481FA18204E546F3947C78444BBB7636F62AF6B57BC7E64490618DEB871D839B7333395957E7521B51C2545D4CF71C94A83E9FA2833FD35BB23D27C277FBC8AE2E8B55D5BE2F85BDEC5FA471835C12D1D977C4224003CC8364767815B9869FA544D8D32BA5DBAC0009BE9E8FC8737B5C224937E7452263E0972376E601842F6C81A12EF20D2F80756B5F012D6517FE479FCD76E601842F6C81A127C277FBC8AE2E8BB4A6D9B00E37F4B33AA81AA40904B5D99449624AB7ADAF37C2546860BDEA057B725E5C173C3A84C307FFBFDCC3B3F35035872C767BF85DA2F004C906525384306FED454B719173D6462275124DF8B9C99B0B8D173C204012BD9CCCA9EDD067B1EDA766A37F9254B7
+X-D57D3AED: Y8kq8+OzVoxvgW9Op3aR8Fxwo7H2ZNxGP5qz8aO2mjTJzjHGC4ogvVuzB3zfVUBtENeZ6b5av1fnCBE34JUDkWdM6QxE+Ga5d8voMtmXfSqUe8RrrcuTppf1Wbpd8t+6
+X-Mailru-Sender: 7B480EB95D2632CA6A331C8845DC6BF109BF50C0BD11AC2FC2496D2D06D3847D0840CAA66A03E50E96707CC21FDCAFE23DDE9B364B0DF28976DB2FCCB23CBB8B481B2AED7BCCC0A4AE208404248635DF
+X-Mras: Ok
+Subject: Re: [OpenRISC] Fpu tininess
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -56,84 +49,43 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Openrisc <openrisc@lists.librecores.org>
-Content-Type: multipart/mixed; boundary="===============7127272366049056646=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============7127272366049056646==
-Content-Type: multipart/alternative; boundary="00000000000015cd9f05a14422c9"
-
---00000000000015cd9f05a14422c9
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Andrey,
-
-Thanks for replying to the question about fusesoc.
-
-I've been meaning to ask you a question about our fpu implementation.
-Currently for glibc most  floating point math routines use 64-bit double
-precision.  Anything not handled by the architecture is emulated.
-
-I have written the emulation patches but the tests are having issues with
-underflow flags being incorrectly set sometimes.
-
-I have a hunch it may be due to my tininess setting.   Do you know what we
-should set for:
-
-_FP_TININESS_AFTER_ROUNDING
-
-?
-
-The glibc patch
-https://github.com/openrisc/or1k-glibc/commit/4748177bdde92846974fc8ec523d212d6db74aa0
-
-The gcc patch
-https://github.com/stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305389053
-
---00000000000015cd9f05a14422c9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi Andrey,<div dir=3D"auto"><br></div><div dir=3D"auto">T=
-hanks for replying to the question about fusesoc.=C2=A0</div><div dir=3D"au=
-to"><br></div><div dir=3D"auto">I&#39;ve been meaning to ask you a question=
- about our fpu implementation.=C2=A0 Currently for glibc most=C2=A0 floatin=
-g point math routines use 64-bit double precision.=C2=A0 Anything not handl=
-ed by the architecture is emulated.</div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">I have written the emulation patches but the tests are having i=
-ssues with underflow flags being incorrectly set sometimes.</div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">I have a hunch it may be due to my ti=
-niness setting.=C2=A0 =C2=A0Do you know what we should set for:</div><div d=
-ir=3D"auto"><br></div><div dir=3D"auto"><span style=3D"color:rgb(111,66,193=
-);font-family:sfmono-regular,consolas,&quot;liberation mono&quot;,menlo,mon=
-ospace;font-size:12px;white-space:pre;background-color:rgb(230,255,237)">_F=
-P_TININESS_AFTER_ROUNDING</span><br></div><div dir=3D"auto"><span style=3D"=
-color:rgb(111,66,193);font-family:sfmono-regular,consolas,&quot;liberation =
-mono&quot;,menlo,monospace;font-size:12px;white-space:pre;background-color:=
-rgb(230,255,237)"><br></span></div><div dir=3D"auto"><span style=3D"color:r=
-gb(111,66,193);font-family:sfmono-regular,consolas,&quot;liberation mono&qu=
-ot;,menlo,monospace;font-size:12px;white-space:pre;background-color:rgb(230=
-,255,237)">?</span></div><div dir=3D"auto"><br></div><div dir=3D"auto">The =
-glibc patch</div><div dir=3D"auto"><a href=3D"https://github.com/openrisc/o=
-r1k-glibc/commit/4748177bdde92846974fc8ec523d212d6db74aa0" rel=3D"noreferre=
-r noreferrer" target=3D"_blank">https://github.com/openrisc/or1k-glibc/comm=
-it/4748177bdde92846974fc8ec523d212d6db74aa0</a><br></div><div dir=3D"auto">=
-<br></div><div dir=3D"auto">The gcc patch</div><div dir=3D"auto"><a href=3D=
-"https://github.com/stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305=
-389053" rel=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/=
-stffrdhrn/gcc/commit/8e99e252edc130162b6d2d7bdef2180305389053</a><br></div>=
-</div>
-
---00000000000015cd9f05a14422c9--
-
---===============7127272366049056646==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============7127272366049056646==--
+SGVsbG8gU3RhZmZvcmQKCk9SSzEgRlBVIGltcGxlbWVudHMgdGluaW5lc3MgYWZ0ZXIgcm91bmRp
+bmcuCgpodHRwczovL2dpdGh1Yi5jb20vYmFuZHZpZy9vcjFrX3Rlc3RmbG9hdC9ibG9iLzk5NGM4
+NGI4YzExZjM2MDk3NzJjMzE4Zjg4OTRlY2JhZDg2MGJkODkvc3JjL3Rlc3RmbG9hdC5jI0wxNDUK
+CkF0IGxlYXN0IGl0IHNob3VsZC4uLgoKSSBtdXN0IGFkbWl0IHRoYXQgSSB3YXNuJ3QgRlAtZ3Vy
+dSB3aGlsZSB3YXMgaW1wbGVtZW50aW5nIEZQIDopLiBBbmQgSSdtIApub3QgRlAtZ3VydSBub3cu
+IDopLiBQZXJoYXBzIEkgZG9uJ3QgdW5kZXJzdGFuZCBGUC1zdGFuZGFyZCBjbGVhcmx5IGluIAph
+bGwgYXNwZWN0cy4gQXMgYSByZXN1bHQgInVuZGVyZmxvdyBmbGFnIiBiZWhhdmlvciBkb2Vzbid0
+IG1lZXQgc3RhbmRhcmQgCmNvbXBsZXRlbHkuIEFuZCBJIHRlbXBvcmFyeSBibG9ja2VkICJ1bmRl
+cmZsb3cgZmxhZyIgYmVoYXZpb3IgCnZlcmlmaWNhdGlvbiBpbiBteSB2ZXJzaW9uIG9mIHRlc3Rf
+ZmxvYXQgdG9vbDoKCmh0dHBzOi8vZ2l0aHViLmNvbS9iYW5kdmlnL29yMWtfdGVzdGZsb2F0L2Js
+b2IvOTk0Yzg0YjhjMTFmMzYwOTc3MmMzMThmODg5NGVjYmFkODYwYmQ4OS9zcmMvbWlsaWV1Lmgj
+TDUwCgoiVW5kZXJmbG93IGZsYWciIGJlaGF2aW9yIGNvcnJlY3Rpb24gaXMgaW4gbXkgVE9ETyBs
+aXN0LCBidXQgSSdtIG5vdCAKc3VyZSB0aGF0IEkgY291bGQgcGF5IGVub3VnaCBhdHRlbnRpb24g
+Zm9yIGl0LgpCVFcsIGl0IGNvdWxkIGJlIHRhc2sgZm9yIEdTb0MsIGlmIHNvbWVib2R5IHdvdWxk
+IGJlIHJlYWR5IHRvIGJlY29tZSBhIAptZW50b3IuCgpXQlIKQW5kcmV5CgoKMjAuMDMuMjAyMCAx
+MDoyMSwgU3RhZmZvcmQgSG9ybmUgd3JvdGU6Cj4gSGkgQW5kcmV5LAo+IAo+IFRoYW5rcyBmb3Ig
+cmVwbHlpbmcgdG8gdGhlIHF1ZXN0aW9uIGFib3V0IGZ1c2Vzb2MuCj4gCj4gSSd2ZSBiZWVuIG1l
+YW5pbmcgdG8gYXNrIHlvdSBhIHF1ZXN0aW9uIGFib3V0IG91ciBmcHUgaW1wbGVtZW50YXRpb24u
+ICAKPiBDdXJyZW50bHkgZm9yIGdsaWJjIG1vc3TCoCBmbG9hdGluZyBwb2ludCBtYXRoIHJvdXRp
+bmVzIHVzZSA2NC1iaXQgZG91YmxlIAo+IHByZWNpc2lvbi7CoCBBbnl0aGluZyBub3QgaGFuZGxl
+ZCBieSB0aGUgYXJjaGl0ZWN0dXJlIGlzIGVtdWxhdGVkLgo+IAo+IEkgaGF2ZSB3cml0dGVuIHRo
+ZSBlbXVsYXRpb24gcGF0Y2hlcyBidXQgdGhlIHRlc3RzIGFyZSBoYXZpbmcgaXNzdWVzIAo+IHdp
+dGggdW5kZXJmbG93IGZsYWdzIGJlaW5nIGluY29ycmVjdGx5IHNldCBzb21ldGltZXMuCj4gCj4g
+SSBoYXZlIGEgaHVuY2ggaXQgbWF5IGJlIGR1ZSB0byBteSB0aW5pbmVzcyBzZXR0aW5nLsKgIMKg
+RG8geW91IGtub3cgd2hhdCAKPiB3ZSBzaG91bGQgc2V0IGZvcjoKPiAKPiBfRlBfVElOSU5FU1Nf
+QUZURVJfUk9VTkRJTkcKPiAKPiA/Cj4gCj4gVGhlIGdsaWJjIHBhdGNoCj4gaHR0cHM6Ly9naXRo
+dWIuY29tL29wZW5yaXNjL29yMWstZ2xpYmMvY29tbWl0LzQ3NDgxNzdiZGRlOTI4NDY5NzRmYzhl
+YzUyM2QyMTJkNmRiNzRhYTAKPiAKPiBUaGUgZ2NjIHBhdGNoCj4gaHR0cHM6Ly9naXRodWIuY29t
+L3N0ZmZyZGhybi9nY2MvY29tbWl0LzhlOTllMjUyZWRjMTMwMTYyYjZkMmQ3YmRlZjIxODAzMDUz
+ODkwNTMKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xwo+IE9wZW5SSVNDIG1haWxpbmcgbGlzdAo+IE9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3Jn
+Cj4gaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo+IApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWls
+aW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJy
+ZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
