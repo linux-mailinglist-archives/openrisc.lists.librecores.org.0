@@ -2,37 +2,37 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EA881B20A9
+	by mail.lfdr.de (Postfix) with ESMTP id E96231B20AA
 	for <lists+openrisc@lfdr.de>; Tue, 21 Apr 2020 10:01:48 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id C941A20A35;
-	Tue, 21 Apr 2020 10:01:47 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 9862820564;
+	Tue, 21 Apr 2020 10:01:48 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 41F1520A3E
- for <openrisc@lists.librecores.org>; Sun, 12 Apr 2020 21:52:47 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id C696B20A40
+ for <openrisc@lists.librecores.org>; Sun, 12 Apr 2020 21:53:01 +0200 (CEST)
 Received: from aquarius.haifa.ibm.com (nesher1.haifa.il.ibm.com [195.110.40.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E51FF2084D;
- Sun, 12 Apr 2020 19:52:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 74DEF2082E;
+ Sun, 12 Apr 2020 19:52:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586721165;
- bh=kg4dZKJ579N986CAoZmLROmIpOcRvYn6L1WsJDxOIl8=;
+ s=default; t=1586721180;
+ bh=JfG1Siyfl/JGxyNzE0ZLQzUhIkyLD5V0oBKSDMAbENY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M03jHDXjV3O72ZpMby0hutf5uyRC1PKMh5Up9F7+dMgi3d5b/SM0V7rzcP3iMzTI8
- 3JkXkIjXkrlZSXxjUt9xlmS4iLXB2oSwrPflLocjX5KHIdgMKTiTQivjIGtjXdJ36v
- mKibE3Tjm6gd7jGsV4TErO9jVxTXOdHVgsjyb7xw=
+ b=h2BnsmPGm8Cfa+kc9o8EOpWn0BOw67teRHCCzEkMS26EarC59737FlnTapIdTxqRs
+ Z9YlT+5wouIjTX+/tVSAr8/AiZFcWvYuR6+XoHgUrAI7qcRq7EA9dz2P0lWXUvqps7
+ AwdXw0rVSj2ugoYT6SmhsdRc64B0sLh/VGd+jLmU=
 From: Mike Rapoport <rppt@kernel.org>
 To: linux-kernel@vger.kernel.org
-Date: Sun, 12 Apr 2020 22:48:52 +0300
-Message-Id: <20200412194859.12663-15-rppt@kernel.org>
+Date: Sun, 12 Apr 2020 22:48:53 +0300
+Message-Id: <20200412194859.12663-16-rppt@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200412194859.12663-1-rppt@kernel.org>
 References: <20200412194859.12663-1-rppt@kernel.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 21 Apr 2020 10:01:35 +0200
-Subject: [OpenRISC] [PATCH 14/21] xtensa: simplify detection of memory zone
- boundaries
+Subject: [OpenRISC] [PATCH 15/21] mm: memmap_init: iterate over memblock
+ regions rather that check each PFN
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -80,29 +80,45 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-RnJvbTogTWlrZSBSYXBvcG9ydCA8cnBwdEBsaW51eC5pYm0uY29tPgoKVGhlIGZyZWVfYXJlYV9p
-bml0KCkgZnVuY3Rpb24gb25seSByZXF1aXJlcyB0aGUgZGVmaW5pdGlvbiBvZiBtYXhpbWFsIFBG
-Tgpmb3IgZWFjaCBvZiB0aGUgc3VwcG9ydGVkIHpvbmUgcmF0ZXIgdGhhbiBjYWxjdWxhdGlvbiBv
-ZiBhY3R1YWwgem9uZSBzaXplcwphbmQgdGhlIHNpemVzIG9mIHRoZSBob2xlcyBiZXR3ZWVuIHRo
-ZSB6b25lcy4KCkFmdGVyIHJlbW92YWwgb2YgQ09ORklHX0hBVkVfTUVNQkxPQ0tfTk9ERV9NQVAg
-dGhlIGZyZWVfYXJlYV9pbml0KCkgaXMKYXZhaWxhYmxlIHRvIGFsbCBhcmNoaXRlY3R1cmVzLgoK
-VXNpbmcgdGhpcyBmdW5jdGlvbiBpbnN0ZWFkIG9mIGZyZWVfYXJlYV9pbml0X25vZGUoKSBzaW1w
-bGlmaWVzIHRoZSB6b25lCmRldGVjdGlvbi4KClNpZ25lZC1vZmYtYnk6IE1pa2UgUmFwb3BvcnQg
-PHJwcHRAbGludXguaWJtLmNvbT4KLS0tCiBhcmNoL3h0ZW5zYS9tbS9pbml0LmMgfCA4ICsrKyst
-LS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2FyY2gveHRlbnNhL21tL2luaXQuYyBiL2FyY2gveHRlbnNhL21tL2luaXQuYwpp
-bmRleCAxOWM2MjVlNmQ4MWYuLmEwNWIzMDZjZjM3MSAxMDA2NDQKLS0tIGEvYXJjaC94dGVuc2Ev
-bW0vaW5pdC5jCisrKyBiL2FyY2gveHRlbnNhL21tL2luaXQuYwpAQCAtNzAsMTMgKzcwLDEzIEBA
-IHZvaWQgX19pbml0IGJvb3RtZW1faW5pdCh2b2lkKQogdm9pZCBfX2luaXQgem9uZXNfaW5pdCh2
-b2lkKQogewogCS8qIEFsbCBwYWdlcyBhcmUgRE1BLWFibGUsIHNvIHdlIHB1dCB0aGVtIGFsbCBp
-biB0aGUgRE1BIHpvbmUuICovCi0JdW5zaWduZWQgbG9uZyB6b25lc19zaXplW01BWF9OUl9aT05F
-U10gPSB7Ci0JCVtaT05FX05PUk1BTF0gPSBtYXhfbG93X3BmbiAtIEFSQ0hfUEZOX09GRlNFVCwK
-Kwl1bnNpZ25lZCBsb25nIG1heF96b25lX3BmbltNQVhfTlJfWk9ORVNdID0geworCQlbWk9ORV9O
-T1JNQUxdID0gbWF4X2xvd19wZm4sCiAjaWZkZWYgQ09ORklHX0hJR0hNRU0KLQkJW1pPTkVfSElH
-SE1FTV0gPSBtYXhfcGZuIC0gbWF4X2xvd19wZm4sCisJCVtaT05FX0hJR0hNRU1dID0gbWF4X3Bm
-biwKICNlbmRpZgogCX07Ci0JZnJlZV9hcmVhX2luaXRfbm9kZSgwLCB6b25lc19zaXplLCBBUkNI
-X1BGTl9PRkZTRVQsIE5VTEwpOworCWZyZWVfYXJlYV9pbml0KG1heF96b25lX3Bmbik7CiB9CiAK
-ICNpZmRlZiBDT05GSUdfSElHSE1FTQotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NA
-bGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5m
-by9vcGVucmlzYwo=
+RnJvbTogQmFvcXVhbiBIZSA8YmhlQHJlZGhhdC5jb20+CgpXaGVuIGNhbGxlZCBkdXJpbmcgYm9v
+dCB0aGUgbWVtbWFwX2luaXRfem9uZSgpIGZ1bmN0aW9uIGNoZWNrcyBpZiBlYWNoIFBGTgppcyB2
+YWxpZCBhbmQgYWN0dWFsbHkgYmVsb25ncyB0byB0aGUgbm9kZSBiZWluZyBpbml0aWFsaXplZCB1
+c2luZwplYXJseV9wZm5fdmFsaWQoKSBhbmQgZWFybHlfcGZuX2luX25pZCgpLgoKRWFjaCBzdWNo
+IGNoZWNrIG1heSBjb3N0IHVwIHRvIE8obG9nKG4pKSB3aGVyZSBuIGlzIHRoZSBudW1iZXIgb2Yg
+bWVtb3J5CmJhbmtzLCBzbyBmb3IgbGFyZ2UgYW1vdW50IG9mIG1lbW9yeSBvdmVyYWxsIHRpbWUg
+c3BlbnQgaW4gZWFybHlfcGZuKigpCmJlY29tZXMgc3Vic3RhbnRpYWwuCgpTaW5jZSB0aGUgaW5m
+b3JtYXRpb24gaXMgYW55d2F5IHByZXNlbnQgaW4gbWVtYmxvY2ssIHdlIGNhbiBpdGVyYXRlIG92
+ZXIKbWVtYmxvY2sgbWVtb3J5IHJlZ2lvbnMgaW4gbWVtbWFwX2luaXQoKSBhbmQgb25seSBjYWxs
+IG1lbW1hcF9pbml0X3pvbmUoKQpmb3IgUEZOIHJhbmdlcyB0aGF0IGFyZSBrbm93IHRvIGJlIHZh
+bGlkIGFuZCBpbiB0aGUgYXBwcm9wcmlhdGUgbm9kZS4KClNpZ25lZC1vZmYtYnk6IEJhb3F1YW4g
+SGUgPGJoZUByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBNaWtlIFJhcG9wb3J0IDxycHB0QGxp
+bnV4LmlibS5jb20+Ci0tLQogbW0vcGFnZV9hbGxvYy5jIHwgMjYgKysrKysrKysrKysrKysrKy0t
+LS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9tbS9wYWdlX2FsbG9jLmMgYi9tbS9wYWdlX2FsbG9jLmMKaW5kZXgg
+N2Y2YTMwODFlZGI4Li5jNDNjZTg3MDk0NTcgMTAwNjQ0Ci0tLSBhL21tL3BhZ2VfYWxsb2MuYwor
+KysgYi9tbS9wYWdlX2FsbG9jLmMKQEAgLTU5OTUsMTQgKzU5OTUsNiBAQCB2b2lkIF9fbWVtaW5p
+dCBtZW1tYXBfaW5pdF96b25lKHVuc2lnbmVkIGxvbmcgc2l6ZSwgaW50IG5pZCwgdW5zaWduZWQg
+bG9uZyB6b25lLAogCQkgKiBmdW5jdGlvbi4gIFRoZXkgZG8gbm90IGV4aXN0IG9uIGhvdHBsdWdn
+ZWQgbWVtb3J5LgogCQkgKi8KIAkJaWYgKGNvbnRleHQgPT0gTUVNTUFQX0VBUkxZKSB7Ci0JCQlp
+ZiAoIWVhcmx5X3Bmbl92YWxpZChwZm4pKSB7Ci0JCQkJcGZuID0gbmV4dF9wZm4ocGZuKTsKLQkJ
+CQljb250aW51ZTsKLQkJCX0KLQkJCWlmICghZWFybHlfcGZuX2luX25pZChwZm4sIG5pZCkpIHsK
+LQkJCQlwZm4rKzsKLQkJCQljb250aW51ZTsKLQkJCX0KIAkJCWlmIChvdmVybGFwX21lbW1hcF9p
+bml0KHpvbmUsICZwZm4pKQogCQkJCWNvbnRpbnVlOwogCQkJaWYgKGRlZmVyX2luaXQobmlkLCBw
+Zm4sIGVuZF9wZm4pKQpAQCAtNjExOCw5ICs2MTEwLDIzIEBAIHN0YXRpYyB2b2lkIF9fbWVtaW5p
+dCB6b25lX2luaXRfZnJlZV9saXN0cyhzdHJ1Y3Qgem9uZSAqem9uZSkKIH0KIAogdm9pZCBfX21l
+bWluaXQgX193ZWFrIG1lbW1hcF9pbml0KHVuc2lnbmVkIGxvbmcgc2l6ZSwgaW50IG5pZCwKLQkJ
+CQkgIHVuc2lnbmVkIGxvbmcgem9uZSwgdW5zaWduZWQgbG9uZyBzdGFydF9wZm4pCisJCQkJICB1
+bnNpZ25lZCBsb25nIHpvbmUsCisJCQkJICB1bnNpZ25lZCBsb25nIHJhbmdlX3N0YXJ0X3BmbikK
+IHsKLQltZW1tYXBfaW5pdF96b25lKHNpemUsIG5pZCwgem9uZSwgc3RhcnRfcGZuLCBNRU1NQVBf
+RUFSTFksIE5VTEwpOworCXVuc2lnbmVkIGxvbmcgc3RhcnRfcGZuLCBlbmRfcGZuOworCXVuc2ln
+bmVkIGxvbmcgcmFuZ2VfZW5kX3BmbiA9IHJhbmdlX3N0YXJ0X3BmbiArIHNpemU7CisJaW50IGk7
+CisKKwlmb3JfZWFjaF9tZW1fcGZuX3JhbmdlKGksIG5pZCwgJnN0YXJ0X3BmbiwgJmVuZF9wZm4s
+IE5VTEwpIHsKKwkJc3RhcnRfcGZuID0gY2xhbXAoc3RhcnRfcGZuLCByYW5nZV9zdGFydF9wZm4s
+IHJhbmdlX2VuZF9wZm4pOworCQllbmRfcGZuID0gY2xhbXAoZW5kX3BmbiwgcmFuZ2Vfc3RhcnRf
+cGZuLCByYW5nZV9lbmRfcGZuKTsKKworCQlpZiAoZW5kX3BmbiA+IHN0YXJ0X3BmbikgeworCQkJ
+c2l6ZSA9IGVuZF9wZm4gLSBzdGFydF9wZm47CisJCQltZW1tYXBfaW5pdF96b25lKHNpemUsIG5p
+ZCwgem9uZSwgc3RhcnRfcGZuLAorCQkJCQkgTUVNTUFQX0VBUkxZLCBOVUxMKTsKKwkJfQorCX0K
+IH0KIAogc3RhdGljIGludCB6b25lX2JhdGNoc2l6ZShzdHJ1Y3Qgem9uZSAqem9uZSkKLS0gCjIu
+MjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3Bl
+blJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8v
+bGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
