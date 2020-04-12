@@ -2,36 +2,36 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D6041B20A6
+	by mail.lfdr.de (Postfix) with ESMTP id A62731B20A7
 	for <lists+openrisc@lfdr.de>; Tue, 21 Apr 2020 10:01:46 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 9944E209F6;
-	Tue, 21 Apr 2020 10:01:43 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id C010020409;
+	Tue, 21 Apr 2020 10:01:45 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id C3AAE20A31
- for <openrisc@lists.librecores.org>; Sun, 12 Apr 2020 21:52:03 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 70FA420A35
+ for <openrisc@lists.librecores.org>; Sun, 12 Apr 2020 21:52:18 +0200 (CEST)
 Received: from aquarius.haifa.ibm.com (nesher1.haifa.il.ibm.com [195.110.40.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 965302076A;
- Sun, 12 Apr 2020 19:51:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 28EA620775;
+ Sun, 12 Apr 2020 19:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586721122;
- bh=PCbqsWYzAM+g6tcd6TH02Puf0P73UFXaFL1Rz1Zbjpg=;
+ s=default; t=1586721137;
+ bh=hUBvmPW5d1tDjG7A+Oh/9bPeXKJnXjeaX5OwSgIXw2c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HbTmqsqhEvgRfGTgrGcOFXT0l/9w+kXPwbSJ/Op2s6eLu2SPdTgKqvfMARPnf3gG8
- p5gRWbF2uwb7kNkXArMaMG2cQOulBtkvYbSGMF1uRSTbhe7T0hRsU9ZprOctGE473X
- dtAFNP/h0q1h/xF6ZUpPmrmLyj0mS7ywjEGbjztE=
+ b=M8VdsHZXtavV6hGQeSybeedtixbc0qEFvYwymWCsAsZspHxDOG/8LqOcl2Ak5paVk
+ rGyQuKMlNe2jFURT7zwU9th/agQfr8ejSO+2z/ZEo0OxRj91Na2Qa0QaPppjDX+09D
+ rs91AWtBtp0u6dKuMLDk/lzjYXCOtoEM9mlAcEUk=
 From: Mike Rapoport <rppt@kernel.org>
 To: linux-kernel@vger.kernel.org
-Date: Sun, 12 Apr 2020 22:48:49 +0300
-Message-Id: <20200412194859.12663-12-rppt@kernel.org>
+Date: Sun, 12 Apr 2020 22:48:50 +0300
+Message-Id: <20200412194859.12663-13-rppt@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200412194859.12663-1-rppt@kernel.org>
 References: <20200412194859.12663-1-rppt@kernel.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 21 Apr 2020 10:01:35 +0200
-Subject: [OpenRISC] [PATCH 11/21] parisc: simplify detection of memory zone
+Subject: [OpenRISC] [PATCH 12/21] sparc32: simplify detection of memory zone
  boundaries
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -88,28 +88,26 @@ ZSB6b25lcy4KCkFmdGVyIHJlbW92YWwgb2YgQ09ORklHX0hBVkVfTUVNQkxPQ0tfTk9ERV9NQVAg
 dGhlIGZyZWVfYXJlYV9pbml0KCkgaXMKYXZhaWxhYmxlIHRvIGFsbCBhcmNoaXRlY3R1cmVzLgoK
 VXNpbmcgdGhpcyBmdW5jdGlvbiBpbnN0ZWFkIG9mIGZyZWVfYXJlYV9pbml0X25vZGUoKSBzaW1w
 bGlmaWVzIHRoZSB6b25lCmRldGVjdGlvbi4KClNpZ25lZC1vZmYtYnk6IE1pa2UgUmFwb3BvcnQg
-PHJwcHRAbGludXguaWJtLmNvbT4KLS0tCiBhcmNoL3BhcmlzYy9tbS9pbml0LmMgfCAyMiArKyst
-LS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxOSBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9hcmNoL3BhcmlzYy9tbS9pbml0LmMgYi9hcmNoL3Bh
-cmlzYy9tbS9pbml0LmMKaW5kZXggNTIyNGZiMzhkNzY2Li4wMmQyZmRiODVkY2MgMTAwNjQ0Ci0t
-LSBhL2FyY2gvcGFyaXNjL21tL2luaXQuYworKysgYi9hcmNoL3BhcmlzYy9tbS9pbml0LmMKQEAg
-LTY3NSwyNyArNjc1LDExIEBAIHN0YXRpYyB2b2lkIF9faW5pdCBnYXRld2F5X2luaXQodm9pZCkK
-IAogc3RhdGljIHZvaWQgX19pbml0IHBhcmlzY19ib290bWVtX2ZyZWUodm9pZCkKIHsKLQl1bnNp
-Z25lZCBsb25nIHpvbmVzX3NpemVbTUFYX05SX1pPTkVTXSA9IHsgMCwgfTsKLQl1bnNpZ25lZCBs
-b25nIGhvbGVzX3NpemVbTUFYX05SX1pPTkVTXSA9IHsgMCwgfTsKLQl1bnNpZ25lZCBsb25nIG1l
-bV9zdGFydF9wZm4gPSB+MFVMLCBtZW1fZW5kX3BmbiA9IDAsIG1lbV9zaXplX3BmbiA9IDA7Ci0J
-aW50IGk7Ci0KLQlmb3IgKGkgPSAwOyBpIDwgbnBtZW1fcmFuZ2VzOyBpKyspIHsKLQkJdW5zaWdu
-ZWQgbG9uZyBzdGFydCA9IHBtZW1fcmFuZ2VzW2ldLnN0YXJ0X3BmbjsKLQkJdW5zaWduZWQgbG9u
-ZyBzaXplID0gcG1lbV9yYW5nZXNbaV0ucGFnZXM7Ci0JCXVuc2lnbmVkIGxvbmcgZW5kID0gc3Rh
-cnQgKyBzaXplOwotCi0JCWlmIChtZW1fc3RhcnRfcGZuID4gc3RhcnQpCi0JCQltZW1fc3RhcnRf
-cGZuID0gc3RhcnQ7Ci0JCWlmIChtZW1fZW5kX3BmbiA8IGVuZCkKLQkJCW1lbV9lbmRfcGZuID0g
-ZW5kOwotCQltZW1fc2l6ZV9wZm4gKz0gc2l6ZTsKLQl9CisJdW5zaWduZWQgbG9uZyBtYXhfem9u
-ZV9wZm5bTUFYX05SX1pPTkVTXSA9IHsgMCwgfTsKIAotCXpvbmVzX3NpemVbMF0gPSBtZW1fZW5k
-X3BmbiAtIG1lbV9zdGFydF9wZm47Ci0JaG9sZXNfc2l6ZVswXSA9IHpvbmVzX3NpemVbMF0gLSBt
-ZW1fc2l6ZV9wZm47CisJbWF4X3pvbmVfcGZuWzBdID0gbWVtYmxvY2tfZW5kX29mX0RSQU0oKTsK
-IAotCWZyZWVfYXJlYV9pbml0X25vZGUoMCwgem9uZXNfc2l6ZSwgbWVtX3N0YXJ0X3BmbiwgaG9s
-ZXNfc2l6ZSk7CisJZnJlZV9hcmVhX2luaXQobWF4X3pvbmVfcGZuKTsKIH0KIAogdm9pZCBfX2lu
-aXQgcGFnaW5nX2luaXQodm9pZCkKLS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxp
-c3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8v
-b3BlbnJpc2MK
+PHJwcHRAbGludXguaWJtLmNvbT4KLS0tCiBhcmNoL3NwYXJjL21tL3NybW11LmMgfCAyMSArKysr
+Ky0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDE2IGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gvc3BhcmMvbW0vc3JtbXUuYyBiL2FyY2gvc3Bh
+cmMvbW0vc3JtbXUuYwppbmRleCBiN2M5NGRlNzBjY2EuLmNjMDcxZGQ3ZDhkYSAxMDA2NDQKLS0t
+IGEvYXJjaC9zcGFyYy9tbS9zcm1tdS5jCisrKyBiL2FyY2gvc3BhcmMvbW0vc3JtbXUuYwpAQCAt
+MTAwOCwyNCArMTAwOCwxMyBAQCB2b2lkIF9faW5pdCBzcm1tdV9wYWdpbmdfaW5pdCh2b2lkKQog
+CWttYXBfaW5pdCgpOwogCiAJewotCQl1bnNpZ25lZCBsb25nIHpvbmVzX3NpemVbTUFYX05SX1pP
+TkVTXTsKLQkJdW5zaWduZWQgbG9uZyB6aG9sZXNfc2l6ZVtNQVhfTlJfWk9ORVNdOwotCQl1bnNp
+Z25lZCBsb25nIG5wYWdlczsKLQkJaW50IHpudW07CisJCXVuc2lnbmVkIGxvbmcgbWF4X3pvbmVf
+cGZuW01BWF9OUl9aT05FU10gPSB7IDAgfTsKIAotCQlmb3IgKHpudW0gPSAwOyB6bnVtIDwgTUFY
+X05SX1pPTkVTOyB6bnVtKyspCi0JCQl6b25lc19zaXplW3pudW1dID0gemhvbGVzX3NpemVbem51
+bV0gPSAwOworCQltYXhfem9uZV9wZm5bWk9ORV9ETUFdID0gbWF4X2xvd19wZm47CisJCW1heF96
+b25lX3BmbltaT05FX05PUk1BTF0gPSBtYXhfbG93X3BmbjsKKwkJbWF4X3pvbmVfcGZuW1pPTkVf
+SElHSE1FTV0gPSBoaWdoZW5kX3BmbjsKIAotCQlucGFnZXMgPSBtYXhfbG93X3BmbiAtIHBmbl9i
+YXNlOwotCi0JCXpvbmVzX3NpemVbWk9ORV9ETUFdID0gbnBhZ2VzOwotCQl6aG9sZXNfc2l6ZVta
+T05FX0RNQV0gPSBucGFnZXMgLSBwYWdlc19hdmFpbDsKLQotCQlucGFnZXMgPSBoaWdoZW5kX3Bm
+biAtIG1heF9sb3dfcGZuOwotCQl6b25lc19zaXplW1pPTkVfSElHSE1FTV0gPSBucGFnZXM7Ci0J
+CXpob2xlc19zaXplW1pPTkVfSElHSE1FTV0gPSBucGFnZXMgLSBjYWxjX2hpZ2hwYWdlcygpOwot
+Ci0JCWZyZWVfYXJlYV9pbml0X25vZGUoMCwgem9uZXNfc2l6ZSwgcGZuX2Jhc2UsIHpob2xlc19z
+aXplKTsKKwkJZnJlZV9hcmVhX2luaXQobWF4X3pvbmVfcGZuKTsKIAl9CiB9CiAKLS0gCjIuMjUu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJ
+U0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlz
+dHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
