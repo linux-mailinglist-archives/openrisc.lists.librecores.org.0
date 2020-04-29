@@ -2,38 +2,36 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (unknown [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A4D121C05DC
+	by mail.lfdr.de (Postfix) with ESMTP id EFCDF1C05DD
 	for <lists+openrisc@lfdr.de>; Thu, 30 Apr 2020 21:10:09 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 80EF2202FC;
+	by mail.librecores.org (Postfix) with ESMTP id C12ED20B16;
 	Thu, 30 Apr 2020 21:09:49 +0200 (CEST)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by mail.librecores.org (Postfix) with ESMTPS id 0B14720AC2
- for <openrisc@lists.librecores.org>; Wed, 29 Apr 2020 16:18:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=ikRp1jMR1EzFxoc+o3VOCA2gMw8FZkS2U5Oi/2AUBbY=; b=D6j3FH7ivByLMWug4zMS8gt8vs
- G4Igy0iDFTNqxHdTrAQexq30jGCOX8jILBsiQbZpAYQtO1MgsihDdRBm5YtaBgQd/ujc9d9AzhQ7I
- sYevrP9lBud2gYOzdyWzpajhBEjytuRwoxl12BNh7HwiyA6KuTWD5P3e7awgfq8VPlDhCQJ+pN7W/
- nqhzrAnBl2S/kgwYqKWYUYBO54H/Y5g3nPWbmFrsKOjqsrQvlSOMrtyzcDKUZCJilITaZaEpE8GCr
- DvzhHKVgo+GJ0ybB4TvX7cmmNWALoPxda8PopiWIAILoXx03VF1elS0sEB1Rys1RcInokhc+M6ddW
- cZVwqHpw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1jTnWM-0001Yh-RC; Wed, 29 Apr 2020 14:17:06 +0000
-Date: Wed, 29 Apr 2020 07:17:06 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Mike Rapoport <rppt@kernel.org>
-Message-ID: <20200429141706.GA25142@infradead.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mail.librecores.org (Postfix) with ESMTPS id 1457B20AC5
+ for <openrisc@lists.librecores.org>; Wed, 29 Apr 2020 16:34:14 +0200 (CEST)
+Received: from kernel.org (unknown [87.70.161.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 796F52074A;
+ Wed, 29 Apr 2020 14:33:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588170852;
+ bh=WWPVYLJB8cF1eh/bgOa7kKMnwvq4kKVMrtpQ0105+PI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=r0MyUrcNByfv40BqZMDUz9VgJFeWUeRjo2JW4VKDF1h/7I/qQIsmP3r+XczFilNcB
+ ++CDc2aMtj2e1Vvw7mqelm0S/yNPEGrXgzqXPqqXmHsIltvr+DFp/+T/wSjD9ztS+C
+ LzUl9esAqrKIQvImRO0XfT4341bJ3x0mFvf4a1wc=
+Date: Wed, 29 Apr 2020 17:33:46 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <20200429143346.GI14260@kernel.org>
 References: <20200429121126.17989-1-rppt@kernel.org>
  <20200429121126.17989-17-rppt@kernel.org>
+ <20200429141706.GA25142@infradead.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200429121126.17989-17-rppt@kernel.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20200429141706.GA25142@infradead.org>
 X-Mailman-Approved-At: Thu, 30 Apr 2020 21:09:13 +0200
 Subject: Re: [OpenRISC] [PATCH v2 16/20] mm: remove early_pfn_in_nid() and
  CONFIG_NODES_SPAN_OTHER_NODES
@@ -83,17 +81,22 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMDM6MTE6MjJQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
-cm90ZToKPiBGcm9tOiBNaWtlIFJhcG9wb3J0IDxycHB0QGxpbnV4LmlibS5jb20+Cj4gCj4gVGhl
-IGNvbW1pdCBmNDdhYzA4OGM0MDYgKCJtbTogbWVtbWFwX2luaXQ6IGl0ZXJhdGUgb3ZlciBtZW1i
-bG9jayByZWdpb25zCj4gcmF0aGVyIHRoYXQgY2hlY2sgZWFjaCBQRk4iKSBtYWRlIGVhcmx5X3Bm
-bl9pbl9uaWQoKSBvYnNvbGV0ZSBhbmQgc2luY2UKPiBDT05GSUdfTk9ERVNfU1BBTl9PVEhFUl9O
-T0RFUyBpcyBvbmx5IHVzZWQgdG8gcGljayBhIHN0dWIgb3IgYSByZWFsCj4gaW1wbGVtZW50YXRp
-b24gb2YgZWFybHlfcGZuX2luX25pZCgpIGl0IGlzIGFsc28gbm90IG5lZWRlZCBhbnltb3JlLgoK
-SSBkb24ndCB0aGluayB5b3UgY2FuIHF1b3RlIGEgY29tbWl0IGlkIGZvciBzb21ldGhpbmcgdGhh
-dCBoYXNuJ3QgYmVlbgpjb21taXRlZCB0byBtYWlubGluZSB5ZXQuICBUaGVuIGFnYWluIEkgd291
-bGQgaGF2ZSBqdXN0IG1lcmdlZCB0aGlzCnBhdGNoIGludG8gdGhlIG9uZSB0aGF0IG9ic29sZXRl
-ZCBlYXJseV9wZm5faW5fbmlkIGFueXdheS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxp
-YnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJp
-c2MK
+T24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMDc6MTc6MDZBTSAtMDcwMCwgQ2hyaXN0b3BoIEhlbGx3
+aWcgd3JvdGU6Cj4gT24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMDM6MTE6MjJQTSArMDMwMCwgTWlr
+ZSBSYXBvcG9ydCB3cm90ZToKPiA+IEZyb206IE1pa2UgUmFwb3BvcnQgPHJwcHRAbGludXguaWJt
+LmNvbT4KPiA+IAo+ID4gVGhlIGNvbW1pdCBmNDdhYzA4OGM0MDYgKCJtbTogbWVtbWFwX2luaXQ6
+IGl0ZXJhdGUgb3ZlciBtZW1ibG9jayByZWdpb25zCj4gPiByYXRoZXIgdGhhdCBjaGVjayBlYWNo
+IFBGTiIpIG1hZGUgZWFybHlfcGZuX2luX25pZCgpIG9ic29sZXRlIGFuZCBzaW5jZQo+ID4gQ09O
+RklHX05PREVTX1NQQU5fT1RIRVJfTk9ERVMgaXMgb25seSB1c2VkIHRvIHBpY2sgYSBzdHViIG9y
+IGEgcmVhbAo+ID4gaW1wbGVtZW50YXRpb24gb2YgZWFybHlfcGZuX2luX25pZCgpIGl0IGlzIGFs
+c28gbm90IG5lZWRlZCBhbnltb3JlLgo+IAo+IEkgZG9uJ3QgdGhpbmsgeW91IGNhbiBxdW90ZSBh
+IGNvbW1pdCBpZCBmb3Igc29tZXRoaW5nIHRoYXQgaGFzbid0IGJlZW4KPiBjb21taXRlZCB0byBt
+YWlubGluZSB5ZXQuaQoKT3VjaCwgdGhhdCB3YXMgb25lIG9mIHRoZSB0aGluZ3MgSSd2ZSBpbmRl
+bnRlZCB0byBmaXggaW4gdjIuLi4KCj4gVGhlbiBhZ2FpbiBJIHdvdWxkIGhhdmUganVzdCBtZXJn
+ZWQgdGhpcwo+IHBhdGNoIGludG8gdGhlIG9uZSB0aGF0IG9ic29sZXRlZCBlYXJseV9wZm5faW5f
+bmlkIGFueXdheS4KCkkndmUga2VwdCB0aGVzZSBjb21taXRzIHNlcGFyYXRlIHRvIHByZXNlcnZl
+IHRoZSBhdXRob3JzaGlwLgpJJ2xsIHVwZGF0ZSB0aGUgY2hhbmdlbG9nIHNvIHRoYXQgaXQgd29u
+J3QgbWVudGlvbiBjb21taXQgaWQuCgotLSAKU2luY2VyZWx5IHlvdXJzLApNaWtlLgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5n
+IGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNv
+cmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
