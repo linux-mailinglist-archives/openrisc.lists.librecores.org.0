@@ -2,39 +2,39 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7212A1D2015
+	by mail.lfdr.de (Postfix) with ESMTP id B66E51D2016
 	for <lists+openrisc@lfdr.de>; Wed, 13 May 2020 22:17:55 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 088FC20B81;
+	by mail.librecores.org (Postfix) with ESMTP id 802A720B7C;
 	Wed, 13 May 2020 22:17:55 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 6D08C202FD
- for <openrisc@lists.librecores.org>; Wed, 13 May 2020 07:21:52 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 1B7C020620
+ for <openrisc@lists.librecores.org>; Wed, 13 May 2020 07:23:38 +0200 (CEST)
 Received: from kernel.org (unknown [87.70.20.152])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 06A0920675;
- Wed, 13 May 2020 05:21:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A8105206F5;
+ Wed, 13 May 2020 05:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589347309;
- bh=eXxsFWMRwsjxCxIEwZvSMlzVp4JoExGumCwVZGQ437k=;
+ s=default; t=1589347416;
+ bh=cxEex4OkOul1zYfcItsUOuWynzE/Lgl9iPMNnRJoKtg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C67nj68nb/WBhkQSlanqvNkuKuI8DtxJ9ZixH0J1b2BuEaAk5a5wNzO7jtcEk7q0p
- JlpDcwhtcaCA3Vi5e8fc7aXovPbaDZ6qYnKJdRNeliw/je8Bz0w2ebGvIUy/BChi12
- FHMPcFva8/LxUc1i7w8oclm0hcf1j8ysLYGt5c9s=
-Date: Wed, 13 May 2020 08:21:33 +0300
+ b=NKwZ606uMnq7vGufmQSQi8UghGfD03KoKi3771z9DBsw1+Wo1JjxsFFWhM7dLfYtQ
+ POagNMJcXXS2Tb5YBLano+IOZdgbrMfiYhEi9ZEWLAfmXk4sFuNrYSWiaABLsyC1eI
+ WXhJfNJ0uBeiHMn5Sjkqw15bRWEojOP2A2FeEJvw=
+Date: Wed, 13 May 2020 08:23:20 +0300
 From: Mike Rapoport <rppt@kernel.org>
 To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20200513052133.GN14260@kernel.org>
+Message-ID: <20200513052320.GO14260@kernel.org>
 References: <20200512184422.12418-1-rppt@kernel.org>
- <20200512184422.12418-4-rppt@kernel.org>
- <20200512192013.GY16070@bombadil.infradead.org>
+ <20200512184422.12418-9-rppt@kernel.org>
+ <20200512192441.GZ16070@bombadil.infradead.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200512192013.GY16070@bombadil.infradead.org>
+In-Reply-To: <20200512192441.GZ16070@bombadil.infradead.org>
 X-Mailman-Approved-At: Wed, 13 May 2020 22:17:32 +0200
-Subject: Re: [OpenRISC] [PATCH 03/12] mm: reorder includes after
- introduction of linux/pgtable.h
+Subject: Re: [OpenRISC] [PATCH 08/12] mm: pgtable: add shortcuts for
+ accessing kernel PMD and PTE
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -81,23 +81,15 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgMTI6MjA6MTNQTSAtMDcwMCwgTWF0dGhldyBXaWxjb3gg
-d3JvdGU6Cj4gT24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgMDk6NDQ6MTNQTSArMDMwMCwgTWlrZSBS
-YXBvcG9ydCB3cm90ZToKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FscGhhL2tlcm5lbC9wcm90by5o
-IGIvYXJjaC9hbHBoYS9rZXJuZWwvcHJvdG8uaAo+ID4gaW5kZXggYTA5M2NkNDVlYzc5Li43MDFh
-MDUwOTAxNDEgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FscGhhL2tlcm5lbC9wcm90by5oCj4gPiAr
-KysgYi9hcmNoL2FscGhhL2tlcm5lbC9wcm90by5oCj4gPiBAQCAtMiw4ICsyLDYgQEAKPiA+ICAj
-aW5jbHVkZSA8bGludXgvaW50ZXJydXB0Lmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+Cj4g
-PiAgCj4gPiAtI2luY2x1ZGUgPGxpbnV4L3BndGFibGUuaD4KPiA+IC0KPiA+ICAvKiBQcm90b3R5
-cGVzIG9mIGZ1bmN0aW9ucyB1c2VkIGFjcm9zcyBtb2R1bGVzIGhlcmUgaW4gdGhpcyBkaXJlY3Rv
-cnkuICAqLwo+ID4gIAo+ID4gICNkZWZpbmUgdnVjcAl2b2xhdGlsZSB1bnNpZ25lZCBjaGFyICAq
-Cj4gCj4gTG9va3MgbGlrZSB5b3VyIHNjcmlwdCBoYXMgYSBidWcgaWYgbGludXgvcGd0YWJsZS5o
-IGlzIHRoZSBsYXN0IGluY2x1ZGUKPiBpbiB0aGUgZmlsZT8KClNjcmlwdCBpbmRlZWQgY2Fubm90
-IGhhbmRsZSBhbGwgdGhlIGNvcm5lciBjYXNlLCBidXQgdGhpcyBpcyBub3Qgb25lIG9mCnRoZW0u
-CkkndmUgc3RhcnRlZCBpbml0aWFsbHkgdG8gbG9vayBpbnRvIHJlbW92aW5nIGFzbS9wZ3RhYmxl
-LmggaWYgaXQgd2FzIG5vdApuZWVkZWQsIGJ1dCBJJ3ZlIHJ1biBvdXQgb2YgcGF0aWVuY2UgdmVy
-eSBzb29uLiBUaGlzIGZpbGUgaXMgd2hhdApzbmVha2VkIGluIGZyb20gdGhhdCBhdHRlbXB0LgoK
-LS0gClNpbmNlcmVseSB5b3VycywKTWlrZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxp
-YnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJp
-c2MK
+T24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgMTI6MjQ6NDFQTSAtMDcwMCwgTWF0dGhldyBXaWxjb3gg
+d3JvdGU6Cj4gT24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgMDk6NDQ6MThQTSArMDMwMCwgTWlrZSBS
+YXBvcG9ydCB3cm90ZToKPiA+ICsrKyBiL2luY2x1ZGUvbGludXgvcGd0YWJsZS5oCj4gPiBAQCAt
+MjgsNiArMjgsMjQgQEAKPiA+ICAjZGVmaW5lIFVTRVJfUEdUQUJMRVNfQ0VJTElORwkwVUwKPiA+
+ICAjZW5kaWYKPiA+ICAKPiA+ICsvKiBGSVhNRTogKi8KPiAKPiBGaXggeW91IHdoYXQ/ICBBZGQg
+ZG9jdW1lbnRhdGlvbj8KCk91Y2gsIGluZGVlZCA6KQoKPiA+ICtzdGF0aWMgaW5saW5lIHBtZF90
+ICpwbWRfb2ZmKHN0cnVjdCBtbV9zdHJ1Y3QgKm1tLCB1bnNpZ25lZCBsb25nIHZhKQo+ID4gK3sK
+PiA+ICsJcmV0dXJuIHBtZF9vZmZzZXQocHVkX29mZnNldChwNGRfb2Zmc2V0KHBnZF9vZmZzZXQo
+bW0sIHZhKSwgdmEpLCB2YSksIHZhKTsKPiA+ICt9CgotLSAKU2luY2VyZWx5IHlvdXJzLApNaWtl
+LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklT
+QyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0
+cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
