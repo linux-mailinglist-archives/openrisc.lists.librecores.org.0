@@ -2,41 +2,53 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id ED1571E504F
-	for <lists+openrisc@lfdr.de>; Wed, 27 May 2020 23:19:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E3861E5050
+	for <lists+openrisc@lfdr.de>; Wed, 27 May 2020 23:19:45 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id AF34720B0E;
-	Wed, 27 May 2020 23:19:44 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 8127A20AD1
- for <openrisc@lists.librecores.org>; Mon, 18 May 2020 15:04:54 +0200 (CEST)
-Received: from linux-8ccs.fritz.box (p57a239f2.dip0.t-ipconnect.de
- [87.162.57.242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by mail.librecores.org (Postfix) with ESMTP id 6C17C20CCE;
+	Wed, 27 May 2020 23:19:45 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by mail.librecores.org (Postfix) with ESMTP id 09A8B20A41
+ for <openrisc@lists.librecores.org>; Mon, 18 May 2020 20:20:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1589826056;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bgUgYOhXHVrOhAbBYxlnYyhMzdekwGrXn9fI5GzJacU=;
+ b=R02e7DTE6AfSGT/kUhzmH81a2fEJ34ufqbGIFaAWXoKyh0SMZ9MIko9KOY7BKG0o7gTdaq
+ vE5ALxgIHTPL919QCmHQ4btR5vr4lHE0Q12t/fIsbCUQiJNBAp7f6UqXLiGPz0g0n+P0eu
+ 5oyquCeX6qaAQaeLejCDo3J7i0bVCA8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-266-kVRrudnWNEOZ64966nyy_Q-1; Mon, 18 May 2020 14:20:52 -0400
+X-MC-Unique: kVRrudnWNEOZ64966nyy_Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AD592207D3;
- Mon, 18 May 2020 13:04:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589807091;
- bh=bQOel0Owh5Jsy7D7It/KRrP7k71oDOZIFpOrOzQ9AhA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YqZBNW7MWDqiTSCxmly8oMsUsg4WN7C2JY9aDcakJBGzWq/UP00eyjCdLpfBridZ5
- yEWjvi7dzrZTtKaXjd/2d6IuYc59csAsUVZSfRs5jq7Rr7rdKAsQZJF1Mc/s+At7dk
- CA/eN9nd7O70bEOB0H0VqgRfIrUmH9kT0XamFLi8=
-Date: Mon, 18 May 2020 15:04:44 +0200
-From: Jessica Yu <jeyu@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20200518130444.GA21096@linux-8ccs.fritz.box>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 428731005510;
+ Mon, 18 May 2020 18:20:48 +0000 (UTC)
+Received: from ovpn-115-234.rdu2.redhat.com (ovpn-115-234.rdu2.redhat.com
+ [10.10.115.234])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6AF23398;
+ Mon, 18 May 2020 18:20:43 +0000 (UTC)
+Message-ID: <5260142047d0339e00d4a74865c2f0b7511c89f6.camel@redhat.com>
+From: Mark Salter <msalter@redhat.com>
+To: Christoph Hellwig <hch@lst.de>, Andrew Morton
+ <akpm@linux-foundation.org>,  Arnd Bergmann <arnd@arndb.de>, Roman Zippel
+ <zippel@linux-m68k.org>
+Date: Mon, 18 May 2020 14:20:42 -0400
+In-Reply-To: <20200515143646.3857579-11-hch@lst.de>
 References: <20200515143646.3857579-1-hch@lst.de>
- <20200515143646.3857579-30-hch@lst.de>
+ <20200515143646.3857579-11-hch@lst.de>
+Organization: Red Hat, Inc
+User-Agent: Evolution 3.36.2 (3.36.2-1.fc32) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200515143646.3857579-30-hch@lst.de>
-X-OS: Linux linux-8ccs 4.12.14-lp150.12.61-default x86_64
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Wed, 27 May 2020 23:18:59 +0200
-Subject: Re: [OpenRISC] [PATCH 29/29] module: move the set_fs hack for
- flush_icache_range to m68k
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Mailman-Approved-At: Wed, 27 May 2020 23:18:58 +0200
+Subject: Re: [OpenRISC] [PATCH 10/29] c6x: use asm-generic/cacheflush.h
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -49,33 +61,55 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-ia64@vger.kernel.org, linux-sh@vger.kernel.org,
- Roman Zippel <zippel@linux-m68k.org>, linux-mips@vger.kernel.org,
- linux-mm@kvack.org, sparclinux@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
- linux-c6x-dev@linux-c6x.org, linux-hexagon@vger.kernel.org, x86@kernel.org,
- linux-xtensa@linux-xtensa.org, Arnd Bergmann <arnd@arndb.de>,
- linux-um@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
- openrisc@lists.librecores.org, linux-arm-kernel@lists.infradead.org,
- Michal Simek <monstr@monstr.eu>, linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
+Cc: linux-arch@vger.kernel.org, linux-xtensa@linux-xtensa.org,
+ Michal Simek <monstr@monstr.eu>, linux-alpha@vger.kernel.org,
+ linux-ia64@vger.kernel.org, linux-c6x-dev@linux-c6x.org,
+ linux-sh@vger.kernel.org, linux-hexagon@vger.kernel.org, x86@kernel.org,
+ linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-m68k@lists.linux-m68k.org, openrisc@lists.librecores.org,
+ Jessica Yu <jeyu@kernel.org>, sparclinux@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-KysrIENocmlzdG9waCBIZWxsd2lnIFsxNS8wNS8yMCAxNjozNiArMDIwMF06Cj5mbHVzaF9pY2Fj
-aGVfcmFuZ2UgZ2VuZXJhbGx5IG9wZXJhdGVzIG9uIGtlcm5lbCBhZGRyZXNzZXMsIGJ1dCBmb3Ig
-c29tZQo+cmVhc29uIG02OGsgbmVlZGVkIGEgc2V0X2ZzIG92ZXJyaWRlLiAgTW92ZSB0aGF0IGlu
-dG8gdGhlIG02OGsgY29kZQo+aW5zdGVkIG9mIGtlZXBpbmcgaXQgaW4gdGhlIG1vZHVsZSBsb2Fk
-ZXIuCj4KPlNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+UmV2
-aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4ay5vcmc+Cj5BY2tl
-ZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4KPi0tLQo+IGFy
-Y2gvbTY4ay9tbS9jYWNoZS5jIHwgNCArKysrCj4ga2VybmVsL21vZHVsZS5jICAgICAgfCA4IC0t
-LS0tLS0tCj4gMiBmaWxlcyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0p
-CgpUaGFua3MgZm9yIGNsZWFuaW5nIHRoaXMgdXAuIEZvciBtb2R1bGUuYzoKCkFja2VkLWJ5OiBK
-ZXNzaWNhIFl1IDxqZXl1QGtlcm5lbC5vcmc+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMu
-bGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVu
-cmlzYwo=
+T24gRnJpLCAyMDIwLTA1LTE1IGF0IDE2OjM2ICswMjAwLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90
+ZToKPiBDNnggbmVlZHMgYWxtb3N0IG5vIGNhY2hlIGZsdXNoaW5nIHJvdXRpbmVzIG9mIGl0cyBv
+d24uICBSZWx5IG9uCj4gYXNtLWdlbmVyaWMvY2FjaGVmbHVzaC5oIGZvciB0aGUgZGVmYXVsdHMu
+Cj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gLS0t
+Cj4gIGFyY2gvYzZ4L2luY2x1ZGUvYXNtL2NhY2hlZmx1c2guaCB8IDE5ICstLS0tLS0tLS0tLS0t
+LS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxOCBkZWxldGlvbnMoLSkK
+PiAKPiBkaWZmIC0tZ2l0IGEvYXJjaC9jNngvaW5jbHVkZS9hc20vY2FjaGVmbHVzaC5oIGIvYXJj
+aC9jNngvaW5jbHVkZS9hc20vY2FjaGVmbHVzaC5oCj4gaW5kZXggNDU0MGI0MDQ3NWU2Yy4uMTA5
+MjJkNTI4ZGU2ZCAxMDA2NDQKPiAtLS0gYS9hcmNoL2M2eC9pbmNsdWRlL2FzbS9jYWNoZWZsdXNo
+LmgKPiArKysgYi9hcmNoL2M2eC9pbmNsdWRlL2FzbS9jYWNoZWZsdXNoLmgKPiBAQCAtMTYsMjEg
+KzE2LDYgQEAKPiAgI2luY2x1ZGUgPGFzbS9wYWdlLmg+Cj4gICNpbmNsdWRlIDxhc20vc3RyaW5n
+Lmg+Cj4gIAo+IC0vKgo+IC0gKiB2aXJ0dWFsbHktaW5kZXhlZCBjYWNoZSBtYW5hZ2VtZW50IChv
+dXIgY2FjaGUgaXMgcGh5c2ljYWxseSBpbmRleGVkKQo+IC0gKi8KPiAtI2RlZmluZSBmbHVzaF9j
+YWNoZV9hbGwoKQkJCWRvIHt9IHdoaWxlICgwKQo+IC0jZGVmaW5lIGZsdXNoX2NhY2hlX21tKG1t
+KQkJCWRvIHt9IHdoaWxlICgwKQo+IC0jZGVmaW5lIGZsdXNoX2NhY2hlX2R1cF9tbShtbSkJCQlk
+byB7fSB3aGlsZSAoMCkKPiAtI2RlZmluZSBmbHVzaF9jYWNoZV9yYW5nZShtbSwgc3RhcnQsIGVu
+ZCkJZG8ge30gd2hpbGUgKDApCj4gLSNkZWZpbmUgZmx1c2hfY2FjaGVfcGFnZSh2bWEsIHZtYWRk
+ciwgcGZuKQlkbyB7fSB3aGlsZSAoMCkKPiAtI2RlZmluZSBmbHVzaF9jYWNoZV92bWFwKHN0YXJ0
+LCBlbmQpCQlkbyB7fSB3aGlsZSAoMCkKPiAtI2RlZmluZSBmbHVzaF9jYWNoZV92dW5tYXAoc3Rh
+cnQsIGVuZCkJCWRvIHt9IHdoaWxlICgwKQo+IC0jZGVmaW5lIEFSQ0hfSU1QTEVNRU5UU19GTFVT
+SF9EQ0FDSEVfUEFHRSAwCj4gLSNkZWZpbmUgZmx1c2hfZGNhY2hlX3BhZ2UocGFnZSkJCQlkbyB7
+fSB3aGlsZSAoMCkKPiAtI2RlZmluZSBmbHVzaF9kY2FjaGVfbW1hcF9sb2NrKG1hcHBpbmcpCQlk
+byB7fSB3aGlsZSAoMCkKPiAtI2RlZmluZSBmbHVzaF9kY2FjaGVfbW1hcF91bmxvY2sobWFwcGlu
+ZykJZG8ge30gd2hpbGUgKDApCj4gLQo+ICAvKgo+ICAgKiBwaHlzaWNhbGx5LWluZGV4ZWQgY2Fj
+aGUgbWFuYWdlbWVudAo+ICAgKi8KPiBAQCAtNDksMTQgKzM0LDEyIEBAIGRvIHsJCQkJCQkJCSAg
+XAo+ICAJCQkodW5zaWduZWQgbG9uZykgcGFnZV9hZGRyZXNzKHBhZ2UpICsgUEFHRV9TSVpFKSk7
+IFwKPiAgfSB3aGlsZSAoMCkKPiAgCj4gLQo+ICAjZGVmaW5lIGNvcHlfdG9fdXNlcl9wYWdlKHZt
+YSwgcGFnZSwgdmFkZHIsIGRzdCwgc3JjLCBsZW4pIFwKPiAgZG8gewkJCQkJCSAgICAgXAo+ICAJ
+bWVtY3B5KGRzdCwgc3JjLCBsZW4pOwkJCSAgICAgXAo+ICAJZmx1c2hfaWNhY2hlX3JhbmdlKCh1
+bnNpZ25lZCkgKGRzdCksICh1bnNpZ25lZCkgKGRzdCkgKyAobGVuKSk7IFwKPiAgfSB3aGlsZSAo
+MCkKPiAgCj4gLSNkZWZpbmUgY29weV9mcm9tX3VzZXJfcGFnZSh2bWEsIHBhZ2UsIHZhZGRyLCBk
+c3QsIHNyYywgbGVuKSBcCj4gLQltZW1jcHkoZHN0LCBzcmMsIGxlbikKPiArI2luY2x1ZGUgPGFz
+bS1nZW5lcmljL2NhY2hlZmx1c2guaD4KPiAgCj4gICNlbmRpZiAvKiBfQVNNX0M2WF9DQUNIRUZM
+VVNIX0ggKi8KCkFja2VkLWJ5OiBNYXJrIFNhbHRlciA8bXNhbHRlckByZWRoYXQuY29tPgoKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1h
+aWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxp
+YnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
