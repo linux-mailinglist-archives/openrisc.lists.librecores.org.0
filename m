@@ -2,33 +2,33 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B8DF1E5025
-	for <lists+openrisc@lfdr.de>; Wed, 27 May 2020 23:19:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 256DB1E5027
+	for <lists+openrisc@lfdr.de>; Wed, 27 May 2020 23:19:17 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 44EBC20C55;
+	by mail.librecores.org (Postfix) with ESMTP id D13B020CA8;
 	Wed, 27 May 2020 23:19:16 +0200 (CEST)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mail.librecores.org (Postfix) with ESMTP id 2A42D20C2B
- for <openrisc@lists.librecores.org>; Tue, 26 May 2020 19:13:47 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTP id 4A34F20C2A
+ for <openrisc@lists.librecores.org>; Tue, 26 May 2020 19:15:29 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9101C55D;
- Tue, 26 May 2020 10:13:45 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 72B96101E;
+ Tue, 26 May 2020 10:15:27 -0700 (PDT)
 Received: from gaia (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C3C03F52E;
- Tue, 26 May 2020 10:13:36 -0700 (PDT)
-Date: Tue, 26 May 2020 18:13:34 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE9B33F52E;
+ Tue, 26 May 2020 10:15:19 -0700 (PDT)
+Date: Tue, 26 May 2020 18:15:17 +0100
 From: Catalin Marinas <catalin.marinas@arm.com>
 To: Mike Rapoport <rppt@kernel.org>
-Message-ID: <20200526171334.GK17051@gaia>
+Message-ID: <20200526171516.GL17051@gaia>
 References: <20200429121126.17989-1-rppt@kernel.org>
- <20200429121126.17989-6-rppt@kernel.org>
+ <20200429121126.17989-9-rppt@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200429121126.17989-6-rppt@kernel.org>
+In-Reply-To: <20200429121126.17989-9-rppt@kernel.org>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Wed, 27 May 2020 23:18:58 +0200
-Subject: Re: [OpenRISC] [PATCH v2 05/20] mm: use free_area_init() instead of
- free_area_init_nodes()
+Subject: Re: [OpenRISC] [PATCH v2 08/20] arm64: simplify detection of memory
+ zone boundaries for UMA configs
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -76,15 +76,19 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMDM6MTE6MTFQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
-cm90ZToKPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9tbS9pbml0LmMgYi9hcmNoL2FybTY0L21t
-L2luaXQuYwo+IGluZGV4IGU0MjcyN2UzNTY4ZS4uYTY1MGFkYjM1OGVlIDEwMDY0NAo+IC0tLSBh
-L2FyY2gvYXJtNjQvbW0vaW5pdC5jCj4gKysrIGIvYXJjaC9hcm02NC9tbS9pbml0LmMKPiBAQCAt
-MjA2LDcgKzIwNiw3IEBAIHN0YXRpYyB2b2lkIF9faW5pdCB6b25lX3NpemVzX2luaXQodW5zaWdu
-ZWQgbG9uZyBtaW4sIHVuc2lnbmVkIGxvbmcgbWF4KQo+ICAjZW5kaWYKPiAgCW1heF96b25lX3Bm
-bnNbWk9ORV9OT1JNQUxdID0gbWF4Owo+ICAKPiAtCWZyZWVfYXJlYV9pbml0X25vZGVzKG1heF96
-b25lX3BmbnMpOwo+ICsJZnJlZV9hcmVhX2luaXQobWF4X3pvbmVfcGZucyk7Cj4gIH0KCkFja2Vk
-LWJ5OiBDYXRhbGluIE1hcmluYXMgPGNhdGFsaW4ubWFyaW5hc0Bhcm0uY29tPgpfX19fX19fX19f
+T24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMDM6MTE6MTRQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
+cm90ZToKPiBGcm9tOiBNaWtlIFJhcG9wb3J0IDxycHB0QGxpbnV4LmlibS5jb20+Cj4gCj4gVGhl
+IGZyZWVfYXJlYV9pbml0KCkgZnVuY3Rpb24gb25seSByZXF1aXJlcyB0aGUgZGVmaW5pdGlvbiBv
+ZiBtYXhpbWFsIFBGTgo+IGZvciBlYWNoIG9mIHRoZSBzdXBwb3J0ZWQgem9uZSByYXRlciB0aGFu
+IGNhbGN1bGF0aW9uIG9mIGFjdHVhbCB6b25lIHNpemVzCj4gYW5kIHRoZSBzaXplcyBvZiB0aGUg
+aG9sZXMgYmV0d2VlbiB0aGUgem9uZXMuCj4gCj4gQWZ0ZXIgcmVtb3ZhbCBvZiBDT05GSUdfSEFW
+RV9NRU1CTE9DS19OT0RFX01BUCB0aGUgZnJlZV9hcmVhX2luaXQoKSBpcwo+IGF2YWlsYWJsZSB0
+byBhbGwgYXJjaGl0ZWN0dXJlcy4KPiAKPiBVc2luZyB0aGlzIGZ1bmN0aW9uIGluc3RlYWQgb2Yg
+ZnJlZV9hcmVhX2luaXRfbm9kZSgpIHNpbXBsaWZpZXMgdGhlIHpvbmUKPiBkZXRlY3Rpb24uCj4g
+Cj4gU2lnbmVkLW9mZi1ieTogTWlrZSBSYXBvcG9ydCA8cnBwdEBsaW51eC5pYm0uY29tPgoKQWNr
+ZWQtYnk6IENhdGFsaW4gTWFyaW5hcyA8Y2F0YWxpbi5tYXJpbmFzQGFybS5jb20+CgooQlRXLCBu
+b25lIG9mIG15IGFja3Mgc28gZmFyIG1hZGUgaXQgdG8gdGhlIGxpbnV4LWFybS1rZXJuZWwgbGlz
+dApiZWNhdXNlIG9mIHRoZSBsYXJnZSBudW1iZXIgb2YgcGVvcGxlIG9uIGNjKQpfX19fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxp
 c3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVz
 Lm9yZy9saXN0aW5mby9vcGVucmlzYwo=
