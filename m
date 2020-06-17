@@ -2,57 +2,53 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id C55211FECC3
-	for <lists+openrisc@lfdr.de>; Thu, 18 Jun 2020 09:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C768A1FECC4
+	for <lists+openrisc@lfdr.de>; Thu, 18 Jun 2020 09:47:23 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 8689520AAC;
-	Thu, 18 Jun 2020 09:47:22 +0200 (CEST)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
- by mail.librecores.org (Postfix) with ESMTPS id A927620C67
- for <openrisc@lists.librecores.org>; Wed, 17 Jun 2020 11:03:32 +0200 (CEST)
-Received: by mail-pl1-f196.google.com with SMTP id k6so621052pll.9
- for <openrisc@lists.librecores.org>; Wed, 17 Jun 2020 02:03:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=O8uusENFHgtRiLU833qE274616Po1yGCg5u4oskG+Pc=;
- b=BJezgYXOSuWVS6fopqT6ic6EXVlT4CnCbhywI6aSA+lD5URJTr9n4660kaqw0qb8RL
- N5Ia+vAa6op1xONrEv+0OQ8cJX2cxKWf4YeQOpo27ZqoXvVmeakNsAQoXHYK6BAHUIhi
- ONf1+fdHrU5zC2GOeLgQl5AOiYtpnJa78Agz7K5VkGstFCBObC4xOeiifszZCN7/lqBy
- PsG2LGaNdh2kaYWigLmATnheEjRzkan8JKA/NLGPJLDMoMuqn79v387mGkWbPabO0qwi
- qnF9pI0/PkOM0kM05ioKKhthnLRsnQzhqhHmDiyaC/K1UEFCUbhXJBlh8EW2S5NCGjtt
- r54Q==
+	by mail.librecores.org (Postfix) with ESMTP id 5FBE3205B0;
+	Thu, 18 Jun 2020 09:47:23 +0200 (CEST)
+Received: from mail-yb1-f194.google.com (mail-yb1-f194.google.com
+ [209.85.219.194])
+ by mail.librecores.org (Postfix) with ESMTPS id 1F62120CBA
+ for <openrisc@lists.librecores.org>; Wed, 17 Jun 2020 14:05:07 +0200 (CEST)
+Received: by mail-yb1-f194.google.com with SMTP id 187so1156166ybq.2
+ for <openrisc@lists.librecores.org>; Wed, 17 Jun 2020 05:05:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ce5ijYOF0B5Aqlf57GOv1H78E2Rpwmzo3WdEJEFGYSE=;
+ b=QAExVmYqjdDJlSzYO0zRvYtLurMgwAeu8aVFVB8OL8VsADCePe+QaZgfl9OkXCKMAQ
+ VKuabSPfs5so+ExviNS0jK0/pg8P+SUO6EisqEr5iBs8D8GfHdHzEXPMQyrTW/GvPWaU
+ S/rpxTYOoPblTuhGcsXkbxUjMFdffWjZaJAH2Yf+MrKACpx9oUwzd7a6Iv6gA4XIx3Ky
+ EP5jCZdtRVa34VO/VJ6okmLDOWuzJ1+ygmLdjT9hXqVNFsvAHysGhxo8YQ4tMhkd7Lkr
+ wrif3VT2UfRTXX5dSLWVZ1RRUUPVoYECIfDkG5oeJD/zmqgSnw5qI33u0VsoZflYnWiZ
+ wFIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=O8uusENFHgtRiLU833qE274616Po1yGCg5u4oskG+Pc=;
- b=aei1wUEKcz5AogWp7Qb5Qq3iDgw2jqvwjRxhaDN2xpc4uLLPj/idkvJUaiKCKs5FYu
- Pt2lqnl+X5RX2l2naZSfxRuzZeMM/omRU50qd+uk/+f4aNRGLTU3i9fq4W28dpQmc7rS
- EglZ6JUNDhc7zHhF/W53/owlW29Fh9x3VWrX8Oxv3W5cAHGsUzEC4ZXTQWqcXJ6PgdQ3
- F4TGycOov1zPyg41pNA1vWynOwFhz9WNwVEKzlI7qAE+z2B8xTYEnpoDGnJcFzstqq8J
- Eq9Q3ySezVrrbgio2NotYt6xrvIbK+Dj5iPJaRH3zlsthIo9XJtkF7szupDItKwctlQC
- zVTQ==
-X-Gm-Message-State: AOAM533ZdiBOLC0Sae5m1eyQAwnEXvTz09Fc17Z5LG748kE8WhKj4q0y
- weD+KoITGbVGiwJkPbX/zyA=
-X-Google-Smtp-Source: ABdhPJyWwTn9mkKYeHt3moriBB1llX8dynovBjZ9NI5N5zPBLZzrO3Bqsz0HOtk1lgZ8FwyRE07RHg==
-X-Received: by 2002:a17:902:8c84:: with SMTP id
- t4mr5681414plo.315.1592384610948; 
- Wed, 17 Jun 2020 02:03:30 -0700 (PDT)
-Received: from localhost (g228.115-65-196.ppp.wakwak.ne.jp. [115.65.196.228])
- by smtp.gmail.com with ESMTPSA id
- b5sm19768965pfg.191.2020.06.17.02.03.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 02:03:29 -0700 (PDT)
-From: Stafford Horne <shorne@gmail.com>
-To: LKML <linux-kernel@vger.kernel.org>
-Date: Wed, 17 Jun 2020 18:02:46 +0900
-Message-Id: <20200617090247.1680188-1-shorne@gmail.com>
-X-Mailer: git-send-email 2.26.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ce5ijYOF0B5Aqlf57GOv1H78E2Rpwmzo3WdEJEFGYSE=;
+ b=mjd9cWNoU2xRSG/UsmBoNyjRp+wOBjd61bnO7M/ArJxFY63xUDVQS/fLB2qGfa4Six
+ Wq4W6I21edPi8a7xfuYJE4k8CljGKg/fS+M/C1jwtjCN8hEUHsjDtrQh3cDUdNuNO+gd
+ nx5khJkQuoysMeyZIw/2LVPgJtlblTH2ucvrCke59YX6CBmeTPKcOwEGRiJ7gypruv86
+ tXQn0HiCo7T4WhK1ccGqyGqoODamC0XJVUqX8OfbHr0WCFw595dBHGoHucbiodVt+kup
+ 9KIZnIHYfAyKM6e6USVV8H7ikoz79/Cis4gefLhP9612vLGmQffd/6kQMF8+Kic185my
+ p8Sw==
+X-Gm-Message-State: AOAM533+lH7K4TZne2fJhjncjEMiI1tVThrDhMNSqF6czT6XC/bCWRzg
+ joEAixmz4PED2cng77KLOFiA3HZLVpLVDTRuM58sJQ==
+X-Google-Smtp-Source: ABdhPJwVwzsytVeAA15ADKunV37yJHXmL+R8PoOsnbw37rc75bwoSG0DAvnfoh+gLdkshu8DPeRsyLit2wi1veXDijQ=
+X-Received: by 2002:a25:7b82:: with SMTP id
+ w124mr11825940ybc.320.1592395505465; 
+ Wed, 17 Jun 2020 05:05:05 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200617090247.1680188-1-shorne@gmail.com>
+In-Reply-To: <20200617090247.1680188-1-shorne@gmail.com>
+From: Michel Lespinasse <walken@google.com>
+Date: Wed, 17 Jun 2020 05:04:52 -0700
+Message-ID: <CANN689E_oP3T6J3Rw2rWv1KG3GO3JOJtCdCb3yMLz+u8hFN=Qw@mail.gmail.com>
+To: Stafford Horne <shorne@gmail.com>
 X-Mailman-Approved-At: Thu, 18 Jun 2020 09:47:10 +0200
-Subject: [OpenRISC] [PATCH] openrisc: Fix boot oops when DEBUG_VM is enabled
+Subject: Re: [OpenRISC] [PATCH] openrisc: Fix boot oops when DEBUG_VM is
+ enabled
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,45 +62,28 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Jonas Bonn <jonas@southpole.se>, Thomas Hellstrom <thellstrom@vmware.com>,
- Daniel Jordan <daniel.m.jordan@oracle.com>,
- Steven Price <steven.price@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- openrisc@lists.librecores.org, Michel Lespinasse <walken@google.com>,
- Robin Murphy <robin.murphy@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@suse.cz>
+ LKML <linux-kernel@vger.kernel.org>, Steven Price <steven.price@arm.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, openrisc@lists.librecores.org,
+ Andrew Morton <akpm@linux-foundation.org>, Robin Murphy <robin.murphy@arm.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Daniel Jordan <daniel.m.jordan@oracle.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-U2luY2UgdjUuOC1yYzEgT3BlblJJU0MgTGludXggZmFpbHMgdG8gYm9vdCB3aGVuIERFQlVHX1ZN
-IGlzIGVuYWJsZWQuClRoaXMgaGFzIGJlZW4gYmlzZWN0ZWQgdG8gY29tbWl0IDQyZmM1NDE0MDRm
-MiAoIm1tYXAgbG9ja2luZyBBUEk6IGFkZAptbWFwX2Fzc2VydF9sb2NrZWQoKSBhbmQgbW1hcF9h
-c3NlcnRfd3JpdGVfbG9ja2VkKCkiKS4KClRoZSBhZGRlZCBsb2NraW5nIGNoZWNrcyBleHBvc2Vk
-IHRoZSBpc3N1ZSB0aGF0IE9wZW5SSVNDIHdhcyBub3QgdGFraW5nCnRoaXMgbW1hcCBsb2NrIHdo
-ZW4gZHVyaW5nIHBhZ2Ugd2Fsa3MgZm9yIERNQSBvcGVyYXRpb25zLiAgVGhpcyBwYXRjaApsb2Nr
-cyBhbmQgdW5sb2NrcyB0aGUgbW1hcCBsb2NrIGZvciBwYWdlIHdhbGtpbmcuCgpGaXhlczogNDJm
-YzU0MTQwNGYyICgibW1hcCBsb2NraW5nIEFQSTogYWRkIG1tYXBfYXNzZXJ0X2xvY2tlZCgpIGFu
-ZCBtbWFwX2Fzc2VydF93cml0ZV9sb2NrZWQoKSIKQ2M6IE1pY2hlbCBMZXNwaW5hc3NlIDx3YWxr
-ZW5AZ29vZ2xlLmNvbT4KU2lnbmVkLW9mZi1ieTogU3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFp
-bC5jb20+Ci0tLQogYXJjaC9vcGVucmlzYy9rZXJuZWwvZG1hLmMgfCA1ICsrKysrCiAxIGZpbGUg
-Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvYXJjaC9vcGVucmlzYy9rZXJu
-ZWwvZG1hLmMgYi9hcmNoL29wZW5yaXNjL2tlcm5lbC9kbWEuYwppbmRleCBjMTUyYTY4ODExZGQu
-LjM0NTcyNzYzOGQ1MiAxMDA2NDQKLS0tIGEvYXJjaC9vcGVucmlzYy9rZXJuZWwvZG1hLmMKKysr
-IGIvYXJjaC9vcGVucmlzYy9rZXJuZWwvZG1hLmMKQEAgLTc0LDggKzc0LDExIEBAIHZvaWQgKmFy
-Y2hfZG1hX3NldF91bmNhY2hlZCh2b2lkICpjcHVfYWRkciwgc2l6ZV90IHNpemUpCiAJICogV2Ug
-bmVlZCB0byBpdGVyYXRlIHRocm91Z2ggdGhlIHBhZ2VzLCBjbGVhcmluZyB0aGUgZGNhY2hlIGZv
-cgogCSAqIHRoZW0gYW5kIHNldHRpbmcgdGhlIGNhY2hlLWluaGliaXQgYml0LgogCSAqLworCW1t
-YXBfcmVhZF9sb2NrKCZpbml0X21tKTsKIAllcnJvciA9IHdhbGtfcGFnZV9yYW5nZSgmaW5pdF9t
-bSwgdmEsIHZhICsgc2l6ZSwgJnNldF9ub2NhY2hlX3dhbGtfb3BzLAogCQkJTlVMTCk7CisJbW1h
-cF9yZWFkX3VubG9jaygmaW5pdF9tbSk7CisKIAlpZiAoZXJyb3IpCiAJCXJldHVybiBFUlJfUFRS
-KGVycm9yKTsKIAlyZXR1cm4gY3B1X2FkZHI7CkBAIC04NSw5ICs4OCwxMSBAQCB2b2lkIGFyY2hf
-ZG1hX2NsZWFyX3VuY2FjaGVkKHZvaWQgKmNwdV9hZGRyLCBzaXplX3Qgc2l6ZSkKIHsKIAl1bnNp
-Z25lZCBsb25nIHZhID0gKHVuc2lnbmVkIGxvbmcpY3B1X2FkZHI7CiAKKwltbWFwX3JlYWRfbG9j
-aygmaW5pdF9tbSk7CiAJLyogd2Fsa19wYWdlX3JhbmdlIHNob3VsZG4ndCBiZSBhYmxlIHRvIGZh
-aWwgaGVyZSAqLwogCVdBUk5fT04od2Fsa19wYWdlX3JhbmdlKCZpbml0X21tLCB2YSwgdmEgKyBz
-aXplLAogCQkJJmNsZWFyX25vY2FjaGVfd2Fsa19vcHMsIE5VTEwpKTsKKwltbWFwX3JlYWRfdW5s
-b2NrKCZpbml0X21tKTsKIH0KIAogdm9pZCBhcmNoX3N5bmNfZG1hX2Zvcl9kZXZpY2UocGh5c19h
-ZGRyX3QgYWRkciwgc2l6ZV90IHNpemUsCi0tIAoyLjI2LjIKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklT
-Q0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3Rp
-bmZvL29wZW5yaXNjCg==
+T24gV2VkLCBKdW4gMTcsIDIwMjAgYXQgMjowMyBBTSBTdGFmZm9yZCBIb3JuZSA8c2hvcm5lQGdt
+YWlsLmNvbT4gd3JvdGU6Cj4gU2luY2UgdjUuOC1yYzEgT3BlblJJU0MgTGludXggZmFpbHMgdG8g
+Ym9vdCB3aGVuIERFQlVHX1ZNIGlzIGVuYWJsZWQuCj4gVGhpcyBoYXMgYmVlbiBiaXNlY3RlZCB0
+byBjb21taXQgNDJmYzU0MTQwNGYyICgibW1hcCBsb2NraW5nIEFQSTogYWRkCj4gbW1hcF9hc3Nl
+cnRfbG9ja2VkKCkgYW5kIG1tYXBfYXNzZXJ0X3dyaXRlX2xvY2tlZCgpIikuCj4KPiBUaGUgYWRk
+ZWQgbG9ja2luZyBjaGVja3MgZXhwb3NlZCB0aGUgaXNzdWUgdGhhdCBPcGVuUklTQyB3YXMgbm90
+IHRha2luZwo+IHRoaXMgbW1hcCBsb2NrIHdoZW4gZHVyaW5nIHBhZ2Ugd2Fsa3MgZm9yIERNQSBv
+cGVyYXRpb25zLiAgVGhpcyBwYXRjaAo+IGxvY2tzIGFuZCB1bmxvY2tzIHRoZSBtbWFwIGxvY2sg
+Zm9yIHBhZ2Ugd2Fsa2luZy4KPgo+IEZpeGVzOiA0MmZjNTQxNDA0ZjIgKCJtbWFwIGxvY2tpbmcg
+QVBJOiBhZGQgbW1hcF9hc3NlcnRfbG9ja2VkKCkgYW5kIG1tYXBfYXNzZXJ0X3dyaXRlX2xvY2tl
+ZCgpIgo+IENjOiBNaWNoZWwgTGVzcGluYXNzZSA8d2Fsa2VuQGdvb2dsZS5jb20+Cj4gU2lnbmVk
+LW9mZi1ieTogU3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFpbC5jb20+CgpUaGFua3MgZm9yIHRo
+ZSBmaXguCgpSZXZpZXdlZC1ieTogTWljaGVsIExlc3BpbmFzc2UgPHdhbGtlbkBnb29nbGUuY29t
+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklT
+QyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0
+cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
