@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 961981FECC6
-	for <lists+openrisc@lfdr.de>; Thu, 18 Jun 2020 09:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D1EA1FECC8
+	for <lists+openrisc@lfdr.de>; Thu, 18 Jun 2020 09:47:26 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 4FEDC20B5B;
-	Thu, 18 Jun 2020 09:47:25 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 0622820BDD;
+	Thu, 18 Jun 2020 09:47:26 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 897DF205B0
- for <openrisc@lists.librecores.org>; Thu, 18 Jun 2020 03:14:52 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id D7CB520B6B
+ for <openrisc@lists.librecores.org>; Thu, 18 Jun 2020 03:21:09 +0200 (CEST)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0009B2193E;
- Thu, 18 Jun 2020 01:14:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8B7CE20776;
+ Thu, 18 Jun 2020 01:21:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442890;
+ s=default; t=1592443268;
  bh=gcYIdJSBndXo8ib41qkOp7IDNKCp6T94n1aw+8dxIIM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cHRfdvLqjyZsW6g99eM1+psSgkitdeKAGnxLTD8c6VwttLrH4Wy5Y9NyD+V0zNWaG
- unnA3eH0b9PIQ56xZZrlLzNzVqIbOJrU2Wf4VyESzbpJU7DLkZwWAke5MMjaNtfOuh
- l0KuCXWKWnMw+YSp3XHG+JniHPEL40vZDv1NYUH4=
+ b=BoN2KpAvGSJw8WGp4UGyp/FvDPvv+Mz30sqwWUlzK+SD0IxpKy4USlWZB0ot6GAy/
+ l1Cs5ciagwGxP9+pPXQgp83Eo88LYHKgAr5EqKd0cshdiN9ll9ZARvbISRGiaC1V+5
+ Ra1/JDmeKvf6XgJQU2xbPnu53wQUJPleHu09CzgQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:06:50 -0400
-Message-Id: <20200618010805.600873-313-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:15:39 -0400
+Message-Id: <20200618011631.604574-214-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
-References: <20200618010805.600873-1-sashal@kernel.org>
+In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
+References: <20200618011631.604574-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Approved-At: Thu, 18 Jun 2020 09:47:10 +0200
-Subject: [OpenRISC] [PATCH AUTOSEL 5.7 313/388] openrisc: Fix issue with
+Subject: [OpenRISC] [PATCH AUTOSEL 5.4 214/266] openrisc: Fix issue with
  argument clobbering for clone/fork
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
