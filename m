@@ -2,57 +2,43 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 1EF5A204C19
+	by mail.lfdr.de (Postfix) with ESMTP id 6E407204C1A
 	for <lists+openrisc@lfdr.de>; Tue, 23 Jun 2020 10:19:11 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id AB1C82014C;
-	Tue, 23 Jun 2020 10:19:09 +0200 (CEST)
-Received: from mail-pj1-f67.google.com (mail-pj1-f67.google.com
- [209.85.216.67])
- by mail.librecores.org (Postfix) with ESMTPS id E9CD820C75
- for <openrisc@lists.librecores.org>; Tue, 23 Jun 2020 02:46:59 +0200 (CEST)
-Received: by mail-pj1-f67.google.com with SMTP id jz3so732867pjb.0
- for <openrisc@lists.librecores.org>; Mon, 22 Jun 2020 17:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=zu4OU7IGZiTsvIaDwmyLbj4I9ozbACkG/Mn2gAIRkbg=;
- b=eD2zNURLgHPqg/d00zOemVc/uWc9XFUrQc9T/r0CfHnQ37J5w12dtxWOt/XLxUaoPr
- oPBZAAlU/s8JvF08Eg5Uwe6Yf/qJtxl/cKLc4YjjZ2omXW0o0Dck4uICr1tn5iEyOb+s
- XrFSioDSrXqS4AKWpDQOm1ZEp45q7IQaD6sek=
+	by mail.librecores.org (Postfix) with ESMTP id 0E6F920C75;
+	Tue, 23 Jun 2020 10:19:10 +0200 (CEST)
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
+ by mail.librecores.org (Postfix) with ESMTPS id AC94120BCF
+ for <openrisc@lists.librecores.org>; Tue, 23 Jun 2020 09:37:50 +0200 (CEST)
+Received: by mail-oi1-f196.google.com with SMTP id k4so18070548oik.2
+ for <openrisc@lists.librecores.org>; Tue, 23 Jun 2020 00:37:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=zu4OU7IGZiTsvIaDwmyLbj4I9ozbACkG/Mn2gAIRkbg=;
- b=Ue5ZjvXmaQznILMA+8nVE7tj7TSjQ/TUqdtasOfEA11LumksRcJdrfyv6iuaFASD+E
- htCa3FatYCsyAdMej20cKMu+ruV9WmQXMew4HjFVAI2JBj2ob1J6G4uNgqbuvi7/Yxf0
- ME4IjvwvfjVXZwx93qXSu7qBOnsNe02DQzt44z7pbdNhz854JWrQO+9jI+0sPH4sAT9+
- NEYtZldTBK5VXyxpbNWhrpRtDKUkmwhM0XL5mTtTNn9xvSZWEZcRBWiCyVJ0S+mnOWMY
- Ak8OHw4fqBEOpeyuNAZsMZ0AfRUhGHc3PMkNCjv+M0vjKCsTRVetXkLijYatypGlg1Ra
- +Lgg==
-X-Gm-Message-State: AOAM531dKPpvbyZtfC+CG8DZQTaeNZKkWiO7YuI1UcOTeqnXnbplZGSc
- KXZddAGbtUpSaMsEravc+WpbjA==
-X-Google-Smtp-Source: ABdhPJwLqwCQ0Rost0KalBZ/gdRO16zHbQi9rscaK3Ne64vv0f4wO0Oby1WybaoTmJuLYB1GYOmDPw==
-X-Received: by 2002:a17:90a:ee82:: with SMTP id
- i2mr21052514pjz.29.1592873218628; 
- Mon, 22 Jun 2020 17:46:58 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id ii17sm383343pjb.56.2020.06.22.17.46.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2020 17:46:57 -0700 (PDT)
-Date: Mon, 22 Jun 2020 17:46:56 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Christian Brauner <christian.brauner@ubuntu.com>
-Message-ID: <202006221745.5999CF5@keescook>
-References: <20200622234326.906346-1-christian.brauner@ubuntu.com>
- <20200622234326.906346-18-christian.brauner@ubuntu.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7oJwDzhBeEf7oQ+TonriYRlwmomFLiKcHOUg0pAK4SQ=;
+ b=DpyYNIYycz++oQ6+PwwvEs2O7LYaObOaa/LHTvdAqVjVpfEj9KTWI7q2FyJ0nDgTuV
+ 8U1oQMelTZFrUCq/vbsmoNLM11pIGl17BHUDe2R8Q5cBfS3wcZ1sqS8NCi9rEV09WtDw
+ 9TOK24UIAlwBdZ2bjBpZFWbOJJrMY3O6wqUYrzKcgk1MT809eI9sp3GKzVWdgdOhbefP
+ 7ZvFrRFkTg+QWS8Cl5+cEfPqV867DKPxKBmkg0uDduPrtDAi3RlFeppkUeCX8mQgx6k8
+ KrkI5a+//FeeGWND74XHyqLA/H4/KyPAmSFXfD2u/H3aM6qJxHBHErjK5kuFqOn+BS2p
+ YIjA==
+X-Gm-Message-State: AOAM532L53d/JBsFncdmsGAhLo7QZwZ3EXbgSeKk+fvFqKN0vC1UbLdU
+ DMXkOEhd++9kyj6CYieR6Cj+OnyMimiSYZRPPDY=
+X-Google-Smtp-Source: ABdhPJxT4D8Rg3orWN4Ut3NBxZ5/1LZ7NRz/AeZjcH8lRfYfsp5aNzdh8MJbSRaix2qdqbDH5Ocb6CYiGlmuOkGOPBI=
+X-Received: by 2002:a54:4006:: with SMTP id x6mr14806231oie.148.1592897869203; 
+ Tue, 23 Jun 2020 00:37:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200622234326.906346-18-christian.brauner@ubuntu.com>
+References: <20200622234326.906346-1-christian.brauner@ubuntu.com>
+ <20200622234326.906346-17-christian.brauner@ubuntu.com>
+In-Reply-To: <20200622234326.906346-17-christian.brauner@ubuntu.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 23 Jun 2020 09:37:38 +0200
+Message-ID: <CAMuHMdWYuJW9vnCkfqo=c8FRoxpw_HrUDZsXraAsdTOgHtR8Bw@mail.gmail.com>
+To: Christian Brauner <christian.brauner@ubuntu.com>
 X-Mailman-Approved-At: Tue, 23 Jun 2020 10:19:04 +0200
-Subject: Re: [OpenRISC] [PATCH 17/17] arch: rename copy_thread_tls() back to
- copy_thread()
+Subject: Re: [OpenRISC] [PATCH 16/17] arch: remove HAVE_COPY_THREAD_TLS
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -66,40 +52,47 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Rich Felker <dalias@libc.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, linux-sh@vger.kernel.org,
- "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>, linux-mips@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, sparclinux@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-riscv@lists.infradead.org,
- Vincent Chen <deanbo422@gmail.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Linux-sh list <linux-sh@vger.kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Heiko Carstens <heiko.carstens@de.ibm.com>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org,
+ sparclinux <sparclinux@vger.kernel.org>,
+ "open list:QUALCOMM HEXAGON..." <linux-hexagon@vger.kernel.org>,
+ linux-riscv@lists.infradead.org, Vincent Chen <deanbo422@gmail.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- linux-ia64@vger.kernel.org, linux-c6x-dev@linux-c6x.org,
- Brian Cain <bcain@codeaurora.org>, linux-xtensa@linux-xtensa.org,
+ Jonas Bonn <jonas@southpole.se>, linux-s390 <linux-s390@vger.kernel.org>,
+ "linux-ia64@vger.kernel.org" <linux-ia64@vger.kernel.org>,
+ linux-c6x-dev@linux-c6x.org, Brian Cain <bcain@codeaurora.org>,
+ "open list:TENSILICA XTENSA PORT \(xtensa\)" <linux-xtensa@linux-xtensa.org>,
  Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Ley Foon Tan <ley.foon.tan@intel.com>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Ley Foon Tan <ley.foon.tan@intel.com>,
+ Mike Rapoport <rppt@linux.ibm.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- linux-parisc@vger.kernel.org, Mark Salter <msalter@redhat.com>,
- Matt Turner <mattst88@gmail.com>, linux-snps-arc@lists.infradead.org,
- uclinux-h8-devel@lists.sourceforge.jp, Fenghua Yu <fenghua.yu@intel.com>,
- Albert Ou <aou@eecs.berkeley.edu>, linux-csky@vger.kernel.org,
- Jeff Dike <jdike@addtoit.com>, linux-alpha@vger.kernel.org,
- linux-um@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ Parisc List <linux-parisc@vger.kernel.org>, Mark Salter <msalter@redhat.com>,
+ Matt Turner <mattst88@gmail.com>, arcml <linux-snps-arc@lists.infradead.org>,
+ "moderated list:H8/300 ARCHITECTURE" <uclinux-h8-devel@lists.sourceforge.jp>,
+ Fenghua Yu <fenghua.yu@intel.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Kees Cook <keescook@chromium.org>, Vasily Gorbik <gor@linux.ibm.com>,
+ Jeff Dike <jdike@addtoit.com>, alpha <linux-alpha@vger.kernel.org>,
+ linux-um <linux-um@lists.infradead.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
  Aurelien Jacquiot <jacquiot.aurelien@gmail.com>,
- linux-m68k@lists.linux-m68k.org,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Ivan Kokshaysky <ink@jurassic.park.msu.ru>, Greentime Hu <green.hu@gmail.com>,
  Paul Walmsley <paul.walmsley@sifive.com>, Guan Xuetao <gxt@pku.edu.cn>,
- linux-arm-kernel@lists.infradead.org, Chris Zankel <chris@zankel.net>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
  Michal Simek <monstr@monstr.eu>, Tony Luck <tony.luck@intel.com>,
  Yoshinori Sato <ysato@users.sourceforge.jp>, Nick Hu <nickhu@andestech.com>,
- Vineet Gupta <vgupta@synopsys.com>, linux-kernel@vger.kernel.org,
- openrisc@lists.librecores.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Vineet Gupta <vgupta@synopsys.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Openrisc <openrisc@lists.librecores.org>, Palmer Dabbelt <palmer@dabbelt.com>,
  Richard Weinberger <richard@nod.at>, Paul Mackerras <paulus@samba.org>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  "David S. Miller" <davem@davemloft.net>, Al Viro <viro@zeniv.linux.org.uk>
@@ -108,20 +101,24 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVHVlLCBKdW4gMjMsIDIwMjAgYXQgMDE6NDM6MjZBTSArMDIwMCwgQ2hyaXN0aWFuIEJyYXVu
-ZXIgd3JvdGU6Cj4gTm93IHRoYXQgSEFWRV9DT1BZX1RIUkVBRF9UTFMgaGFzIGJlZW4gcmVtb3Zl
-ZCwgcmVuYW1lIGNvcHlfdGhyZWFkX3RscygpCj4gYmFjayBzaW1wbHkgY29weV90aHJlYWQoKS4g
-SXQncyBhIHNpbXBsZXIgbmFtZSwgYW5kIGRvZXNuJ3QgaW1wbHkgdGhhdCBvbmx5Cj4gdGxzIGlz
-IGNvcGllZCBoZXJlLiBUaGlzIGZpbmlzaGVzIGFuIG91dHN0YW5kaW5nIGNodW5rIG9mIGludGVy
-bmFsIHByb2Nlc3MKPiBjcmVhdGlvbiB3b3JrIHNpbmNlIHdlJ3ZlIGFkZGVkIGNsb25lMygpLgo+
-IFsuLi5dCj4gLWNvcHlfdGhyZWFkX3Rscyh1bnNpZ25lZCBsb25nIGNsb25lX2ZsYWdzLCB1bnNp
-Z25lZCBsb25nIHVzZXJfc3RhY2tfYmFzZSwKPiArY29weV90aHJlYWQodW5zaWduZWQgbG9uZyBj
-bG9uZV9mbGFncywgdW5zaWduZWQgbG9uZyB1c2VyX3N0YWNrX2Jhc2UsCj4gIAkJICAgIHVuc2ln
-bmVkIGxvbmcgdXNlcl9zdGFja19zaXplLCBzdHJ1Y3QgdGFza19zdHJ1Y3QgKnAsCj4gIAkJICAg
-IHVuc2lnbmVkIGxvbmcgdGxzKQoKTWF5YmUgY2xlYW4gdXAgdGhlIGFyZyBpbmRlbnRhdGlvbiB0
-b28/IEknbSBub3Qgc3VyZSBob3cgc3Ryb25nbHkgcGVvcGxlCmZlZWwgYWJvdXQgdGhhdCwgYnV0
-IEkgdGhpbmsgaXQnZCBiZSBuaWNlLgoKRWl0aGVyIHdheToKClJldmlld2VkLWJ5OiBLZWVzIENv
-b2sgPGtlZXNjb29rQGNocm9taXVtLm9yZz4KCi0tIApLZWVzIENvb2sKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9w
-ZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcv
-bGlzdGluZm8vb3BlbnJpc2MK
+T24gVHVlLCBKdW4gMjMsIDIwMjAgYXQgMTo0NyBBTSBDaHJpc3RpYW4gQnJhdW5lcgo8Y2hyaXN0
+aWFuLmJyYXVuZXJAdWJ1bnR1LmNvbT4gd3JvdGU6Cj4gQWxsIGFyY2hpdGVjdHVyZXMgc3VwcG9y
+dCBjb3B5X3RocmVhZF90bHMoKSBub3csIHNvIHJlbW92ZSB0aGUgbGVnYWN5Cj4gY29weV90aHJl
+YWQoKSBmdW5jdGlvbiBhbmQgdGhlIEhBVkVfQ09QWV9USFJFQURfVExTIGNvbmZpZyBvcHRpb24u
+IEV2ZXJ5b25lCj4gdXNlcyB0aGUgc2FtZSBwcm9jZXNzIGNyZWF0aW9uIGNhbGxpbmcgY29udmVu
+dGlvbiBiYXNlZCBvbgo+IGNvcHlfdGhyZWFkX3RscygpIGFuZCBzdHJ1Y3Qga2VybmVsX2Nsb25l
+X2FyZ3MuIFRoaXMgd2lsbCBtYWtlIGl0IGVhc2llciB0bwo+IG1haW50YWluIHRoZSBjb3JlIHBy
+b2Nlc3MgY3JlYXRpb24gY29kZSB1bmRlciBrZXJuZWwvLCBzaW1wbGlmaWVzIHRoZQo+IGNhbGxw
+YXRocyBhbmQgbWFrZXMgdGhlIGlkZW50aWNhbCBmb3IgYWxsIGFyY2hpdGVjdHVyZXMuCgo+IFNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBCcmF1bmVyIDxjaHJpc3RpYW4uYnJhdW5lckB1YnVudHUu
+Y29tPgoKPiAgYXJjaC9tNjhrL0tjb25maWcgICAgICAgICAgfCAgMSAtCgpBY2tlZC1ieTogR2Vl
+cnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4KCkdye29ldGplLGVldGluZ31z
+LAoKICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQKCi0tIApHZWVydCBVeXR0ZXJob2V2ZW4g
+LS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4LW02OGsu
+b3JnCgpJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdpdGggdGVjaG5pY2FsIHBlb3BsZSwgSSBj
+YWxsIG15c2VsZiBhIGhhY2tlci4gQnV0CndoZW4gSSdtIHRhbGtpbmcgdG8gam91cm5hbGlzdHMg
+SSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxkcwpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3Bl
+blJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9s
+aXN0aW5mby9vcGVucmlzYwo=
