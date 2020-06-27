@@ -2,38 +2,59 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B127920DCE7
-	for <lists+openrisc@lfdr.de>; Mon, 29 Jun 2020 22:45:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 660E020DCE8
+	for <lists+openrisc@lfdr.de>; Mon, 29 Jun 2020 22:45:10 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 5336720C93;
-	Mon, 29 Jun 2020 22:45:09 +0200 (CEST)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id 7E5A720CCB
- for <openrisc@lists.librecores.org>; Sat, 27 Jun 2020 21:03:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=OR7OBaJyU20QVLaZTPXddMLTo5rxOsqU6iEIJEupuWE=; b=rq00ouSxMdTmSFa28hDOUKTHBg
- 3dXyfPXkTUDZyQHTetqsyMna5fwntHa6QKcic/h71IwcUCnGNbErGyqkiwiLcgU2nYHZh16/QaPeb
- b5zkBVG9gFL5QSc/VNDuNclsIuluvuMI/LYza+5r2JW/cLhLN6jZ5ik5eKIuodERFMabxSNfOI2Bi
- +dL26IWnzvmxsRx2Z0NmVql7PiiPOtRewW4aUiQeNyCevs8ZZkzP0faCH2uqSnyC23QLvVtj1Wi9z
- Fo+73sfYzK5rnUfqtXfFwYUwyfilRDtoIcUUPTCSGsmVmOCF5BvgZD7yS/O5QwZNMhirY3o8KlkeY
- 6JIFEkYQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1jpG6S-0005fe-2n; Sat, 27 Jun 2020 19:03:04 +0000
-Date: Sat, 27 Jun 2020 20:03:04 +0100
-From: Matthew Wilcox <willy@infradead.org>
+	by mail.librecores.org (Postfix) with ESMTP id 3972E20853;
+	Mon, 29 Jun 2020 22:45:10 +0200 (CEST)
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+ [209.85.210.196])
+ by mail.librecores.org (Postfix) with ESMTPS id 5760120CA9
+ for <openrisc@lists.librecores.org>; Sat, 27 Jun 2020 23:23:40 +0200 (CEST)
+Received: by mail-pf1-f196.google.com with SMTP id t11so1340444pfq.11
+ for <openrisc@lists.librecores.org>; Sat, 27 Jun 2020 14:23:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=mizxgkzS/h5RAiTRnXHHAMYgNZSKy87tz0psMUuXu0c=;
+ b=KrOHe2AlaGQ7tV28Vl9qyOQ0elfd8r//wq4xzvB5xDb5jWlg6mXfsKxabi0zi9yPbE
+ a3CGp38U8cqw2mebqkt6TnvwzPA6E6KEcgpIj8HCQ1rHyHT3QVxyrownujSHvkYTCVSa
+ Gy95rzA2weVyQoDCaBGwSARvG5wXI2h42LYwK1iUZUWKUYeZG14+sFo/aPCYLw2NwZJj
+ nBqydL7WFvWCAVkBuzJ2gva+wATslrp9imqMIKL3E0H/YMoAyiaNhBbjIsjfeCv51DOd
+ WRdGRRQ8YZYlJSkPBIPY8Mf5k8q0bkdsr138mWgQL9YfzyKrJwEngJSJT/C0ZJyP38ue
+ p6eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=mizxgkzS/h5RAiTRnXHHAMYgNZSKy87tz0psMUuXu0c=;
+ b=V2bhZh2/9JBQOwwwWNg8pBoegOsDpoLCl28PlC52j4GdBKyqGPSfc1bzb5XF51w96Q
+ sj5vK0F5j2iLJrKbDcKZ9dIUotIp5e34gVj4pITdT2wTx+MrO528I87QanMm8vLkQcRk
+ gNdhRPqVxXlbcDh0+WMEw9hw6xgv6GreZue2rjoj3RzXihiPAjP3xyNLOQxlx2JUy0ed
+ 16BXdlTasoFc1/NoI9IrqkcvCF0uzQmz5YjSudL5ghkaPYLTeKRu232NP93Gr+1fdMQG
+ O5fBh2ApfzBJhAY5CZPt6JiqDMdnIPZYPyFxXpFl6gSO9AlXC0zFCUl65VmpvHO+/Vpw
+ zA2A==
+X-Gm-Message-State: AOAM532lSWNUIRw/5LlVDf4rU7IwjUlNbRElKdzjfaA97bnOzTxtCy86
+ gopZR6wMB3PrHSkoCcoPv7A=
+X-Google-Smtp-Source: ABdhPJyLzAtm2TextcgHnw6pDE2t7RidtLOm1t9FNzgTafND17DEExqOaKhxKo2F07v49LSV9JtDbQ==
+X-Received: by 2002:a62:e305:: with SMTP id g5mr8523544pfh.115.1593293018476; 
+ Sat, 27 Jun 2020 14:23:38 -0700 (PDT)
+Received: from localhost (g2.222-224-226.ppp.wakwak.ne.jp. [222.224.226.2])
+ by smtp.gmail.com with ESMTPSA id mw5sm15217406pjb.27.2020.06.27.14.23.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 27 Jun 2020 14:23:37 -0700 (PDT)
+Date: Sun, 28 Jun 2020 06:23:35 +0900
+From: Stafford Horne <shorne@gmail.com>
 To: Mike Rapoport <rppt@kernel.org>
-Message-ID: <20200627190304.GG25039@casper.infradead.org>
+Message-ID: <20200627212335.GJ1401039@lianli.shorne-pla.net>
 References: <20200627143453.31835-1-rppt@kernel.org>
- <20200627143453.31835-5-rppt@kernel.org>
+ <20200627143453.31835-3-rppt@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200627143453.31835-5-rppt@kernel.org>
+In-Reply-To: <20200627143453.31835-3-rppt@kernel.org>
 X-Mailman-Approved-At: Mon, 29 Jun 2020 22:44:54 +0200
-Subject: Re: [OpenRISC] [PATCH 4/8] asm-generic: pgalloc: provide generic
- pmd_alloc_one() and pmd_free_one()
+Subject: Re: [OpenRISC] [PATCH 2/8] opeinrisc: switch to generic version of
+ pte allocation
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,27 +89,16 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gU2F0LCBKdW4gMjcsIDIwMjAgYXQgMDU6MzQ6NDlQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
-cm90ZToKPiBNb3JlIGVsYWJvcmF0ZSB2ZXJzaW9ucyBvbiBhcm02NCBhbmQgeDg2IGFjY291bnQg
-bWVtb3J5IGZvciB0aGUgdXNlciBwYWdlCj4gdGFibGVzIGFuZCBjYWxsIHRvIHBndGFibGVfcG1k
-X3BhZ2VfY3RvcigpIGFzIHRoZSBwYXJ0IG9mIFBNRCBwYWdlCj4gaW5pdGlhbGl6YXRpb24uCj4g
-Cj4gTW92ZSB0aGUgYXJtNjQgdmVyc2lvbiB0byBpbmNsdWRlL2FzbS1nZW5lcmljL3BnYWxsb2Mu
-aCBhbmQgdXNlIHRoZSBnZW5lcmljCj4gdmVyc2lvbiBvbiBzZXZlcmFsIGFyY2hpdGVjdHVyZXMu
-Cj4gCj4gVGhlIHBndGFibGVfcG1kX3BhZ2VfY3RvcigpIGlzIGEgTk9QIHdoZW4gQVJDSF9FTkFC
-TEVfU1BMSVRfUE1EX1BUTE9DSyBpcwo+IG5vdCBlbmFibGVkLCBzbyB0aGVyZSBpcyBubyBmdW5j
-dGlvbmFsIGNoYW5nZSBmb3IgbW9zdCBhcmNoaXRlY3R1cmVzIGV4Y2VwdAo+IG9mIHRoZSBhZGRp
-dGlvbiBvZiBfX0dGUF9BQ0NPVU5UIGZvciBhbGxvY2F0aW9uIG9mIHVzZXIgcGFnZSB0YWJsZXMu
-CgpUaGFua3MgZm9yIGluY2x1ZGluZyB0aGlzIGxpbmU7IGl0IHJlbWluZGVkIG1lIHRoYXQgd2Un
-cmUgbm90IHNldHRpbmcKdGhlIFBhZ2VUYWJsZSBmbGFnIG9uIHRoZSBwYWdlLCBub3IgYWNjb3Vu
-dGluZyBpdCB0byB0aGUgem9uZSBwYWdlIHN0YXRzLgpIb3BlIHlvdSBkb24ndCBtaW5kIG1lIHRh
-Z2dpbmcgYSBwYXRjaCB0byBkbyB0aGF0IG9uIGFzIDkvOC4KCldlIGNvdWxkIGFsc28gZG8gd2l0
-aCBhIHB1ZF9wYWdlX1tjZF10b3IgYW5kIG1heWJlIGV2ZW4gcDRkL3BnZCB2ZXJzaW9ucy4KQnV0
-IHRoYXQgYnJpbmdzIG1lIHRvIHRoZSBuZXh0IHF1ZXN0aW9uIC0tIGNvdWxkL3Nob3VsZCBzb21l
-IG9mIHRoaXMKYmUgbW92ZWQgb3ZlciB0byBhc20tZ2VuZXJpYy9wZ2FsbG9jLmg/ICBUaGUgY3Rv
-ci9kdG9yIGFyZW4ndCBjYWxsZWQKZnJvbSBhbnl3aGVyZSBlbHNlLCBhbmQgdGhlcmUncyB2YWx1
-ZSB0byByZWR1Y2luZyB0aGUgdG90YWwgYW1vdW50IG9mCmNvZGUgaW4gbW0uaCwgYnV0IHRoZW4g
-dGhlcmUncyBhbHNvIHZhbHVlIHRvIGtlZXBpbmcgYWxsIHRoZSBpZmRlZgpBUkNIX0VOQUJMRV9T
-UExJVF9QTURfUFRMT0NLIGNvZGUgdG9nZXRoZXIgdG9vLiAgU28gSSdtIGEgYml0IHRvcm4uCldo
-YXQgZG8geW91IHRoaW5rPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5v
-cmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+T24gU2F0LCBKdW4gMjcsIDIwMjAgYXQgMDU6MzQ6NDdQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
+cm90ZToKPiBGcm9tOiBNaWtlIFJhcG9wb3J0IDxycHB0QGxpbnV4LmlibS5jb20+Cj4gCj4gUmVw
+bGFjZSBwdGVfYWxsb2Nfb25lKCksIHB0ZV9mcmVlKCkgYW5kIHB0ZV9mcmVlX2tlcm5lbCgpIHdp
+dGggdGhlIGdlbmVyaWMKPiBpbXBsZW1lbnRhdGlvbi4gVGhlIG9ubHkgYWN0dWFsIGZ1bmN0aW9u
+YWwgY2hhbmdlIGlzIHRoZSBhZGRpdGlvbiBvZgo+IF9fR0ZQX0FDQ09VVCBmb3IgdGhlIGFsbG9j
+YXRpb24gb2YgdGhlIHVzZXIgcGFnZSB0YWJsZXMuCj4gCj4gVGhlIHB0ZV9hbGxvY19vbmVfa2Vy
+bmVsKCkgaXMga2VwdCBiYWNrIGJlY2F1c2UgaXRzIGltcGxlbWVudGF0aW9uIG9uCj4gb3BlbnJp
+c2MgaXMgZGlmZmVyZW50IHRoYW4gdGhlIGdlbmVyaWMgb25lLgo+IAo+IFNpZ25lZC1vZmYtYnk6
+IE1pa2UgUmFwb3BvcnQgPHJwcHRAbGludXguaWJtLmNvbT4KClRoYW5rJ3MgZm9yIHRoaXMuCgpB
+Y2tlZC1ieTogU3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFpbC5jb20+Cl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApP
+cGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3Jn
+L2xpc3RpbmZvL29wZW5yaXNjCg==
