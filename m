@@ -2,32 +2,32 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 8EA182460E1
-	for <lists+openrisc@lfdr.de>; Mon, 17 Aug 2020 10:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 47F6B2460E2
+	for <lists+openrisc@lfdr.de>; Mon, 17 Aug 2020 10:46:50 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 62D2820EB5;
+	by mail.librecores.org (Postfix) with ESMTP id E45DD20E9B;
 	Mon, 17 Aug 2020 10:46:49 +0200 (CEST)
 Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by mail.librecores.org (Postfix) with ESMTP id ABB3720D9A
+ by mail.librecores.org (Postfix) with ESMTP id D209220DA3
  for <openrisc@lists.librecores.org>; Wed,  5 Aug 2020 13:01:46 +0200 (CEST)
 Received: from uucp (helo=alpha)
  by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1k3HAl-0001HW-00; Wed, 05 Aug 2020 13:01:27 +0200
+ id 1k3HAl-0001HW-01; Wed, 05 Aug 2020 13:01:27 +0200
 Received: by alpha.franken.de (Postfix, from userid 1000)
- id 27D27C0BF1; Wed,  5 Aug 2020 12:58:44 +0200 (CEST)
-Date: Wed, 5 Aug 2020 12:58:44 +0200
+ id 899DDC0C25; Wed,  5 Aug 2020 13:00:35 +0200 (CEST)
+Date: Wed, 5 Aug 2020 13:00:35 +0200
 From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 To: Mike Rapoport <rppt@kernel.org>
-Message-ID: <20200805105844.GA11658@alpha.franken.de>
+Message-ID: <20200805110035.GB11658@alpha.franken.de>
 References: <20200802163601.8189-1-rppt@kernel.org>
- <20200802163601.8189-18-rppt@kernel.org>
+ <20200802163601.8189-13-rppt@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200802163601.8189-18-rppt@kernel.org>
+In-Reply-To: <20200802163601.8189-13-rppt@kernel.org>
 User-Agent: Mutt/1.5.23 (2014-03-12)
 X-Mailman-Approved-At: Mon, 17 Aug 2020 10:45:37 +0200
-Subject: Re: [OpenRISC] [PATCH v2 17/17] memblock: use separate iterators
- for memory and reserved regions
+Subject: Re: [OpenRISC] [PATCH v2 12/17] arch,
+ drivers: replace for_each_membock() with for_each_mem_range()
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,19 +68,22 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gU3VuLCBBdWcgMDIsIDIwMjAgYXQgMDc6MzY6MDFQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
-cm90ZToKPiBGcm9tOiBNaWtlIFJhcG9wb3J0IDxycHB0QGxpbnV4LmlibS5jb20+Cj4gCj4gZm9y
-X2VhY2hfbWVtYmxvY2soKSBpcyB1c2VkIHRvIGl0ZXJhdGUgb3ZlciBtZW1ibG9jay5tZW1vcnkg
-aW4KPiBhIGZldyBwbGFjZXMgdGhhdCB1c2UgZGF0YSBmcm9tIG1lbWJsb2NrX3JlZ2lvbiByYXRo
-ZXIgdGhhbiB0aGUgbWVtb3J5Cj4gcmFuZ2VzLgo+IAo+IEludHJvZHVjZSBzZXBhcmF0ZSBmb3Jf
-ZWFjaF9tZW1fcmVnaW9uKCkgYW5kIGZvcl9lYWNoX3Jlc2VydmVkX21lbV9yZWdpb24oKQo+IHRv
-IGltcHJvdmUgZW5jYXBzdWxhdGlvbiBvZiBtZW1ibG9jayBpbnRlcm5hbHMgZnJvbSBpdHMgdXNl
-cnMuCj4gCj4gU2lnbmVkLW9mZi1ieTogTWlrZSBSYXBvcG9ydCA8cnBwdEBsaW51eC5pYm0uY29t
-Pgo+IC0tLQo+ICBhcmNoL21pcHMvbmV0bG9naWMveGxwL3NldHVwLmMgfCAgMiArLQoKQWNrZWQt
-Ynk6IFRob21hcyBCb2dlbmRvZXJmZXIgPHRzYm9nZW5kQGFscGhhLmZyYW5rZW4uZGU+CgpUaG9t
-YXMuCgotLSAKQ3JhcCBjYW4gd29yay4gR2l2ZW4gZW5vdWdoIHRocnVzdCBwaWdzIHdpbGwgZmx5
-LCBidXQgaXQncyBub3QgbmVjZXNzYXJpbHkgYQpnb29kIGlkZWEuICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWyBSRkMxOTI1LCAyLjMgXQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxp
-c3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVz
-Lm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+T24gU3VuLCBBdWcgMDIsIDIwMjAgYXQgMDc6MzU6NTZQTSArMDMwMCwgTWlrZSBSYXBvcG9ydCB3
+cm90ZToKPiBGcm9tOiBNaWtlIFJhcG9wb3J0IDxycHB0QGxpbnV4LmlibS5jb20+Cj4gCj4gVGhl
+cmUgYXJlIHNldmVyYWwgb2NjdXJyZW5jZXMgb2YgdGhlIGZvbGxvd2luZyBwYXR0ZXJuOgo+IAo+
+IAlmb3JfZWFjaF9tZW1ibG9jayhtZW1vcnksIHJlZykgewo+IAkJc3RhcnQgPSBfX3Bmbl90b19w
+aHlzKG1lbWJsb2NrX3JlZ2lvbl9tZW1vcnlfYmFzZV9wZm4ocmVnKTsKPiAJCWVuZCA9IF9fcGZu
+X3RvX3BoeXMobWVtYmxvY2tfcmVnaW9uX21lbW9yeV9lbmRfcGZuKHJlZykpOwo+IAo+IAkJLyog
+ZG8gc29tZXRoaW5nIHdpdGggc3RhcnQgYW5kIGVuZCAqLwo+IAl9Cj4gCj4gVXNpbmcgZm9yX2Vh
+Y2hfbWVtX3JhbmdlKCkgaXRlcmF0b3IgaXMgbW9yZSBhcHByb3ByaWF0ZSBpbiBzdWNoIGNhc2Vz
+IGFuZAo+IGFsbG93cyBzaW1wbGVyIGFuZCBjbGVhbmVyIGNvZGUuCj4gCj4gU2lnbmVkLW9mZi1i
+eTogTWlrZSBSYXBvcG9ydCA8cnBwdEBsaW51eC5pYm0uY29tPgo+IC0tLQo+ICBhcmNoL21pcHMv
+Y2F2aXVtLW9jdGVvbi9kbWEtb2N0ZW9uLmMgICAgIHwgMTIgKysrLS0tCj4gIGFyY2gvbWlwcy9r
+ZXJuZWwvc2V0dXAuYyAgICAgICAgICAgICAgICAgfCAzMSArKysrKysrLS0tLS0tLS0KCkFja2Vk
+LWJ5OiBUaG9tYXMgQm9nZW5kb2VyZmVyIDx0c2JvZ2VuZEBhbHBoYS5mcmFua2VuLmRlPgoKVGhv
+bWFzLgoKLS0gCkNyYXAgY2FuIHdvcmsuIEdpdmVuIGVub3VnaCB0aHJ1c3QgcGlncyB3aWxsIGZs
+eSwgYnV0IGl0J3Mgbm90IG5lY2Vzc2FyaWx5IGEKZ29vZCBpZGVhLiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFsgUkZDMTkyNSwgMi4zIF0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBs
+aXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jl
+cy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
