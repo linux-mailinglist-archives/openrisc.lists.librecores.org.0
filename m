@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 8017B26AD89
-	for <lists+openrisc@lfdr.de>; Tue, 15 Sep 2020 21:26:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F8F126AD8A
+	for <lists+openrisc@lfdr.de>; Tue, 15 Sep 2020 21:26:39 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 005AE20CAE;
-	Tue, 15 Sep 2020 21:26:36 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 2F4AE20CDB;
+	Tue, 15 Sep 2020 21:26:37 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 2BCD320C9D
- for <openrisc@lists.librecores.org>; Mon, 14 Sep 2020 15:04:22 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id ACF6220C8B
+ for <openrisc@lists.librecores.org>; Mon, 14 Sep 2020 15:04:50 +0200 (CEST)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 65233221F0;
- Mon, 14 Sep 2020 13:04:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C5B05206B2;
+ Mon, 14 Sep 2020 13:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600088660;
+ s=default; t=1600088689;
  bh=R7mR3aLIf2CGGcWqGZaqKCMfrWa7L3YNwpWo4rPGCRg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R1iFdRwyik/jKqybdpIuJep7fjWp/47AovwR7LMIRZf9huSkQCWa3X5tAnhHlMR8I
- CnGNbM833tIs3zR7VQ4hGnKbB77gHPDABr+TmOf8a3qqgTgslwWFsCRktkBFkKwV15
- AU2cOvQjvl3I8+uZYd24ZC4+i+6zZtZkhybi79wQ=
+ b=OkjONoIjC2zowdYYC7q1Cjy1wqXtj8d9xkwHa1343lvpAwzQ8v9LqRrzgpi1QtVCr
+ 47aueyrJeSttOIwtIdRjS774Jv5S4hDS7ll/QGu96HdpCRVRL1crjdvvqBubC4l3H2
+ d8HcsyTOuvn1o24sE+O1MUJyqP2I9NQMW8QXNhHM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 14 Sep 2020 09:03:47 -0400
-Message-Id: <20200914130358.1804194-18-sashal@kernel.org>
+Date: Mon, 14 Sep 2020 09:04:24 -0400
+Message-Id: <20200914130434.1804478-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200914130358.1804194-1-sashal@kernel.org>
-References: <20200914130358.1804194-1-sashal@kernel.org>
+In-Reply-To: <20200914130434.1804478-1-sashal@kernel.org>
+References: <20200914130434.1804478-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Mailman-Approved-At: Tue, 15 Sep 2020 21:26:35 +0200
-Subject: [OpenRISC] [PATCH AUTOSEL 5.8 18/29] openrisc: Fix cache API
+Subject: [OpenRISC] [PATCH AUTOSEL 5.4 12/22] openrisc: Fix cache API
  compile issue when not inlining
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
