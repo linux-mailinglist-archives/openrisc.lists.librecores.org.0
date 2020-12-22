@@ -2,40 +2,41 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id D73202E2934
-	for <lists+openrisc@lfdr.de>; Fri, 25 Dec 2020 00:15:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 751702E2935
+	for <lists+openrisc@lfdr.de>; Fri, 25 Dec 2020 00:15:33 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 2266720FDF;
+	by mail.librecores.org (Postfix) with ESMTP id 9F2B42106E;
 	Fri, 25 Dec 2020 00:15:32 +0100 (CET)
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by mail.librecores.org (Postfix) with ESMTPS id 4407520E7B
- for <openrisc@lists.librecores.org>; Tue, 22 Dec 2020 19:55:00 +0100 (CET)
-Received: by mail-oi1-f170.google.com with SMTP id d203so15810547oia.0
- for <openrisc@lists.librecores.org>; Tue, 22 Dec 2020 10:55:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=la43jOzGT8cpDZH0lHbZ8yczIDIlNNAQ1oOndJF72r4=;
- b=Km7bhfvsoRYr7+h+837IpVA5950358VdZmC2frAtuetL46voxSxFRNYQGzNRUooyH3
- DqJl0FUq68HsxOzBHvXDFIcI0nrp1bjaxBF4Rc1aCH6nLAwP4UWdU2RrLmWKF3spwsuT
- 4y8KJk8enNZz3GD/UttcA+nczLG3zoqAjBKx3MqSOmdg/ExgZSscK58VjXx2pLQnlKnL
- +hhZcUa/UbojhvThycsI6Ger1mxcC7PgG6EVCq9yUpQ8l3iASSuR1qun8i4zMxv0XHd8
- HE7n0DK8RO+RsND09VOF/nhWcvJXNwPC1W3ve/fP0AMgFnhbn/t3aezrveKoq+pR60vN
- o/+g==
-X-Gm-Message-State: AOAM533iTuynzmrXfTYcSGKWxvLEeVCpWvnioWqXv/eclANE/4mvUUti
- hl6NlnBHWqtZ62lKr/xdcxEjY00HD6iLMJDTcRc=
-X-Google-Smtp-Source: ABdhPJy5EVY7T6HE7RxxJ9AoKr5usE9gCbUG5HZ1gWiHgPXdK9RZjFwARYSd7qSwoUdfSw0ANGyqV1mRCh80XLruDv8=
-X-Received: by 2002:aca:3cc5:: with SMTP id j188mr14009921oia.54.1608663299046; 
- Tue, 22 Dec 2020 10:54:59 -0800 (PST)
-MIME-Version: 1.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ by mail.librecores.org (Postfix) with ESMTPS id 6D31820F8F
+ for <openrisc@lists.librecores.org>; Tue, 22 Dec 2020 21:18:03 +0100 (CET)
+Received: from [192.168.1.155] ([95.118.68.26]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1N5FtF-1jtguL3EaD-0118EC; Tue, 22 Dec 2020 21:14:24 +0100
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ "Enrico Weigelt, metux IT consult" <info@metux.net>
 References: <20201222184510.19415-1-info@metux.net>
-In-Reply-To: <20201222184510.19415-1-info@metux.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 22 Dec 2020 19:54:48 +0100
-Message-ID: <CAMuHMdVze3oaWmzvzn8ROjpP6h6Tsv2SFLiV7T1Cnej36X445g@mail.gmail.com>
-To: "Enrico Weigelt, metux IT consult" <info@metux.net>
+ <CAMuHMdVze3oaWmzvzn8ROjpP6h6Tsv2SFLiV7T1Cnej36X445g@mail.gmail.com>
+From: "Enrico Weigelt, metux IT consult" <lkml@metux.net>
+Message-ID: <2f1d53e9-0dbb-78ef-22d5-ab230438ddf0@metux.net>
+Date: Tue, 22 Dec 2020 21:14:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux i686 on x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <CAMuHMdVze3oaWmzvzn8ROjpP6h6Tsv2SFLiV7T1Cnej36X445g@mail.gmail.com>
+Content-Language: tl
+X-Provags-ID: V03:K1:UpSPX5SjSxB2JTjoTNk4sWDtA2g9Ks1Ix8dKZhB/ESwn1jWfyhx
+ EoQG8feaYKyQLnGwygV2naaePTeCvGl6q4M5FCoVvWDzd5IDw7I4++spAXF1Cn7hlWYDZ9i
+ kl7Eptzr5sffhmk6uqoQvQuMaJH6WbEHZSp8VbRZESTCM8tqF2liTqVeSG60D5ct0JeRFXM
+ C/vRJPf10ZNRyihx6OQ7A==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4rmsxPbYFfk=:r6XlGr1qgoUDdOPZvl+EZB
+ Tvvn/+E+IBfJxp8NYxN6kmODEYBvHcxpBa91h8yz4H6rftNQGPPvhJG9K3iz7sa8U3axvH9gb
+ k8MQxF8AkxpsOIqgXUvRf2/UkUWU0UyTVaNY4yxFyPXaJ5HZGvdBlHztqC0ROOQbfPfvuc9EL
+ FxgUfcgonSSkeeYMjRiTB3zJbeFMtXOTHkBa2rvNba1MQtk+fNt8bwxkcg/16D1kNX6CaQa6R
+ /HjaLu8M8eiwjXWLzppTMleqwd3hE1HiIRNtfJF9qFLMDQKH5ELRRUKQxUmk7wwJOm6jAqUoz
+ DxOEn9gjBP8Krn67rCBumevzsK7LiZ8dtcUh+n3F3XTZoxMWvkNcvhbeCfAuF95ukrIWyQBXn
+ H8gIR89lqyF1p5Egw7NhgnSoXyIbQAraihthZryjzaPuyq4jPkP8GrsbXJIV3
 X-Mailman-Approved-At: Fri, 25 Dec 2020 00:15:22 +0100
 Subject: Re: [OpenRISC] [PATCH] arch: consolidate pm_power_off callback
 X-BeenThere: openrisc@lists.librecores.org
@@ -84,25 +85,33 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGkgRW5yaWNvLAoKT24gVHVlLCBEZWMgMjIsIDIwMjAgYXQgNzo0NiBQTSBFbnJpY28gV2VpZ2Vs
-dCwgbWV0dXggSVQgY29uc3VsdAo8aW5mb0BtZXR1eC5uZXQ+IHdyb3RlOgo+IE1vdmUgdGhlIHBt
-X3Bvd2VyX29mZiBjYWxsYmFjayBpbnRvIG9uZSBnbG9iYWwgcGxhY2UgYW5kIGFsc28gYWRkIGFu
-Cj4gZnVuY3Rpb24gZm9yIGNvbmRpdGlvbmFsbHkgY2FsbGluZyBpdCAod2hlbiBub3QgTlVMTCks
-IGluIG9yZGVyIHRvIHJlbW92ZQo+IGNvZGUgZHVwbGljYXRpb24gaW4gYWxsIGluZGl2aWR1YWwg
-YXJjaHMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBFbnJpY28gV2VpZ2VsdCwgbWV0dXggSVQgY29uc3Vs
-dCA8aW5mb0BtZXR1eC5uZXQ+CgpUaGFua3MgZm9yIHlvdXIgcGF0Y2ghCgo+IC0tLSBhL2FyY2gv
-YWxwaGEva2VybmVsL3Byb2Nlc3MuYwo+ICsrKyBiL2FyY2gvYWxwaGEva2VybmVsL3Byb2Nlc3Mu
-Ywo+IEBAIC00MywxMiArNDMsNiBAQAo+ICAjaW5jbHVkZSAicHJvdG8uaCIKPiAgI2luY2x1ZGUg
-InBjaV9pbXBsLmgiCj4KPiAtLyoKPiAtICogUG93ZXIgb2ZmIGZ1bmN0aW9uLCBpZiBhbnkKPiAt
-ICovCj4gLXZvaWQgKCpwbV9wb3dlcl9vZmYpKHZvaWQpID0gbWFjaGluZV9wb3dlcl9vZmY7CgpB
-c3NpZ25tZW50cyBsaWtlIHRoZXNlIGFyZSBsb3N0IGluIHRoZSBjb252ZXJzaW9uLgoKPiAtRVhQ
-T1JUX1NZTUJPTChwbV9wb3dlcl9vZmYpOwoKR3J7b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAg
-ICAgICAgICAgICAgICBHZWVydAoKLS0gCkdlZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxv
-dHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0gZ2VlcnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNv
-bmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNobmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEg
-aGFja2VyLiBCdXQKd2hlbiBJJ20gdGFsa2luZyB0byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJw
-cm9ncmFtbWVyIiBvciBzb21ldGhpbmcgbGlrZSB0aGF0LgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIC0tIExpbnVzIFRvcnZhbGRzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5s
-aWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5y
-aXNjCg==
+T24gMjIuMTIuMjAgMTk6NTQsIEdlZXJ0IFV5dHRlcmhvZXZlbiB3cm90ZToKCkhpLAoKPiBPbiBU
+dWUsIERlYyAyMiwgMjAyMCBhdCA3OjQ2IFBNIEVucmljbyBXZWlnZWx0LCBtZXR1eCBJVCBjb25z
+dWx0Cj4gPGluZm9AbWV0dXgubmV0PiB3cm90ZToKPj4gTW92ZSB0aGUgcG1fcG93ZXJfb2ZmIGNh
+bGxiYWNrIGludG8gb25lIGdsb2JhbCBwbGFjZSBhbmQgYWxzbyBhZGQgYW4KPj4gZnVuY3Rpb24g
+Zm9yIGNvbmRpdGlvbmFsbHkgY2FsbGluZyBpdCAod2hlbiBub3QgTlVMTCksIGluIG9yZGVyIHRv
+IHJlbW92ZQo+PiBjb2RlIGR1cGxpY2F0aW9uIGluIGFsbCBpbmRpdmlkdWFsIGFyY2hzLgo+Pgo+
+PiBTaWduZWQtb2ZmLWJ5OiBFbnJpY28gV2VpZ2VsdCwgbWV0dXggSVQgY29uc3VsdCA8aW5mb0Bt
+ZXR1eC5uZXQ+Cj4gCj4gVGhhbmtzIGZvciB5b3VyIHBhdGNoIQo+IAo+PiAtLS0gYS9hcmNoL2Fs
+cGhhL2tlcm5lbC9wcm9jZXNzLmMKPj4gKysrIGIvYXJjaC9hbHBoYS9rZXJuZWwvcHJvY2Vzcy5j
+Cj4+IEBAIC00MywxMiArNDMsNiBAQAo+PiAgI2luY2x1ZGUgInByb3RvLmgiCj4+ICAjaW5jbHVk
+ZSAicGNpX2ltcGwuaCIKPj4KPj4gLS8qCj4+IC0gKiBQb3dlciBvZmYgZnVuY3Rpb24sIGlmIGFu
+eQo+PiAtICovCj4+IC12b2lkICgqcG1fcG93ZXJfb2ZmKSh2b2lkKSA9IG1hY2hpbmVfcG93ZXJf
+b2ZmOwo+IAo+IEFzc2lnbm1lbnRzIGxpa2UgdGhlc2UgYXJlIGxvc3QgaW4gdGhlIGNvbnZlcnNp
+b24uCgpZZXMsIGJ1dCB0aGlzIGRvZXNuJ3Qgc2VlbSB0byBiZSBldmVyIGNhbGxlZCBhbnl3YXlz
+LiAoaW4gYXJjaC9hbHBoYSkKQW5kLCBCVFcsIGxldHRpbmcgaXQgcG9pbnQgdG8gbWFjaGluZV9w
+b3dlcl9vZmYoKSBkb2Vzbid0IG1ha2UgbXVjaApzZW5zZSwgc2luY2UgaXQncyB0aGUgYXJjaCdz
+IG1hY2hpbmVfcG93ZXJfb2ZmKCkgZnVuY3Rpb24sIHdobydyZQpjYWxsaW5nIHBtX3Bvd2VyX29m
+ZigpLgoKQWN0dWFsbHksIHdlIGNvdWxkIHJlbW92ZSBwbV9wb3dlcl9vZmYgY29tcGxldGVseSBm
+cm9tIGhlcmUsIGFzc3VtaW5nCm5vYm9keSB3b3VsZCAqYnVpbGQqIGFueSBkcml2ZXJzIHRoYXQg
+cmVnaXN0ZXIgdGhlbXNlbHZlcyBpbnRvCnBtX3Bvd2VyX29mZi4KCklmIHlvdSBmZWVsIGJldHRl
+ciB3aXRoIGl0LCBJIGNvdWxkIHBvc3QgYSBwYXRjaCB0aGF0IGp1c3QgcmVtb3ZlcwpwbV9wb3dl
+cl9vZmYgZnJvbSBhcmNoL2FscGhhLgoKCi0tbXR4CgotLSAKLS0tCkhpbndlaXM6IHVudmVyc2No
+bMO8c3NlbHRlIEUtTWFpbHMga8O2bm5lbiBsZWljaHQgYWJnZWjDtnJ0IHVuZCBtYW5pcHVsaWVy
+dAp3ZXJkZW4gISBGw7xyIGVpbmUgdmVydHJhdWxpY2hlIEtvbW11bmlrYXRpb24gc2VuZGVuIFNp
+ZSBiaXR0ZSBpaHJlbgpHUEcvUEdQLVNjaGzDvHNzZWwgenUuCi0tLQpFbnJpY28gV2VpZ2VsdCwg
+bWV0dXggSVQgY29uc3VsdApGcmVlIHNvZnR3YXJlIGFuZCBMaW51eCBlbWJlZGRlZCBlbmdpbmVl
+cmluZwppbmZvQG1ldHV4Lm5ldCAtLSArNDktMTUxLTI3NTY1Mjg3Cl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVu
+UklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xp
+c3RpbmZvL29wZW5yaXNjCg==
