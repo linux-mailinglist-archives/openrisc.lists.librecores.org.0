@@ -2,47 +2,47 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A355534B0DF
-	for <lists+openrisc@lfdr.de>; Fri, 26 Mar 2021 21:52:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 64D0634B0E0
+	for <lists+openrisc@lfdr.de>; Fri, 26 Mar 2021 21:52:20 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 45DE220D49;
-	Fri, 26 Mar 2021 21:52:19 +0100 (CET)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- by mail.librecores.org (Postfix) with ESMTPS id EBE842129C
- for <openrisc@lists.librecores.org>; Fri, 26 Mar 2021 15:08:29 +0100 (CET)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4F6P2d6PvWz1ryY1;
- Fri, 26 Mar 2021 15:08:25 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4F6P2d4qBqz1qqwS;
- Fri, 26 Mar 2021 15:08:25 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id onoyYkV_BZHU; Fri, 26 Mar 2021 15:08:24 +0100 (CET)
-X-Auth-Info: OEvAU2bUcvvTBFMfvWGLhYIW4WQnHRDFk1cZLlSNZz300DmBDLQfVXreztynDrlR
-Received: from igel.home (ppp-46-244-160-134.dynamic.mnet-online.de
- [46.244.160.134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 26 Mar 2021 15:08:24 +0100 (CET)
-Received: by igel.home (Postfix, from userid 1000)
- id 998042C35E3; Fri, 26 Mar 2021 15:08:22 +0100 (CET)
-From: Andreas Schwab <schwab@linux-m68k.org>
-To: Christophe Leroy <christophe.leroy@csgroup.eu>
+	by mail.librecores.org (Postfix) with ESMTP id 396BD2128A;
+	Fri, 26 Mar 2021 21:52:20 +0100 (CET)
+Received: from pegase1.c-s.fr (pegase1.c-s.fr [93.17.236.30])
+ by mail.librecores.org (Postfix) with ESMTPS id 19FEA20D49
+ for <openrisc@lists.librecores.org>; Fri, 26 Mar 2021 15:20:24 +0100 (CET)
+Received: from localhost (mailhub1-int [192.168.12.234])
+ by localhost (Postfix) with ESMTP id 4F6PJQ0zLJz9v03Q;
+ Fri, 26 Mar 2021 15:20:22 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at c-s.fr
+Received: from pegase1.c-s.fr ([192.168.12.234])
+ by localhost (pegase1.c-s.fr [192.168.12.234]) (amavisd-new, port 10024)
+ with ESMTP id s0KOf5I51hUM; Fri, 26 Mar 2021 15:20:22 +0100 (CET)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase1.c-s.fr (Postfix) with ESMTP id 4F6PJP6Vfbz9v0P3;
+ Fri, 26 Mar 2021 15:20:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 9B5C58B8CF;
+ Fri, 26 Mar 2021 15:20:23 +0100 (CET)
+X-Virus-Scanned: amavisd-new at c-s.fr
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id apm4h56oZ3Cq; Fri, 26 Mar 2021 15:20:23 +0100 (CET)
+Received: from [192.168.4.90] (unknown [192.168.4.90])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 95C5C8B8C7;
+ Fri, 26 Mar 2021 15:20:22 +0100 (CET)
+To: Andreas Schwab <schwab@linux-m68k.org>
 References: <cover.1616765869.git.christophe.leroy@csgroup.eu>
  <46745e07b04139a22b5bd01dc37df97e6981e643.1616765870.git.christophe.leroy@csgroup.eu>
-X-Yow: I'd like some JUNK FOOD...  and then I want to be ALONE --
-Date: Fri, 26 Mar 2021 15:08:22 +0100
-In-Reply-To: <46745e07b04139a22b5bd01dc37df97e6981e643.1616765870.git.christophe.leroy@csgroup.eu>
- (Christophe Leroy's message of "Fri, 26 Mar 2021 13:44:58 +0000
- (UTC)")
-Message-ID: <87zgyqdn3d.fsf@igel.home>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+ <87zgyqdn3d.fsf@igel.home>
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Message-ID: <81a7e63f-57d4-5c81-acc5-35278fe5bb04@csgroup.eu>
+Date: Fri, 26 Mar 2021 15:20:20 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 26 Mar 2021 21:51:56 +0100
+In-Reply-To: <87zgyqdn3d.fsf@igel.home>
+Content-Language: fr
+X-Mailman-Approved-At: Fri, 26 Mar 2021 21:51:57 +0100
 Subject: Re: [OpenRISC] [PATCH v3 11/17] riscv: Convert to GENERIC_CMDLINE
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -64,28 +64,29 @@ Cc: linux-arch@vger.kernel.org, robh@kernel.org, microblaze <monstr@monstr.eu>,
  openrisc@lists.librecores.org, linux-hexagon@vger.kernel.org,
  sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org, will@kernel.org,
  linux-arm-kernel@lists.infradead.org, danielwa@cisco.com
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTcOkciAyNiAyMDIxLCBDaHJpc3RvcGhlIExlcm95IHdyb3RlOgoKPiBkaWZmIC0tZ2l0IGEv
-YXJjaC9yaXNjdi9rZXJuZWwvc2V0dXAuYyBiL2FyY2gvcmlzY3Yva2VybmVsL3NldHVwLmMKPiBp
-bmRleCBmOGYxNTMzMmNhYTIuLmU3YzkxZWU0NzhkMSAxMDA2NDQKPiAtLS0gYS9hcmNoL3Jpc2N2
-L2tlcm5lbC9zZXR1cC5jCj4gKysrIGIvYXJjaC9yaXNjdi9rZXJuZWwvc2V0dXAuYwo+IEBAIC0y
-MCw2ICsyMCw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9zd2lvdGxiLmg+Cj4gICNpbmNsdWRlIDxs
-aW51eC9zbXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2VmaS5oPgo+ICsjaW5jbHVkZSA8bGludXgv
-Y21kbGluZS5oPgo+ICAKPiAgI2luY2x1ZGUgPGFzbS9jcHVfb3BzLmg+Cj4gICNpbmNsdWRlIDxh
-c20vZWFybHlfaW9yZW1hcC5oPgo+IEBAIC0yMjgsMTAgKzIyOSw4IEBAIHN0YXRpYyB2b2lkIF9f
-aW5pdCBwYXJzZV9kdGIodm9pZCkKPiAgCX0KPiAgCj4gIAlwcl9lcnIoIk5vIERUQiBwYXNzZWQg
-dG8gdGhlIGtlcm5lbFxuIik7Cj4gLSNpZmRlZiBDT05GSUdfQ01ETElORV9GT1JDRQo+IC0Jc3Ry
-bGNweShib290X2NvbW1hbmRfbGluZSwgQ09ORklHX0NNRExJTkUsIENPTU1BTkRfTElORV9TSVpF
-KTsKPiArCWNtZGxpbmVfYnVpbGQoYm9vdF9jb21tYW5kX2xpbmUsIE5VTEwsIENPTU1BTkRfTElO
-RV9TSVpFKTsKPiAgCXByX2luZm8oIkZvcmNpbmcga2VybmVsIGNvbW1hbmQgbGluZSB0bzogJXNc
-biIsIGJvb3RfY29tbWFuZF9saW5lKTsKClNob3VsZG4ndCB0aGF0IG1lc3NhZ2UgYmVjb21lIGNv
-bmRpdGlvbmFsIGluIHNvbWUgd2F5PwoKQW5kcmVhcy4KCi0tIApBbmRyZWFzIFNjaHdhYiwgc2No
-d2FiQGxpbnV4LW02OGsub3JnCkdQRyBLZXkgZmluZ2VycHJpbnQgPSA3NTc4IEVCNDcgRDRFNSA0
-RDY5IDI1MTAgIDI1NTIgREY3MyBFNzgwIEE5REEgQUVDMQoiQW5kIG5vdyBmb3Igc29tZXRoaW5n
-IGNvbXBsZXRlbHkgZGlmZmVyZW50LiIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJl
-Y29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+CgpMZSAyNi8wMy8yMDIxIMOgIDE1OjA4LCBBbmRyZWFzIFNjaHdhYiBhIMOpY3JpdMKgOgo+IE9u
+IE3DpHIgMjYgMjAyMSwgQ2hyaXN0b3BoZSBMZXJveSB3cm90ZToKPiAKPj4gZGlmZiAtLWdpdCBh
+L2FyY2gvcmlzY3Yva2VybmVsL3NldHVwLmMgYi9hcmNoL3Jpc2N2L2tlcm5lbC9zZXR1cC5jCj4+
+IGluZGV4IGY4ZjE1MzMyY2FhMi4uZTdjOTFlZTQ3OGQxIDEwMDY0NAo+PiAtLS0gYS9hcmNoL3Jp
+c2N2L2tlcm5lbC9zZXR1cC5jCj4+ICsrKyBiL2FyY2gvcmlzY3Yva2VybmVsL3NldHVwLmMKPj4g
+QEAgLTIwLDYgKzIwLDcgQEAKPj4gICAjaW5jbHVkZSA8bGludXgvc3dpb3RsYi5oPgo+PiAgICNp
+bmNsdWRlIDxsaW51eC9zbXAuaD4KPj4gICAjaW5jbHVkZSA8bGludXgvZWZpLmg+Cj4+ICsjaW5j
+bHVkZSA8bGludXgvY21kbGluZS5oPgo+PiAgIAo+PiAgICNpbmNsdWRlIDxhc20vY3B1X29wcy5o
+Pgo+PiAgICNpbmNsdWRlIDxhc20vZWFybHlfaW9yZW1hcC5oPgo+PiBAQCAtMjI4LDEwICsyMjks
+OCBAQCBzdGF0aWMgdm9pZCBfX2luaXQgcGFyc2VfZHRiKHZvaWQpCj4+ICAgCX0KPj4gICAKPj4g
+ICAJcHJfZXJyKCJObyBEVEIgcGFzc2VkIHRvIHRoZSBrZXJuZWxcbiIpOwo+PiAtI2lmZGVmIENP
+TkZJR19DTURMSU5FX0ZPUkNFCj4+IC0Jc3RybGNweShib290X2NvbW1hbmRfbGluZSwgQ09ORklH
+X0NNRExJTkUsIENPTU1BTkRfTElORV9TSVpFKTsKPj4gKwljbWRsaW5lX2J1aWxkKGJvb3RfY29t
+bWFuZF9saW5lLCBOVUxMLCBDT01NQU5EX0xJTkVfU0laRSk7Cj4+ICAgCXByX2luZm8oIkZvcmNp
+bmcga2VybmVsIGNvbW1hbmQgbGluZSB0bzogJXNcbiIsIGJvb3RfY29tbWFuZF9saW5lKTsKPiAK
+PiBTaG91bGRuJ3QgdGhhdCBtZXNzYWdlIGJlY29tZSBjb25kaXRpb25hbCBpbiBzb21lIHdheT8K
+PiAKCllvdSBhcmUgcmlnaHQsIEkgZGlkIHNvbWV0aGluZyBzaW1pbGFyIG9uIEFSTSBidXQgbG9v
+a3MgbGlrZSBJIG1pc3NlZCBpdCBvbiBSSVNDVi4KCkNocmlzdG9waGUKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9w
+ZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcv
+bGlzdGluZm8vb3BlbnJpc2MK
