@@ -2,57 +2,47 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 346CD35915B
-	for <lists+openrisc@lfdr.de>; Fri,  9 Apr 2021 03:24:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E763D359BD2
+	for <lists+openrisc@lfdr.de>; Fri,  9 Apr 2021 12:20:57 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 913C92131A;
-	Fri,  9 Apr 2021 03:24:03 +0200 (CEST)
-Received: from alln-iport-6.cisco.com (alln-iport-6.cisco.com [173.37.142.93])
- by mail.librecores.org (Postfix) with ESMTPS id F26DC210A8
- for <openrisc@lists.librecores.org>; Fri,  9 Apr 2021 03:24:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=cisco.com; i=@cisco.com; l=1925; q=dns/txt; s=iport;
- t=1617931441; x=1619141041;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=WkzLqPqjAxF6Ch0t2FT084suyCe7GM/KMpezthHSR4s=;
- b=ZzHqIxhBhc5uVniZVuj9Kr4XvXO8jEWxA2CAbdxiILixuT0nsQexod31
- BEQ8EWbnTbLmqojDhLyXHFv6m/IMfvtCKhamNeMpIUAQZP3ORSqK03PXl
- 2k2q5AFxPqdfYbdxUWr88XzdpBDnTxxJghkgEuR+Cf5yGBQ3HLMcPGwk3 A=;
-X-IPAS-Result: =?us-ascii?q?A0ABAAAUrG9gmIENJK1aGgEBAQEBAQEBAQEDAQEBARIBA?=
- =?us-ascii?q?QEBAgIBAQEBQIE+BQEBAQELAYN3ATmNF4k1kA2KXIF8CwEBAQ0BATQEAQGEU?=
- =?us-ascii?q?AKBdwIlNAkOAgMBAQEDAgMBAQEBAQUBAQECAQYEFAEBAQEBAQEBaIVdhkUBA?=
- =?us-ascii?q?gM6OgUQCxIGLjwNDgaDBIMIqjx1gTSBAYgUgUQigRcBjUwnHIFJQoETgyI+i?=
- =?us-ascii?q?jkEgkeCNaAbikiRYYMVgSabRzIQpGEtszuEVgIEBgUCFoFUOIFbMxoIGxWDJ?=
- =?us-ascii?q?U8ZDo44jlAhA2cCBgoBAQMJjDRdAQE?=
-IronPort-HdrOrdr: A9a23:QdBVtK4Vqwy1Ov3XkQPXwHXXdLJzesId70hD6mlaQ3VuHfCwvc
- aogfgdyFvYiCwJXmshhNCHP8C7MBbh3LRy5pQcOqrnYRn+tAKTXeNfxKbr3jGIIUfD38FH06
- MIScVDIf32SWN3lMPrpDS/euxQpOWv1ICNqaPgw2x2TQdsApsQjDtRLgqACEV5SE1nKPMCda
- a03cZMqzq+dXl/VK3SbUUtZOTNq8bGk5jre3c9ZyIP0hWEjj+j9dfBfSSw4xF2aV9y6IZn13
- TZmArk4ajmlPe3xnbnpgnuxqUTvsf9wd1eA8HJsOwpE3HHjwalY5kJYczkgAwI
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="5.82,208,1613433600"; d="scan'208";a="717254170"
-Received: from alln-core-9.cisco.com ([173.36.13.129])
- by alln-iport-6.cisco.com with ESMTP/TLS/DHE-RSA-SEED-SHA;
- 09 Apr 2021 01:23:53 +0000
-Received: from zorba ([10.24.9.242])
- by alln-core-9.cisco.com (8.15.2/8.15.2) with ESMTPS id 1391Nnm8027721
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Fri, 9 Apr 2021 01:23:51 GMT
-Date: Thu, 8 Apr 2021 18:23:49 -0700
-From: Daniel Walker <danielwa@cisco.com>
+	by mail.librecores.org (Postfix) with ESMTP id 48B1B212CF;
+	Fri,  9 Apr 2021 12:20:57 +0200 (CEST)
+Received: from pegase1.c-s.fr (pegase1.c-s.fr [93.17.236.30])
+ by mail.librecores.org (Postfix) with ESMTPS id 55337200E4
+ for <openrisc@lists.librecores.org>; Fri,  9 Apr 2021 12:20:55 +0200 (CEST)
+Received: from localhost (mailhub1-int [192.168.12.234])
+ by localhost (Postfix) with ESMTP id 4FGvKd22R6z9vBmN;
+ Fri,  9 Apr 2021 12:20:53 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at c-s.fr
+Received: from pegase1.c-s.fr ([192.168.12.234])
+ by localhost (pegase1.c-s.fr [192.168.12.234]) (amavisd-new, port 10024)
+ with ESMTP id U6kaT8vyPDk2; Fri,  9 Apr 2021 12:20:53 +0200 (CEST)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase1.c-s.fr (Postfix) with ESMTP id 4FGvKd0qpkz9vBmM;
+ Fri,  9 Apr 2021 12:20:53 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 449288B7E3;
+ Fri,  9 Apr 2021 12:20:54 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at c-s.fr
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id 20mYPqZcSrF8; Fri,  9 Apr 2021 12:20:54 +0200 (CEST)
+Received: from [192.168.4.90] (unknown [192.168.4.90])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 0866D8B7E1;
+ Fri,  9 Apr 2021 12:20:52 +0200 (CEST)
 To: Rob Herring <robh@kernel.org>
-Message-ID: <20210409012349.GG3981976@zorba>
 References: <cover.1617375802.git.christophe.leroy@csgroup.eu>
- <a01b6cdbae01fff77e26f7a5c40ee5260e1952b5.1617375802.git.christophe.leroy@csgroup.eu>
- <20210406173836.GW2469518@zorba>
- <20210408190408.GA1724284@robh.at.kernel.org>
+ <ab0fd4477964cdbf99e3dd2965a455aa3e738e4b.1617375802.git.christophe.leroy@csgroup.eu>
+ <20210408194148.GB1724284@robh.at.kernel.org>
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Message-ID: <834c4850-5541-b5c2-0b7b-d7d960ab2629@csgroup.eu>
+Date: Fri, 9 Apr 2021 12:20:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210408190408.GA1724284@robh.at.kernel.org>
-X-Outbound-SMTP-Client: 10.24.9.242, [10.24.9.242]
-X-Outbound-Node: alln-core-9.cisco.com
-Subject: Re: [OpenRISC] [PATCH v4 19/20] mips: Convert to GENERIC_CMDLINE
+In-Reply-To: <20210408194148.GB1724284@robh.at.kernel.org>
+Content-Language: fr
+Subject: Re: [OpenRISC] [PATCH v4 18/20] x86: Convert to GENERIC_CMDLINE
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,49 +59,57 @@ Cc: linux-arch@vger.kernel.org, arnd@kernel.org, microblaze <monstr@monstr.eu>,
  daniel@gimpelevich.san-francisco.ca.us, devicetree@vger.kernel.org,
  linux-sh@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-xtensa@linux-xtensa.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-mips@vger.kernel.org,
- linux-mm@kvack.org, openrisc@lists.librecores.org,
- nios2 <ley.foon.tan@intel.com>, linux-hexagon@vger.kernel.org,
+ nios2 <ley.foon.tan@intel.com>, linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ openrisc@lists.librecores.org, linux-hexagon@vger.kernel.org,
  sparclinux@vger.kernel.org, akpm@linux-foundation.org, will@kernel.org,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="utf-8"
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ danielwa@cisco.com
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBBcHIgMDgsIDIwMjEgYXQgMDI6MDQ6MDhQTSAtMDUwMCwgUm9iIEhlcnJpbmcgd3Jv
-dGU6Cj4gT24gVHVlLCBBcHIgMDYsIDIwMjEgYXQgMTA6Mzg6MzZBTSAtMDcwMCwgRGFuaWVsIFdh
-bGtlciB3cm90ZToKPiA+IE9uIEZyaSwgQXByIDAyLCAyMDIxIGF0IDAzOjE4OjIxUE0gKzAwMDAs
-IENocmlzdG9waGUgTGVyb3kgd3JvdGU6Cj4gPiA+IC1jb25maWcgQ01ETElORV9CT09MCj4gPiA+
-IC0JYm9vbCAiQnVpbHQtaW4ga2VybmVsIGNvbW1hbmQgbGluZSIKPiA+ID4gLQloZWxwCj4gPiA+
-IC0JICBGb3IgbW9zdCBzeXN0ZW1zLCBpdCBpcyBmaXJtd2FyZSBvciBzZWNvbmQgc3RhZ2UgYm9v
-dGxvYWRlciB0aGF0Cj4gPiA+IC0JICBieSBkZWZhdWx0IHNwZWNpZmllcyB0aGUga2VybmVsIGNv
-bW1hbmQgbGluZSBvcHRpb25zLiAgSG93ZXZlciwKPiA+ID4gLQkgIGl0IG1pZ2h0IGJlIG5lY2Vz
-c2FyeSBvciBhZHZhbnRhZ2VvdXMgdG8gZWl0aGVyIG92ZXJyaWRlIHRoZQo+ID4gPiAtCSAgZGVm
-YXVsdCBrZXJuZWwgY29tbWFuZCBsaW5lIG9yIGFkZCBhIGZldyBleHRyYSBvcHRpb25zIHRvIGl0
-Lgo+ID4gPiAtCSAgRm9yIHN1Y2ggY2FzZXMsIHRoaXMgb3B0aW9uIGFsbG93cyB5b3UgdG8gaGFy
-ZGNvZGUgeW91ciBvd24KPiA+ID4gLQkgIGNvbW1hbmQgbGluZSBvcHRpb25zIGRpcmVjdGx5IGlu
-dG8gdGhlIGtlcm5lbC4gIEZvciB0aGF0LCB5b3UKPiA+ID4gLQkgIHNob3VsZCBjaG9vc2UgJ1kn
-IGhlcmUsIGFuZCBmaWxsIGluIHRoZSBleHRyYSBib290IGFyZ3VtZW50cwo+ID4gPiAtCSAgaW4g
-Q09ORklHX0NNRExJTkUuCj4gPiA+IC0KPiA+ID4gLQkgIFRoZSBidWlsdC1pbiBvcHRpb25zIHdp
-bGwgYmUgY29uY2F0ZW5hdGVkIHRvIHRoZSBkZWZhdWx0IGNvbW1hbmQKPiA+ID4gLQkgIGxpbmUg
-aWYgQ01ETElORV9PVkVSUklERSBpcyBzZXQgdG8gJ04nLiBPdGhlcndpc2UsIHRoZSBkZWZhdWx0
-Cj4gPiA+IC0JICBjb21tYW5kIGxpbmUgd2lsbCBiZSBpZ25vcmVkIGFuZCByZXBsYWNlZCBieSB0
-aGUgYnVpbHQtaW4gc3RyaW5nLgo+ID4gPiAtCj4gPiA+IC0JICBNb3N0IE1JUFMgc3lzdGVtcyB3
-aWxsIG5vcm1hbGx5IGV4cGVjdCAnTicgaGVyZSBhbmQgcmVseSB1cG9uCj4gPiA+IC0JICB0aGUg
-Y29tbWFuZCBsaW5lIGZyb20gdGhlIGZpcm13YXJlIG9yIHRoZSBzZWNvbmQtc3RhZ2UgYm9vdGxv
-YWRlci4KPiA+ID4gLQo+ID4gCj4gPiAKPiA+IFNlZSBob3cgeW91IGNvbXBsYWluZWQgdGhhdCBJ
-IGhhdmUgQ01ETElORV9CT09MIGluIG15IGNoYW5nZWQsIGFuZCB5b3UgdGhpbmsgaXQKPiA+IHNo
-b3VsZG4ndCBleGlzdC4KPiA+IAo+ID4gWWV0IGhlcmUgbWlwcyBoYXMgaXQsIGFuZCB5b3UganVz
-dCBkZWxldGVkIGl0IHdpdGggbm8gZmVhdHVyZSBwYXJpdHkgaW4geW91cgo+ID4gY2hhbmdlcyBm
-b3IgdGhpcy4KPiAKPiBBRkFJQ1QsIENNRExJTkVfQk9PTCBlcXVhdGVzIHRvIGEgbm9uLWVtcHR5
-IG9yIGVtcHR5IENPTkZJR19DTURMSU5FLiBZb3UgCj4gc2VlbSB0byBuZWVkIGl0IGp1c3QgYmVj
-YXVzZSB5b3UgaGF2ZSBDTURMSU5FX1BSRVBFTkQgYW5kIAo+IENNRExJTkVfQVBQRU5ELiBJZiB0
-aGF0J3Mgbm90IGl0LCB3aGF0IGZlYXR1cmUgaXMgbWlzc2luZz8gQ01ETElORV9CT09MIAo+IGlz
-IG5vdCBhIGZlYXR1cmUsIGJ1dCBhbiBpbXBsZW1lbnRhdGlvbiBkZXRhaWwuCgpOb3QgdHJ1ZS4K
-Ckl0IG1ha2VzIGl0IGVhc2llciB0byB0dXJuIGl0IGFsbCBvZmYgaW5zaWRlIHRoZSBLY29uZmln
-ICwgc28gaXQncyBmb3IgdXNhYmlsaXR5CmFuZCBtdWx0aXBsZSBhcmNoaXRlY3R1cmUgaGF2ZSBp
-dCBldmVuIHdpdGgganVzdCBDTURMSU5FIGFzIEkgd2FzIGNvbW1lbnRpbmcKaGVyZS4KCkRhbmll
-bApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklT
-QyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0
-cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+CgpMZSAwOC8wNC8yMDIxIMOgIDIxOjQxLCBSb2IgSGVycmluZyBhIMOpY3JpdMKgOgo+IE9uIEZy
+aSwgQXByIDAyLCAyMDIxIGF0IDAzOjE4OjIwUE0gKzAwMDAsIENocmlzdG9waGUgTGVyb3kgd3Jv
+dGU6Cj4+IFRoaXMgY29udmVydHMgdGhlIGFyY2hpdGVjdHVyZSB0byBHRU5FUklDX0NNRExJTkUu
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waGUgTGVyb3kgPGNocmlzdG9waGUubGVyb3lA
+Y3Nncm91cC5ldT4KPj4gLS0tCj4+ICAgYXJjaC94ODYvS2NvbmZpZyAgICAgICAgfCA0NSArKy0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiAgIGFyY2gveDg2L2tlcm5l
+bC9zZXR1cC5jIHwgMTcgKystLS0tLS0tLS0tLS0tLQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgNCBp
+bnNlcnRpb25zKCspLCA1OCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2FyY2gveDg2
+L0tjb25maWcgYi9hcmNoL3g4Ni9LY29uZmlnCj4+IGluZGV4IGEyMDY4NGQ1NmI0Yi4uNjZiMzg0
+MjI4Y2EzIDEwMDY0NAo+PiAtLS0gYS9hcmNoL3g4Ni9LY29uZmlnCj4+ICsrKyBiL2FyY2gveDg2
+L0tjb25maWcKPj4gQEAgLTEwNCw2ICsxMDQsNyBAQCBjb25maWcgWDg2Cj4+ICAgCXNlbGVjdCBB
+UkNIX1VTRV9RVUVVRURfU1BJTkxPQ0tTCj4+ICAgCXNlbGVjdCBBUkNIX1VTRV9TWU1fQU5OT1RB
+VElPTlMKPj4gICAJc2VsZWN0IEFSQ0hfV0FOVF9CQVRDSEVEX1VOTUFQX1RMQl9GTFVTSAo+PiAr
+CXNlbGVjdCBBUkNIX1dBTlRfQ01ETElORV9QUkVQRU5EX0JZX0RFRkFVTFQKPiAKPiBTZWVtcyB0
+byBiZSBub24tZXhpc3RlbnQga2NvbmZpZyBvcHRpb24uCgpPb3BzLiBBZGRlZCBpbiB2NS4KCj4+
+IEBAIC04ODMsMTggKzg4MSw3IEBAIHZvaWQgX19pbml0IHNldHVwX2FyY2goY2hhciAqKmNtZGxp
+bmVfcCkKPj4gICAJYnNzX3Jlc291cmNlLnN0YXJ0ID0gX19wYV9zeW1ib2woX19ic3Nfc3RhcnQp
+Owo+PiAgIAlic3NfcmVzb3VyY2UuZW5kID0gX19wYV9zeW1ib2woX19ic3Nfc3RvcCktMTsKPj4g
+ICAKPj4gLSNpZmRlZiBDT05GSUdfQ01ETElORV9CT09MCj4+IC0jaWZkZWYgQ09ORklHX0NNRExJ
+TkVfRk9SQ0UKPj4gLQlzdHJsY3B5KGJvb3RfY29tbWFuZF9saW5lLCBidWlsdGluX2NtZGxpbmUs
+IENPTU1BTkRfTElORV9TSVpFKTsKPj4gLSNlbHNlCj4+IC0JaWYgKGJ1aWx0aW5fY21kbGluZVsw
+XSkgewo+PiAtCQkvKiBhcHBlbmQgYm9vdCBsb2FkZXIgY21kbGluZSB0byBidWlsdGluICovCj4+
+IC0JCXN0cmxjYXQoYnVpbHRpbl9jbWRsaW5lLCAiICIsIENPTU1BTkRfTElORV9TSVpFKTsKPj4g
+LQkJc3RybGNhdChidWlsdGluX2NtZGxpbmUsIGJvb3RfY29tbWFuZF9saW5lLCBDT01NQU5EX0xJ
+TkVfU0laRSk7Cj4+IC0JCXN0cmxjcHkoYm9vdF9jb21tYW5kX2xpbmUsIGJ1aWx0aW5fY21kbGlu
+ZSwgQ09NTUFORF9MSU5FX1NJWkUpOwo+PiAtCX0KPj4gLSNlbmRpZgo+PiAtI2VuZGlmCj4+ICsJ
+Y21kbGluZV9idWlsZChib290X2NvbW1hbmRfbGluZSwgYm9vdF9jb21tYW5kX2xpbmUpOwo+PiAg
+IAo+PiAgIAlzdHJsY3B5KGNvbW1hbmRfbGluZSwgYm9vdF9jb21tYW5kX2xpbmUsIENPTU1BTkRf
+TElORV9TSVpFKTsKPj4gICAJKmNtZGxpbmVfcCA9IGNvbW1hbmRfbGluZTsKPiAKPiBPbmNlIHRo
+aXMgaXMgYWxsIGRvbmUsIEkgd29uZGVyIGlmIHdlIGNhbiBnZXQgcmlkIG9mIHRoZSBzdHJsY3B5
+IGFuZAo+IHBlcmhhcHMgYWxzbyBjbWRsaW5lX3AuCj4gCgpJdCBzZWVtcyByYXRoZXIgY29tcGxp
+Y2F0ZWQsIGluIGluaXQvbWFpbi5jIHlvdSBoYXZlIGhlYXZ5IG1hbmlwdWxhdGlvbnMgb2YgY29t
+bWFuZCBsaW5lcyB3aGljaCAKc2VlbXMgdG8gYmUgZG9uZSBpbiBzZXR1cF9jb21tYW5kX2xpbmUo
+KSB3aGljaCBzZWVtcyB0byBhZGQgc3R1ZmYgaW4gZnJvbnQgb2YgY29tbWFuZCBsaW5lcywgYXQg
+dGhlIAplbmQgd2UgZW5kIHVwIHdpdGggc2V2ZXJhbCBjb21tYW5kIGxpbmVzOgoKLyogVW50b3Vj
+aGVkIHNhdmVkIGNvbW1hbmQgbGluZSAoZWcuIGZvciAvcHJvYykgKi8KY2hhciAqc2F2ZWRfY29t
+bWFuZF9saW5lOwovKiBDb21tYW5kIGxpbmUgZm9yIHBhcmFtZXRlciBwYXJzaW5nICovCnN0YXRp
+YyBjaGFyICpzdGF0aWNfY29tbWFuZF9saW5lOwovKiBVbnRvdWNoZWQgZXh0cmEgY29tbWFuZCBs
+aW5lICovCnN0YXRpYyBjaGFyICpleHRyYV9jb21tYW5kX2xpbmU7CgpTb21lIG9mIHRoZW0gY29t
+ZSBmcm9tIHRoZSBjbWRsaW5lX3Agd2hpY2ggb3RoZXJzIGFyZSBmcm9tIGJvb3RfY29tbWFuZF9s
+aW5lLgoKSSB0aGluayBhIGNsZWFudXAgb24gYWxsIHRoYXQgc3R1ZmYgd291bGQgYmUgd29ydGgg
+aXQgYXMgYSBmdXJ0aGVyIHN0ZXAuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNv
+cmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
