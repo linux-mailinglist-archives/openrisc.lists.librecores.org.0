@@ -2,38 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 9EC3138E93B
-	for <lists+openrisc@lfdr.de>; Mon, 24 May 2021 16:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2308838E986
+	for <lists+openrisc@lfdr.de>; Mon, 24 May 2021 16:48:46 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 33A9D235F2;
-	Mon, 24 May 2021 16:47:26 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id D94E4235F8;
+	Mon, 24 May 2021 16:48:45 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id CBA6E21246
- for <openrisc@lists.librecores.org>; Mon, 24 May 2021 16:47:23 +0200 (CEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 880C0613DF;
- Mon, 24 May 2021 14:47:21 +0000 (UTC)
+ by mail.librecores.org (Postfix) with ESMTPS id 6080A2136F
+ for <openrisc@lists.librecores.org>; Mon, 24 May 2021 16:48:44 +0200 (CEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F0F9161429;
+ Mon, 24 May 2021 14:48:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621867642;
+ s=k20201202; t=1621867722;
  bh=eThF42QgHM2ceyuUbfHXSeQsf1W1pocY7rix57lF/sE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pmdJlSJ6MA7kxbZB3wbI+cVHfiKwHePXXq5fcd9uaqHHxTV3PYjIu1Le/1na+ifW5
- 8luPMFPMqIaXnT7BvF6UKF2U141RtNSVQ9DC8EAVHl13cQUC11cwfNcBmozTVaKjAi
- ofMqPef6cbgLXaoeZ04L6toclCEs3uBrVC5k2dMpev5Nzbo8ebu3O89U/WCtmSOJ5J
- zZpIsfpz9EK1ihlxh3j8IuZtq31T+6uERk83yedzoZumsrYbFEsjOh9tsyY6j6PRr/
- KJtKPLzZ0NiVJHXpUEDAcuQ7GFd5lK+dMBC3cwVEppAj4tJOm73yQs7V7r4NPdW9Xl
- bY7ikBeosuhSg==
+ b=jx4jYFz+vjrZjJll/LczwJ13dSi75yCwQ2HU/cLylRxzyJS7Hw9borElB9dY2CGXO
+ u7w47fUUOm2P064CQkPxENVcV6aqBAfCwxClnVLii7WSJMoU2xpSZ/sjfI8oi4AgKK
+ kFLHDVgQDy7w+qDnUmyDRtZg6SA51mmkLcNOqvgxjFUbkKg4MBUX4Eh8GdncdjmAhL
+ J6TGOWRa0UtW3AYqIEeMPrvfXFHpDzE/YpNv9E2oV5259JGLNfyrDqLpkML8FET+hA
+ 0ydyAlX9pA8++pFMhlswUVJoRY1rN78HRaCFcptQrI7Upmr4IZ931aKL76zSTW3f1E
+ Z+1Us6EuLCdVw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 24 May 2021 10:46:04 -0400
-Message-Id: <20210524144620.2497249-47-sashal@kernel.org>
+Date: Mon, 24 May 2021 10:47:28 -0400
+Message-Id: <20210524144744.2497894-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210524144620.2497249-1-sashal@kernel.org>
-References: <20210524144620.2497249-1-sashal@kernel.org>
+In-Reply-To: <20210524144744.2497894-1-sashal@kernel.org>
+References: <20210524144744.2497894-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [OpenRISC] [PATCH AUTOSEL 5.12 47/63] openrisc: Define memory
+Subject: [OpenRISC] [PATCH AUTOSEL 5.10 47/62] openrisc: Define memory
  barrier mb
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
