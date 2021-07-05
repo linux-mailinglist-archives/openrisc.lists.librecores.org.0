@@ -2,58 +2,65 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C6553BC396
-	for <lists+openrisc@lfdr.de>; Mon,  5 Jul 2021 23:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 436C23BC3CD
+	for <lists+openrisc@lfdr.de>; Tue,  6 Jul 2021 00:03:56 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id EE5AC20169;
-	Mon,  5 Jul 2021 23:21:14 +0200 (CEST)
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by mail.librecores.org (Postfix) with ESMTPS id 3334120169
- for <openrisc@lists.librecores.org>; Mon,  5 Jul 2021 23:21:13 +0200 (CEST)
-Received: by mail-pg1-f175.google.com with SMTP id o18so18816202pgu.10
- for <openrisc@lists.librecores.org>; Mon, 05 Jul 2021 14:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=lZAZiGQ8yM2IQ6WgZx9hkNdsMQpfZ9RTTHCSXLg+XLA=;
- b=KPRNb6m+mNuF2aTlF0Hd7evhVnPqSPkTNLgcYegWb5NIgppX0YrKsxcIN7DAPFPMZq
- M+Fg7sWh+E/KWOnrFlAQXd9ytL40N4YFVnvtrnjpyZlelFdcvJgeEm7w0/dq7K81Sjic
- lkoj7k5fYNBmDwt6fMG6plEmUosw8UOFuwdgz+oeCNISGgBvk0wY6NfQwuHAoFQmShXu
- re7m+yy4TjCX22mglSAfpKkkMB6zVEWHC0/Q9tShcxVBFqrPOf26wyPgLa9+9fYXqUXp
- 8AffEtIUDd9r9wCwgl8fkhPZhGw8kYnbh0D7z402YYWfksJHbDjLYBWYggmpaUg6OT8v
- aBTQ==
+	by mail.librecores.org (Postfix) with ESMTP id E4C1A20417;
+	Tue,  6 Jul 2021 00:03:55 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by mail.librecores.org (Postfix) with ESMTP id 4F99420417
+ for <openrisc@lists.librecores.org>; Tue,  6 Jul 2021 00:03:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1625522632;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=LUzWXmZmr0GsJOGnb4VnyzQTYIBkFxRndxigZFEUVho=;
+ b=bsimShZPH1Mf4MAJTEKfb1GPB1HWb90oA2xZG1ISIj997HjK6n/HvtfZc2FkFhPL5UT4D4
+ 7UwE7KEsL3UDsvyiGaktum15IyhOKLItBZn1Q0ximrF6yJP3iCuwrxd3x6tLbCDpZXASX3
+ WCnTm+XPlYXQDt6yvpCY/45kH4p7YtA=
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-202-76B2bLGaNy2U2azqK9Ri6g-1; Mon, 05 Jul 2021 18:03:50 -0400
+X-MC-Unique: 76B2bLGaNy2U2azqK9Ri6g-1
+Received: by mail-pg1-f200.google.com with SMTP id
+ m2-20020a6562c20000b029022885db5d8fso7179665pgv.12
+ for <openrisc@lists.librecores.org>; Mon, 05 Jul 2021 15:03:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=lZAZiGQ8yM2IQ6WgZx9hkNdsMQpfZ9RTTHCSXLg+XLA=;
- b=CWi12QAXTIlMgpuTzwlc9zoOpNSLWXox22Aa4sJmlN/xxIwK6T8kXPh3qVpsU3ujRG
- td65xuiXTZLrXONe5NOm9ufoszfhhJeEoDT+hB7GP7bYxDuEzH/ftX5K8ueyj/C/U3Ac
- U3iQx3dH26B71XFqMwLblj7ZYsEGy7QIs3B2wxtcROJy2qVPn5obmSWML8hUU0UfAzfZ
- DFbaRB+9lIgrLE+u0Z26Tb3V8YPzfXgLXEbheEyCGM8KXmLxLK6nfuHUYdN4LcdfBPA9
- JWEqFOL6Yl1SehGjaicJOK3gLaQ2AWGWBz1JuzDzjucPu1QL8WfOlo91VpdrT1KIekQU
- 2/Ig==
-X-Gm-Message-State: AOAM533StzwbZgF/UK2I5yCgQv/IXmM6zQEYquxw6eCj0w2UpbU+EwCO
- wMiNK+LOJOVCajAK8hp3Hpg=
-X-Google-Smtp-Source: ABdhPJyGK1ssXb4D88qVNjiLiUp8l+0nqXlIAyqsVaTWRNnzpiAuOphF6XPbEMBJ2J8JSEQ4EcnxCA==
-X-Received: by 2002:a63:e948:: with SMTP id q8mr17809617pgj.52.1625520071638; 
- Mon, 05 Jul 2021 14:21:11 -0700 (PDT)
-Received: from localhost (g164.115-65-218.ppp.wakwak.ne.jp. [115.65.218.164])
- by smtp.gmail.com with ESMTPSA id
- n56sm9909956pfv.65.2021.07.05.14.21.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jul 2021 14:21:10 -0700 (PDT)
-Date: Tue, 6 Jul 2021 06:21:03 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Jeff Johnston <jjohnstn@redhat.com>
-Message-ID: <YON3v1bM0J4r9AzE@antec>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LUzWXmZmr0GsJOGnb4VnyzQTYIBkFxRndxigZFEUVho=;
+ b=hbJsv1JN0BN0a+QJ8QI4WtLcN6ZEu0VIlsasdWZ1ws8IQRGvhooPTe2AVwkg8vruLa
+ oJrjBz7sGdVabdkQf/j64K+FuvbRFlUq6zBdZ2O0MQgBQ7pw00J+OwzGr3fhZPpqIEh0
+ uc2jnWJOd5Izf4SiN7CP8Lo+Ie0o/nCDJ7uCjRemRGBah3C3e+t7ekmrIO6HQyTcg722
+ Shnq+nQ4Oqt1p9qPXaMQX0iQ/dZc2Y+IbnuEi4O91jchXL46yBcHnjq83JE9TjzrszST
+ nlutk6lTDlWI8Pzdrnrby1r0azujCujsaEMjP80zJW7B1Ayj2NsIzymtqx5BaUE6sXQU
+ OJog==
+X-Gm-Message-State: AOAM533k7KPejO7PsRRcv/6FN1pFGesSwFuh3FEgdqrImrUVVBogm/4c
+ 8thauugYRpYR44SQTVcZE8r7HZ33MImSIKSRguxDQeScOZlfy7pv2RYy5OQZM+kpayac7AvhDIw
+ a9o2yEgCGNYRgiQWZkMpNYGyFgabXf1zdJMvVrGwqKA==
+X-Received: by 2002:aa7:8c41:0:b029:319:f69c:93b4 with SMTP id
+ e1-20020aa78c410000b0290319f69c93b4mr14481528pfd.11.1625522629680; 
+ Mon, 05 Jul 2021 15:03:49 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyaQjP0yjZJPH0XdzTfLbV5SoHsJy5ZTqGCd+HFhW3DlAbALDgAx9EZW8JyveZPlsKA2VceSJ6mw7ZSW2G47GY=
+X-Received: by 2002:aa7:8c41:0:b029:319:f69c:93b4 with SMTP id
+ e1-20020aa78c410000b0290319f69c93b4mr14481515pfd.11.1625522629457; Mon, 05
+ Jul 2021 15:03:49 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210701231748.1098623-1-shorne@gmail.com>
  <CAOox84vC8qfYVufYN+9yCiQtt=hJRfhz=Q_xczF8W5zvGq4Z+A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="UY3USK03gWlID6SC"
-Content-Disposition: inline
-In-Reply-To: <CAOox84vC8qfYVufYN+9yCiQtt=hJRfhz=Q_xczF8W5zvGq4Z+A@mail.gmail.com>
+ <YON3v1bM0J4r9AzE@antec>
+In-Reply-To: <YON3v1bM0J4r9AzE@antec>
+From: Jeff Johnston <jjohnstn@redhat.com>
+Date: Mon, 5 Jul 2021 18:03:38 -0400
+Message-ID: <CAOox84vBu1=ZPnq9v-8oN_-K=BDw6v0MTEhGhAwfV+Vt=+q_Pg@mail.gmail.com>
+To: Stafford Horne <shorne@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jjohnstn@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Subject: Re: [OpenRISC] [PATCH] libgloss/or1k: Correct the IMMU SXE and UXE
  flags
 X-BeenThere: openrisc@lists.librecores.org
@@ -69,92 +76,82 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Newlib <newlib@sourceware.org>, Openrisc <openrisc@lists.librecores.org>
+Content-Type: multipart/mixed; boundary="===============6185563798733935979=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
+--===============6185563798733935979==
+Content-Type: multipart/alternative; boundary="000000000000e74c0005c6677ae8"
 
---UY3USK03gWlID6SC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--000000000000e74c0005c6677ae8
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jul 05, 2021 at 04:59:27PM -0400, Jeff Johnston wrote:
-> Hi Stafford,
-> 
-> Please resend with the patch as an attachment.
-> 
-> Thanks,
+Hi Stafford,
 
-Alright,
+It's not you, it's on my side with gmail..  It often distorts git patches
+unless they are attachments.
 
-I hope it't OK in a reply here.  I usually send patches using git send-email, is
-this something new for newlib?
+Anyway, patch applied and pushed to master.
 
-Please find attached
+Regards,
 
--Stafford
+-- Jeff J.
 
---UY3USK03gWlID6SC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-libgloss-or1k-Correct-the-IMMU-SXE-and-UXE-flags.patch"
+On Mon, Jul 5, 2021 at 5:21 PM Stafford Horne <shorne@gmail.com> wrote:
 
-From f25c7124bc88627baf532d79c08130f1d2b61efb Mon Sep 17 00:00:00 2001
-From: Stafford Horne <shorne@gmail.com>
-Date: Fri, 2 Jul 2021 06:24:57 +0900
-Subject: [PATCH] libgloss/or1k: Correct the IMMU SXE and UXE flags
+> On Mon, Jul 05, 2021 at 04:59:27PM -0400, Jeff Johnston wrote:
+> > Hi Stafford,
+> >
+> > Please resend with the patch as an attachment.
+> >
+> > Thanks,
+>
+> Alright,
+>
+> I hope it't OK in a reply here.  I usually send patches using git
+> send-email, is
+> this something new for newlib?
+>
+> Please find attached
+>
+> -Stafford
+>
 
-These have been defined incorrectly, as per specification and CPU
-implementations SXE is bit 6 and UXE is bit 7.  This was noticed when
-tracking down our test suite mmu test failures.
+--000000000000e74c0005c6677ae8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
- Test Suite: https://github.com/openrisc/or1k-tests/blob/master/native/or1k/or1k-mmu.c#L68-L72
- Spec: https://raw.githubusercontent.com/openrisc/doc/master/openrisc-arch-1.3-rev1.pdf
+<div dir=3D"ltr"><div>Hi Stafford,</div><div><br></div><div>It&#39;s not yo=
+u, it&#39;s on my side with gmail..=C2=A0 It often distorts git patches unl=
+ess they are attachments.</div><div><br></div><div>Anyway, patch applied an=
+d pushed to master.</div><div><br></div><div>Regards,<br></div><div><br></d=
+iv><div>-- Jeff J.<br></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Mon, Jul 5, 2021 at 5:21 PM Stafford Horne=
+ &lt;<a href=3D"mailto:shorne@gmail.com">shorne@gmail.com</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex">On Mon, Jul 05, 20=
+21 at 04:59:27PM -0400, Jeff Johnston wrote:<br>
+&gt; Hi Stafford,<br>
+&gt; <br>
+&gt; Please resend with the patch as an attachment.<br>
+&gt; <br>
+&gt; Thanks,<br>
+<br>
+Alright,<br>
+<br>
+I hope it&#39;t OK in a reply here.=C2=A0 I usually send patches using git =
+send-email, is<br>
+this something new for newlib?<br>
+<br>
+Please find attached<br>
+<br>
+-Stafford<br>
+</blockquote></div>
 
-See section 8.4.8 Instruction Translation Lookaside Buffer Way y Translate
-Registers where these are defined.
-
-Signed-off-by: Stafford Horne <shorne@gmail.com>
----
- libgloss/or1k/include/or1k-sprs.h | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/libgloss/or1k/include/or1k-sprs.h b/libgloss/or1k/include/or1k-sprs.h
-index 8d1fe5ed9..d545fb1d3 100644
---- a/libgloss/or1k/include/or1k-sprs.h
-+++ b/libgloss/or1k/include/or1k-sprs.h
-@@ -1797,17 +1797,17 @@
- #define OR1K_SPR_IMMU_ITLBW_TR_D_GET(X) (((X) >> 5) & 0x1)
- #define OR1K_SPR_IMMU_ITLBW_TR_D_SET(X, Y) (((X) & OR1K_UNSIGNED(0xffffffdf)) | ((!!(Y)) << 5))
- 
--/* User Execute Enable */
--#define OR1K_SPR_IMMU_ITLBW_TR_UXE_OFFSET 6
--#define OR1K_SPR_IMMU_ITLBW_TR_UXE_MASK   0x00000040
--#define OR1K_SPR_IMMU_ITLBW_TR_UXE_GET(X) (((X) >> 6) & 0x1)
--#define OR1K_SPR_IMMU_ITLBW_TR_UXE_SET(X, Y) (((X) & OR1K_UNSIGNED(0xffffffbf)) | ((!!(Y)) << 6))
--
- /* Supervisor Execute Enable */
--#define OR1K_SPR_IMMU_ITLBW_TR_SXE_OFFSET 7
--#define OR1K_SPR_IMMU_ITLBW_TR_SXE_MASK   0x00000080
--#define OR1K_SPR_IMMU_ITLBW_TR_SXE_GET(X) (((X) >> 7) & 0x1)
--#define OR1K_SPR_IMMU_ITLBW_TR_SXE_SET(X, Y) (((X) & OR1K_UNSIGNED(0xffffff7f)) | ((!!(Y)) << 7))
-+#define OR1K_SPR_IMMU_ITLBW_TR_SXE_OFFSET 6
-+#define OR1K_SPR_IMMU_ITLBW_TR_SXE_MASK   0x00000040
-+#define OR1K_SPR_IMMU_ITLBW_TR_SXE_GET(X) (((X) >> 6) & 0x1)
-+#define OR1K_SPR_IMMU_ITLBW_TR_SXE_SET(X, Y) (((X) & OR1K_UNSIGNED(0xffffffbf)) | ((!!(Y)) << 6))
-+
-+/* User Execute Enable */
-+#define OR1K_SPR_IMMU_ITLBW_TR_UXE_OFFSET 7
-+#define OR1K_SPR_IMMU_ITLBW_TR_UXE_MASK   0x00000080
-+#define OR1K_SPR_IMMU_ITLBW_TR_UXE_GET(X) (((X) >> 7) & 0x1)
-+#define OR1K_SPR_IMMU_ITLBW_TR_UXE_SET(X, Y) (((X) & OR1K_UNSIGNED(0xffffff7f)) | ((!!(Y)) << 7))
- 
- /* Physical Page Number */
- #define OR1K_SPR_IMMU_ITLBW_TR_PPN_LSB    13
--- 
-2.31.1
+--000000000000e74c0005c6677ae8--
 
 
---UY3USK03gWlID6SC
+--===============6185563798733935979==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -164,4 +161,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
 bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
 bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
 
---UY3USK03gWlID6SC--
+--===============6185563798733935979==--
+
