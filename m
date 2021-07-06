@@ -2,67 +2,55 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 436C23BC3CD
-	for <lists+openrisc@lfdr.de>; Tue,  6 Jul 2021 00:03:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1CE353BC6B7
+	for <lists+openrisc@lfdr.de>; Tue,  6 Jul 2021 08:40:14 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id E4C1A20417;
-	Tue,  6 Jul 2021 00:03:55 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by mail.librecores.org (Postfix) with ESMTP id 4F99420417
- for <openrisc@lists.librecores.org>; Tue,  6 Jul 2021 00:03:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625522632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LUzWXmZmr0GsJOGnb4VnyzQTYIBkFxRndxigZFEUVho=;
- b=bsimShZPH1Mf4MAJTEKfb1GPB1HWb90oA2xZG1ISIj997HjK6n/HvtfZc2FkFhPL5UT4D4
- 7UwE7KEsL3UDsvyiGaktum15IyhOKLItBZn1Q0ximrF6yJP3iCuwrxd3x6tLbCDpZXASX3
- WCnTm+XPlYXQDt6yvpCY/45kH4p7YtA=
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-202-76B2bLGaNy2U2azqK9Ri6g-1; Mon, 05 Jul 2021 18:03:50 -0400
-X-MC-Unique: 76B2bLGaNy2U2azqK9Ri6g-1
-Received: by mail-pg1-f200.google.com with SMTP id
- m2-20020a6562c20000b029022885db5d8fso7179665pgv.12
- for <openrisc@lists.librecores.org>; Mon, 05 Jul 2021 15:03:50 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id CD08F20272;
+	Tue,  6 Jul 2021 08:40:13 +0200 (CEST)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by mail.librecores.org (Postfix) with ESMTPS id 1A07D20272
+ for <openrisc@lists.librecores.org>; Tue,  6 Jul 2021 08:40:12 +0200 (CEST)
+Received: by mail-pl1-f171.google.com with SMTP id f11so11504088plg.0
+ for <openrisc@lists.librecores.org>; Mon, 05 Jul 2021 23:40:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=RnfC90qmrJRM/A3hqOe/93Ug+s8qei2DZtNwiknaExQ=;
+ b=rfDHuSYDvco53PrlcQNTQIw/rO1D+x/M6kaA1somiOMKXkWvB/Q7EwEyjLCFBWa8tW
+ n0YBhjyg8v42iLVSS60G/6V5ESwnL3geAdaz97hXM8ODbU+w+0ZsRQj0rtr+Q0i/AS8x
+ aairMi8rBOcZKZRG6bnSBj4m7IJoOpKflp2PUSzDnxb23QcfUXRge5bNVgU6tr5up4Dv
+ bYGzZOdcskDE+v8KjSnS+JRv6ByFpDaqTcyQXIl4Z5ygCex04/juUp4xJUwTmnwLw6u9
+ 8/BXHb+cNmBQfsYPeyEbFu1p7/CZloQYs9AseWp1xQgyiHawdkbVz8AgwbsydDpB6PQQ
+ BjCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LUzWXmZmr0GsJOGnb4VnyzQTYIBkFxRndxigZFEUVho=;
- b=hbJsv1JN0BN0a+QJ8QI4WtLcN6ZEu0VIlsasdWZ1ws8IQRGvhooPTe2AVwkg8vruLa
- oJrjBz7sGdVabdkQf/j64K+FuvbRFlUq6zBdZ2O0MQgBQ7pw00J+OwzGr3fhZPpqIEh0
- uc2jnWJOd5Izf4SiN7CP8Lo+Ie0o/nCDJ7uCjRemRGBah3C3e+t7ekmrIO6HQyTcg722
- Shnq+nQ4Oqt1p9qPXaMQX0iQ/dZc2Y+IbnuEi4O91jchXL46yBcHnjq83JE9TjzrszST
- nlutk6lTDlWI8Pzdrnrby1r0azujCujsaEMjP80zJW7B1Ayj2NsIzymtqx5BaUE6sXQU
- OJog==
-X-Gm-Message-State: AOAM533k7KPejO7PsRRcv/6FN1pFGesSwFuh3FEgdqrImrUVVBogm/4c
- 8thauugYRpYR44SQTVcZE8r7HZ33MImSIKSRguxDQeScOZlfy7pv2RYy5OQZM+kpayac7AvhDIw
- a9o2yEgCGNYRgiQWZkMpNYGyFgabXf1zdJMvVrGwqKA==
-X-Received: by 2002:aa7:8c41:0:b029:319:f69c:93b4 with SMTP id
- e1-20020aa78c410000b0290319f69c93b4mr14481528pfd.11.1625522629680; 
- Mon, 05 Jul 2021 15:03:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyaQjP0yjZJPH0XdzTfLbV5SoHsJy5ZTqGCd+HFhW3DlAbALDgAx9EZW8JyveZPlsKA2VceSJ6mw7ZSW2G47GY=
-X-Received: by 2002:aa7:8c41:0:b029:319:f69c:93b4 with SMTP id
- e1-20020aa78c410000b0290319f69c93b4mr14481515pfd.11.1625522629457; Mon, 05
- Jul 2021 15:03:49 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=RnfC90qmrJRM/A3hqOe/93Ug+s8qei2DZtNwiknaExQ=;
+ b=TqJkc3DFe45CdJD4YLKsaDpAEjmJxYj6uEfaUt5vjFtpjyHQeaLux2TIOw8+OZy0Y8
+ Y5GMydflQBfiXANJnw/W7c84a9eO0e0c4uEsufpA0D1pOK/LYlPU8dDAp7/PFLFx723u
+ 5eHmTlLZQsF0BIhq7EFzMh9s3ORJ6U3xAExXT8CrgTJkJVPhuVeZS/M29y8IoTv0bn3E
+ Ccy48SmqtnXlhyth8LVu9wRh8Ko2q03ukQWK7wPHb/2xiZ5wWMXiIBe3FVIWKOy0sokI
+ EZBtsTn9/wp3ryN3D0E/L27/Z+LLfV+1lFGAS5M6vfnAMjqh7Ht9AEh+QjHMZRXCe3SH
+ mJlQ==
+X-Gm-Message-State: AOAM533C1PpFVYyzK0Upbvn3TGIdhlPbnd1xsawn7TLcwprjbiwUEFAv
+ N4pxsWwcmsgCUi5RpuT55GU=
+X-Google-Smtp-Source: ABdhPJwS/TL6GSdJ9UJz79AMLTNaG3F0oGhQYz0lOsx6ZNd8CZPH04S2lKOnnCe5a4cVP8dWIFMWkA==
+X-Received: by 2002:a17:90a:df10:: with SMTP id
+ gp16mr2922095pjb.164.1625553610207; 
+ Mon, 05 Jul 2021 23:40:10 -0700 (PDT)
+Received: from localhost (g164.115-65-218.ppp.wakwak.ne.jp. [115.65.218.164])
+ by smtp.gmail.com with ESMTPSA id
+ m7sm7357158pjf.8.2021.07.05.23.40.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jul 2021 23:40:09 -0700 (PDT)
+Date: Tue, 6 Jul 2021 15:40:07 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <YOP6x0Mz8aBv9x18@antec>
 MIME-Version: 1.0
-References: <20210701231748.1098623-1-shorne@gmail.com>
- <CAOox84vC8qfYVufYN+9yCiQtt=hJRfhz=Q_xczF8W5zvGq4Z+A@mail.gmail.com>
- <YON3v1bM0J4r9AzE@antec>
-In-Reply-To: <YON3v1bM0J4r9AzE@antec>
-From: Jeff Johnston <jjohnstn@redhat.com>
-Date: Mon, 5 Jul 2021 18:03:38 -0400
-Message-ID: <CAOox84vBu1=ZPnq9v-8oN_-K=BDw6v0MTEhGhAwfV+Vt=+q_Pg@mail.gmail.com>
-To: Stafford Horne <shorne@gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jjohnstn@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: Re: [OpenRISC] [PATCH] libgloss/or1k: Correct the IMMU SXE and UXE
- flags
+Content-Disposition: inline
+Subject: [OpenRISC] [GIT PULL] OpenRISC updates for 5.14
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -75,91 +63,32 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Newlib <newlib@sourceware.org>, Openrisc <openrisc@lists.librecores.org>
-Content-Type: multipart/mixed; boundary="===============6185563798733935979=="
+Cc: Gabriel Somlo <gsomlo@gmail.com>, Openrisc <openrisc@lists.librecores.org>,
+ LKML <linux-kernel@vger.kernel.org>, Mateusz Holenko <mholenko@antmicro.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============6185563798733935979==
-Content-Type: multipart/alternative; boundary="000000000000e74c0005c6677ae8"
-
---000000000000e74c0005c6677ae8
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Stafford,
-
-It's not you, it's on my side with gmail..  It often distorts git patches
-unless they are attachments.
-
-Anyway, patch applied and pushed to master.
-
-Regards,
-
--- Jeff J.
-
-On Mon, Jul 5, 2021 at 5:21 PM Stafford Horne <shorne@gmail.com> wrote:
-
-> On Mon, Jul 05, 2021 at 04:59:27PM -0400, Jeff Johnston wrote:
-> > Hi Stafford,
-> >
-> > Please resend with the patch as an attachment.
-> >
-> > Thanks,
->
-> Alright,
->
-> I hope it't OK in a reply here.  I usually send patches using git
-> send-email, is
-> this something new for newlib?
->
-> Please find attached
->
-> -Stafford
->
-
---000000000000e74c0005c6677ae8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi Stafford,</div><div><br></div><div>It&#39;s not yo=
-u, it&#39;s on my side with gmail..=C2=A0 It often distorts git patches unl=
-ess they are attachments.</div><div><br></div><div>Anyway, patch applied an=
-d pushed to master.</div><div><br></div><div>Regards,<br></div><div><br></d=
-iv><div>-- Jeff J.<br></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Jul 5, 2021 at 5:21 PM Stafford Horne=
- &lt;<a href=3D"mailto:shorne@gmail.com">shorne@gmail.com</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
-border-left:1px solid rgb(204,204,204);padding-left:1ex">On Mon, Jul 05, 20=
-21 at 04:59:27PM -0400, Jeff Johnston wrote:<br>
-&gt; Hi Stafford,<br>
-&gt; <br>
-&gt; Please resend with the patch as an attachment.<br>
-&gt; <br>
-&gt; Thanks,<br>
-<br>
-Alright,<br>
-<br>
-I hope it&#39;t OK in a reply here.=C2=A0 I usually send patches using git =
-send-email, is<br>
-this something new for newlib?<br>
-<br>
-Please find attached<br>
-<br>
--Stafford<br>
-</blockquote></div>
-
---000000000000e74c0005c6677ae8--
-
-
---===============6185563798733935979==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============6185563798733935979==--
-
+SGkgTGludXMsCgpQbGVhc2UgY29uc2lkZXIgZm9yIHB1bGwKClRoZSBmb2xsb3dpbmcgY2hhbmdl
+cyBzaW5jZSBjb21taXQgNjE0MTI0YmVhNzdlNDUyYWE2ZGY3YTg3MTRlOGJjODIwYjQ4OTkyMjoK
+CiAgTGludXggNS4xMy1yYzUgKDIwMjEtMDYtMDYgMTU6NDc6MjcgLTA3MDApCgphcmUgYXZhaWxh
+YmxlIGluIHRoZSBHaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8vZ2l0aHViLmNvbS9vcGVucmlz
+Yy9saW51eC5naXQgdGFncy9mb3ItbGludXMKCmZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0
+byBhZDRlNjAwY2JmODk3ZjQ3NTI1YjM0MmNkNGIwMmU4OGVkMzAwYTgzOgoKICBkcml2ZXJzL3Nv
+Yy9saXRleDogcmVtb3ZlIDgtYml0IHN1YnJlZ2lzdGVyIG9wdGlvbiAoMjAyMS0wNi0xMSAwNDoz
+NTo0MCArMDkwMCkKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KT3BlblJJU0MgdXBkYXRlcyBmb3IgNS4xNAoKT25lIGNoYW5n
+ZSB0byBzaW1wbGlmeSBMaXRleCBDU1IgKE1NSU8gcmVnaXN0ZXIpIGFjY2VzcyBieSBsaW1pdGlu
+ZyB0aGVtCnRvIDMyLWJpdCBvZmZzZXRzLiAgTm93IHRoaXMgaXMgYWdyZWVkIGFtb25nIExpdGV4
+IGhhcmR3YXJlIGFuZCBrZXJuZWwKZGV2ZWxvcGVycyBpdCB3aWxsIGFsbG93IHVzIHRvIHN0YXJ0
+IHVwc3RyZWFtaW5nIG90aGVyIExpdGV4IHBlcmlwaGVyYWwKZHJpdmVycy4KCi0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KR2Fi
+cmllbCBTb21sbyAoMSk6CiAgICAgIGRyaXZlcnMvc29jL2xpdGV4OiByZW1vdmUgOC1iaXQgc3Vi
+cmVnaXN0ZXIgb3B0aW9uCgogZHJpdmVycy9zb2MvbGl0ZXgvS2NvbmZpZyAgICAgICAgICB8ICAx
+MiAtLS0tLQogZHJpdmVycy9zb2MvbGl0ZXgvbGl0ZXhfc29jX2N0cmwuYyB8ICAgMyArLQogaW5j
+bHVkZS9saW51eC9saXRleC5oICAgICAgICAgICAgICB8IDEwMyArKysrKystLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyksIDEw
+MiBkZWxldGlvbnMoLSkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3Jn
+Cmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
