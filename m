@@ -2,35 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 439DF3E1B8E
-	for <lists+openrisc@lfdr.de>; Thu,  5 Aug 2021 20:41:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B76053E1CC1
+	for <lists+openrisc@lfdr.de>; Thu,  5 Aug 2021 21:32:02 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id E0FD3211D5;
-	Thu,  5 Aug 2021 20:41:30 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 89D5E202FC
- for <openrisc@lists.librecores.org>; Thu,  5 Aug 2021 20:41:29 +0200 (CEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D0F0C60F01;
- Thu,  5 Aug 2021 18:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1628188887;
- bh=DJstyoIneDhJWe2M45tnolj4HGCE0gCrRv38Ul0FPvI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=yLSS87676hn106VIngpXBP/rOEU9YnrWCbO+LvhheiKjxKARCwKmpPaCV3EXfwCgP
- eswsJEhyB34IGotQMI4++5xN+H6/H2Zsa8YN4zRquACi04W3hFcBWcF1DF3HWEIxIo
- hfvqM78wNk4u3fnnSgFl6tYnBJF7uBTAQJcXiptc=
-Date: Thu, 5 Aug 2021 20:41:23 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Message-ID: <YQww08x2whx/LIIT@kroah.com>
-References: <20210805075032.723037-1-lee.jones@linaro.org>
- <20210805075032.723037-2-lee.jones@linaro.org>
- <20210805173625.GH6719@arm.com>
+	by mail.librecores.org (Postfix) with ESMTP id 6E5BF211D5;
+	Thu,  5 Aug 2021 21:32:02 +0200 (CEST)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by mail.librecores.org (Postfix) with ESMTPS id CD21E20E97
+ for <openrisc@lists.librecores.org>; Thu,  5 Aug 2021 21:32:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+ :In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=GbnUV28bxkOp7gCXE/AS1YBxe5QFYfSNYycGqaP8y10=; b=OH0IAeHpUImkTwBEYEVKJ/88ip
+ pi2GLuVtwMBuBVg4pLCGAijvR1GC6Xa0X4zc5h9uwcYNJzsA0YGZ2FLOCxxFwsHmspsYuYFS4RX+4
+ qqeiHWTLUx/SWGArKspUWhXYS5IbLuBnvVv45iVz03el/CXwGb69HVCbebf8N68Aj/46CI7g0Dg0S
+ 9EYwvXHaZ1LwXipPw+1Nd84MG1VlrVMIahWOqekza7QcB0YKdS+yFmkoJHW4S+8c2OHPYM3X+N808
+ VbEM+3k/orhmjIprEOydp/XXApn/zJIKqJaDIaVvh8P56iYP+c/zbeE8FD+K1y2U2dGi4SM3in4QO
+ 98r2HgIA==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mBj5i-0069hG-Ib; Thu, 05 Aug 2021 19:31:42 +0000
+To: Stafford Horne <shorne@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+References: <20210805030035.2994973-1-shorne@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <655ef6e0-defb-7467-25df-f9a13ab96694@infradead.org>
+Date: Thu, 5 Aug 2021 12:31:37 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210805173625.GH6719@arm.com>
-Subject: Re: [OpenRISC] [PATCH 1/3] arch: Export machine_restart() instances
- so they can be called from modules
+In-Reply-To: <20210805030035.2994973-1-shorne@gmail.com>
+Content-Language: en-US
+Subject: Re: [OpenRISC] [PATCH] openrisc: Fix compiler warnings in setup
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -43,49 +46,48 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
- John Crispin <john@phrozen.org>, Sebastian Reichel <sre@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
- linux-csky@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-riscv@lists.infradead.org,
- Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- Vasily Gorbik <gor@linux.ibm.com>, Brian Cain <bcain@codeaurora.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- Ley Foon Tan <ley.foon.tan@intel.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- linux-snps-arc@lists.infradead.org, Jeff Dike <jdike@addtoit.com>,
- uclinux-h8-devel@lists.sourceforge.jp, linux-xtensa@linux-xtensa.org,
- Albert Ou <aou@eecs.berkeley.edu>, Will Deacon <will@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, linux-um@lists.infradead.org,
- linux-m68k@lists.linux-m68k.org, openrisc@lists.librecores.org,
- Borislav Petkov <bp@alien8.de>, Paul Walmsley <paul.walmsley@sifive.com>,
- linux-arm-kernel@lists.infradead.org, Chris Zankel <chris@zankel.net>,
- Michal Simek <monstr@monstr.eu>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-parisc@vger.kernel.org,
- Vineet Gupta <vgupta@synopsys.com>, linux-kernel@vger.kernel.org,
- Palmer Dabbelt <palmer@dabbelt.com>, Richard Weinberger <richard@nod.at>,
- linuxppc-dev@lists.ozlabs.org, "David S . Miller" <davem@davemloft.net>
-Content-Type: text/plain; charset="utf-8"
+Cc: Jonas Bonn <jonas@southpole.se>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+ kernel test robot <lkp@intel.com>, Openrisc <openrisc@lists.librecores.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBBdWcgMDUsIDIwMjEgYXQgMDY6MzY6MjVQTSArMDEwMCwgQ2F0YWxpbiBNYXJpbmFz
-IHdyb3RlOgo+IE9uIFRodSwgQXVnIDA1LCAyMDIxIGF0IDA4OjUwOjMwQU0gKzAxMDAsIExlZSBK
-b25lcyB3cm90ZToKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybTY0L2tlcm5lbC9wcm9jZXNzLmMg
-Yi9hcmNoL2FybTY0L2tlcm5lbC9wcm9jZXNzLmMKPiA+IGluZGV4IGI0YmI2N2YxN2EyY2EuLmNm
-ODljZTkxZDcxNDUgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FybTY0L2tlcm5lbC9wcm9jZXNzLmMK
-PiA+ICsrKyBiL2FyY2gvYXJtNjQva2VybmVsL3Byb2Nlc3MuYwo+ID4gQEAgLTIxMiw2ICsyMTIs
-NyBAQCB2b2lkIG1hY2hpbmVfcmVzdGFydChjaGFyICpjbWQpCj4gPiAgCXByaW50aygiUmVib290
-IGZhaWxlZCAtLSBTeXN0ZW0gaGFsdGVkXG4iKTsKPiA+ICAJd2hpbGUgKDEpOwo+ID4gIH0KPiA+
-ICtFWFBPUlRfU1lNQk9MKG1hY2hpbmVfcmVzdGFydCk7Cj4gCj4gU2hvdWxkIHdlIG1ha2UgdGhp
-cyBFWFBPUlRfU1lNQk9MX0dQTD8gSSBzdXBwb3NlIGl0J3Mgbm90IGZvciBnZW5lcmFsCj4gdXNl
-IGJ5IG91dCBvZiB0cmVlIGRyaXZlcnMgYW5kIGl0IG1hdGNoZXMgdGhlIG90aGVyIHBtX3Bvd2Vy
-X29mZiBzeW1ib2wKPiB3ZSBleHBvcnQgaW4gdGhpcyBmaWxlLgoKWWVzIHBsZWFzZS4KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGlu
-ZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVj
-b3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+T24gOC80LzIxIDg6MDAgUE0sIFN0YWZmb3JkIEhvcm5lIHdyb3RlOgo+IFRoaXMgd2FzIHBvaW50
+ZWQgb3V0IHdpdGggdGhlIHJlY2VudCBuYW1lIGNoYW5nZSBvZiBvcjMyX2Vhcmx5X3NldHVwIHRv
+Cj4gb3Ixa19lYXJseV9zZXR1cC4gIEludmVzdGlnYXRpbmcgdGhlIGZpbGUgSSBmb3VuZCBhIGZl
+dyBvdGhlciB3YXJuaW5ncwo+IHNvIGNsZWFuaW5nIHRoZW0gdXAgaGVyZS4KPiAKPiAgICAgIGFy
+Y2gvb3BlbnJpc2Mva2VybmVsL3NldHVwLmM6MjIwOjEzOiB3YXJuaW5nOiBubyBwcmV2aW91cyBw
+cm90b3R5cGUgZm9yICdvcjFrX2Vhcmx5X3NldHVwJyBbLVdtaXNzaW5nLXByb3RvdHlwZXNdCj4g
+ICAgICAgIDIyMCB8IHZvaWQgX19pbml0IG9yMWtfZWFybHlfc2V0dXAodm9pZCAqZmR0KQo+IAkg
+IHwgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fgo+IAo+IEZpeCB0aGlzIHRoZSBtaXNzaW5n
+IG9yMWtfZWFybHlfc2V0dXAgcHJvdG90eXBlIHdhcm5pbmcgYnkgYWRkaW5nIGFuCj4gYXNtL3Nl
+dHVwLmggZmlsZSB0byBkZWZpbmUgdGhlIHByb3RvdHlwZS4KPiAKPiAgICAgIGFyY2gvb3BlbnJp
+c2Mva2VybmVsL3NldHVwLmM6MjQ2OjEzOiB3YXJuaW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUg
+Zm9yICdkZXRlY3RfdW5pdF9jb25maWcnIFstV21pc3NpbmctcHJvdG90eXBlc10KPiAgICAgICAg
+MjQ2IHwgdm9pZCBfX2luaXQgZGV0ZWN0X3VuaXRfY29uZmlnKHVuc2lnbmVkIGxvbmcgdXByLCB1
+bnNpZ25lZCBsb25nIG1hc2ssCj4gCSAgfCAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn4K
+PiAKPiBUaGUgZnVuY3Rpb24gZGV0ZWN0X3VuaXRfY29uZmlnIGlzIG5vdCB1c2VkLCBqdXN0IHJl
+bW92ZSBpdC4KPiAKPiAgICAgIGFyY2gvb3BlbnJpc2Mva2VybmVsL3NldHVwLmM6MjIxOiB3YXJu
+aW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVyICdmZHQnIG5vdCBkZXNjcmliZWQgaW4g
+J29yMWtfZWFybHlfc2V0dXAnCj4gCj4gQWRkIEBmZHQgZG9jcyB0byB0aGUgZnVuY3Rpb24gY29t
+bWVudCB0byBzdXBwcmVzcyB0aGlzIHdhcm5pbmcuCj4gCj4gUmVwb3J0ZWQtYnk6IGtlcm5lbCB0
+ZXN0IHJvYm90IDxsa3BAaW50ZWwuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFN0YWZmb3JkIEhvcm5l
+IDxzaG9ybmVAZ21haWwuY29tPgoKSGkgU3RhZmZvcmQsCgpEb2VzIHRoaXMgcGF0Y2ggYXBwbHkg
+dG8geW91ciBvcGVucmlzYyB0cmVlLCBidXQgbm90IHRvCmxpbnV4LW5leHQ/ICBJIGdldCBhIHBh
+dGNoIGVycm9yIHdoZW4gdHJ5aW5nIHRvIGFwcGx5IGl0CnRvIGxpbnV4LW5leHQtMjAyMTA4MDUg
+YW5kIHRoaXMgd2FybmluZyBpcyBzdGlsbCBwcmVzZW50OgoKLi4vYXJjaC9vcGVucmlzYy9rZXJu
+ZWwvc2V0dXAuYzoyMjE6MTM6IHdhcm5pbmc6IG5vIHByZXZpb3VzIHByb3RvdHlwZSBmb3IgJ29y
+MzJfZWFybHlfc2V0dXAnIFstV21pc3NpbmctcHJvdG90eXBlc10KICAgMjIxIHwgdm9pZCBfX2lu
+aXQgb3IzMl9lYXJseV9zZXR1cCh2b2lkICpmZHQpCiAgICAgICB8ICAgICAgICAgICAgIF5+fn5+
+fn5+fn5+fn5+fn4KCnByZXN1bWFibHkgYmVjYXVzZSBzb21lIG9wZW5yaXNjIHBhdGNoZXMgYXJl
+IG5vdCB5ZXQgaW4gbGludXgtbmV4dD8/Cgp0aGFua3MuCgo+IC0tLQo+ICAgYXJjaC9vcGVucmlz
+Yy9pbmNsdWRlL2FzbS9zZXR1cC5oIHwgMTQgKysrKysrKysrKysrKysKPiAgIGFyY2gvb3BlbnJp
+c2Mva2VybmVsL3NldHVwLmMgICAgICB8IDE2ICstLS0tLS0tLS0tLS0tLS0KPiAgIDIgZmlsZXMg
+Y2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCj4gICBjcmVhdGUgbW9k
+ZSAxMDA2NDQgYXJjaC9vcGVucmlzYy9pbmNsdWRlL2FzbS9zZXR1cC5oCj4gCgoKCi0tIAp+UmFu
+ZHkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5S
+SVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xp
+c3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
