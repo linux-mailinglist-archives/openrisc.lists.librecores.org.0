@@ -2,52 +2,47 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B8F613E3372
-	for <lists+openrisc@lfdr.de>; Sat,  7 Aug 2021 06:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B6CA3E369D
+	for <lists+openrisc@lfdr.de>; Sat,  7 Aug 2021 20:28:13 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 4F68324037;
-	Sat,  7 Aug 2021 06:49:39 +0200 (CEST)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by mail.librecores.org (Postfix) with ESMTPS id EFD5120309
- for <openrisc@lists.librecores.org>; Sat,  7 Aug 2021 06:49:37 +0200 (CEST)
-Received: by mail-ej1-f44.google.com with SMTP id yk17so18660358ejb.11
- for <openrisc@lists.librecores.org>; Fri, 06 Aug 2021 21:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1kOB9Uz445i8DlBwNERbW/H+c4bY/F/yYReJYLbwlOo=;
- b=LRU533uNxWBBMlZfQxt4QKrTYrrDyPsnkKlDBr691aBxKJiEJircrvREQ5PG6kUURS
- 9uvp3n8QerT37191fr0lqQDV5tPQfVnH+GPRanuloEGBLxfmzANMmjSDXacTv6qU/tFk
- bzyUfuNN9vR451SvcIVfj9ZlkkD5Q8pL5/rIWgkfmggpJEqhk9NF1ftY0WYjpZvuc6/p
- hkHUtaiIYIGH28qvg1aMiyTZkXjhfkMcEKLAA64YZjyG6E2G9H/YN0MFvT5DGYj4THzS
- Y4p0DknSa82M2bi+x9zlAc77VIz7/ahOB/ssbsFzcKYNKpItco03Xnhnea81eGXjhXVW
- dHYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1kOB9Uz445i8DlBwNERbW/H+c4bY/F/yYReJYLbwlOo=;
- b=lvYdKudRGvwS1EVnKyYpWFVKPbPbfbEhaEXpGtaaOB80Ll/CkfO2UqRm2AmeAmd/U9
- yTM+dJ1F3TQLPxVkH5kF/kSFVe0/M3CPYzE/u28ha0WPXzKGOL9xbEU6jJdH2ZV6xa3W
- CilgDwJPtf7R/xTTcttiTrkghtpncVDM0tl4Re46prHPbl0rwlBhwnNhiJbK6tNo2Kk7
- /bsEcj7ci7AKm3pwk6FYd8R6NBqk/YmAqNVQr3ZwuY01f+y8DERrojBcVq5W6uUxeGwl
- vRutBpBzlQr1V6M7UvdxLNngjjHR4sM8iphMHNow8qr7XVCXgtzjXnndQ/T3edPuhJ1w
- +ADQ==
-X-Gm-Message-State: AOAM533Q+N/T6OunxUpQT3lPI2sS3rTLlmZLCLGXvI+Mt86mAxIblpiE
- haprwxHoSWEP9ddcjUtBjpMX4QIQV8xMJGhHP88=
-X-Google-Smtp-Source: ABdhPJxllH3mm0U4z1HKznCblQBsz6KVbSyDnjqX1TFApJb9UUhnjKoih8C/HTbGHxIic4QdduuN9uOCdnCjMmnNspg=
-X-Received: by 2002:a17:906:f20a:: with SMTP id
- gt10mr13118498ejb.267.1628311777639; 
- Fri, 06 Aug 2021 21:49:37 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id A7FFA211B2;
+	Sat,  7 Aug 2021 20:28:12 +0200 (CEST)
+Received: from smtp52.i.mail.ru (smtp52.i.mail.ru [94.100.177.112])
+ by mail.librecores.org (Postfix) with ESMTPS id 8562D202FC
+ for <openrisc@lists.librecores.org>; Sat,  7 Aug 2021 20:28:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+ s=mail3; 
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
+ bh=hm21FO7hXdCqHvUBgkF4BnkcrnhwafRYoKQw0IvaWqA=; 
+ t=1628360890;x=1628966290; 
+ b=M5ZpAsArC9YS3zkpoqxayc/4oMz0DBr88PW7K3beBrCiE315Wzgdt1bU4Plref5jgKpBh+jlmGC4RseUSiprnu870R8aQ5hz3KNorI+bJve008KWypVKzG3QMtqSlsZDU7Y1e2tOXcL6ZZK6EZnIiuplwx2ZLwMgkyx0xwWmUE8=;
+Received: by smtp52.i.mail.ru with esmtpa (envelope-from <bandvig@mail.ru>)
+ id 1mCR3I-00030Z-DX; Sat, 07 Aug 2021 21:28:08 +0300
+To: Stafford Horne <shorne@gmail.com>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+References: <CAF6YiZ5Hsc-mf_s5bBVQ5+gRQ1++rC=HP5XT2mwyygEjs_1gqw@mail.gmail.com>
+ <CADzBsGPE=YaKcR9_37iPHk=hwapDar1tV8mkxudmh1v6H4j+EA@mail.gmail.com>
+ <CAAfxs77xhSeM-QPYsEr7t-gEVO2+w9EchESAE44XMUcJp37=8Q@mail.gmail.com>
+From: Andrey Bacherov <bandvig@mail.ru>
+Message-ID: <70f4e169-cc3f-eff8-0252-c34a89d69764@mail.ru>
+Date: Sat, 7 Aug 2021 21:28:06 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-References: <20210805030035.2994973-1-shorne@gmail.com>
- <655ef6e0-defb-7467-25df-f9a13ab96694@infradead.org>
-In-Reply-To: <655ef6e0-defb-7467-25df-f9a13ab96694@infradead.org>
-From: Stafford Horne <shorne@gmail.com>
-Date: Sat, 7 Aug 2021 13:49:25 +0900
-Message-ID: <CAAfxs7653w00yKVuRy4K-H3_Pe=WCutB8Tfja-hdh1rG-K+yxA@mail.gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [OpenRISC] [PATCH] openrisc: Fix compiler warnings in setup
+In-Reply-To: <CAAfxs77xhSeM-QPYsEr7t-gEVO2+w9EchESAE44XMUcJp37=8Q@mail.gmail.com>
+Content-Language: ru
+Authentication-Results: smtp52.i.mail.ru; auth=pass smtp.auth=bandvig@mail.ru
+ smtp.mailfrom=bandvig@mail.ru
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD92087353F0EC44DD9D5AC6413C25DCF08E2C99C00A2DD9947182A05F538085040ED6501AF0F1EFEF10D0E29C5A5F3673A56B1C3DBCADCB52B6723D71B0E4E9E3B
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7FFA2A8BF6367A61CEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006376AFB9B40001E44068638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8BDA500E40F1C855065A311EA595466C16F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE737BF09D08E861CDD9FA2833FD35BB23D9E625A9149C048EE33AC447995A7AD18E5D25F19253116ADD2E47CDBA5A96583BD4B6F7A4D31EC0BC014FD901B82EE079FA2833FD35BB23D27C277FBC8AE2E8B9FC99A4BA45EE8B4A471835C12D1D977C4224003CC836476EB9C4185024447017B076A6E789B0E975F5C1EE8F4F765FCE6A2F950A10922ED3AA81AA40904B5D9CF19DD082D7633A078D18283394535A93AA81AA40904B5D98AA50765F7900637FB8025AFA01CA121D81D268191BDAD3D698AB9A7B718F8C4D1B931868CE1C5781A620F70A64A45A98AA50765F79006372E808ACE2090B5E1725E5C173C3A84C3C5EA940A35A165FF2DBA43225CD8A89F72BE6798D60363525E1C53F199C2BB95B5C8C57E37DE458BEDA766A37F9254B7
+X-B7AD71C0: AC4F5C86D027EB782CDD5689AFBDA7A213B5FB47DCBC3458F0AFF96BAACF4158235E5A14AD4A4A4625E192CAD1D9E79D94463893BF8742D011A2CA6B10516F62
+X-C1DE0DAB: 0D63561A33F958A5189B19F586D2F9F6E9FC47839D988E16E38A2CEF05D0EB3BD59269BC5F550898D99A6476B3ADF6B47008B74DF8BB9EF7333BD3B22AA88B938A852937E12ACA7540E9CF2C1C1CEBBA410CA545F18667F91A7EA1CDA0B5A7A0
+X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D349A401E2B4D763A4A93FAD0FB4729BC975E0819599B3DA939C30569AB65F7C7243AF49B228F0113711D7E09C32AA3244C5DA2995D0B31FEBC129F6A54554D6F8030452B15D76AEC1483B48618A63566E0
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojpsW/ya9GRzEfyDe7SGav7Q==
+X-Mailru-Sender: 7B480EB95D2632CA6A331C8845DC6BF1CA44F9B464415DE90D0E29C5A5F3673A3985A38E0F8EAEA796707CC21FDCAFE23DDE9B364B0DF28976DB2FCCB23CBB8B481B2AED7BCCC0A4AE208404248635DF
+X-Mras: Ok
+Subject: Re: [OpenRISC] mor1kx licensing
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,170 +55,49 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, Kefeng Wang <wangkefeng.wang@huawei.com>,
- kernel test robot <lkp@intel.com>, LKML <linux-kernel@vger.kernel.org>,
- Openrisc <openrisc@lists.librecores.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
-Content-Type: multipart/mixed; boundary="===============1082451941328950506=="
+Cc: Stefan Wallentowitz <stefan.wallentowitz@gmail.com>,
+ Julius Baxter <juliusbaxter@gmail.com>,
+ Openrisc <openrisc@lists.librecores.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============1082451941328950506==
-Content-Type: multipart/alternative; boundary="0000000000001700a705c8f0e1f7"
-
---0000000000001700a705c8f0e1f7
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, Aug 6, 2021, 4:32 AM Randy Dunlap <rdunlap@infradead.org> wrote:
-
-> On 8/4/21 8:00 PM, Stafford Horne wrote:
-> > This was pointed out with the recent name change of or32_early_setup to
-> > or1k_early_setup.  Investigating the file I found a few other warnings
-> > so cleaning them up here.
-> >
-> >      arch/openrisc/kernel/setup.c:220:13: warning: no previous prototype
-> for 'or1k_early_setup' [-Wmissing-prototypes]
-> >        220 | void __init or1k_early_setup(void *fdt)
-> >         |             ^~~~~~~~~~~~~~~~
-> >
-> > Fix this the missing or1k_early_setup prototype warning by adding an
-> > asm/setup.h file to define the prototype.
-> >
-> >      arch/openrisc/kernel/setup.c:246:13: warning: no previous prototype
-> for 'detect_unit_config' [-Wmissing-prototypes]
-> >        246 | void __init detect_unit_config(unsigned long upr, unsigned
-> long mask,
-> >         |             ^~~~~~~~~~~~~~~~~~
-> >
-> > The function detect_unit_config is not used, just remove it.
-> >
-> >      arch/openrisc/kernel/setup.c:221: warning: Function parameter or
-> member 'fdt' not described in 'or1k_early_setup'
-> >
-> > Add @fdt docs to the function comment to suppress this warning.
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Signed-off-by: Stafford Horne <shorne@gmail.com>
->
-> Hi Stafford,
->
-> Does this patch apply to your openrisc tree, but not to
-> linux-next?  I get a patch error when trying to apply it
-> to linux-next-20210805 and this warning is still present:
->
-> ../arch/openrisc/kernel/setup.c:221:13: warning: no previous prototype for
-> 'or32_early_setup' [-Wmissing-prototypes]
->    221 | void __init or32_early_setup(void *fdt)
->        |             ^~~~~~~~~~~~~~~~
->
-> presumably because some openrisc patches are not yet in linux-next??
->
-> thanks.
->
-
-Hi Randy,
-
-Thats right, this patch is on top of my openrisc/for-next branch.  It
-should show up in linux-next soon.
-
-The branch is here.
-
-
-https://github.com/openrisc/linux/commit/19e14f3a81d227f1c8b8d5371de28b3ab3deb556
-
-I put this patch on the branch already. I plan to adjust if any feedback.
-
--stafford
-
->
-
---0000000000001700a705c8f0e1f7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Fri, Aug 6, 2021, 4:32 AM Randy Dunlap &lt;<a href=
-=3D"mailto:rdunlap@infradead.org">rdunlap@infradead.org</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">On 8/4/21 8:00 PM, Stafford Horne wrote=
-:<br>
-&gt; This was pointed out with the recent name change of or32_early_setup t=
-o<br>
-&gt; or1k_early_setup.=C2=A0 Investigating the file I found a few other war=
-nings<br>
-&gt; so cleaning them up here.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 arch/openrisc/kernel/setup.c:220:13: warning: no p=
-revious prototype for &#39;or1k_early_setup&#39; [-Wmissing-prototypes]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 220 | void __init or1k_early_setup(void *fd=
-t)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~~~~~~~~~~<br>
-&gt; <br>
-&gt; Fix this the missing or1k_early_setup prototype warning by adding an<b=
-r>
-&gt; asm/setup.h file to define the prototype.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 arch/openrisc/kernel/setup.c:246:13: warning: no p=
-revious prototype for &#39;detect_unit_config&#39; [-Wmissing-prototypes]<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 246 | void __init detect_unit_config(unsign=
-ed long upr, unsigned long mask,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~~~~~~~~~~~~<br>
-&gt; <br>
-&gt; The function detect_unit_config is not used, just remove it.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 arch/openrisc/kernel/setup.c:221: warning: Functio=
-n parameter or member &#39;fdt&#39; not described in &#39;or1k_early_setup&=
-#39;<br>
-&gt; <br>
-&gt; Add @fdt docs to the function comment to suppress this warning.<br>
-&gt; <br>
-&gt; Reported-by: kernel test robot &lt;<a href=3D"mailto:lkp@intel.com" ta=
-rget=3D"_blank" rel=3D"noreferrer">lkp@intel.com</a>&gt;<br>
-&gt; Signed-off-by: Stafford Horne &lt;<a href=3D"mailto:shorne@gmail.com" =
-target=3D"_blank" rel=3D"noreferrer">shorne@gmail.com</a>&gt;<br>
-<br>
-Hi Stafford,<br>
-<br>
-Does this patch apply to your openrisc tree, but not to<br>
-linux-next?=C2=A0 I get a patch error when trying to apply it<br>
-to linux-next-20210805 and this warning is still present:<br>
-<br>
-../arch/openrisc/kernel/setup.c:221:13: warning: no previous prototype for =
-&#39;or32_early_setup&#39; [-Wmissing-prototypes]<br>
-=C2=A0 =C2=A0221 | void __init or32_early_setup(void *fdt)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0^~~~~~~~~~~~~~~~<br>
-<br>
-presumably because some openrisc patches are not yet in linux-next??<br>
-<br>
-thanks.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
-"auto">Hi Randy,</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thats r=
-ight, this patch is on top of my openrisc/for-next branch.=C2=A0 It should =
-show up in linux-next soon.</div><div dir=3D"auto"><br></div><div dir=3D"au=
-to">The branch is here.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-=C2=A0<a href=3D"https://github.com/openrisc/linux/commit/19e14f3a81d227f1c=
-8b8d5371de28b3ab3deb556">https://github.com/openrisc/linux/commit/19e14f3a8=
-1d227f1c8b8d5371de28b3ab3deb556</a></div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">I put this patch on the branch already. I plan to adjust if any=
- feedback.</div><div dir=3D"auto"><br></div><div dir=3D"auto">-stafford</di=
-v><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1e=
-x"></blockquote></div></div></div>
-
---0000000000001700a705c8f0e1f7--
-
---===============1082451941328950506==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============1082451941328950506==--
+SSBhZ3JlZSBmb3IgQ0VSTi1PSEwtVyB0b28uCkJSLCBBbmRyZXkKCjA1LjA4LjIwMjEgNDowMCwg
+U3RhZmZvcmQgSG9ybmUg0L/QuNGI0LXRgjoKPiBJIGFncmVlIGFzIHdlbGwsIENFUk4tT0hMLVcg
+c291bmRzIHJpZ2h0LiAgQWxzbywgdG8gZG8gdGhlIGNoYW5nZSBhIFBSCj4gdXBkYXRpbmcgYWxs
+IHRoZSBmaWxlcyBoZWFkZXJzIGFuZCB0aGUgbGljZW5zZSBmaWxlIHdvdWxkIGJlIHRoZSB3YXkK
+PiB0byBkbyBpdC4KPiAKPiBDQ2luZyBBbmRyZXkgYXMgd2VsbCBhbmQgaGUgZGlkIGEgbG90IG9m
+IHdvcmsgb24gbW9yMWt4IEZQVSBhbmQgb3RoZXIgcGFydHMuCj4gCj4gT24gV2VkLCBBdWcgNCwg
+MjAyMSBhdCAxOjMyIFBNIFN0ZWZhbiBLcmlzdGlhbnNzb24KPiA8c3RlZmFuLmtyaXN0aWFuc3Nv
+bkBzYXVuYWxhaHRpLmZpPiB3cm90ZToKPj4KPj4gSSdtIGluIGZhdm9yLCBhbmQgSSBhZ3JlZSB0
+aGF0IENFUk4tT0hMLVcgc291bmRzIGxpa2UgdGhlIHJpZ2h0IGZsYXZvci4KPj4KPj4gT24gV2Vk
+LCBBdWcgNCwgMjAyMSBhdCA2OjUwIEFNIEp1bGl1cyBCYXh0ZXIgPGp1bGl1c2JheHRlckBnbWFp
+bC5jb20+IHdyb3RlOgo+Pj4KPj4+IEhlbGxvIGZlbGxvdyBtb3Ixa3ggZGV2ZWxvcGVycywKPj4+
+Cj4+PiBJJ3ZlIGJlZW4gbWVhbmluZyB0byBkbyB0aGlzIGZvciBhIHdoaWxlLCBidXQgSSdkIGxp
+a2UgdG8gcHJvcG9zZSB3ZSBzd2l0Y2ggdGhlIGxpY2VuY2Ugb2YgdGhlIG1vcjFreCB0byB0aGUg
+Q0VSTiBPSEwgdjIsIGFuZCB0aGVuIEkgY2FuIEVPTCB0aGUgT0hETC4KPj4+Cj4+PiBUaGVyZSBh
+cmUgMyB0eXBlcyBvZiB0aGUgT0hMIHYyIGxpY2VuY2UsIGJhc2ljYWxseSAxKSBzdHJvbmdseSBy
+ZWNpcHJvY2FsLCAyKSB3ZWFrbHkgcmVjaXByb2NhbCwgYW5kIDMpIHBlcm1pc3NpdmUuCj4+Pgo+
+Pj4gSW4gdGhlIHNwaXJpdCBvZiB0aGUgT0hETCB0aGUgbW9yMWt4IGlzIGN1cnJlbnRseSBsaWNl
+bnNlZCB1bmRlciwgSSdkIHN1Z2dlc3Qgd2UgZ28gd2l0aCB0aGUgd2Vha2x5LXJlY2lwcm9jYWwg
+bGljZW5jZSwgdGhlIENFUk4tT0hMLVcuCj4+Pgo+Pj4gVGhlIE9IV1Igc2l0ZSBoYXMgYSBuaWNl
+IEZBUSBkZXNjcmliaW5nIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gdGhlc2UgdjIgZmxhdm91cnM6
+Cj4+PiBodHRwczovL29od3Iub3JnL3Byb2plY3QvY2Vybm9obC93aWtpcy9mYXEjcS13aGF0LWFy
+ZS1hbGwtdGhlc2Utc3VmZml4ZXMKPj4+Cj4+PiBUaGUgaWRlYSBiZWhpbmQgdGhlIE9IREwgd2Fz
+IHRoYXQgaXQnZCBiZSBmaWxlLWxldmVsIGNvcHlsZWZ0LCBqdXN0IGxpa2UgdGhlIE1QTCAob3Ig
+YXQgbGVhc3QgYXMgSSBpbnRlcnByZXRlZCBpdCkgaXQgd2FzIGJhc2VkIG9uICh2aWEgbS14IHF1
+ZXJ5LXJlcGxhY2UgaW4gRW1hY3MgOi1QICkuIEkgdGhpbmsgaXQnZCBiZSBnb29kIHRvIGJhY2sg
+dGhlIHdvcmsgSmF2aWVyIGFuZCBBbmRyZXcgYW5kIE1pcmlhbSBoYXZlIGRvbmUgd2l0aCBvdXIg
+b3duIHdvcmsuCj4+Pgo+Pj4gSSdtIGNvcHlpbmcgdGhlIE9wZW5SSVNDIGxpc3QgYmVjYXVzZSBJ
+IGd1ZXNzIEkgd2FudCB0byBtYWtlIHN1cmUgYW55IGNvbnRyaWJ1dG9yIGZyb20gdGhlIHBhc3Qg
+Z2V0cyBhIGhlYWRzIHVwLCB0b28uCj4+Pgo+Pj4gVGhpcyBpcyB0aGUgZmlyc3QgdGltZSBJJ3Zl
+IGRvbmUgc29tZXRoaW5nIGxpa2UgdGhpcywgc28gYW0gbm90IHRvbyBmYW1pbGlhciB3aXRoIHRo
+ZSBwcm9jZXNzLiBTaG91bGQgSSBqdXN0IGRvIGEgUFIgb24gZ2l0aHViIGFuZCB3ZSBjYW4gZGVi
+YXRlIGl0IG9uIHRoZXJlPwo+Pj4KPj4+IEFueXdheSwgSSdtIGludGVyZXN0ZWQgaW4geW91ciB0
+aG91Z2h0cy4gRmVlbCBmcmVlIHRvIGNvbnRhY3QgbWUgb2ZmIGxpc3QgaWYgeW91IHByZWZlci4g
+VW5sZXNzIGFueW9uZSBvYmplY3RzLCBJJ2xsIGRvIGEgUFIgcmVsaWNlbnNpbmcgdGhlIElQIGlu
+IHRoZSBjb21pbmcgd2VlayBvciBzby4KPj4+Cj4+PiBDaGVlcnMsCj4+PiBKdWxpdXMKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGlu
+ZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVj
+b3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
