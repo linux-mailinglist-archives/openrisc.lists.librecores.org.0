@@ -2,59 +2,49 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B7063E8508
-	for <lists+openrisc@lfdr.de>; Tue, 10 Aug 2021 23:15:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DEE443E8A3B
+	for <lists+openrisc@lfdr.de>; Wed, 11 Aug 2021 08:31:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id B97B224079;
-	Tue, 10 Aug 2021 23:15:49 +0200 (CEST)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by mail.librecores.org (Postfix) with ESMTPS id 5E67A23F83
- for <openrisc@lists.librecores.org>; Tue, 10 Aug 2021 23:15:47 +0200 (CEST)
-Received: by mail-pj1-f52.google.com with SMTP id
- s22-20020a17090a1c16b0290177caeba067so6284406pjs.0
- for <openrisc@lists.librecores.org>; Tue, 10 Aug 2021 14:15:47 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 7E766210E3;
+	Wed, 11 Aug 2021 08:31:33 +0200 (CEST)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ by mail.librecores.org (Postfix) with ESMTPS id 2895620417
+ for <openrisc@lists.librecores.org>; Tue, 10 Aug 2021 16:40:26 +0200 (CEST)
+Received: by mail-yb1-f179.google.com with SMTP id z5so34824871ybj.2
+ for <openrisc@lists.librecores.org>; Tue, 10 Aug 2021 07:40:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=RGyN6B+oepLK5COlIQIu0Zg6xm5eWTbyTPOp1hx9GWk=;
- b=qroWg+lyQTF5da3CrND6OLNSNWVz6DyWAF8VgL1fo2SJHuwXB9YWKauFqcX85LOkmy
- 8RVT2SbtEeyj86T+BYpGrorwejhONijGBfF5Um2s5pWADhIRA4Pm7Cg41m/qwitli0Yb
- 1CJHatNT0IhskHx9iJH8qfrmUSheZNF1QUNWk4sTlYDGzVVDSTiCgGRJgWLdeLm3i92y
- 9g+28RHSbvrWvWGLYZoIlrdsc0Yv741/j2sC5seihl0fLGS+xz/csEri2x5YveEoazvl
- F1ok1vfOagpdqz0MaSXXmBlljyp7n8hHCD9j2Pq5Qk4TM3XqwXa9KZsyP2/kFI0JVCET
- dv9A==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=o8V+K4ppScopuCZBe72HWUzhCyjrxRlwwS1aT33na7U=;
+ b=kbDKMdzoD3kdTo+HdZIC9Mit9Sj9d2nu4p9I0r8LlMpG6hErou1U0XT2WfEfvikwyv
+ wV+Y2hF0EYsxJmNpPxes1TCK13dAsRzbAbRazkIlGE2+URTWIDkjNig2opzYriVnDxPD
+ iGUIUOWtU7EgjAgMEVRQ2GlCbDdyX/4IOM7x1eGVqLI4aGcLbN5gy81PyKIa7UtuTm8V
+ XcDho6hsXuVQVNsUnkBfxBy+/3GNYKtchxG0CV590bD1Tdz7P8sAsZndj5F38JDvXJr8
+ 6oWN4gTyyOuJ1+GjAvZc+YbwNSFUtAMNyJCcpVU9IhFVbWAM8YvK5roU6W/+MQdRw7Os
+ hf1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=RGyN6B+oepLK5COlIQIu0Zg6xm5eWTbyTPOp1hx9GWk=;
- b=OStnH/y9e9sHB/umvBRItTBf/NXlJfnOwGBfZYsgDikklg8E6djiPAI93fBdYM2rjg
- FZ+9ZXU9S4UT3WJzyqopcp2PRV8/XsxXd8J1GDog1QzDwO0c2jsU3KH3e3f/gCG+mWtG
- SLnGlTPQZK1Bl2UanB51mp6SSipSURC9NDX0sye96Od8C82razv6eJ4xyd3l975qTMJq
- viijCUG5AXxLdEeTJiVsx8A3SiOIvDyM8qeOxtJGB56AWQl4vl6tLSwdgLH+9MaoXLR6
- BbPziVAqew7Vb1G995gJ7r+R3Tfq2wKy7rGw2t2sUMrWVkqG8O+U9ttSJNOUl+EHTsMj
- hULQ==
-X-Gm-Message-State: AOAM532CWy1supdNOXoFcc7WzgXBiNY07ATvDRDWd8awYBaJyTUXg8XO
- gvYuSm5CnJLNn195niPS2HE=
-X-Google-Smtp-Source: ABdhPJyqemEnliLO65WklVw8TWQK4RO38BF68T6O14/5adEk0Fu0g4RN1erX9WU3VuiDs7YsMlf7KA==
-X-Received: by 2002:a17:90b:609:: with SMTP id
- gb9mr33751834pjb.156.1628630145855; 
- Tue, 10 Aug 2021 14:15:45 -0700 (PDT)
-Received: from localhost (g195.61-45-49.ppp.wakwak.ne.jp. [61.45.49.195])
- by smtp.gmail.com with ESMTPSA id j187sm24731451pfb.132.2021.08.10.14.15.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Aug 2021 14:15:45 -0700 (PDT)
-Date: Wed, 11 Aug 2021 06:15:43 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <YRLsf2VyGTQVapuV@antec>
-References: <20210808135437.3640549-1-shorne@gmail.com>
- <8a830ab7-6b66-1ca9-bd73-fc1551def648@infradead.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=o8V+K4ppScopuCZBe72HWUzhCyjrxRlwwS1aT33na7U=;
+ b=UnTnDNEhM5+sbXelG75+8MLxHUUXymBfRpYqFA5Nw5aI7yCrcVHzGKUleIZn2x8WhF
+ Ui8L6hpR976LpHa/ELyQxdsxCDRKbUxhvdgOLHz0qNdoBGmdTHuNHEyLUzwi0pbQCZsK
+ lYE5GAy8NRboVr8+BXT/twJvBUrmU9ADNgpOSinlAj2KCUvtOkd2PjK2QsInqSbNDi+d
+ 8WEGDn3g40Luwc9dV6VoVe7mION6Hdkhcqm8RsPvFX/tZ4Lnf7vhiqiJp/B8p/JMgz+k
+ wOaIqC1y2XSJPKrXszKgrPN+K65saESFIua/vsdT0SiVLX3bHgUsO7D5ZmwEcLGT4zzX
+ b9EA==
+X-Gm-Message-State: AOAM533UNP69DhV0Oks8zrBySrwuxxPxbHJL5rWY0pFQQvfGRzWucwxL
+ 2rG/D1B5HIvyln1JbsZcAQDo9MKCj8mPxLBVidXMhj2XwQs=
+X-Google-Smtp-Source: ABdhPJz+LcpIbWrmaCQDw3dfFDtdafLXfsw/zJm/DpbBpEdT5+NiUwgrHzCp3ZvxyxOlWdS6a/PMpnzhe2xru1o8Mzs=
+X-Received: by 2002:a25:26c3:: with SMTP id
+ m186mr39617436ybm.293.1628606424859; 
+ Tue, 10 Aug 2021 07:40:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8a830ab7-6b66-1ca9-bd73-fc1551def648@infradead.org>
-Subject: Re: [OpenRISC] [PATCH v2] openrisc: Fix compiler warnings in setup
+From: Daniel Gutson <danielgutson@gmail.com>
+Date: Tue, 10 Aug 2021 11:40:14 -0300
+Message-ID: <CAFdMc-3=EpEfW+in+-SWuiaKqyQ_3r6Qb08SvWD9GiEsRFCYpg@mail.gmail.com>
+To: openrisc@lists.librecores.org
+X-Mailman-Approved-At: Wed, 11 Aug 2021 08:31:32 +0200
+Subject: [OpenRISC] Damjan Lampret
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -67,76 +57,63 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, Kefeng Wang <wangkefeng.wang@huawei.com>,
- kernel test robot <lkp@intel.com>, LKML <linux-kernel@vger.kernel.org>,
- Openrisc <openrisc@lists.librecores.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1699270631732414966=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTW9uLCBBdWcgMDksIDIwMjEgYXQgMTA6NTE6MDFBTSAtMDcwMCwgUmFuZHkgRHVubGFwIHdy
-b3RlOgo+IE9uIDgvOC8yMSA2OjU0IEFNLCBTdGFmZm9yZCBIb3JuZSB3cm90ZToKPiA+IFRoaXMg
-d2FzIHBvaW50ZWQgb3V0IHdpdGggdGhlIHJlY2VudCBuYW1lIGNoYW5nZSBvZiBvcjMyX2Vhcmx5
-X3NldHVwIHRvCj4gPiBvcjFrX2Vhcmx5X3NldHVwLiAgSW52ZXN0aWdhdGluZyB0aGUgZmlsZSBJ
-IGZvdW5kIGEgZmV3IG90aGVyIHdhcm5pbmdzCj4gPiBzbyBjbGVhbmluZyB0aGVtIHVwIGhlcmUu
-Cj4gPiAKPiA+ICAgICAgYXJjaC9vcGVucmlzYy9rZXJuZWwvc2V0dXAuYzoyMjA6MTM6IHdhcm5p
-bmc6IG5vIHByZXZpb3VzIHByb3RvdHlwZSBmb3IgJ29yMWtfZWFybHlfc2V0dXAnIFstV21pc3Np
-bmctcHJvdG90eXBlc10KPiA+ICAgICAgICAyMjAgfCB2b2lkIF9faW5pdCBvcjFrX2Vhcmx5X3Nl
-dHVwKHZvaWQgKmZkdCkKPiA+IAkgIHwgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fgo+ID4g
-Cj4gPiBGaXggdGhpcyB0aGUgbWlzc2luZyBvcjFrX2Vhcmx5X3NldHVwIHByb3RvdHlwZSB3YXJu
-aW5nIGJ5IGFkZGluZyBhbgo+ID4gYXNtL3NldHVwLmggZmlsZSB0byBkZWZpbmUgdGhlIHByb3Rv
-dHlwZS4KPiA+IAo+ID4gICAgICBhcmNoL29wZW5yaXNjL2tlcm5lbC9zZXR1cC5jOjI0NjoxMzog
-d2FybmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciAnZGV0ZWN0X3VuaXRfY29uZmlnJyBb
-LVdtaXNzaW5nLXByb3RvdHlwZXNdCj4gPiAgICAgICAgMjQ2IHwgdm9pZCBfX2luaXQgZGV0ZWN0
-X3VuaXRfY29uZmlnKHVuc2lnbmVkIGxvbmcgdXByLCB1bnNpZ25lZCBsb25nIG1hc2ssCj4gPiAJ
-ICB8ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fgo+ID4gCj4gPiBUaGUgZnVuY3Rpb24g
-ZGV0ZWN0X3VuaXRfY29uZmlnIGlzIG5vdCB1c2VkLCBqdXN0IHJlbW92ZSBpdC4KPiA+IAo+ID4g
-ICAgICBhcmNoL29wZW5yaXNjL2tlcm5lbC9zZXR1cC5jOjIyMTogd2FybmluZzogRnVuY3Rpb24g
-cGFyYW1ldGVyIG9yIG1lbWJlciAnZmR0JyBub3QgZGVzY3JpYmVkIGluICdvcjFrX2Vhcmx5X3Nl
-dHVwJwo+ID4gCj4gPiBBZGQgQGZkdCBkb2NzIHRvIHRoZSBmdW5jdGlvbiBjb21tZW50IHRvIHN1
-cHByZXNzIHRoaXMgd2FybmluZy4KPiA+IAo+ID4gUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJv
-Ym90IDxsa3BAaW50ZWwuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogU3RhZmZvcmQgSG9ybmUgPHNo
-b3JuZUBnbWFpbC5jb20+Cj4gCj4gUmV2aWV3ZWQtYnk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBp
-bmZyYWRlYWQub3JnPgo+IAo+IFRoYW5rcy4KClRoYW5rIHlvdS4KCj4gPiAtLS0KPiA+IAo+ID4g
-Q2hhbmdlcyBzaW5jZSB2MToKPiA+ICAgLSBBZGQgI2luY2x1ZGUgPGxpbnV4L2luaXQuaD4gdG8g
-Zml4IGNvbXBpbGUgZmFpbHVyZS4gIFBvaW50ZWQgb3V0IGJ5IHJvYm90IGFuZAo+ID4gICAgIHJh
-bmR5Lgo+ID4gCj4gPiAgIGFyY2gvb3BlbnJpc2MvaW5jbHVkZS9hc20vc2V0dXAuaCB8IDE1ICsr
-KysrKysrKysrKysrKwo+ID4gICBhcmNoL29wZW5yaXNjL2tlcm5lbC9zZXR1cC5jICAgICAgfCAx
-NiArLS0tLS0tLS0tLS0tLS0tCj4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygr
-KSwgMTUgZGVsZXRpb25zKC0pCj4gPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL29wZW5yaXNj
-L2luY2x1ZGUvYXNtL3NldHVwLmgKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2FyY2gvb3BlbnJpc2Mv
-aW5jbHVkZS9hc20vc2V0dXAuaCBiL2FyY2gvb3BlbnJpc2MvaW5jbHVkZS9hc20vc2V0dXAuaAo+
-ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4uOWFjYmM1ZGVk
-YTY5Cj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9hcmNoL29wZW5yaXNjL2luY2x1ZGUvYXNt
-L3NldHVwLmgKPiA+IEBAIC0wLDAgKzEsMTUgQEAKPiA+ICsvKiBTUERYLUxpY2Vuc2UtSWRlbnRp
-ZmllcjogR1BMLTIuMCAqLwo+ID4gKy8qCj4gPiArICogQ29weXJpZ2h0IChDKSAyMDIxIFN0YWZm
-b3JkIEhvcm5lCj4gPiArICovCj4gPiArI2lmbmRlZiBfQVNNX09SMUtfU0VUVVBfSAo+ID4gKyNk
-ZWZpbmUgX0FTTV9PUjFLX1NFVFVQX0gKPiA+ICsKPiA+ICsjaW5jbHVkZSA8bGludXgvaW5pdC5o
-Pgo+ID4gKyNpbmNsdWRlIDxhc20tZ2VuZXJpYy9zZXR1cC5oPgo+ID4gKwo+ID4gKyNpZm5kZWYg
-X19BU1NFTUJMWV9fCj4gPiArdm9pZCBfX2luaXQgb3Ixa19lYXJseV9zZXR1cCh2b2lkICpmZHQp
-Owo+ID4gKyNlbmRpZgo+ID4gKwo+ID4gKyNlbmRpZiAvKiBfQVNNX09SMUtfU0VUVVBfSCAqLwo+
-ID4gZGlmZiAtLWdpdCBhL2FyY2gvb3BlbnJpc2Mva2VybmVsL3NldHVwLmMgYi9hcmNoL29wZW5y
-aXNjL2tlcm5lbC9zZXR1cC5jCj4gPiBpbmRleCA3ZWRkY2FjMGVmMmYuLjBjZDA0ZDkzNmE3YSAx
-MDA2NDQKPiA+IC0tLSBhL2FyY2gvb3BlbnJpc2Mva2VybmVsL3NldHVwLmMKPiA+ICsrKyBiL2Fy
-Y2gvb3BlbnJpc2Mva2VybmVsL3NldHVwLmMKPiA+IEBAIC0yMTAsNiArMjEwLDcgQEAgdm9pZCBf
-X2luaXQgc2V0dXBfY3B1aW5mbyh2b2lkKQo+ID4gICAvKioKPiA+ICAgICogb3Ixa19lYXJseV9z
-ZXR1cAo+ID4gKyAqIEBmZHQ6IHBvaW50ZXIgdG8gdGhlIHN0YXJ0IG9mIHRoZSBkZXZpY2UgdHJl
-ZSBpbiBtZW1vcnkgb3IgTlVMTAo+ID4gICAgKgo+ID4gICAgKiBIYW5kbGVzIHRoZSBwb2ludGVy
-IHRvIHRoZSBkZXZpY2UgdHJlZSB0aGF0IHRoaXMga2VybmVsIGlzIHRvIHVzZQo+ID4gICAgKiBm
-b3IgZXN0YWJsaXNoaW5nIHRoZSBhdmFpbGFibGUgcGxhdGZvcm0gZGV2aWNlcy4KPiA+IEBAIC0y
-NDMsMjEgKzI0NCw2IEBAIHN0YXRpYyBpbmxpbmUgdW5zaWduZWQgbG9uZyBleHRyYWN0X3ZhbHVl
-KHVuc2lnbmVkIGxvbmcgcmVnLCB1bnNpZ25lZCBsb25nIG1hc2spCj4gPiAgIAlyZXR1cm4gbWFz
-ayAmIHJlZzsKPiA+ICAgfQo+ID4gLXZvaWQgX19pbml0IGRldGVjdF91bml0X2NvbmZpZyh1bnNp
-Z25lZCBsb25nIHVwciwgdW5zaWduZWQgbG9uZyBtYXNrLAo+ID4gLQkJCSAgICAgICBjaGFyICp0
-ZXh0LCB2b2lkICgqZnVuYykgKHZvaWQpKQo+ID4gLXsKPiA+IC0JaWYgKHRleHQgIT0gTlVMTCkK
-PiA+IC0JCXByaW50aygiJXMiLCB0ZXh0KTsKPiA+IC0KPiA+IC0JaWYgKHVwciAmIG1hc2spIHsK
-PiA+IC0JCWlmIChmdW5jICE9IE5VTEwpCj4gPiAtCQkJZnVuYygpOwo+ID4gLQkJZWxzZQo+ID4g
-LQkJCXByaW50aygicHJlc2VudFxuIik7Cj4gPiAtCX0gZWxzZQo+ID4gLQkJcHJpbnRrKCJub3Qg
-cHJlc2VudFxuIik7Cj4gPiAtfQo+ID4gLQo+ID4gICAvKgo+ID4gICAgKiBjYWxpYnJhdGVfZGVs
-YXkKPiA+ICAgICoKPiA+IAo+IAo+IAo+IC0tIAo+IH5SYW5keQo+IApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3Bl
-blJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9s
-aXN0aW5mby9vcGVucmlzYwo=
+--===============1699270631732414966==
+Content-Type: multipart/alternative; boundary="0000000000006ec83005c9357b0b"
+
+--0000000000006ec83005c9357b0b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+    Sorry to post this here, I'm looking for Damjan Lampret to invite him
+to an academic talk, but I can't find
+any email or profile. If somebody here knows him, could you please help me
+to contact him?
+
+Thanks,
+
+    Daniel.
+
+--=20
+Who=E2=80=99s got the sweetest disposition?
+One guess, that=E2=80=99s who?
+Who=E2=80=99d never, ever start an argument?
+Who never shows a bit of temperament?
+Who's never wrong but always right?
+Who'd never dream of starting a fight?
+Who get stuck with all the bad luck?
+
+--0000000000006ec83005c9357b0b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>=C2=A0 =C2=A0 Sorry to post this he=
+re, I&#39;m looking for Damjan Lampret to invite him to an academic talk, b=
+ut I can&#39;t find</div><div>any email or profile. If somebody here knows =
+him, could you please help me to contact him?</div><div><br></div><div>Than=
+ks,</div><div><br></div><div>=C2=A0 =C2=A0 Daniel.<br clear=3D"all"><div><b=
+r></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D=
+"gmail_signature">Who=E2=80=99s got the sweetest disposition?<br>One guess,=
+ that=E2=80=99s who?<br>Who=E2=80=99d never, ever start an argument?<br>Who=
+ never shows a bit of temperament?<br>Who&#39;s never wrong but always righ=
+t?<br>Who&#39;d never dream of starting a fight?<br>Who get stuck with all =
+the bad luck? </div></div></div>
+
+--0000000000006ec83005c9357b0b--
+
+--===============1699270631732414966==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============1699270631732414966==--
