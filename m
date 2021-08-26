@@ -2,55 +2,57 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A7553F88F5
-	for <lists+openrisc@lfdr.de>; Thu, 26 Aug 2021 15:29:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 235023F88F7
+	for <lists+openrisc@lfdr.de>; Thu, 26 Aug 2021 15:30:00 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id BD469240C6;
-	Thu, 26 Aug 2021 15:29:56 +0200 (CEST)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by mail.librecores.org (Postfix) with ESMTPS id E58822012B
- for <openrisc@lists.librecores.org>; Thu, 26 Aug 2021 15:29:55 +0200 (CEST)
-Received: by mail-pf1-f178.google.com with SMTP id a21so2782278pfh.5
- for <openrisc@lists.librecores.org>; Thu, 26 Aug 2021 06:29:55 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id F0D59213F3;
+	Thu, 26 Aug 2021 15:29:59 +0200 (CEST)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by mail.librecores.org (Postfix) with ESMTPS id CFF6220D48
+ for <openrisc@lists.librecores.org>; Thu, 26 Aug 2021 15:29:58 +0200 (CEST)
+Received: by mail-pf1-f169.google.com with SMTP id 18so2761186pfh.9
+ for <openrisc@lists.librecores.org>; Thu, 26 Aug 2021 06:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=o7mbhfLOAXvYyxdq8BjU71uPFdXWXrwGMZ1rikOJA54=;
- b=ADkVwjd0EglO5ubUi6W+EKavDbzb7iMnEr4q+I4AjeqcVoOuhUVdQl7FMFwp+uaPSM
- iKfPQ6cj8mUbOgMq6cV6fJcVL//eLPolwEn5I0C5KpbBlFg+qPvKYh9lyRenHE93lRqm
- pCbU3gxeIOfHpDO/FmfyaZxdGHEYQWNKZZkmdjJ2DeE+gD5aXeTwSS8SYGJjGJy8lTgu
- uHJXXuHpixix/YZN0s6FjuoxY3Uc9HwyflVBRYKsV8WdJHMNWJMiPYVjnBsHaFaJzSQz
- KuZFTWrsFPacs1QETBOXPKmgdqVNjs+TSyMLOCbHjjSwsAWigVbszNrYO0SXAIU3S9I1
- DEzA==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=+LoLO1M4+QB+q2rsvGYbdf/T5USS23kElc9PZhkYyxM=;
+ b=q+7zG5oZRWCTcfUjkCkBkprxotYrBiGWK1kdfs4WY/yY5ERaszNTJQ0qG2UuMCC4o9
+ YQvjayWXCwsH9bHMU87evauTv66bYJ4z6E51JZdKSWz85RnXtDql02XdtdmjMETYoWD5
+ Hezd3P1aR3lQDpfT1vbzAgU5X8bCHwoGc+taGBiRneJau0JRtasL0rcBFEBmQMLUOFA8
+ +3S8K++kzjoh9wQoK/1sKMU7emtdvCQedFg7WOJJozqEV8IRktV4CcFl9bjoS+NVNFFp
+ cM8+Dsi3cEplHnJGVgRznVTUOtlrlWFDO6gm5rh84NzYmvMgckYaiSIHFJvBfD0Q/iZq
+ KxVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=o7mbhfLOAXvYyxdq8BjU71uPFdXWXrwGMZ1rikOJA54=;
- b=WPBMqM4cLisM+u8VsD0YJi3hUPV9I69LCNPJ2f9LerlzcGKg95DJgaY6oH+DKq6Lvx
- WAgaITrX/vOWp9hBrhEXryhT91xca2SQH/Cm8EshuSqHas3ZtvnLBPsqRSYtdHq2s/n+
- 5Advb1EvI0MvrQXf15iM0Tr0xMlDpeWzHCsVsbcdFoBrrYVpfkC7ssMAeWvpa74iJGwJ
- DiNJqt4bhONYMEKrSldwX81gXazHb2lvO7WQf8CsftxXC02BMOQuU4P8wpEwpw43FJ05
- iA5n0h7Eh+15OFstf1dIWTjD3LoyqnaVbJs1qZMhhtIbpVi1fM2DaCI5rZru2+DEibJL
- IP+g==
-X-Gm-Message-State: AOAM530pKa1XZzL7dzHOndgFbPQIXyDP5STHi4nckljLFgDR4MzqTdYa
- XWAWQxsG+aH8AAuKs4pkWrY=
-X-Google-Smtp-Source: ABdhPJwrLueRWj30jqW87Ll3BnY9kEUGZkKkOToiqI6g/PSfvOdCfpAIcVvAtmAmBF9KSO6H0U2Lpg==
-X-Received: by 2002:a05:6a00:2142:b029:3b9:e5df:77ab with SMTP id
- o2-20020a056a002142b02903b9e5df77abmr3951650pfk.52.1629984594401; 
- Thu, 26 Aug 2021 06:29:54 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=+LoLO1M4+QB+q2rsvGYbdf/T5USS23kElc9PZhkYyxM=;
+ b=N8fF/e/2G+Jr/LxRU3d3qYZeZayNVkSleznMUHe5OtgddVe40xF5Bs4NLLT2/gJ+6P
+ O3gCLCnlIkJKes6zTSUDrzmemfnCxRcpdYld02ZELChTEkZx5yA0+HRitZHtxeA3tvgF
+ 6t9RTr/Rt0zRsiWLDtJYlSJdbLfFs+BV557l+a+U7orm/V9sRqiR42kTtLp1Ov0aCtRM
+ Tx9kf0vaTIT18NTG5Rk4vUoUtCnOf0raMSvcvr6uEmguZhjQw7GnbsgnKLaFowXMJCJg
+ Sues89K5wnet37PPFtXCx6A28W3GBficuQBFonIc4R2/A4z3HsnjpSsU76MH6UG/5urD
+ CnSA==
+X-Gm-Message-State: AOAM5321t/O4LliIK1a1e754oLiblctEe7FdnBOgy9opiGREYO4IkpEN
+ AU2kl2dcms4wGd3gwCshuyE=
+X-Google-Smtp-Source: ABdhPJyIIDSvk072nKRS5xd/3OaR0yLI18mTOtlLdnEwy1XJTW+8VdKvVifbbSoNWJVKIhDUVzi5bg==
+X-Received: by 2002:aa7:8685:0:b0:3e1:76d8:922e with SMTP id
+ d5-20020aa78685000000b003e176d8922emr3811341pfo.45.1629984597420; 
+ Thu, 26 Aug 2021 06:29:57 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.15])
- by smtp.gmail.com with ESMTPSA id w186sm3359693pfw.78.2021.08.26.06.29.51
+ by smtp.gmail.com with ESMTPSA id w186sm3359693pfw.78.2021.08.26.06.29.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Aug 2021 06:29:53 -0700 (PDT)
+ Thu, 26 Aug 2021 06:29:56 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: Stafford Horne <shorne@gmail.com>
-Date: Thu, 26 Aug 2021 22:59:43 +0930
-Message-Id: <20210826132946.3324593-1-joel@jms.id.au>
+Date: Thu, 26 Aug 2021 22:59:44 +0930
+Message-Id: <20210826132946.3324593-2-joel@jms.id.au>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210826132946.3324593-1-joel@jms.id.au>
+References: <20210826132946.3324593-1-joel@jms.id.au>
 MIME-Version: 1.0
-Subject: [OpenRISC] [PATCH 0/3] openrisc/litex: Add liteeth support
+Subject: [OpenRISC] [PATCH 1/3] openrisc/litex: Update uart address
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,17 +71,19 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGVsbG8gU3RhZmZvcmQsCgpIZXJlIGFyZSBzb21lIGNoYW5nZXMgc28gdGhhdCB0aGUgb3BlbnJp
-c2Mga2VybmVsIGNhbiBib290IHdpdGggZXRoZXJuZXQKc3VwcG9ydCB3aXRoIHRoZSBpbi10cmVl
-IGRldmljZSB0cmVlLgoKSSBoYXZlIGFsc28gdXBkYXRlZCB0aGUgYWRkcmVzcyBvZiB0aGUgc2Vy
-aWFsIGRldmljZSB0byBtYXRjaCByZWNlbnQKbGl0ZXguIEkgcmVhbGlzZSB0aGlzIG1heSBrZWVw
-IGNoYW5naW5nLCBidXQgaXQgZG9lcyBtYWtlIGl0IGVhc2llciB0bwp0ZXN0IHVwc3RyZWFtIGtl
-cm5lbHMgaWYgdGhlIGJhc2ljcyB3b3JrLgoKSm9lbCBTdGFubGV5ICgzKToKICBvcGVucmlzYy9s
-aXRleDogVXBkYXRlIHVhcnQgYWRkcmVzcwogIG9wZW5yaXNjL2xpdGV4OiBBZGQgZXRoZXJuZXQg
-ZGV2aWNlCiAgb3BlbnJpc2MvbGl0ZXg6IFVwZGF0ZSBkZWZjb25maWcKCiBhcmNoL29wZW5yaXNj
-L2Jvb3QvZHRzL29yMWtsaXRleC5kdHMgICAgICB8IDEzICsrKysrKysrKystLQogYXJjaC9vcGVu
-cmlzYy9jb25maWdzL29yMWtsaXRleF9kZWZjb25maWcgfCAyNiArKysrKysrKysrKysrKy0tLS0t
-LS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyNyBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkK
-Ci0tIAoyLjMzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpo
-dHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+UmVjZW50IGxpdGV4IHNvY3Mgd2lsbCBwbGFjZSB0aGUgVUFSVCBhdCAweGUwMDA2ODAwLgoKU2ln
+bmVkLW9mZi1ieTogSm9lbCBTdGFubGV5IDxqb2VsQGptcy5pZC5hdT4KLS0tCiBhcmNoL29wZW5y
+aXNjL2Jvb3QvZHRzL29yMWtsaXRleC5kdHMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9vcGVucmlzYy9i
+b290L2R0cy9vcjFrbGl0ZXguZHRzIGIvYXJjaC9vcGVucmlzYy9ib290L2R0cy9vcjFrbGl0ZXgu
+ZHRzCmluZGV4IDNmOTg2N2FhMzg0NC4uYmFiYTRmNDlmYTZiIDEwMDY0NAotLS0gYS9hcmNoL29w
+ZW5yaXNjL2Jvb3QvZHRzL29yMWtsaXRleC5kdHMKKysrIGIvYXJjaC9vcGVucmlzYy9ib290L2R0
+cy9vcjFrbGl0ZXguZHRzCkBAIC00MSwxMCArNDEsMTAgQEAgcGljOiBwaWMgewogCQlpbnRlcnJ1
+cHQtY29udHJvbGxlcjsKIAl9OwogCi0Jc2VyaWFsMDogc2VyaWFsQGUwMDAyMDAwIHsKKwlzZXJp
+YWwwOiBzZXJpYWxAZTAwMDY4MDAgewogCQlkZXZpY2VfdHlwZSA9ICJzZXJpYWwiOwogCQljb21w
+YXRpYmxlID0gImxpdGV4LGxpdGV1YXJ0IjsKLQkJcmVnID0gPDB4ZTAwMDIwMDAgMHgxMDA+Owor
+CQlyZWcgPSA8MHhlMDAwNjgwMCAweDEwMD47CiAJfTsKIAogCXNvY19jdHJsMDogc29jX2NvbnRy
+b2xsZXJAZTAwMDAwMDAgewotLSAKMi4zMy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMu
+bGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVu
+cmlzYwo=
