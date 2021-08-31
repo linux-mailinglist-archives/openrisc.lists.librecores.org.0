@@ -2,53 +2,64 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id DF4A63FCBDB
-	for <lists+openrisc@lfdr.de>; Tue, 31 Aug 2021 18:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 39C5B3FCC0B
+	for <lists+openrisc@lfdr.de>; Tue, 31 Aug 2021 19:07:45 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 53BE624078;
-	Tue, 31 Aug 2021 18:52:42 +0200 (CEST)
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by mail.librecores.org (Postfix) with ESMTPS id E7D8423F07
- for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 18:52:39 +0200 (CEST)
-Received: by mail-io1-f51.google.com with SMTP id f6so25901445iox.0
- for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 09:52:39 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id EB6E023F07;
+	Tue, 31 Aug 2021 19:07:41 +0200 (CEST)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by mail.librecores.org (Postfix) with ESMTPS id E04C523F07
+ for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 19:07:39 +0200 (CEST)
+Received: by mail-pl1-f181.google.com with SMTP id q21so11035919plq.3
+ for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 10:07:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=2sSBZ12gPAi/P1rZGlAA1UVAT2yeyM6mAfTzlIEvyCU=;
- b=A8SNOWRQY8Fr1i0JeaEwgRolXNj6LrzUodIBivDKyPYOTsqx+7NXqywuuT8P1A0GON
- Eo+CNnXxIsQhWPYAvimUoX4BjP4hgRupopd/Jj+/IbLiKHx82QRmLCUdMna5RpAZnztE
- hNGknpp6GzRB51zLyHYpos43rI6iyarD6LK/TaHSwkSY2E4/lmvEzSCbqeBoV5wHrvZf
- 2XZeC9M9lV+bYIRy8Txj3RF0z1rvvzE+0CpTMoiYPXio4w+KThLk+KRiFvwlwcXgPlZq
- ugpAQtm8Yhd4nuxWP1DOyeUAYlo4jqN8EoAy6wvy60D+vZvyfkLXpgq1TjL3OjHHs2uu
- WvjQ==
+ h=from:message-id:subject:reply-to:to:date:in-reply-to:references
+ :user-agent:mime-version;
+ bh=ylYlUlHbVRFuZN+EtphWQCwYQ6REx/oKEHwGsqrp4ao=;
+ b=GcYbCBlMZHs6LRLIHwHR430wTCWbrH2fuiTQ/2UrrQjyDH6GvecykJ9ALVUgJbjqI6
+ maD462T/hawL6GpbBmEUmTmqALfbwLTCnjTAVONlKt1Y8tuiueWcbTeIeIaPCi/XCcYF
+ QhZL57md9cZ9e8zaDjMpbffin0D0SofuAjXyoZgYTZLup6P9BjZaLKQ+VLikrkIbRd13
+ iLZKdhsQ5wZwhQfMPqiINYns67Os2RX0FpaISIvaijl6m1MXCkW4r+LsLhtJpTstOnwp
+ BaowK9etIHLPgc0SOEc0S82BYlP5DYWA1dxOqhZwOW1fQiiNjWQPb5gzvOdoLNqYRyZQ
+ NkXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=2sSBZ12gPAi/P1rZGlAA1UVAT2yeyM6mAfTzlIEvyCU=;
- b=GovHxg0X8WmyTR+rxX7y2CYebS992/zVaQenvPqEpclpeYS+EANzzUcK0VXygPmxKS
- hPMgRH0wHMlj8PPWMTv4XHH76Uh21LQRKhNd7Kl8AdGsnhwXgZ58MwamqLIFrJHJ7gJf
- ua7gxatPfDF6F8FB2j+/CNNslkRKTDd0JY8uCDGwZ/5/k5FBKQ6IIOsxdamiiyk9wV8d
- v6MKg4x5Nn/+GPansEq1sHBFQ9hAphORpLEdj+zv7cSdigW+vWYjCa7zd2dEgIoKvUjO
- KuwCfmcMKbWRxWLX69b8A5SjfT2aPbUQ3puEU5sszLz/oJJDpIMBaW4JmZW3hrNIjJm8
- pQOA==
-X-Gm-Message-State: AOAM531Yb04i59c1o5iFWfF9+ZH7NnjnL3Djn7rLlmLFRMS7+qrxURwv
- Yj2d2PmFgZNP3cucJf9VNKDRO4qipAHXBS4s+bZSMzrHuUnxCbTS
-X-Google-Smtp-Source: ABdhPJypc7/y64yjznrA2Hay4RhQlbs5SH/pPs+af+8PUtazeCeMYJTrfP0x8NBQfMyFYgRhtTwEz+xyrWRZCaC+jqU=
-X-Received: by 2002:a6b:f214:: with SMTP id q20mr23900726ioh.84.1630428757976; 
- Tue, 31 Aug 2021 09:52:37 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:from:message-id:subject:reply-to:to:date
+ :in-reply-to:references:user-agent:mime-version;
+ bh=ylYlUlHbVRFuZN+EtphWQCwYQ6REx/oKEHwGsqrp4ao=;
+ b=UiwWIyCjuZzGu8BKli4BUL/fAuXQU1jsY4/Qi8fVBsUD+LhsaU/Fpqx7Yjr3FvMGVQ
+ meLoni/Uf1K6HjkJgbx+9kQbK8cNUfYrVjIwc3k2Fk0ldx92HlWmcX9eR9P2CF79Yu27
+ Hv5XVLVi54d+DspUJd9S8VNSC5LULX8sc/hUtk1rgsBTP1OFiKGnmpxnDItUxv3qFFVs
+ EUChDUUN/MeT9Tn8JtZ+RQ+cM+T7tHhxvPDtaDojiwc8wQa47YNAogyIHQhhXpuhZUcs
+ 18YPVzac6FSnvoU/TkowtuMjirhkfLfZGGak5J+23fYgjdwl/ULXLzJ/hDzrW678B9s/
+ lktQ==
+X-Gm-Message-State: AOAM5304WvMpLtlnyk3G/dN5Dp8B0TnF6onmw7XKXWZy0TZq0Vta2sPr
+ rjhCqDC2tJcp7RpMa7SdCVcoxpzl4HA=
+X-Google-Smtp-Source: ABdhPJwB3Ba8APj5Dm0HuRcC/gac4pYzV5hVoreS7m/3OIrRR/IeQYekDm48/xBXWfG4Hyc5svm89A==
+X-Received: by 2002:a17:90b:1952:: with SMTP id
+ nk18mr6737367pjb.193.1630429658283; 
+ Tue, 31 Aug 2021 10:07:38 -0700 (PDT)
+Received: from [10.0.0.123] (c-73-99-155-72.hsd1.va.comcast.net.
+ [73.99.155.72])
+ by smtp.gmail.com with ESMTPSA id n14sm14692542pgd.48.2021.08.31.10.07.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Aug 2021 10:07:37 -0700 (PDT)
+From: Dan <dan.gisselquist@gmail.com>
+X-Google-Original-From: Dan <dgisselq@ieee.org>
+Message-ID: <b67601fec3018b9d2c408b3edb2fc01b8a82c819.camel@ieee.org>
+To: Harshitha S <harshithasridhar172000@gmail.com>, Openrisc
+ <openrisc@lists.librecores.org>
+Date: Tue, 31 Aug 2021 13:07:35 -0400
+In-Reply-To: <CADGJwMyrBUCb8gLbDZpCgor0BTV5Ouy1N8v=2Dua7cueg=iVfg@mail.gmail.com>
 References: <CADGJwMwapL_eB_ZqKmaDsoFxCY_3qvKu=0BfdSGQZaC5GEjP1Q@mail.gmail.com>
  <YSgmu/bnzRnI7AGI@antec>
  <CADGJwMzBfYmkXPAuTuPtEmMruuTydmW1h--YQJjWTmHyiDOv6Q@mail.gmail.com>
  <CAAfxs769RLG-qTuezZYiv+Pze-sqxRAokw6pT3ecYrpn8Len4g@mail.gmail.com>
  <3353f448aa67d1d6bf61eaa37256c90d1377bb74.camel@ieee.org>
-In-Reply-To: <3353f448aa67d1d6bf61eaa37256c90d1377bb74.camel@ieee.org>
-From: Harshitha S <harshithasridhar172000@gmail.com>
-Date: Tue, 31 Aug 2021 22:23:36 +0530
-Message-ID: <CADGJwMyrBUCb8gLbDZpCgor0BTV5Ouy1N8v=2Dua7cueg=iVfg@mail.gmail.com>
-To: dgisselq@ieee.org, Openrisc <openrisc@lists.librecores.org>
+ <CADGJwMyrBUCb8gLbDZpCgor0BTV5Ouy1N8v=2Dua7cueg=iVfg@mail.gmail.com>
+User-Agent: Evolution 3.36.5-0ubuntu1 
+MIME-Version: 1.0
 Subject: Re: [OpenRISC] Continue OpenRISC contibution
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -62,219 +73,183 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8838926247819774561=="
+Reply-To: dgisselq@ieee.org
+Content-Type: multipart/mixed; boundary="===============0242293378647394759=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============8838926247819774561==
-Content-Type: multipart/related; boundary="000000000000f3806c05caddc653"
 
---000000000000f3806c05caddc653
-Content-Type: multipart/alternative; boundary="000000000000f3806b05caddc652"
+--===============0242293378647394759==
+Content-Type: multipart/related; type="multipart/alternative";
+	boundary="=-Q3ZsAZ/fKkWqqmzzrxDz"
 
---000000000000f3806b05caddc652
+
+--=-Q3ZsAZ/fKkWqqmzzrxDz
+Content-Type: multipart/alternative; boundary="=-vsoQ0ZrEUHH9JOcC38eR"
+
+
+--=-vsoQ0ZrEUHH9JOcC38eR
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hello Dan,
+Harshita,
+To debug this error, look at the sby file found in the mor1kx/
+directory created by sby.  My guess is that it is missing quotation
+marks.
+Dan
 
-I have used chparam everywhere in the SBY files because an error occurred
-while decoding string parameters using pycode.
-Here is the small snippet where I found the error.
+On Tue, 2021-08-31 at 22:23 +0530, Harshitha S wrote:
+> Hello Dan,
+> I have used chparam everywhere in the SBY files because an error
+> occurred while decoding string parameters using pycode.
+> Here is the small snippet where I found the error.
+> 
+> Code:
+> 
+> --pycode-begin--
+> cmd  = "hierarchy -top mor1kx"
+> cmd += " -chparam FEATURE_INSTRUCTIONCACHE %s "  %("ENABLED")
+> output(cmd)
+> --pycode-end--
+> 
+> Error:
+> 
+> 
+> 
+> How can I avoid this error? Can I use hierarchy -chparam without
+> using pycode? 
+> On Tue, Aug 31, 2021 at 9:00 PM Dan <dan.gisselquist@gmail.com>
+> wrote:
+> > Harshita,
+> > I would recommend replacing the "chparam" commands in your SBY
+> > files with "hierarchy" commands.  "chparam" forces the synthesis
+> > tool to re-read the design each time the command is issued, and may
+> > lead to changes that are inconsistent along the way.  "hierarchy"
+> > has a "-chparam" option that can be used to re-read the design
+> > once, setting all of the parameters in the design to a consistent
+> > usage.
+> > Dan
+> > On Tue, 2021-08-31 at 22:47 +0900, Stafford Horne wrote:
+> > > The commit looks good, can you make a PR for it?
+> > > On Sun, Aug 29, 2021 at 2:16 AM Harshitha S
+> > > <harshithasridhar172000@gmail.com> wrote:
+> > > > Hello Stafford,
+> > > > I want to start with a simple one. I have updated the Mor1kx
+> > > > Formal in the readme.Let me know if anything else to be
+> > > > included.
+> > > > https://github.com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce74fe65b2f3a7ced7a22d
+> > > > 
+> > > > I will try fixing the bugs and also work on or1kx-formal.
+> > > > Meanwhile, I'm thinking of exploring OpenOCD/GDBfor mor1kx CPU
+> > > > debugging but having no idea where to start. Can you guide me
+> > > > beginning with CPU debugging?
+> > > > -Harshitha
+> > > > On Fri, Aug 27, 2021 at 5:11 AM Stafford Horne <
+> > > > shorne@gmail.com> wrote:
+> > > > > On Thu, Aug 26, 2021 at 10:17:17PM +0530, Harshitha S wrote:
+> > > > > > Hello,
+> > > > > > I'm thinking of continuing my contribution to the OpenRISC
+> > > > > > project. With myGSoC project, I have learned too many new
+> > > > > > skills and wish to keep thislearning pace. I would be happy
+> > > > > > to learn and explore new skills. Please letme know what I
+> > > > > > can work upon.
+> > > > > 
+> > > > > Hi Harshita,
+> > > > > (CCing list)
+> > > > > Glad to hear you are still interested.  I think there are
+> > > > > always plenty ofthings, some things on the top of my head:  -
+> > > > > Simple - update the mor1kx/readme.md to explain we support
+> > > > > formal  - Medium - fix the bugs that you raised  - Bigger -
+> > > > > or1k-formal (like riscv-formal, formally verify each
+> > > > > instruction)
+> > > > > -Stafford
+> > > _______________________________________________OpenRISC mailing 
+> > > listOpenRISC@lists.librecores.org
+> > > https://lists.librecores.org/listinfo/openrisc
 
-Code:
-
---pycode-begin--
-cmd  = "hierarchy -top mor1kx"
-cmd += " -chparam FEATURE_INSTRUCTIONCACHE %s "  %("ENABLED")
-output(cmd)
---pycode-end--
-
-Error:
-
-[image: image.png]
-
-How can I avoid this error? Can I use hierarchy -chparam without using
-pycode?
-
-On Tue, Aug 31, 2021 at 9:00 PM Dan <dan.gisselquist@gmail.com> wrote:
-
-> Harshita,
->
-> I would recommend replacing the "chparam" commands in your SBY files with
-> "hierarchy" commands.  "chparam" forces the synthesis tool to re-read the
-> design each time the command is issued, and may lead to changes that are
-> inconsistent along the way.  "hierarchy" has a "-chparam" option that can
-> be used to re-read the design once, setting all of the parameters in the
-> design to a consistent usage.
->
-> Dan
->
-> On Tue, 2021-08-31 at 22:47 +0900, Stafford Horne wrote:
->
-> The commit looks good, can you make a PR for it?
->
->
-> On Sun, Aug 29, 2021 at 2:16 AM Harshitha S
->
->
-> <
->
-> harshithasridhar172000@gmail.com
->
-> > wrote:
->
->
-> Hello Stafford,
->
->
-> I want to start with a simple one. I have updated the Mor1kx Formal in the readme.
->
-> Let me know if anything else to be included.
->
-> https://github.com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce74fe65b2f3a7ced7a22d
->
->
->
-> I will try fixing the bugs and also work on or1kx-formal. Meanwhile, I'm thinking of exploring OpenOCD/GDB
->
-> for mor1kx CPU debugging but having no idea where to start. Can you guide me beginning with CPU debugging?
->
->
-> -Harshitha
->
->
-> On Fri, Aug 27, 2021 at 5:11 AM Stafford Horne <
->
-> shorne@gmail.com
->
-> > wrote:
->
->
-> On Thu, Aug 26, 2021 at 10:17:17PM +0530, Harshitha S wrote:
->
-> Hello,
->
->
-> I'm thinking of continuing my contribution to the OpenRISC project. With my
->
-> GSoC project, I have learned too many new skills and wish to keep this
->
-> learning pace. I would be happy to learn and explore new skills. Please let
->
-> me know what I can work upon.
->
->
-> Hi Harshita,
->
->
-> (CCing list)
->
->
-> Glad to hear you are still interested.  I think there are always plenty of
->
-> things, some things on the top of my head:
->
->   - Simple - update the mor1kx/readme.md to explain we support formal
->
->   - Medium - fix the bugs that you raised
->
->   - Bigger - or1k-formal (like riscv-formal, formally verify each instruction)
->
->
-> -Stafford
->
-> _______________________________________________
->
-> OpenRISC mailing list
->
-> OpenRISC@lists.librecores.org
->
->
-> https://lists.librecores.org/listinfo/openrisc
->
->
->
-
---000000000000f3806b05caddc652
-Content-Type: text/html; charset="UTF-8"
+--=-vsoQ0ZrEUHH9JOcC38eR
+Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hello Dan,<div><br></div><div>I have used chparam everywhe=
-re in the SBY files because an error occurred while decoding string paramet=
-ers using pycode.<br>Here is the small snippet where I found the error.<br>=
-</div><div><br></div><div>Code:</div><div><br></div><div><font face=3D"mono=
-space">--pycode-begin--</font></div><div><font face=3D"monospace">cmd=C2=A0=
- =3D &quot;hierarchy -top mor1kx&quot;</font></div><div><font face=3D"monos=
-pace">cmd=C2=A0+=3D &quot; -chparam FEATURE_INSTRUCTIONCACHE %s &quot;=C2=
-=A0 %(&quot;ENABLED&quot;)</font></div><div><font face=3D"monospace">output=
-(cmd)</font></div><div><font face=3D"monospace">--pycode-end--</font></div>=
-<div><br></div><div>Error:</div><div><br></div><div><img src=3D"cid:ii_kt09=
-x4br0" alt=3D"image.png" width=3D"525" height=3D"63"><br></div><div><br></d=
-iv><div>How can I avoid this error? Can I use hierarchy -chparam without us=
-ing pycode?=C2=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Tue, Aug 31, 2021 at 9:00 PM Dan &lt;<a href=3D"m=
-ailto:dan.gisselquist@gmail.com">dan.gisselquist@gmail.com</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div style=3D"tex=
-t-align:left;direction:ltr"><div>Harshita,</div><div><br></div><div>I would=
- recommend replacing the &quot;chparam&quot; commands in your SBY files wit=
-h &quot;hierarchy&quot; commands. =C2=A0&quot;chparam&quot; forces the synt=
-hesis tool to re-read the design each time the command is issued, and may l=
-ead to changes that are inconsistent along the way. =C2=A0&quot;hierarchy&q=
-uot; has a &quot;-chparam&quot; option that can be used to re-read the desi=
-gn once, setting all of the parameters in the design to a consistent usage.=
-</div><div><br></div><div>Dan</div><div><br></div><div>On Tue, 2021-08-31 a=
-t 22:47 +0900, Stafford Horne wrote:</div><blockquote type=3D"cite" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:2px solid rgb(114,159,207);padding=
--left:1ex"><pre>The commit looks good, can you make a PR for it?</pre><pre>=
-<br></pre><pre>On Sun, Aug 29, 2021 at 2:16 AM Harshitha S</pre><pre><br></=
-pre><pre>&lt;</pre><a href=3D"mailto:harshithasridhar172000@gmail.com" targ=
-et=3D"_blank"><pre>harshithasridhar172000@gmail.com</pre></a><pre>&gt; wrot=
-e:</pre><blockquote type=3D"cite" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:2px solid rgb(114,159,207);padding-left:1ex"><pre><br></pre><pre>Hello=
- Stafford,</pre><pre><br></pre><pre>I want to start with a simple one. I ha=
-ve updated the Mor1kx Formal in the readme.</pre><pre>Let me know if anythi=
-ng else to be included.</pre><a href=3D"https://github.com/Harshitha172000/=
-mor1kx/commit/e192b83ce01cd4b467ce74fe65b2f3a7ced7a22d" target=3D"_blank"><=
-pre>https://github.com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce74=
-fe65b2f3a7ced7a22d</pre></a><pre><br></pre><pre><br></pre><pre>I will try f=
-ixing the bugs and also work on or1kx-formal. Meanwhile, I&#39;m thinking o=
-f exploring OpenOCD/GDB</pre><pre>for mor1kx CPU debugging but having no id=
-ea where to start. Can you guide me beginning with CPU debugging?</pre><pre=
-><br></pre><pre>-Harshitha</pre><pre><br></pre><pre>On Fri, Aug 27, 2021 at=
- 5:11 AM Stafford Horne &lt;</pre><a href=3D"mailto:shorne@gmail.com" targe=
-t=3D"_blank"><pre>shorne@gmail.com</pre></a><pre>&gt; wrote:</pre><blockquo=
-te type=3D"cite" style=3D"margin:0px 0px 0px 0.8ex;border-left:2px solid rg=
-b(114,159,207);padding-left:1ex"><pre><br></pre><pre>On Thu, Aug 26, 2021 a=
-t 10:17:17PM +0530, Harshitha S wrote:</pre><blockquote type=3D"cite" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:2px solid rgb(114,159,207);padding=
--left:1ex"><pre>Hello,</pre><pre><br></pre><pre>I&#39;m thinking of continu=
-ing my contribution to the OpenRISC project. With my</pre><pre>GSoC project=
-, I have learned too many new skills and wish to keep this</pre><pre>learni=
-ng pace. I would be happy to learn and explore new skills. Please let</pre>=
-<pre>me know what I can work upon.</pre></blockquote><pre><br></pre><pre>Hi=
- Harshita,</pre><pre><br></pre><pre>(CCing list)</pre><pre><br></pre><pre>G=
-lad to hear you are still interested.  I think there are always plenty of</=
-pre><pre>things, some things on the top of my head:</pre><pre>  - Simple - =
-update the mor1kx/readme.md to explain we support formal</pre><pre>  - Medi=
-um - fix the bugs that you raised</pre><pre>  - Bigger - or1k-formal (like =
-riscv-formal, formally verify each instruction)</pre><pre><br></pre><pre>-S=
-tafford</pre></blockquote></blockquote><pre>_______________________________=
-________________</pre><pre>OpenRISC mailing list</pre><a href=3D"mailto:Ope=
-nRISC@lists.librecores.org" target=3D"_blank"><pre>OpenRISC@lists.librecore=
-s.org</pre></a><pre><br></pre><a href=3D"https://lists.librecores.org/listi=
-nfo/openrisc" target=3D"_blank"><pre>https://lists.librecores.org/listinfo/=
-openrisc</pre></a><pre><br></pre></blockquote></div>
+<html dir=3D"ltr"><head></head><body style=3D"text-align:left; direction:lt=
+r;"><div>Harshita,</div><div><br></div><div>To debug this error, look at th=
+e sby file found in the mor1kx/ directory created by sby. &nbsp;My guess is=
+ that it is missing quotation marks.</div><div><br></div><div>Dan</div><div=
+><br></div><div><br></div><div>On Tue, 2021-08-31 at 22:23 +0530, Harshitha=
+ S wrote:</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; border=
+-left:2px #729fcf solid;padding-left:1ex"><div dir=3D"ltr">Hello Dan,<div><=
+br></div><div>I have used chparam everywhere in the SBY files because an er=
+ror occurred while decoding string parameters using pycode.<br>Here is the =
+small snippet where I found the error.<br></div><div><br></div><div>Code:</=
+div><div><br></div><div><font face=3D"monospace">--pycode-begin--</font></d=
+iv><div><font face=3D"monospace">cmd&nbsp; =3D "hierarchy -top mor1kx"</fon=
+t></div><div><font face=3D"monospace">cmd&nbsp;+=3D " -chparam FEATURE_INST=
+RUCTIONCACHE %s "&nbsp; %("ENABLED")</font></div><div><font face=3D"monospa=
+ce">output(cmd)</font></div><div><font face=3D"monospace">--pycode-end--</f=
+ont></div><div><br></div><div>Error:</div><div><br></div><div><img src=3D"c=
+id:5a38ed625a3e31d276581cb8bf1efdb527257080.camel@ieee.org" alt=3D"image.pn=
+g" width=3D"525" height=3D"63" data-inline=3D"" data-name=3D"image.png"><br=
+></div><div><br></div><div>How can I avoid this error? Can I use hierarchy =
+-chparam without using pycode?&nbsp;</div></div><br><div class=3D"gmail_quo=
+te"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Aug 31, 2021 at 9:00 PM D=
+an &lt;<a href=3D"mailto:dan.gisselquist@gmail.com">dan.gisselquist@gmail.c=
+om</a>&gt; wrote:<br></div><blockquote type=3D"cite" style=3D"margin:0 0 0 =
+.8ex; border-left:2px #729fcf solid;padding-left:1ex"><div style=3D"text-al=
+ign:left;direction:ltr"><div>Harshita,</div><div><br></div><div>I would rec=
+ommend replacing the "chparam" commands in your SBY files with "hierarchy" =
+commands. &nbsp;"chparam" forces the synthesis tool to re-read the design e=
+ach time the command is issued, and may lead to changes that are inconsiste=
+nt along the way. &nbsp;"hierarchy" has a "-chparam" option that can be use=
+d to re-read the design once, setting all of the parameters in the design t=
+o a consistent usage.</div><div><br></div><div>Dan</div><div><br></div><div=
+>On Tue, 2021-08-31 at 22:47 +0900, Stafford Horne wrote:</div><blockquote =
+type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;pad=
+ding-left:1ex"><pre>The commit looks good, can you make a PR for it?</pre><=
+br><pre>On Sun, Aug 29, 2021 at 2:16 AM Harshitha S</pre><br><pre>&lt;</pre=
+><a href=3D"mailto:harshithasridhar172000@gmail.com" target=3D"_blank"><pre=
+>harshithasridhar172000@gmail.com</pre></a><pre>&gt; wrote:</pre><blockquot=
+e type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;p=
+adding-left:1ex"><br><pre>Hello Stafford,</pre><br><pre>I want to start wit=
+h a simple one. I have updated the Mor1kx Formal in the readme.</pre><pre>L=
+et me know if anything else to be included.</pre><a href=3D"https://github.=
+com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce74fe65b2f3a7ced7a22d"=
+ target=3D"_blank"><pre>https://github.com/Harshitha172000/mor1kx/commit/e1=
+92b83ce01cd4b467ce74fe65b2f3a7ced7a22d</pre></a><br><br><pre>I will try fix=
+ing the bugs and also work on or1kx-formal. Meanwhile, I'm thinking of expl=
+oring OpenOCD/GDB</pre><pre>for mor1kx CPU debugging but having no idea whe=
+re to start. Can you guide me beginning with CPU debugging?</pre><br><pre>-=
+Harshitha</pre><br><pre>On Fri, Aug 27, 2021 at 5:11 AM Stafford Horne &lt;=
+</pre><a href=3D"mailto:shorne@gmail.com" target=3D"_blank"><pre>shorne@gma=
+il.com</pre></a><pre>&gt; wrote:</pre><blockquote type=3D"cite" style=3D"ma=
+rgin:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left:1ex"><br><pre>O=
+n Thu, Aug 26, 2021 at 10:17:17PM +0530, Harshitha S wrote:</pre><blockquot=
+e type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;p=
+adding-left:1ex"><pre>Hello,</pre><br><pre>I'm thinking of continuing my co=
+ntribution to the OpenRISC project. With my</pre><pre>GSoC project, I have =
+learned too many new skills and wish to keep this</pre><pre>learning pace. =
+I would be happy to learn and explore new skills. Please let</pre><pre>me k=
+now what I can work upon.</pre></blockquote><br><pre>Hi Harshita,</pre><br>=
+<pre>(CCing list)</pre><br><pre>Glad to hear you are still interested.  I t=
+hink there are always plenty of</pre><pre>things, some things on the top of=
+ my head:</pre><pre>  - Simple - update the mor1kx/readme.md to explain we =
+support formal</pre><pre>  - Medium - fix the bugs that you raised</pre><pr=
+e>  - Bigger - or1k-formal (like riscv-formal, formally verify each instruc=
+tion)</pre><br><pre>-Stafford</pre></blockquote></blockquote><pre>_________=
+______________________________________</pre><pre>OpenRISC mailing list</pre=
+><a href=3D"mailto:OpenRISC@lists.librecores.org" target=3D"_blank"><pre>Op=
+enRISC@lists.librecores.org</pre></a><br><a href=3D"https://lists.librecore=
+s.org/listinfo/openrisc" target=3D"_blank"><pre>https://lists.librecores.or=
+g/listinfo/openrisc</pre></a><br></blockquote></div>
 </blockquote></div>
+</blockquote></body></html>
 
---000000000000f3806b05caddc652--
+--=-vsoQ0ZrEUHH9JOcC38eR--
 
---000000000000f3806c05caddc653
+--=-Q3ZsAZ/fKkWqqmzzrxDz
+Content-ID: <5a38ed625a3e31d276581cb8bf1efdb527257080.camel@ieee.org>
 Content-Type: image/png; name="image.png"
 Content-Disposition: inline; filename="image.png"
 Content-Transfer-Encoding: base64
-Content-ID: <ii_kt09x4br0>
-X-Attachment-Id: ii_kt09x4br0
 
 iVBORw0KGgoAAAANSUhEUgAABDQAAACBCAYAAAA/puqvAAAgAElEQVR4Aey9d1SVV7f2vQtsYG96
 L9I7SEcQVMCG0hQRsYMNpNoSjdFYkth7r6gUUWmKIFWw9240WBMTEzW9PueM837f+MbvG/cGBJSY
@@ -2225,9 +2200,12 @@ JzOgFzT0iVhf5J/Zs2f/5OsJz0VhbiQwIDAgMCAwIDAgMPD7YECfFE2hT8imTyb3O3WaPimivkyn
 /mhVjeO/5oSmNultK7Tpl5tU6xltYlZv498rs3+4hV1Dsl99aVuRyACRqCk55n97zNHnjdEnaFT8
 htr0ojZpsq3+HpoSL7/obwjn/9eeFc85FgiChsDob51RoX0CowIDAgMCAwID/w0G/j/wksgTqcFW
 BQAAAABJRU5ErkJggg==
---000000000000f3806c05caddc653--
 
---===============8838926247819774561==
+
+--=-Q3ZsAZ/fKkWqqmzzrxDz--
+
+
+--===============0242293378647394759==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -2237,4 +2215,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
 bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
 bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
 
---===============8838926247819774561==--
+--===============0242293378647394759==--
+
