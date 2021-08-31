@@ -2,52 +2,52 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B85053FC8A7
-	for <lists+openrisc@lfdr.de>; Tue, 31 Aug 2021 15:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E822E3FC945
+	for <lists+openrisc@lfdr.de>; Tue, 31 Aug 2021 16:02:17 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3CD7824136;
-	Tue, 31 Aug 2021 15:47:55 +0200 (CEST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by mail.librecores.org (Postfix) with ESMTPS id A061C22C28
- for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 15:47:53 +0200 (CEST)
-Received: by mail-ej1-f48.google.com with SMTP id bt14so38904950ejb.3
- for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 06:47:53 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 8C99324135;
+	Tue, 31 Aug 2021 16:02:17 +0200 (CEST)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by mail.librecores.org (Postfix) with ESMTPS id 400A624003
+ for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 16:02:16 +0200 (CEST)
+Received: by mail-io1-f53.google.com with SMTP id b7so24944029iob.4
+ for <openrisc@lists.librecores.org>; Tue, 31 Aug 2021 07:02:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=C+7SHdno8G/pY85+XwsBVr3RrF5OpNtJWKrVxSWKkHQ=;
- b=c7MekNTHAElmOd0prsfWL7bDEPrdUKOdJ6tJr/OIGPk9gyZpJY/9aCrFMJLlER+Pmw
- 56Uj8cjYrEoyks5dwqK7vAReYwXbGxO+d3bMdrBkVVIATeie4GS9+gNc0ZRn/0aX57QY
- JwhSrAqG+04xlyymb9iz8jrBP5kVAS2rA9DPnMwF7Xxio3phtocquk1De6jbL0PClz07
- NlFNOkHoY8wu1jvBW6ugzOx0z/MKcN4etkQTr9h18Y7GGuDDnLYKmSrEBxEGNHLnYkiY
- Ko0OKNUgmoT2FmWssoGxAf2832j/cLTF8Q0N6UeJftK1sMJfilCaZOA93+5BeaQL/Qc9
- rDTA==
+ :cc; bh=qGKrbvnyD04qpwrtiGDu79/yBS2STYX8BwgalqzFZZk=;
+ b=g8z1oed0sp1y7xMZ3IGH/U15nc6+vJ7Wg16GlwuBNnKStJS63RsHsRhRQ1ht2pF2Ib
+ IOUADyxBqd+oUvawt9KaLmFTeqVifyln7OcOgjw6viNbYCxOhT2SH/GtCVQjxQyji9dx
+ CLPqQl6Qxuff0ulnilazB1W5Mw9Klcg9gMu6/Axim39DvZZ8K32/N16+ewiaRnLrKXZA
+ OWH9IFDJhPsnUrydhuyikr2Lwnp6IZrgI26C274uVfcv5FRUqCq5LH6lNzl8UCNXoWM3
+ eKxCkzDMBlPf0kPrbmHWCZ2ikAYpr/nufEAJRq3uXRKV8IImpw6qPii+TcArkSx7iek2
+ bcXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=C+7SHdno8G/pY85+XwsBVr3RrF5OpNtJWKrVxSWKkHQ=;
- b=FwbLoq2+ej2XdF2pIiXn3y1kkKDdw43QK2bwdNecPni4onZtOCvAOHkO4uhRd0ew26
- N0CgofRtWKcWdnvLGxXQECZpn+3BesETYbM+0r6e8Pz8gSNgp0FBDqy1IvSRRkXYCtK9
- bPLYTZqbeXnf9xxbaC8Hvpltb6s/z8z1QBh3FSFAAZO1g2YJWrT4T3qvXHg0FoMbhcAH
- eusJZpSy1yA4Fg2YNGNxQexWMOvzERWStTNJvKKEugBwladrSgcaB8HlCYaL/uTJiPMd
- w2hchPGPbsgwHrZsmWtmHvRajhh/PlZR0JbBbhSxARrKWUwYIJZqI5Z27fz8ZKguYDqr
- LjKg==
-X-Gm-Message-State: AOAM531BB7jZklMMDWW32Kb2YWFzYrkFrZnexzn2ezVY9x/xSsmQBBPd
- zjyKpmc7OI/N9+AeN3kfufrSo1pavdkwyrI5t/c=
-X-Google-Smtp-Source: ABdhPJzTDUCXh2OsE6lObt0U8xCT4lk/Mhs3cjvRYt1nAHD6YADTAUffKBgvg2BzLhIApCQWQ2tmMdO+75Hx/NVuPU4=
-X-Received: by 2002:a17:906:9747:: with SMTP id
- o7mr31007126ejy.486.1630417673240; 
- Tue, 31 Aug 2021 06:47:53 -0700 (PDT)
+ bh=qGKrbvnyD04qpwrtiGDu79/yBS2STYX8BwgalqzFZZk=;
+ b=YhWQUXUdmMZZbTyyXYqicOKFR6mwW2vZqFSUwSYV3ZV6Woa3dcdKsnbKIGjJ9xSP38
+ 2Pqb7//D8UyvOi4WTTRZsVKbpQrhUss1OVtjbarkNODs1LIQ/lN4Klc8T8uouHluqLKW
+ xbKx28jAZ2hhbdF6WgNYp9uSd0w9suFAaLwBw77XvxbA0pvNUbyrbjaslnKCF7UFszQ1
+ DjsYHa0LcDPlyks2qntq47GVEarDvCH6NjeXXi9vgbOChZU++A5mCIxMb1cKoeqY6sza
+ qVxNy17cUQN6s8UlnpRxLXs1rEWn9Z5tDeG1aB+ks8PE7AjDBsvIJh7TQ/CNtFRVtk+3
+ oaLg==
+X-Gm-Message-State: AOAM530W264cFHafvqiRFOAYZK736BgDXqi/V5KPc34fwE0Pxn+jCL71
+ INLn8zURCBeCa+3TrO03COS2SVepkYUCe/UFWbE=
+X-Google-Smtp-Source: ABdhPJzr+zvAcEnD6c5ZQRQ6RQSKUHkPM4GmxpGtHBSrsXqjTzIs4XdSPjylxx1lgeFfUug+cOpTGEfx+Dzx5LV0k+o=
+X-Received: by 2002:a02:c64a:: with SMTP id k10mr2961679jan.112.1630418534876; 
+ Tue, 31 Aug 2021 07:02:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <CADGJwMwapL_eB_ZqKmaDsoFxCY_3qvKu=0BfdSGQZaC5GEjP1Q@mail.gmail.com>
  <YSgmu/bnzRnI7AGI@antec>
  <CADGJwMzBfYmkXPAuTuPtEmMruuTydmW1h--YQJjWTmHyiDOv6Q@mail.gmail.com>
-In-Reply-To: <CADGJwMzBfYmkXPAuTuPtEmMruuTydmW1h--YQJjWTmHyiDOv6Q@mail.gmail.com>
-From: Stafford Horne <shorne@gmail.com>
-Date: Tue, 31 Aug 2021 22:47:41 +0900
-Message-ID: <CAAfxs769RLG-qTuezZYiv+Pze-sqxRAokw6pT3ecYrpn8Len4g@mail.gmail.com>
-To: Harshitha S <harshithasridhar172000@gmail.com>
+ <CAAfxs769RLG-qTuezZYiv+Pze-sqxRAokw6pT3ecYrpn8Len4g@mail.gmail.com>
+In-Reply-To: <CAAfxs769RLG-qTuezZYiv+Pze-sqxRAokw6pT3ecYrpn8Len4g@mail.gmail.com>
+From: Harshitha S <harshithasridhar172000@gmail.com>
+Date: Tue, 31 Aug 2021 19:32:03 +0530
+Message-ID: <CADGJwMxnsAq-Az2OcarXzTY0HvYvjBbvwakooFyE0adZkLZidA@mail.gmail.com>
+To: Stafford Horne <shorne@gmail.com>
 Subject: Re: [OpenRISC] Continue OpenRISC contibution
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -62,36 +62,142 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Openrisc <openrisc@lists.librecores.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5606672127071544320=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-VGhlIGNvbW1pdCBsb29rcyBnb29kLCBjYW4geW91IG1ha2UgYSBQUiBmb3IgaXQ/CgpPbiBTdW4s
-IEF1ZyAyOSwgMjAyMSBhdCAyOjE2IEFNIEhhcnNoaXRoYSBTCgo8aGFyc2hpdGhhc3JpZGhhcjE3
-MjAwMEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSGVsbG8gU3RhZmZvcmQsCj4KPiBJIHdhbnQgdG8g
-c3RhcnQgd2l0aCBhIHNpbXBsZSBvbmUuIEkgaGF2ZSB1cGRhdGVkIHRoZSBNb3Ixa3ggRm9ybWFs
-IGluIHRoZSByZWFkbWUuCj4gTGV0IG1lIGtub3cgaWYgYW55dGhpbmcgZWxzZSB0byBiZSBpbmNs
-dWRlZC4KPiBodHRwczovL2dpdGh1Yi5jb20vSGFyc2hpdGhhMTcyMDAwL21vcjFreC9jb21taXQv
-ZTE5MmI4M2NlMDFjZDRiNDY3Y2U3NGZlNjViMmYzYTdjZWQ3YTIyZAo+Cj4gSSB3aWxsIHRyeSBm
-aXhpbmcgdGhlIGJ1Z3MgYW5kIGFsc28gd29yayBvbiBvcjFreC1mb3JtYWwuIE1lYW53aGlsZSwg
-SSdtIHRoaW5raW5nIG9mIGV4cGxvcmluZyBPcGVuT0NEL0dEQgo+IGZvciBtb3Ixa3ggQ1BVIGRl
-YnVnZ2luZyBidXQgaGF2aW5nIG5vIGlkZWEgd2hlcmUgdG8gc3RhcnQuIENhbiB5b3UgZ3VpZGUg
-bWUgYmVnaW5uaW5nIHdpdGggQ1BVIGRlYnVnZ2luZz8KPgo+IC1IYXJzaGl0aGEKPgo+IE9uIEZy
-aSwgQXVnIDI3LCAyMDIxIGF0IDU6MTEgQU0gU3RhZmZvcmQgSG9ybmUgPHNob3JuZUBnbWFpbC5j
-b20+IHdyb3RlOgo+Pgo+PiBPbiBUaHUsIEF1ZyAyNiwgMjAyMSBhdCAxMDoxNzoxN1BNICswNTMw
-LCBIYXJzaGl0aGEgUyB3cm90ZToKPj4gPiBIZWxsbywKPj4gPgo+PiA+IEknbSB0aGlua2luZyBv
-ZiBjb250aW51aW5nIG15IGNvbnRyaWJ1dGlvbiB0byB0aGUgT3BlblJJU0MgcHJvamVjdC4gV2l0
-aCBteQo+PiA+IEdTb0MgcHJvamVjdCwgSSBoYXZlIGxlYXJuZWQgdG9vIG1hbnkgbmV3IHNraWxs
-cyBhbmQgd2lzaCB0byBrZWVwIHRoaXMKPj4gPiBsZWFybmluZyBwYWNlLiBJIHdvdWxkIGJlIGhh
-cHB5IHRvIGxlYXJuIGFuZCBleHBsb3JlIG5ldyBza2lsbHMuIFBsZWFzZSBsZXQKPj4gPiBtZSBr
-bm93IHdoYXQgSSBjYW4gd29yayB1cG9uLgo+Pgo+PiBIaSBIYXJzaGl0YSwKPj4KPj4gKENDaW5n
-IGxpc3QpCj4+Cj4+IEdsYWQgdG8gaGVhciB5b3UgYXJlIHN0aWxsIGludGVyZXN0ZWQuICBJIHRo
-aW5rIHRoZXJlIGFyZSBhbHdheXMgcGxlbnR5IG9mCj4+IHRoaW5ncywgc29tZSB0aGluZ3Mgb24g
-dGhlIHRvcCBvZiBteSBoZWFkOgo+PiAgIC0gU2ltcGxlIC0gdXBkYXRlIHRoZSBtb3Ixa3gvcmVh
-ZG1lLm1kIHRvIGV4cGxhaW4gd2Ugc3VwcG9ydCBmb3JtYWwKPj4gICAtIE1lZGl1bSAtIGZpeCB0
-aGUgYnVncyB0aGF0IHlvdSByYWlzZWQKPj4gICAtIEJpZ2dlciAtIG9yMWstZm9ybWFsIChsaWtl
-IHJpc2N2LWZvcm1hbCwgZm9ybWFsbHkgdmVyaWZ5IGVhY2ggaW5zdHJ1Y3Rpb24pCj4+Cj4+IC1T
-dGFmZm9yZApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpP
-cGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6
-Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+--===============5606672127071544320==
+Content-Type: multipart/alternative; boundary="0000000000009b4bdb05cadb65a8"
+
+--0000000000009b4bdb05cadb65a8
+Content-Type: text/plain; charset="UTF-8"
+
+Yes, will do.
+
+On Tue, 31 Aug, 2021, 7:17 PM Stafford Horne, <shorne@gmail.com> wrote:
+
+> The commit looks good, can you make a PR for it?
+>
+> On Sun, Aug 29, 2021 at 2:16 AM Harshitha S
+>
+> <harshithasridhar172000@gmail.com> wrote:
+> >
+> > Hello Stafford,
+> >
+> > I want to start with a simple one. I have updated the Mor1kx Formal in
+> the readme.
+> > Let me know if anything else to be included.
+> >
+> https://github.com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce74fe65b2f3a7ced7a22d
+> >
+> > I will try fixing the bugs and also work on or1kx-formal. Meanwhile, I'm
+> thinking of exploring OpenOCD/GDB
+> > for mor1kx CPU debugging but having no idea where to start. Can you
+> guide me beginning with CPU debugging?
+> >
+> > -Harshitha
+> >
+> > On Fri, Aug 27, 2021 at 5:11 AM Stafford Horne <shorne@gmail.com> wrote:
+> >>
+> >> On Thu, Aug 26, 2021 at 10:17:17PM +0530, Harshitha S wrote:
+> >> > Hello,
+> >> >
+> >> > I'm thinking of continuing my contribution to the OpenRISC project.
+> With my
+> >> > GSoC project, I have learned too many new skills and wish to keep this
+> >> > learning pace. I would be happy to learn and explore new skills.
+> Please let
+> >> > me know what I can work upon.
+> >>
+> >> Hi Harshita,
+> >>
+> >> (CCing list)
+> >>
+> >> Glad to hear you are still interested.  I think there are always plenty
+> of
+> >> things, some things on the top of my head:
+> >>   - Simple - update the mor1kx/readme.md to explain we support formal
+> >>   - Medium - fix the bugs that you raised
+> >>   - Bigger - or1k-formal (like riscv-formal, formally verify each
+> instruction)
+> >>
+> >> -Stafford
+>
+
+--0000000000009b4bdb05cadb65a8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Yes, will do.</div><br><div class=3D"gmail_quote"><div di=
+r=3D"ltr" class=3D"gmail_attr">On Tue, 31 Aug, 2021, 7:17 PM Stafford Horne=
+, &lt;<a href=3D"mailto:shorne@gmail.com">shorne@gmail.com</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
+-left:1px #ccc solid;padding-left:1ex">The commit looks good, can you make =
+a PR for it?<br>
+<br>
+On Sun, Aug 29, 2021 at 2:16 AM Harshitha S<br>
+<br>
+&lt;<a href=3D"mailto:harshithasridhar172000@gmail.com" target=3D"_blank" r=
+el=3D"noreferrer">harshithasridhar172000@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hello Stafford,<br>
+&gt;<br>
+&gt; I want to start with a simple one. I have updated the Mor1kx Formal in=
+ the readme.<br>
+&gt; Let me know if anything else to be included.<br>
+&gt; <a href=3D"https://github.com/Harshitha172000/mor1kx/commit/e192b83ce0=
+1cd4b467ce74fe65b2f3a7ced7a22d" rel=3D"noreferrer noreferrer" target=3D"_bl=
+ank">https://github.com/Harshitha172000/mor1kx/commit/e192b83ce01cd4b467ce7=
+4fe65b2f3a7ced7a22d</a><br>
+&gt;<br>
+&gt; I will try fixing the bugs and also work on or1kx-formal. Meanwhile, I=
+&#39;m thinking of exploring OpenOCD/GDB<br>
+&gt; for mor1kx CPU debugging but having no idea where to start. Can you gu=
+ide me beginning with CPU debugging?<br>
+&gt;<br>
+&gt; -Harshitha<br>
+&gt;<br>
+&gt; On Fri, Aug 27, 2021 at 5:11 AM Stafford Horne &lt;<a href=3D"mailto:s=
+horne@gmail.com" target=3D"_blank" rel=3D"noreferrer">shorne@gmail.com</a>&=
+gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; On Thu, Aug 26, 2021 at 10:17:17PM +0530, Harshitha S wrote:<br>
+&gt;&gt; &gt; Hello,<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; I&#39;m thinking of continuing my contribution to the OpenRIS=
+C project. With my<br>
+&gt;&gt; &gt; GSoC project, I have learned too many new skills and wish to =
+keep this<br>
+&gt;&gt; &gt; learning pace. I would be happy to learn and explore new skil=
+ls. Please let<br>
+&gt;&gt; &gt; me know what I can work upon.<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Harshita,<br>
+&gt;&gt;<br>
+&gt;&gt; (CCing list)<br>
+&gt;&gt;<br>
+&gt;&gt; Glad to hear you are still interested.=C2=A0 I think there are alw=
+ays plenty of<br>
+&gt;&gt; things, some things on the top of my head:<br>
+&gt;&gt;=C2=A0 =C2=A0- Simple - update the mor1kx/readme.md to explain we s=
+upport formal<br>
+&gt;&gt;=C2=A0 =C2=A0- Medium - fix the bugs that you raised<br>
+&gt;&gt;=C2=A0 =C2=A0- Bigger - or1k-formal (like riscv-formal, formally ve=
+rify each instruction)<br>
+&gt;&gt;<br>
+&gt;&gt; -Stafford<br>
+</blockquote></div>
+
+--0000000000009b4bdb05cadb65a8--
+
+--===============5606672127071544320==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============5606672127071544320==--
