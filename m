@@ -2,55 +2,56 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id AAC19403312
-	for <lists+openrisc@lfdr.de>; Wed,  8 Sep 2021 05:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F80A405EC4
+	for <lists+openrisc@lfdr.de>; Thu,  9 Sep 2021 23:29:12 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 17B8323F72;
-	Wed,  8 Sep 2021 05:47:28 +0200 (CEST)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by mail.librecores.org (Postfix) with ESMTPS id 0FCEE240D1
- for <openrisc@lists.librecores.org>; Wed,  8 Sep 2021 04:49:06 +0200 (CEST)
-Received: by mail-lf1-f46.google.com with SMTP id k4so1826426lfj.7
- for <openrisc@lists.librecores.org>; Tue, 07 Sep 2021 19:49:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tamu-edu.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1e8rkAFuV8SVTVaNIF+Wg4s02WRyLcm9t4m2CCYLpRE=;
- b=mjWgnreuctMyGSuO6AB7CobXVyXmV4Ursq7EX5mMA8Z7M4C6zdBbmEiL4gpvV14UtM
- 7IsUe79z6/SCCeAxZAjHMKzJz9JFdzQc6q8jr5sFmB4RWQbIP5v1XoQWxINqFhTfmxTb
- rMV57csF1V9ZUwYqbqRjPWqFXeG2WWknGQ5qr5EklBACJSJLoGe54lHPfTDeyWozxmef
- 50GwBoPQHf97rXJxDWZwFSi2mUOpo+o33UaAqFfwQ/7TFFLqpovYZSZXYWsZyC6wGE7l
- ncn7+yR10TeXsbe8YkP2yLJWoQl/kmnhRfJM7RLy7+yYPt6Q0Anqj1V8+/sY3RaNptU9
- AUpw==
+	by mail.librecores.org (Postfix) with ESMTP id 9216524149;
+	Thu,  9 Sep 2021 23:29:11 +0200 (CEST)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by mail.librecores.org (Postfix) with ESMTPS id 052B523F5C
+ for <openrisc@lists.librecores.org>; Thu,  9 Sep 2021 14:04:26 +0200 (CEST)
+Received: by mail-wr1-f53.google.com with SMTP id n5so2186566wro.12
+ for <openrisc@lists.librecores.org>; Thu, 09 Sep 2021 05:04:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TGhvxcJ5e0tWwjSJNqM6XCMaaGd6Uf1B/o2F+QC2P2E=;
+ b=G9Aqk2QIyaP4NStdJlI2W+jYyFf2cxdEkKsatz7oGDFsfmYZi9tBWCduPA4+jE5p7U
+ BOuY6gqJjmyV8v5QQKYxDwuzwKGa/5XhOO/tgHUHlhmUEBmh3zMhoy6pH4jz/X3mqm+B
+ aiFLyQdZrtcHXPQq/wBywud/Lta/EdrBpbrZgbARYUg/fOO/ZsAxLyZc7yqfUK2jqcg3
+ 720naMUmXaJh+2jyYDvtsgc7dQDFDjt/gHNTBax++79zSiiVG4xnl5N2SAU6gkjrhJJm
+ w9rVyMGtlv9iW1cuSRn5jzCsOgqZnJRO0L04W/ii+Is7cQG1OlyTaPAzvogxQD1BYjMN
+ IkgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1e8rkAFuV8SVTVaNIF+Wg4s02WRyLcm9t4m2CCYLpRE=;
- b=EZ8YoOK/RlBTXYeIUwZimHdprNQ6zNGzK14WaAEEX6wHbchHxhMlLDgQTSdDixq1UB
- oCSYnlf20eApIqqa5zHYsdqS8ji4shGBHA2VFl5c3Rhb9v5c7PJkXbhkxjv3n2wjLBPF
- SSCYnZnP0xpNfHGmVxGgDny2HBVja7rW0o2Rf474XDh4UKjWF1CR90En/EExJB/gCC+0
- T7YhbEGZsCYc7mMpjTB/nDL59McrnjMcfvdWMeENQd5DYwt98IjcHqt7OQObhSvXsf4x
- zBWpiuFLCfJqvi0sDPFMaDbxmWslcHo/X3tsOyMUo4PUUwgtY1me124zr/kzfA+ZR5Wo
- Vt9g==
-X-Gm-Message-State: AOAM531lfHwgUTaR9125aLD+J6BAQDJ99kOXDXM5kYxXWclzMUjXKxRh
- Aowu/wtcuW12zpcpCqo+aXjfjtm+OJRm219qYsktDw==
-X-Google-Smtp-Source: ABdhPJwheH5vzLevQADELycANJo7mUoMoQO4LyUaEuGPAxDvxa34fJdfb5DvoJn9lizpaqMOC3LlKLW4ROsdlsLwdkQ=
-X-Received: by 2002:a05:6512:220c:: with SMTP id
- h12mr1038132lfu.398.1631069345383; 
- Tue, 07 Sep 2021 19:49:05 -0700 (PDT)
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TGhvxcJ5e0tWwjSJNqM6XCMaaGd6Uf1B/o2F+QC2P2E=;
+ b=c7El6n2GxiH/5WHXayKNela6AjMfllXKTQlQ1RlV1VCyzV/bUvekV3ozwHI64iRoaG
+ PUKy64WYupvtslu0F4r5JTt0IFxml2xaTIvlxE3trUnAQsAwnx1bhKZQvWYxyxoL90cF
+ 5xquAiqW2pyjdz9TRjw8ZT1gt6gOkKQqf6jzxYLfUsC2WoGg0Oy8SBaNVVE8rP8KY8iP
+ LcfAY7aDs+MwP0YfOJB1bpK4gKr7AdaavS1wq/d6I7bVrTjwmc//NAtjbbv7LPbuc3Fq
+ +rCXAhIFOIPhbvSIN8AyxqzriXl2zZviFCc2ufY35UIHRMrvLPnel76ddWBvIDCAGwha
+ c/KA==
+X-Gm-Message-State: AOAM532yjlcwe8Popj77fa/AQuxQ4l2+6K1GOH5Qk4FhFcx8p8ALXcfG
+ Dglo3bRdUKtTGXt5UOsi3HeqeA==
+X-Google-Smtp-Source: ABdhPJwXFzB1KuSRyctCLMeToyBav6moCwvyVSJSQ2wA2Una7A66/qiHNzLd3gX+GGFxN1qUveWbMQ==
+X-Received: by 2002:adf:de8a:: with SMTP id w10mr3133483wrl.413.1631189065464; 
+ Thu, 09 Sep 2021 05:04:25 -0700 (PDT)
+Received: from localhost.localdomain ([95.148.6.201])
+ by smtp.gmail.com with ESMTPSA id n66sm1437498wmn.2.2021.09.09.05.04.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Sep 2021 05:04:24 -0700 (PDT)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Date: Thu,  9 Sep 2021 13:04:18 +0100
+Message-Id: <20210909120421.1313908-1-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.33.0.153.gba50c8fa24-goog
 MIME-Version: 1.0
-References: <CAPV5DU64Hja40XHgvUz2ph7gcBtNWinUNH633vCfxH7vxEvshA@mail.gmail.com>
- <CADzBsGPS1McirO2W_HRJxDr94DCh-63bEqCfF1ABjPTYPEH3+A@mail.gmail.com>
- <43b3a519-f334-df97-4545-e2fdf7804dd7@wallentowitz.de>
-In-Reply-To: <43b3a519-f334-df97-4545-e2fdf7804dd7@wallentowitz.de>
-From: Rahul Kande <rahulkande@tamu.edu>
-Date: Tue, 7 Sep 2021 21:48:39 -0500
-Message-ID: <CADLGkjtjTVMSkLuxVqJJS_j_Z+QOP15EsQoHMQ+-_kASG7H_GA@mail.gmail.com>
-To: Stefan Wallentowitz <stefan@wallentowitz.de>
-X-Mailman-Approved-At: Wed, 08 Sep 2021 05:47:26 +0200
-Subject: Re: [OpenRISC] Reporting the bugs in MOR1KX processor
+X-Mailman-Approved-At: Thu, 09 Sep 2021 23:29:09 +0200
+Subject: [OpenRISC] [PATCH v2 0/3] power: reset: Convert Power-Off driver to
+ tristate
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,505 +64,93 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Ahmad-Reza Sadeghi <ahmad.sadeghi@trust.tu-darmstadt.de>,
- Addison Crump <addisoncrump@tamu.edu>,
- Jeyavijayan Rajendran <jeyavijayan@tamu.edu>,
- Aakash Tyagi <tyagi@cse.tamu.edu>, Openrisc <openrisc@lists.librecores.org>
-Content-Type: multipart/mixed; boundary="===============0133274106361821889=="
+Cc: Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-mips@vger.kernel.org,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-riscv@lists.infradead.org, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
+ Brian Cain <bcain@codeaurora.org>, linux-hexagon@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, Ley Foon Tan <ley.foon.tan@intel.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ linux-snps-arc@lists.infradead.org, Jeff Dike <jdike@addtoit.com>,
+ uclinux-h8-devel@lists.sourceforge.jp, linux-xtensa@linux-xtensa.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, linux-um@lists.infradead.org,
+ Richard Weinberger <richard@nod.at>, linux-m68k@lists.linux-m68k.org,
+ openrisc@lists.librecores.org, Borislav Petkov <bp@alien8.de>,
+ John Crispin <john@phrozen.org>, linux-arm-kernel@lists.infradead.org,
+ Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-parisc@vger.kernel.org,
+ Vineet Gupta <vgupta@synopsys.com>, linux-kernel@vger.kernel.org,
+ Palmer Dabbelt <palmer@dabbelt.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ linuxppc-dev@lists.ozlabs.org, "David S . Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============0133274106361821889==
-Content-Type: multipart/alternative; boundary="000000000000ef9f4b05cb72ecbf"
-
---000000000000ef9f4b05cb72ecbf
-Content-Type: text/plain; charset="UTF-8"
-
-Hello Mr. Wallentowitz,
-
-We have opened issues for each of the bugs in the mor1kx bug tracker as
-requested.
-
-Here are the links for the issues we have opened:
-For bug 1: https://github.com/openrisc/mor1kx/issues/139
-For bug 2: https://github.com/openrisc/mor1kx/issues/140
-For bug 3: https://github.com/openrisc/mor1kx/issues/141
-
-Please let us know if the information is sufficient and acknowledge whether
-we can file CVEs for them.
-
-Sincerely,
-Rahul Kande
-
-On Fri, Sep 3, 2021 at 2:37 AM Stefan Wallentowitz <stefan@wallentowitz.de>
-wrote:
-
-> Hi,
->
-> can you please open issues on the bugtracker?
->
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/issues__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYoiO8JTg$
->
-> Thanks,
-> Stefan
->
-> On 02.09.21 20:49, Stefan Kristiansson wrote:
-> >
-> >
-> > On Thu, Sep 2, 2021 at 8:53 PM Jeyavijayan Rajendran
-> > <jeyavijayan@tamu.edu <mailto:jeyavijayan@tamu.edu>> wrote:
-> >
-> >     Dear Developers of the MOR1KX processor,
-> >
-> >     We are research teamsfrom Texas A&M University and TU Darmstadt. We
-> >     found the following bugs in your MOR1KX processor design
-> >     (
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYOf67r0Q$
-> >     <
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBiVlQn4uw$
-> >).
-> >
-> >     We intend to get CVE listing numbers for all these bugs to include
-> >     in our research paper. Hence, we would like to disclose these bugs
-> >     to you before we request CVE IDs.
-> >
-> >     Please respond to us by *_10th Sept 2021, 11:59 PM UTC _*with your
-> >     acknowledgment of the bugs.
-> >
-> >     In case you are not authorized to comment on the bugs, please
-> >     connect us with the right contact person or channel for this matter.
->
-> >
-> >     Also, let us know if your processor design is one of the CNA-covered
-> >     products (
-> https://urldefense.com/v3/__https://cve.mitre.org/cve/cna.html__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezbJjp-2Xg$
-> >     <
-> https://urldefense.com/v3/__https://cve.mitre.org/cve/cna.html__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi93tT1sQ$
-> >)
-> >     so that we can include the same in our CVE listing.
-> >
-> >
-> >     Vendor of the product(s): openrisc
-> >
-> >
-> >     Bug 1:
-> >
-> >     Bug:The carry flag is incorrectly implemented for
-> subtractinstructions.
-> >
-> >     Location:  mor1kx_execute_alu.v
-> >     (
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZdNKImyQ$
-> >     <
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi4Qmr_iI$
-> >).
-> >
-> >     Triggering input:
-> >
-> >     //set r1=00020000 and r3=00002000
-> >
-> >          l.sub    r4,r1,r3
-> >
-> >     Expected output:
-> >
-> >                    Carry flag = 0
-> >
-> >
-> >     mor1kx output:
-> >
-> >                   Carry flag = 1
-> >
-> >
-> >
-> >     Bug 2:
-> >
-> >     Bug:The EPCR register is accessible from user mode.
-> >
-> >     Location:  mor1kx_ctrl_cappuccino.v
-> >     (
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZmnTocIw$
-> >     <
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi6Jz-sng$
-> >).
-> >
-> >     Details: The OpenRISC specification requires that the EPCR register
-> >     be accessible only from supervisor mode.
-> >
-> >     Triggering input:
-> >
-> >     #include <stdio.h>
-> >
-> >     int main() {
-> >
-> >       // enter user mode :
-> >
-> >       asm volatile ( "l.ori r17,r0,0x0000  ");
-> >
-> >       asm volatile ( "l.mtspr r0,r17,0x3806");
-> >
-> >
-> >       asm volatile ( "l.mfspr r17,r0,0x11  ");
-> >
-> >       asm volatile ( "l.andi r17,r17,-2    ");
-> >
-> >       asm volatile ( "l.mtspr r0,r17,0x11  ");
-> >
-> >       // padding the seed code
-> >
-> >       asm volatile( "l.nop 0x0 ");
-> >
-> >       asm volatile( "l.nop 0x0 ");
-> >
-> >       asm volatile( "l.nop 0x0 ");
-> >
-> >       asm volatile( "l.nop 0x0 ");
-> >
-> >       asm volatile ("l.addi r1,r0,1");
-> >
-> >       asm volatile ("l.mfspr r2,r0,32");
-> >
-> >       asm volatile ("l.mtspr r0, r1, 32");
-> >
-> >       return 0;
-> >
-> >     }
-> >
-> >
-> >     The or1ksim fails to execute the mfspr while the mor1kx
-> >     implementation can successfully write into EPCR using the mtspr
-> >     instruction.
-> >
-> >
-> >     Bug 3:
-> >
-> >     Bug:Unable to write to the EEAR register from the supervisor mode.
-> >
-> >     Location:  mor1kx_ctrl_cappuccino.v
-> >     (
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZmnTocIw$
-> >     <
-> https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi6Jz-sng$
-> >),
-> >     line 830 to 840.
-> >
-> >     Details: The OpenRISC specification requires that the EEAR register
-> >     be accessible from the supervisor mode but the mor1kx implementation
-> >     does not have the option to write to EEAR with the mtspr instruction
-> >     even from the supervisor mode.
-> >
-> >
-> >     Sincerely,
-> >
-> >     JV, Ahmad, Aakash, Addison, and Rahul.
-> >
-> >
-> >     --
-> >     JV Rajendran,
-> >     Assistant Professor of Electrical and Computer Engineering,
-> >     Texas A&M University.
-> >     Web: https://cesg.tamu.edu/faculty/jv/
-> >     <https://cesg.tamu.edu/faculty/jv/>
-> >
-> >
-> > _______________________________________________
-> > OpenRISC mailing list
-> > OpenRISC@lists.librecores.org
-> >
-> https://urldefense.com/v3/__https://lists.librecores.org/listinfo/openrisc__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYmyWEWww$
-> >
->
->
-
---000000000000ef9f4b05cb72ecbf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello Mr. Wallentowitz,=C2=A0<br><br>We have opened issues=
- for each of the bugs in the mor1kx bug tracker as requested.=C2=A0<br><br>=
-Here are the links for the issues we have opened:=C2=A0<br>For bug 1:=C2=A0=
-<a href=3D"https://github.com/openrisc/mor1kx/issues/139" target=3D"_blank"=
->https://github.com/openrisc/mor1kx/issues/139</a><br>For bug 2:=C2=A0<a hr=
-ef=3D"https://github.com/openrisc/mor1kx/issues/140" target=3D"_blank">http=
-s://github.com/openrisc/mor1kx/issues/140</a><br>For bug 3:=C2=A0<a href=3D=
-"https://github.com/openrisc/mor1kx/issues/141" target=3D"_blank">https://g=
-ithub.com/openrisc/mor1kx/issues/141</a><br><br>Please let us know if the=
-=C2=A0information is sufficient and acknowledge whether we can file CVEs fo=
-r them.=C2=A0<br><br>Sincerely,=C2=A0<br>Rahul Kande</div><br><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Sep 3, 2021 at =
-2:37 AM Stefan Wallentowitz &lt;<a href=3D"mailto:stefan@wallentowitz.de" t=
-arget=3D"_blank">stefan@wallentowitz.de</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-can you please open issues on the bugtracker?<br>
-<a href=3D"https://urldefense.com/v3/__https://github.com/openrisc/mor1kx/i=
-ssues__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgY=
-ezYoiO8JTg$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3=
-/__https://github.com/openrisc/mor1kx/issues__;!!KwNVnqRv!XeamcSRFA-6TeQbLL=
-Ph3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYoiO8JTg$</a> <br>
-<br>
-Thanks,<br>
-Stefan<br>
-<br>
-On 02.09.21 20:49, Stefan Kristiansson wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt; On Thu, Sep 2, 2021 at 8:53 PM Jeyavijayan Rajendran<br>
-&gt; &lt;<a href=3D"mailto:jeyavijayan@tamu.edu" target=3D"_blank">jeyavija=
-yan@tamu.edu</a> &lt;mailto:<a href=3D"mailto:jeyavijayan@tamu.edu" target=
-=3D"_blank">jeyavijayan@tamu.edu</a>&gt;&gt; wrote:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Dear Developers of the MOR1KX processor,=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0We are research teamsfrom Texas A&amp;M University =
-and TU Darmstadt. We<br>
-&gt;=C2=A0 =C2=A0 =C2=A0found the following bugs in your MOR1KX processor d=
-esign<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(<a href=3D"https://urldefense.com/v3/__https://git=
-hub.com/openrisc/mor1kx__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g=
-8OchDHo_r7QIXO8QgYezYOf67r0Q$" rel=3D"noreferrer" target=3D"_blank">https:/=
-/urldefense.com/v3/__https://github.com/openrisc/mor1kx__;!!KwNVnqRv!XeamcS=
-RFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYOf67r0Q$</a> <br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://urldefense.com/v3/__https://=
-github.com/openrisc/mor1kx__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHR=
-NT2CfnwuMzUMLkGpkd-6OXtBiVlQn4uw$" rel=3D"noreferrer" target=3D"_blank">htt=
-ps://urldefense.com/v3/__https://github.com/openrisc/mor1kx__;!!KwNVnqRv!SN=
-shfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBiVlQn4uw$</a>&gt;)=
-.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0We intend to get CVE listing numbers for all these =
-bugs to include<br>
-&gt;=C2=A0 =C2=A0 =C2=A0in our research paper. Hence, we would like to disc=
-lose these bugs<br>
-&gt;=C2=A0 =C2=A0 =C2=A0to you before we request CVE IDs. =C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Please respond to us by=C2=A0*_10th Sept 2021, 11:5=
-9 PM UTC _*with your<br>
-&gt;=C2=A0 =C2=A0 =C2=A0acknowledgment of the bugs.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0In case you are not authorized to comment on the bu=
-gs, please<br>
-&gt;=C2=A0 =C2=A0 =C2=A0connect us with the right contact person or channel=
- for this matter. =C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Also, let us know if your processor design is one o=
-f the CNA-covered<br>
-&gt;=C2=A0 =C2=A0 =C2=A0products (<a href=3D"https://urldefense.com/v3/__ht=
-tps://cve.mitre.org/cve/cna.html__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189n=
-UEBWI3f3g8OchDHo_r7QIXO8QgYezbJjp-2Xg$" rel=3D"noreferrer" target=3D"_blank=
-">https://urldefense.com/v3/__https://cve.mitre.org/cve/cna.html__;!!KwNVnq=
-Rv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezbJjp-2Xg$</a> =
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://urldefense.com/v3/__https://=
-cve.mitre.org/cve/cna.html__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHR=
-NT2CfnwuMzUMLkGpkd-6OXtBi93tT1sQ$" rel=3D"noreferrer" target=3D"_blank">htt=
-ps://urldefense.com/v3/__https://cve.mitre.org/cve/cna.html__;!!KwNVnqRv!SN=
-shfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi93tT1sQ$</a>&gt;)=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0so that we can include the same in our CVE listing.=
-<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Vendor of the product(s): openrisc<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug 1:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug:The carry flag is incorrectly implemented for s=
-ubtractinstructions.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Location: =C2=A0mor1kx_execute_alu.v<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(<a href=3D"https://urldefense.com/v3/__https://git=
-hub.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v__;!!Kw=
-NVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZdNKImyQ$"=
- rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__https://g=
-ithub.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v__;!!=
-KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZdNKImyQ=
-$</a> <br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://urldefense.com/v3/__https://=
-github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v__;!=
-!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi4Qmr_=
-iI$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__https=
-://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v_=
-_;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi4Q=
-mr_iI$</a>&gt;).<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Triggering input:=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0//set r1=3D00020000 and r3=3D00002000<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0l.sub=C2=A0 =C2=A0 r4=
-,r1,r3=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Expected output:=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Carry flag =3D 0<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0mor1kx output:=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Carry flag =3D 1<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug 2:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug:The EPCR register is accessible from user mode.=
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Location: =C2=A0mor1kx_ctrl_cappuccino.v<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(<a href=3D"https://urldefense.com/v3/__https://git=
-hub.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;=
-!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZmnToc=
-Iw$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__https=
-://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccin=
-o.v__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYez=
-ZmnTocIw$</a> <br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://urldefense.com/v3/__https://=
-github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v=
-__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi6=
-Jz-sng$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__h=
-ttps://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappu=
-ccino.v__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-=
-6OXtBi6Jz-sng$</a>&gt;).<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Details: The OpenRISC specification requires that t=
-he EPCR register<br>
-&gt;=C2=A0 =C2=A0 =C2=A0be accessible only from supervisor mode.=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Triggering input:=C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0#include &lt;stdio.h&gt;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0int main() {<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0// enter user mode :<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile ( &quot;l.ori r17,r0,0x000=
-0=C2=A0 &quot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile ( &quot;l.mtspr r0,r17,0x3=
-806&quot;);<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile ( &quot;l.mfspr r17,r0,0x1=
-1=C2=A0 &quot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile ( &quot;l.andi r17,r17,-2=
-=C2=A0 =C2=A0 &quot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile ( &quot;l.mtspr r0,r17,0x1=
-1=C2=A0 &quot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0// padding the seed code<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile( &quot;l.nop 0x0 &quot;);<=
-br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile( &quot;l.nop 0x0 &quot;);<=
-br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile( &quot;l.nop 0x0 &quot;);<=
-br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile( &quot;l.nop 0x0 &quot;);<=
-br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile (&quot;l.addi r1,r0,1&quot=
-;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile (&quot;l.mfspr r2,r0,32&qu=
-ot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0asm volatile (&quot;l.mtspr r0, r1, 32&=
-quot;);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0=C2=A0return 0;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0The or1ksim fails to execute the mfspr while the mo=
-r1kx<br>
-&gt;=C2=A0 =C2=A0 =C2=A0implementation can successfully write into EPCR usi=
-ng the mtspr<br>
-&gt;=C2=A0 =C2=A0 =C2=A0instruction.=C2=A0<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug 3:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Bug:Unable to write to the EEAR register from the s=
-upervisor mode.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Location: =C2=A0mor1kx_ctrl_cappuccino.v<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(<a href=3D"https://urldefense.com/v3/__https://git=
-hub.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v__;=
-!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezZmnToc=
-Iw$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__https=
-://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccin=
-o.v__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYez=
-ZmnTocIw$</a> <br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://urldefense.com/v3/__https://=
-github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappuccino.v=
-__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-6OXtBi6=
-Jz-sng$" rel=3D"noreferrer" target=3D"_blank">https://urldefense.com/v3/__h=
-ttps://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_ctrl_cappu=
-ccino.v__;!!KwNVnqRv!SNshfFgKzp1a7X2JYV-4kru80LEyB-7pSHRNT2CfnwuMzUMLkGpkd-=
-6OXtBi6Jz-sng$</a>&gt;),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0line 830 to 840.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Details: The OpenRISC specification requires that t=
-he EEAR register<br>
-&gt;=C2=A0 =C2=A0 =C2=A0be accessible from the supervisor mode but the mor1=
-kx implementation<br>
-&gt;=C2=A0 =C2=A0 =C2=A0does not have the option to write to EEAR with the =
-mtspr instruction<br>
-&gt;=C2=A0 =C2=A0 =C2=A0even from the supervisor mode.=C2=A0<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Sincerely,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0JV, Ahmad, Aakash, Addison, and Rahul.<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0-- <br>
-&gt;=C2=A0 =C2=A0 =C2=A0JV Rajendran,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Assistant Professor of Electrical and Computer Engi=
-neering,=C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Texas A&amp;M University.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Web:=C2=A0<a href=3D"https://cesg.tamu.edu/faculty/=
-jv/" rel=3D"noreferrer" target=3D"_blank">https://cesg.tamu.edu/faculty/jv/=
-</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://cesg.tamu.edu/faculty/jv/" r=
-el=3D"noreferrer" target=3D"_blank">https://cesg.tamu.edu/faculty/jv/</a>&g=
-t;<br>
-&gt; <br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; OpenRISC mailing list<br>
-&gt; <a href=3D"mailto:OpenRISC@lists.librecores.org" target=3D"_blank">Ope=
-nRISC@lists.librecores.org</a><br>
-&gt; <a href=3D"https://urldefense.com/v3/__https://lists.librecores.org/li=
-stinfo/openrisc__;!!KwNVnqRv!XeamcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_=
-r7QIXO8QgYezYmyWEWww$" rel=3D"noreferrer" target=3D"_blank">https://urldefe=
-nse.com/v3/__https://lists.librecores.org/listinfo/openrisc__;!!KwNVnqRv!Xe=
-amcSRFA-6TeQbLLPh3DDsaf189nUEBWI3f3g8OchDHo_r7QIXO8QgYezYmyWEWww$</a> <br>
-&gt; <br>
-<br>
-</blockquote></div>
-
---000000000000ef9f4b05cb72ecbf--
-
---===============0133274106361821889==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============0133274106361821889==--
+UHJvdmlkZSBzdXBwb3J0IHRvIGNvbXBpbGUgdGhlIFBvd2VyLU9mZiBkcml2ZXIgYXMgYSBtb2R1
+bGUuCgp2MSA9PiB2MjoKIC0gcy9FWFBPUlRfU1lNQk9ML0VYUE9SVF9TWU1CT0xfR1BMLwogCkVs
+bGlvdCBCZXJtYW4gKDIpOgogIHJlYm9vdDogRXhwb3J0IHJlYm9vdF9tb2RlCiAgcG93ZXI6IHJl
+c2V0OiBFbmFibGUgdHJpc3RhdGUgb24gcmVzdGFydCBwb3dlci1vZmYgZHJpdmVyCgpMZWUgSm9u
+ZXMgKDEpOgogIGFyY2g6IEV4cG9ydCBtYWNoaW5lX3Jlc3RhcnQoKSBpbnN0YW5jZXMgc28gdGhl
+eSBjYW4gYmUgY2FsbGVkIGZyb20KICAgIG1vZHVsZXMKCiBhcmNoL2FyYy9rZXJuZWwvcmVzZXQu
+YyAgICAgICAgICAgIHwgMSArCiBhcmNoL2FybS9rZXJuZWwvcmVib290LmMgICAgICAgICAgIHwg
+MSArCiBhcmNoL2FybTY0L2tlcm5lbC9wcm9jZXNzLmMgICAgICAgIHwgMSArCiBhcmNoL2Nza3kv
+a2VybmVsL3Bvd2VyLmMgICAgICAgICAgIHwgMSArCiBhcmNoL2g4MzAwL2tlcm5lbC9wcm9jZXNz
+LmMgICAgICAgIHwgMSArCiBhcmNoL2hleGFnb24va2VybmVsL3Jlc2V0LmMgICAgICAgIHwgMSAr
+CiBhcmNoL202OGsva2VybmVsL3Byb2Nlc3MuYyAgICAgICAgIHwgMSArCiBhcmNoL21pY3JvYmxh
+emUva2VybmVsL3Jlc2V0LmMgICAgIHwgMSArCiBhcmNoL21pcHMva2VybmVsL3Jlc2V0LmMgICAg
+ICAgICAgIHwgMSArCiBhcmNoL21pcHMvbGFudGlxL2ZhbGNvbi9yZXNldC5jICAgIHwgMSArCiBh
+cmNoL21pcHMvc2dpLWlwMjcvaXAyNy1yZXNldC5jICAgIHwgMSArCiBhcmNoL25kczMyL2tlcm5l
+bC9wcm9jZXNzLmMgICAgICAgIHwgMiArLQogYXJjaC9uaW9zMi9rZXJuZWwvcHJvY2Vzcy5jICAg
+ICAgICB8IDEgKwogYXJjaC9vcGVucmlzYy9rZXJuZWwvcHJvY2Vzcy5jICAgICB8IDEgKwogYXJj
+aC9wYXJpc2Mva2VybmVsL3Byb2Nlc3MuYyAgICAgICB8IDEgKwogYXJjaC9wb3dlcnBjL2tlcm5l
+bC9zZXR1cC1jb21tb24uYyB8IDEgKwogYXJjaC9yaXNjdi9rZXJuZWwvcmVzZXQuYyAgICAgICAg
+ICB8IDEgKwogYXJjaC9zMzkwL2tlcm5lbC9zZXR1cC5jICAgICAgICAgICB8IDEgKwogYXJjaC9z
+aC9rZXJuZWwvcmVib290LmMgICAgICAgICAgICB8IDEgKwogYXJjaC9zcGFyYy9rZXJuZWwvcHJv
+Y2Vzc18zMi5jICAgICB8IDEgKwogYXJjaC9zcGFyYy9rZXJuZWwvcmVib290LmMgICAgICAgICB8
+IDEgKwogYXJjaC91bS9rZXJuZWwvcmVib290LmMgICAgICAgICAgICB8IDEgKwogYXJjaC94ODYv
+a2VybmVsL3JlYm9vdC5jICAgICAgICAgICB8IDEgKwogYXJjaC94dGVuc2Eva2VybmVsL3NldHVw
+LmMgICAgICAgICB8IDEgKwogZHJpdmVycy9wb3dlci9yZXNldC9LY29uZmlnICAgICAgICB8IDIg
+Ky0KIGtlcm5lbC9yZWJvb3QuYyAgICAgICAgICAgICAgICAgICAgfCAyICsrCiAyNiBmaWxlcyBj
+aGFuZ2VkLCAyNyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKQ2M6IEFsYmVydCBPdSA8
+YW91QGVlY3MuYmVya2VsZXkuZWR1PgpDYzogQW50b24gSXZhbm92IDxhbnRvbi5pdmFub3ZAY2Ft
+YnJpZGdlZ3JleXMuY29tPgpDYzogQm9yaXNsYXYgUGV0a292IDxicEBhbGllbjguZGU+CkNjOiBC
+cmlhbiBDYWluIDxiY2FpbkBjb2RlYXVyb3JhLm9yZz4KQ2M6IENocmlzdGlhbiBCb3JudHJhZWdl
+ciA8Ym9ybnRyYWVnZXJAZGUuaWJtLmNvbT4KQ2M6IENocmlzIFphbmtlbCA8Y2hyaXNAemFua2Vs
+Lm5ldD4KQ2M6IERhdmlkIFMuIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD4KQ2M6IEd1byBS
+ZW4gPGd1b3JlbkBrZXJuZWwub3JnPgpDYzogSGVpa28gQ2Fyc3RlbnMgPGhjYUBsaW51eC5pYm0u
+Y29tPgpDYzogSGVsZ2UgRGVsbGVyIDxkZWxsZXJAZ214LmRlPgpDYzogSW5nbyBNb2xuYXIgPG1p
+bmdvQHJlZGhhdC5jb20+CkNjOiBKYW1lcyBFLkouIEJvdHRvbWxleSA8SmFtZXMuQm90dG9tbGV5
+QEhhbnNlblBhcnRuZXJzaGlwLmNvbT4KQ2M6IEplZmYgRGlrZSA8amRpa2VAYWRkdG9pdC5jb20+
+CkNjOiBKb2huIENyaXNwaW4gPGpvaG5AcGhyb3plbi5vcmc+CkNjOiBKb25hcyBCb25uIDxqb25h
+c0Bzb3V0aHBvbGUuc2U+CkNjOiBMZXkgRm9vbiBUYW4gPGxleS5mb29uLnRhbkBpbnRlbC5jb20+
+CkNjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKQ2M6IGxpbnV4LWNza3lA
+dmdlci5rZXJuZWwub3JnCkNjOiBsaW51eC1oZXhhZ29uQHZnZXIua2VybmVsLm9yZwpDYzogbGlu
+dXgta2VybmVsQHZnZXIua2VybmVsLm9yZwpDYzogbGludXgtbTY4a0BsaXN0cy5saW51eC1tNjhr
+Lm9yZwpDYzogbGludXgtbWlwc0B2Z2VyLmtlcm5lbC5vcmcKQ2M6IGxpbnV4LXBhcmlzY0B2Z2Vy
+Lmtlcm5lbC5vcmcKQ2M6IGxpbnV4cHBjLWRldkBsaXN0cy5vemxhYnMub3JnCkNjOiBsaW51eC1y
+aXNjdkBsaXN0cy5pbmZyYWRlYWQub3JnCkNjOiBsaW51eC1zMzkwQHZnZXIua2VybmVsLm9yZwpD
+YzogbGludXgtc2hAdmdlci5rZXJuZWwub3JnCkNjOiBsaW51eC1zbnBzLWFyY0BsaXN0cy5pbmZy
+YWRlYWQub3JnCkNjOiBsaW51eC11bUBsaXN0cy5pbmZyYWRlYWQub3JnCkNjOiBsaW51eC14dGVu
+c2FAbGludXgteHRlbnNhLm9yZwpDYzogTWF4IEZpbGlwcG92IDxqY212YmtiY0BnbWFpbC5jb20+
+CkNjOiBNaWNoYWVsIEVsbGVybWFuIDxtcGVAZWxsZXJtYW4uaWQuYXU+CkNjOiBNaWNoYWwgU2lt
+ZWsgPG1vbnN0ckBtb25zdHIuZXU+CkNjOiBvcGVucmlzY0BsaXN0cy5saWJyZWNvcmVzLm9yZwpD
+YzogUGFsbWVyIERhYmJlbHQgPHBhbG1lckBkYWJiZWx0LmNvbT4KQ2M6IFBhdWwgV2FsbXNsZXkg
+PHBhdWwud2FsbXNsZXlAc2lmaXZlLmNvbT4KQ2M6IFJpY2hhcmQgV2VpbmJlcmdlciA8cmljaGFy
+ZEBub2QuYXQ+CkNjOiBSaWNoIEZlbGtlciA8ZGFsaWFzQGxpYmMub3JnPgpDYzogc3BhcmNsaW51
+eEB2Z2VyLmtlcm5lbC5vcmcKQ2M6IFN0YWZmb3JkIEhvcm5lIDxzaG9ybmVAZ21haWwuY29tPgpD
+YzogU3RlZmFuIEtyaXN0aWFuc3NvbiA8c3RlZmFuLmtyaXN0aWFuc3NvbkBzYXVuYWxhaHRpLmZp
+PgpDYzogVGhvbWFzIEdsZWl4bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+CkNjOiB1Y2xpbnV4LWg4
+LWRldmVsQGxpc3RzLnNvdXJjZWZvcmdlLmpwCkNjOiBWYXNpbHkgR29yYmlrIDxnb3JAbGludXgu
+aWJtLmNvbT4KQ2M6IFZpbmVldCBHdXB0YSA8dmd1cHRhQHN5bm9wc3lzLmNvbT4KQ2M6IFdpbGwg
+RGVhY29uIDx3aWxsQGtlcm5lbC5vcmc+CkNjOiBZb3NoaW5vcmkgU2F0byA8eXNhdG9AdXNlcnMu
+c291cmNlZm9yZ2UuanA+Ci0tIAoyLjMzLjAuMTUzLmdiYTUwYzhmYTI0LWdvb2cKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcg
+bGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29y
+ZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
