@@ -2,33 +2,33 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 67D53411D4A
-	for <lists+openrisc@lfdr.de>; Mon, 20 Sep 2021 19:17:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5730411CA6
+	for <lists+openrisc@lfdr.de>; Mon, 20 Sep 2021 19:10:17 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 11BA3241C5;
-	Mon, 20 Sep 2021 19:17:03 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 5452D241CA;
+	Mon, 20 Sep 2021 19:10:17 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id 6B7CA20B2D
- for <openrisc@lists.librecores.org>; Mon, 20 Sep 2021 19:17:01 +0200 (CEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 27F0A63240;
- Mon, 20 Sep 2021 17:16:59 +0000 (UTC)
+ by mail.librecores.org (Postfix) with ESMTPS id 4D25E23F01
+ for <openrisc@lists.librecores.org>; Mon, 20 Sep 2021 19:10:15 +0200 (CEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 371AE61BA6;
+ Mon, 20 Sep 2021 17:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1632158219;
- bh=AVKcTcYlNoH2NzjDSZ6G0EuI+eBeklxmc/2EmFipF28=;
+ s=korg; t=1632157813;
+ bh=2wO1r7sYk2AHRkqPJtMZHAFruH6kzhf/sfeCAb4dSnU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=afmaQ/RW4ypBL00dHJbp4ib8xrYHvt07IMhB34Dk1bJoyM9+UB8O3ZsNTgmxQBjGm
- 6p97iK/Log92XtljDlK+3U93XxDz/Q6fC/A46Wi3+zdgJuYuNQnq7MWkWrbsrbAV9G
- anM5RQpLJ22q6uF3FAW9kqWw9OB5opJgsRZ9xwBM=
+ b=SH3ZN0EAQjxgTLuK1pznmnk8A7oGcHXx96tuPuH6LWitQQZWnGEWxNW1HAdiWnavY
+ vGjarwDhvvlCVxS87XGOp23aqtTirpMtxDrXT5vHsUfZeix+kRw3I9jkSOwKpoN3ZF
+ abxKwmX5HxGYq1L0uzIrxRJuwg78/p7D2cLPAq+I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 20 Sep 2021 18:41:06 +0200
-Message-Id: <20210920163932.742513717@linuxfoundation.org>
+Date: Mon, 20 Sep 2021 18:42:05 +0200
+Message-Id: <20210920163938.864152614@linuxfoundation.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210920163931.123590023@linuxfoundation.org>
-References: <20210920163931.123590023@linuxfoundation.org>
+In-Reply-To: <20210920163933.258815435@linuxfoundation.org>
+References: <20210920163933.258815435@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
-Subject: [OpenRISC] [PATCH 5.4 048/260] openrisc: dont printk()
+Subject: [OpenRISC] [PATCH 4.19 163/293] openrisc: dont printk()
  unconditionally
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -69,12 +69,12 @@ Ynk6IFN0YWZmb3JkIEhvcm5lIDxzaG9ybmVAZ21haWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNo
 YSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogYXJjaC9vcGVucmlzYy9rZXJuZWwvZW50
 cnkuUyB8IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQg
 YS9hcmNoL29wZW5yaXNjL2tlcm5lbC9lbnRyeS5TIGIvYXJjaC9vcGVucmlzYy9rZXJuZWwvZW50
-cnkuUwppbmRleCBjNjQ4MWNmYzUyMjAuLjZiMjdjZjRhMGQ3OCAxMDA2NDQKLS0tIGEvYXJjaC9v
+cnkuUwppbmRleCAwMWI1OWQyY2UxNzQuLmMyYzNjZThhMGY4NCAxMDA2NDQKLS0tIGEvYXJjaC9v
 cGVucmlzYy9rZXJuZWwvZW50cnkuUworKysgYi9hcmNoL29wZW5yaXNjL2tlcm5lbC9lbnRyeS5T
-CkBAIC01NDcsNiArNTQ3LDcgQEAgRVhDRVBUSU9OX0VOVFJZKF9leHRlcm5hbF9pcnFfaGFuZGxl
+CkBAIC01NTEsNiArNTUxLDcgQEAgRVhDRVBUSU9OX0VOVFJZKF9leHRlcm5hbF9pcnFfaGFuZGxl
 cikKIAlsLmJuZgkxZgkJCS8vIGV4dCBpcnEgZW5hYmxlZCwgYWxsIG9rLgogCWwubm9wCiAKKyNp
 ZmRlZiBDT05GSUdfUFJJTlRLCiAJbC5hZGRpICByMSxyMSwtMHg4CiAJbC5tb3ZoaSByMyxoaSg0
-MmYpCiAJbC5vcmkJcjMscjMsbG8oNDJmKQpAQCAtNTYwLDYgKzU2MSw3IEBAIEVYQ0VQVElPTl9F
+MmYpCiAJbC5vcmkJcjMscjMsbG8oNDJmKQpAQCAtNTY0LDYgKzU2NSw3IEBAIEVYQ0VQVElPTl9F
 TlRSWShfZXh0ZXJuYWxfaXJxX2hhbmRsZXIpCiAJCS5zdHJpbmcgIlxuXHJFU1IgaW50ZXJydXB0
 IGJ1ZzogaW4gX2V4dGVybmFsX2lycV9oYW5kbGVyIChFU1IgJXgpXG5cciIKIAkJLmFsaWduIDQK
 IAkucHJldmlvdXMKKyNlbmRpZgogCiAJbC5vcmkJcjQscjQsU1BSX1NSX0lFRQkvLyBmaXggdGhl
