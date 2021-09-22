@@ -2,67 +2,37 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id BE02E415EA7
-	for <lists+openrisc@lfdr.de>; Thu, 23 Sep 2021 14:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 16EA3415EA8
+	for <lists+openrisc@lfdr.de>; Thu, 23 Sep 2021 14:44:14 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 43B8623CBB;
+	by mail.librecores.org (Postfix) with ESMTP id 69364240FB;
 	Thu, 23 Sep 2021 14:44:13 +0200 (CEST)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by mail.librecores.org (Postfix) with ESMTPS id A4BCD23CBB
- for <openrisc@lists.librecores.org>; Wed, 22 Sep 2021 10:42:01 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 7EE655802A0;
- Wed, 22 Sep 2021 04:42:00 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 22 Sep 2021 04:42:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=yoA2Ii3axXPN7X/c5B/JJ2aU3f5
- xmDOavqnZKLWOwGI=; b=bD20vs5Eiv2VzwwdLP5aJY0qaNmLmsNoCiA4YNs3st8
- 5QN/ENVa1SUEPMTMXtETZC9a1TRmp4gQIiDscATsGeR/a0Mky7AnZXc0joYVNlO9
- Q+8nFFZkzf/HUPw/LQv4SbmuFmNRoBzGHkhd6EGE7cq553pni5Zxsfe1qjDsx//m
- M6fZD0SCaW600TggsuxlLbKxlVVuNUb7n7ASm32aWhY6CQlJyh883clvlU7gf32O
- Ztj9Dz/pJXWcVzMWUeOid1vfyVa/lbCDKHvG8RHkvydFhkcknpl1G7z8o5z5+AdN
- xquqL2BIYUlSk9jq18l+XsyaRZMuGiUbt00d4RFcPVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=yoA2Ii
- 3axXPN7X/c5B/JJ2aU3f5xmDOavqnZKLWOwGI=; b=HxvbmiS7peC+aSJzBbjFTo
- DwXG/2eAbUkdtT5pxS+gkiPHyUa95N9+uusXaK0JpIsftsHGuBoFGMCbmnKtmcfu
- q5opv+zBUs9d3CD9Yw9AQ5hWznVogHWzptHTVH4GvVGWnc4pDLwCZL395BCIF3+6
- cbk8iL66EML7W+oswJeZd39V0WRzLmCZJdhKozYUTdxnCP7NB7tTtAw1JkZcHiCB
- OOOgYVAddUZaPgxANeb9fQyraSXFG1k+veKgVcZsi3X3WbtEIc/fwukHydBbwBD/
- idWXmctPT90yjPX3S7T53AiCBmbjnTYsBYvu+WAJE90C73L20pIGysEzi5QcfoaA
- ==
-X-ME-Sender: <xms:VuxKYcgL6aoCgh02rEx50Ih2s0vhbdIDcU1oIPLLpp0m60uNVmSQ2w>
- <xme:VuxKYVDQJbqEXHvkC6blHIZG60uKUgOn1mJ6NcN2zMTWdugqQRS-jXt55-dVeYqef
- g0i5_RHc1SXdxrD2H0>
-X-ME-Received: <xmr:VuxKYUHqYZyI0uZmF0gLQickQOpIJHAZ1gb5nARrqvro1wqognq9MelwR0SdLmS0EPCl9vD1Q4BW_RDgatyAPDTXM-EPz97O1-uD>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeijedgtdeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:VuxKYdSP9iQZD-Fhv8Bu0i4OjGjk9Xt2QTArkcXrhTFPiyk1d6RV6w>
- <xmx:VuxKYZx55-18gnF6uKnFtjvJ-UjWKxp_tRYknFRywR8eEHp8l-3G8Q>
- <xmx:VuxKYb6LhydO-LNHGFxElJDCgsVL6qLDQmz4pOVtOTDLB0OFIAkoew>
- <xmx:WOxKYSHddCiT4db0vBw-2gZu8R7cxNLPayrJMbzbvmYDF7fHOfJZHQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 22 Sep 2021 04:41:57 -0400 (EDT)
-Date: Wed, 22 Sep 2021 10:41:56 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20210922084156.xqru5fdjkarbkyew@gilmour>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mail.librecores.org (Postfix) with ESMTPS id B010B202A8
+ for <openrisc@lists.librecores.org>; Wed, 22 Sep 2021 17:49:59 +0200 (CEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C150A610A1;
+ Wed, 22 Sep 2021 15:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632325798;
+ bh=bG1NBP4It5lN9mNWkYcfkuu4qZacuaz/60AX2jQWjTE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TV1auz9/KtJeMADAOSvuTYcU86ONLBAOf4bCIG+FrDqf+V0OwtMCNCI9EuC5H2YXj
+ F6nT5TT8m6996iV82s1CbteoS28EBcfjvlSybGHeMCqG98FPss7hlxTPRCzsEZhCQR
+ oK2iY4Nh3BMi1YCg3Zgjp2buFbfep00ijEqiR/6M1oAMT6RYpWW09P9/MJORjpx329
+ HELvPOF8qBCPKtBs42oMP8TAIg6e+2vw3oHh/X547tbB2/eCavNCPoIkwq/hluA+f+
+ n3DdjY0HiXhmZKyzDxAuSpuLpCuJr0iJtXSv/3X8mE15MVOT9F86f1FpMRJ6v++l35
+ eawiKOZUCmahA==
+Date: Wed, 22 Sep 2021 08:49:50 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <YUtQnml8FO8BC7sM@archlinux-ax161>
 References: <20210819135931.895976-1-maxime@cerno.tech>
  <20210819135931.895976-2-maxime@cerno.tech>
  <8a5cdcf5-33ed-398f-243a-b8889fd754e3@infradead.org>
+ <20210922084156.xqru5fdjkarbkyew@gilmour>
 MIME-Version: 1.0
-In-Reply-To: <8a5cdcf5-33ed-398f-243a-b8889fd754e3@infradead.org>
+Content-Disposition: inline
+In-Reply-To: <20210922084156.xqru5fdjkarbkyew@gilmour>
 X-Mailman-Approved-At: Thu, 23 Sep 2021 14:44:12 +0200
 Subject: Re: [OpenRISC] [PATCH v3 1/6] drm/vc4: select PM (openrisc)
 X-BeenThere: openrisc@lists.librecores.org
@@ -81,138 +51,80 @@ Cc: Jonas Bonn <jonas@southpole.se>, Emma Anholt <emma@anholt.net>,
  Nicolas Saenz Julienne <nsaenz@kernel.org>, Dom Cobley <dom@raspberrypi.com>,
  Tim Gover <tim.gover@raspberrypi.com>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@linux.ie>, Boris Brezillon <bbrezillon@kernel.org>,
+ David Airlie <airlied@linux.ie>, Randy Dunlap <rdunlap@infradead.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Openrisc <openrisc@lists.librecores.org>,
  bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>
-Content-Type: multipart/mixed; boundary="===============4299000636893096815=="
+ Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
+ Boris Brezillon <bbrezillon@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-
---===============4299000636893096815==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5x75oq3heiuvzqmo"
-Content-Disposition: inline
-
-
---5x75oq3heiuvzqmo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Randy,
-
-On Sun, Sep 19, 2021 at 09:40:44AM -0700, Randy Dunlap wrote:
-> On 8/19/21 6:59 AM, Maxime Ripard wrote:
-> > We already depend on runtime PM to get the power domains and clocks for
-> > most of the devices supported by the vc4 driver, so let's just select it
-> > to make sure it's there, and remove the ifdef.
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
-> >   drivers/gpu/drm/vc4/Kconfig    | 1 +
-> >   drivers/gpu/drm/vc4/vc4_hdmi.c | 2 --
-> >   2 files changed, 1 insertion(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/Kconfig
-> > index 118e8a426b1a..f774ab340863 100644
-> > --- a/drivers/gpu/drm/vc4/Kconfig
-> > +++ b/drivers/gpu/drm/vc4/Kconfig
-> > @@ -9,6 +9,7 @@ config DRM_VC4
-> >   	select DRM_KMS_CMA_HELPER
-> >   	select DRM_GEM_CMA_HELPER
-> >   	select DRM_PANEL_BRIDGE
-> > +	select PM
-> >   	select SND_PCM
-> >   	select SND_PCM_ELD
-> >   	select SND_SOC_GENERIC_DMAENGINE_PCM
-> > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_h=
-dmi.c
-> > index c2876731ee2d..602203b2d8e1 100644
-> > --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> > @@ -2107,7 +2107,6 @@ static int vc5_hdmi_init_resources(struct vc4_hdm=
-i *vc4_hdmi)
-> >   	return 0;
-> >   }
-> > -#ifdef CONFIG_PM
-> >   static int vc4_hdmi_runtime_suspend(struct device *dev)
-> >   {
-> >   	struct vc4_hdmi *vc4_hdmi =3D dev_get_drvdata(dev);
-> > @@ -2128,7 +2127,6 @@ static int vc4_hdmi_runtime_resume(struct device =
-*dev)
-> >   	return 0;
-> >   }
-> > -#endif
-> >   static int vc4_hdmi_bind(struct device *dev, struct device *master, v=
-oid *data)
-> >   {
-> >=20
->=20
-> Hi,
->=20
-> FYI.
->=20
-> This still causes a build error on arch/openrisc/ since it does not suppo=
-rt
-> CONFIG_PM (it does not source "kernel/power/Kconfig" like some other arch=
-es do):
->=20
-> ./arch/riscv/Kconfig:source "kernel/power/Kconfig"
-> ./arch/x86/Kconfig:source "kernel/power/Kconfig"
-> ./arch/nds32/Kconfig:source "kernel/power/Kconfig"
-> ./arch/sh/Kconfig:source "kernel/power/Kconfig"
-> ./arch/arc/Kconfig:source "kernel/power/Kconfig"
-> ./arch/arm64/Kconfig:source "kernel/power/Kconfig"
-> ./arch/xtensa/Kconfig:source "kernel/power/Kconfig"
-> ./arch/sparc/Kconfig:source "kernel/power/Kconfig"
-> ./arch/arm/Kconfig:source "kernel/power/Kconfig"
-> ./arch/mips/Kconfig:source "kernel/power/Kconfig"
-> ./arch/powerpc/Kconfig:source "kernel/power/Kconfig"
-> ./arch/um/Kconfig:source "kernel/power/Kconfig"
-> ./arch/ia64/Kconfig:source "kernel/power/Kconfig"
->=20
-> so with
-> CONFIG_DRM_VC4=3Dy
-> # CONFIG_DRM_VC4_HDMI_CEC is not set
->=20
-> I still see
-> ../drivers/gpu/drm/vc4/vc4_hdmi.c:2139:12: warning: 'vc4_hdmi_runtime_sus=
-pend' defined but not used [-Wunused-function]
->  2139 | static int vc4_hdmi_runtime_suspend(struct device *dev)
->       |            ^~~~~~~~~~~~~~~~~~~~~~~~
-
-With what version did you get that build error? -rc2 shouldn't have it
-anymore since the runtime_pm hooks introduction got reverted.
-
-Maxime
-
---5x75oq3heiuvzqmo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYUrsVAAKCRDj7w1vZxhR
-xcJDAP9CgeyoZOknS4cqvZ9EHhMJxZmRdv9kzQ1KIRH2UxvZqwD/e7AQfR48+Phw
-iC0PWsKBXpNQ9/dhgtzAPUq3pEeNOQE=
-=dGOO
------END PGP SIGNATURE-----
-
---5x75oq3heiuvzqmo--
-
---===============4299000636893096815==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============4299000636893096815==--
+T24gV2VkLCBTZXAgMjIsIDIwMjEgYXQgMTA6NDE6NTZBTSArMDIwMCwgTWF4aW1lIFJpcGFyZCB3
+cm90ZToKPiBIaSBSYW5keSwKPiAKPiBPbiBTdW4sIFNlcCAxOSwgMjAyMSBhdCAwOTo0MDo0NEFN
+IC0wNzAwLCBSYW5keSBEdW5sYXAgd3JvdGU6Cj4gPiBPbiA4LzE5LzIxIDY6NTkgQU0sIE1heGlt
+ZSBSaXBhcmQgd3JvdGU6Cj4gPiA+IFdlIGFscmVhZHkgZGVwZW5kIG9uIHJ1bnRpbWUgUE0gdG8g
+Z2V0IHRoZSBwb3dlciBkb21haW5zIGFuZCBjbG9ja3MgZm9yCj4gPiA+IG1vc3Qgb2YgdGhlIGRl
+dmljZXMgc3VwcG9ydGVkIGJ5IHRoZSB2YzQgZHJpdmVyLCBzbyBsZXQncyBqdXN0IHNlbGVjdCBp
+dAo+ID4gPiB0byBtYWtlIHN1cmUgaXQncyB0aGVyZSwgYW5kIHJlbW92ZSB0aGUgaWZkZWYuCj4g
+PiA+IAo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBNYXhpbWUgUmlwYXJkIDxtYXhpbWVAY2Vybm8udGVj
+aD4KPiA+ID4gLS0tCj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL3ZjNC9LY29uZmlnICAgIHwgMSAr
+Cj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jIHwgMiAtLQo+ID4gPiAgIDIg
+ZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pCj4gPiA+IAo+ID4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3ZjNC9LY29uZmlnIGIvZHJpdmVycy9ncHUv
+ZHJtL3ZjNC9LY29uZmlnCj4gPiA+IGluZGV4IDExOGU4YTQyNmIxYS4uZjc3NGFiMzQwODYzIDEw
+MDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L0tjb25maWcKPiA+ID4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3ZjNC9LY29uZmlnCj4gPiA+IEBAIC05LDYgKzksNyBAQCBjb25maWcg
+RFJNX1ZDNAo+ID4gPiAgIAlzZWxlY3QgRFJNX0tNU19DTUFfSEVMUEVSCj4gPiA+ICAgCXNlbGVj
+dCBEUk1fR0VNX0NNQV9IRUxQRVIKPiA+ID4gICAJc2VsZWN0IERSTV9QQU5FTF9CUklER0UKPiA+
+ID4gKwlzZWxlY3QgUE0KPiA+ID4gICAJc2VsZWN0IFNORF9QQ00KPiA+ID4gICAJc2VsZWN0IFNO
+RF9QQ01fRUxECj4gPiA+ICAgCXNlbGVjdCBTTkRfU09DX0dFTkVSSUNfRE1BRU5HSU5FX1BDTQo+
+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jCj4gPiA+IGluZGV4IGMyODc2NzMxZWUyZC4uNjAyMjAz
+YjJkOGUxIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMK
+PiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jCj4gPiA+IEBAIC0yMTA3
+LDcgKzIxMDcsNiBAQCBzdGF0aWMgaW50IHZjNV9oZG1pX2luaXRfcmVzb3VyY2VzKHN0cnVjdCB2
+YzRfaGRtaSAqdmM0X2hkbWkpCj4gPiA+ICAgCXJldHVybiAwOwo+ID4gPiAgIH0KPiA+ID4gLSNp
+ZmRlZiBDT05GSUdfUE0KPiA+ID4gICBzdGF0aWMgaW50IHZjNF9oZG1pX3J1bnRpbWVfc3VzcGVu
+ZChzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gPiA+ICAgewo+ID4gPiAgIAlzdHJ1Y3QgdmM0X2hkbWkg
+KnZjNF9oZG1pID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4gPiA+IEBAIC0yMTI4LDcgKzIxMjcs
+NiBAQCBzdGF0aWMgaW50IHZjNF9oZG1pX3J1bnRpbWVfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRl
+dikKPiA+ID4gICAJcmV0dXJuIDA7Cj4gPiA+ICAgfQo+ID4gPiAtI2VuZGlmCj4gPiA+ICAgc3Rh
+dGljIGludCB2YzRfaGRtaV9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAq
+bWFzdGVyLCB2b2lkICpkYXRhKQo+ID4gPiAgIHsKPiA+ID4gCj4gPiAKPiA+IEhpLAo+ID4gCj4g
+PiBGWUkuCj4gPiAKPiA+IFRoaXMgc3RpbGwgY2F1c2VzIGEgYnVpbGQgZXJyb3Igb24gYXJjaC9v
+cGVucmlzYy8gc2luY2UgaXQgZG9lcyBub3Qgc3VwcG9ydAo+ID4gQ09ORklHX1BNIChpdCBkb2Vz
+IG5vdCBzb3VyY2UgImtlcm5lbC9wb3dlci9LY29uZmlnIiBsaWtlIHNvbWUgb3RoZXIgYXJjaGVz
+IGRvKToKPiA+IAo+ID4gLi9hcmNoL3Jpc2N2L0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIv
+S2NvbmZpZyIKPiA+IC4vYXJjaC94ODYvS2NvbmZpZzpzb3VyY2UgImtlcm5lbC9wb3dlci9LY29u
+ZmlnIgo+ID4gLi9hcmNoL25kczMyL0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZp
+ZyIKPiA+IC4vYXJjaC9zaC9LY29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4g
+PiAuL2FyY2gvYXJjL0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+IC4v
+YXJjaC9hcm02NC9LY29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiAuL2Fy
+Y2gveHRlbnNhL0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+IC4vYXJj
+aC9zcGFyYy9LY29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiAuL2FyY2gv
+YXJtL0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+IC4vYXJjaC9taXBz
+L0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+IC4vYXJjaC9wb3dlcnBj
+L0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+IC4vYXJjaC91bS9LY29u
+ZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiAuL2FyY2gvaWE2NC9LY29uZmln
+OnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiAKPiA+IHNvIHdpdGgKPiA+IENPTkZJ
+R19EUk1fVkM0PXkKPiA+ICMgQ09ORklHX0RSTV9WQzRfSERNSV9DRUMgaXMgbm90IHNldAo+ID4g
+Cj4gPiBJIHN0aWxsIHNlZQo+ID4gLi4vZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jOjIx
+Mzk6MTI6IHdhcm5pbmc6ICd2YzRfaGRtaV9ydW50aW1lX3N1c3BlbmQnIGRlZmluZWQgYnV0IG5v
+dCB1c2VkIFstV3VudXNlZC1mdW5jdGlvbl0KPiA+ICAyMTM5IHwgc3RhdGljIGludCB2YzRfaGRt
+aV9ydW50aW1lX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+ID4gICAgICAgfCAgICAgICAg
+ICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgo+IAo+IFdpdGggd2hhdCB2ZXJzaW9uIGRpZCB5
+b3UgZ2V0IHRoYXQgYnVpbGQgZXJyb3I/IC1yYzIgc2hvdWxkbid0IGhhdmUgaXQKPiBhbnltb3Jl
+IHNpbmNlIHRoZSBydW50aW1lX3BtIGhvb2tzIGludHJvZHVjdGlvbiBnb3QgcmV2ZXJ0ZWQuCgot
+bmV4dCBzdGlsbCBjb250YWlucyB0aGVzZSBwYXRjaGVzIGFzIFN0ZXBoZW4gZWZmZWN0aXZlbHkg
+cmV2ZXJ0ZWQgdGhlCmNoYW5nZXMgaW4gTGludXMnIHRyZWUgd2hlbiBtZXJnaW5nIGluIHRoZSBk
+cm0tbWlzYy1maXhlcyB0cmVlOgoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDIxMDkyMDA5
+MDcyOS4xOTQ1ODk1M0BjYW5iLmF1dWcub3JnLmF1LwoKQ2hlZXJzLApOYXRoYW4KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBs
+aXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jl
+cy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
