@@ -2,39 +2,71 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 244BE41617F
-	for <lists+openrisc@lfdr.de>; Thu, 23 Sep 2021 16:55:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E192B41628D
+	for <lists+openrisc@lfdr.de>; Thu, 23 Sep 2021 17:58:56 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id CBE58240DA;
-	Thu, 23 Sep 2021 16:55:43 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mail.librecores.org (Postfix) with ESMTPS id ADEC7240FC
- for <openrisc@lists.librecores.org>; Thu, 23 Sep 2021 16:55:41 +0200 (CEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B778610C9;
- Thu, 23 Sep 2021 14:55:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632408940;
- bh=RKJxYrYCoM2k7aZ2F996O9q/c65kSExCnAmxsZRz7+8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QHTqu20PhZP93CZB+M8svagNjNtHUNaGsP4fiansQScIRqfD9za0GITTCI0ovnvAl
- rqniKstoCwaFtdPBlmAx9I8ffXnCD5BnvOl9y6LOIkJ9ELHTntBXVDY9HldLuETeZ6
- ZxS7VgVGpAvnLK8VVLC0kruvtjqpsFHR19/gQP2wMcxqXeqHwrg95+lLITAc9VLBPK
- SJKI6ZyT25RS9R/9T7mRmv6ps+PzjI9ULOWNFdusCP3zu/EvZdCbSnhYb2ozRA+wpB
- XDYaTAuHkwIrz8ZbwvyHeFbHQ2dQNDFKzHunu13JXrfzKwIWQ2ZzUFYHqLPhggHwKS
- uf6jEk+qckUXg==
-Date: Thu, 23 Sep 2021 07:55:32 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YUyVZCEeRPE8VJ7w@archlinux-ax161>
+	by mail.librecores.org (Postfix) with ESMTP id 856532412D;
+	Thu, 23 Sep 2021 17:58:56 +0200 (CEST)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by mail.librecores.org (Postfix) with ESMTPS id 699D0213CC
+ for <openrisc@lists.librecores.org>; Thu, 23 Sep 2021 17:58:55 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 4F87B580B62;
+ Thu, 23 Sep 2021 11:58:54 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Thu, 23 Sep 2021 11:58:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=GQm+lTPGhYJNn4ipzUG6VTqMd9N
+ Xez8sQDJ2zFiixKI=; b=tgnoC48Id1WDYUDv9RxeXPUAIYove4djVcPR97Szt1Y
+ DK0HVKKSc7NTw2qWo4kJpXiKasCx3JpmWAfWqLwfwBq4+qlqLiu25ZhMd/neYxIA
+ wAHW8lpC3Wa7Cen5PIdCIpmhTfUApC2BzR8KoGLTgKsY5PUzmv7owKdW8nFPf6v7
+ 5Fr/SZDrOM3cKFMbanaM2zUTafLb1qB6rau8PuY+lRCIuB/qcde6Jc90kKb54wh2
+ rvn/FTJbevwWQx1YS8SxGNtDmcANx/pwmWFQUoc+i5P8rugawWainJfD1NNCHFX6
+ zK3j8b7sj6OAgKaBOoPwepis9C2+BKd/VXA0/Y1XNhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=GQm+lT
+ PGhYJNn4ipzUG6VTqMd9NXez8sQDJ2zFiixKI=; b=ombkJ8DHd9cFMT9psLE0Ae
+ 0XJMAQw1YGeHdYFXALKuAgtKVM1VRDefvvNPe6Rlc/ioecO+6zF6dlpuFaTUXgJH
+ lmD3oA8bljZpUn0rScMXXKGWNgrzkG4otg4+9R0Th/7G9TELDIcv/f7C5ky7ltvB
+ ClU1SxD9GPDW+sWVRJxIPh7P3TzvsGYi3poSCJZCsjrgtLn8548uAOn1RKvvgylG
+ GdVMB11H2qRg/i/rlObIAl/4oWoqGYwjBEmN5d5gD+CTLkgPQdshde/CzWIlsf3G
+ FKriodbeRu7JuE9CtUIUMHjiSi5QeAmOkepektCDbGgFz3GV6xK83AbffUJPlLsA
+ ==
+X-ME-Sender: <xms:PaRMYcuem_DDG0DoVw2__pmFPN1HFpwX1FyVzoWxdeT6L1ES-hr33Q>
+ <xme:PaRMYZcaB_jTPIxN6Ym8QoxbytBK7txwqx98XYInCJAfhyFYrHruNrGtBhc27Me5p
+ IP6jOQQiRKM3D9YpwQ>
+X-ME-Received: <xmr:PaRMYXxUfmnHlVMTWZCle9FPd4E8KrpEzAc34hdi5tUARtImDn8I3Ms9OnuY58UECPRMu5-ciJ2KqVhKJ_f3cRfgX7AsKFddSHs7>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeiledgleegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepveevfeffudeviedtgeethffhteeuffetfeffvdehvedvheetteehvdelfffg
+ jedvnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:PaRMYfPM5BnF6AE2eUyZ2napn_laIPuhBSadymRd7FY7LjGJI64sKg>
+ <xmx:PaRMYc9Z1XwxY0g5AexQxh-pq3YWrS7C1pdHOyRK8k1Vrb-wACW-uw>
+ <xmx:PaRMYXXTQaORjvQSR9Jdc9W_9qD1p3xk8nDkVSbBh-2r57b456v50g>
+ <xmx:PqRMYfdIsL1HfDnWlDW14HzSo_zwMsJFoyCpcdBCmwR_Z17fvXKW9g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 Sep 2021 11:58:52 -0400 (EDT)
+Date: Thu, 23 Sep 2021 17:58:51 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Nathan Chancellor <nathan@kernel.org>
+Message-ID: <20210923155851.dyttkomkza5pxqg3@gilmour>
 References: <20210819135931.895976-1-maxime@cerno.tech>
  <20210819135931.895976-2-maxime@cerno.tech>
  <8a5cdcf5-33ed-398f-243a-b8889fd754e3@infradead.org>
  <20210922084156.xqru5fdjkarbkyew@gilmour>
  <YUtQnml8FO8BC7sM@archlinux-ax161>
  <20210923145208.433zaqldird2vnxk@gilmour>
+ <YUyVZCEeRPE8VJ7w@archlinux-ax161>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210923145208.433zaqldird2vnxk@gilmour>
+In-Reply-To: <YUyVZCEeRPE8VJ7w@archlinux-ax161>
 Subject: Re: [OpenRISC] [PATCH v3 1/6] drm/vc4: select PM (openrisc)
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -61,86 +93,161 @@ Cc: Jonas Bonn <jonas@southpole.se>, Emma Anholt <emma@anholt.net>,
  Hans Verkuil <hverkuil-cisco@xs4all.nl>,
  Daniel Vetter <daniel.vetter@intel.com>, Phil Elwell <phil@raspberrypi.com>,
  Boris Brezillon <bbrezillon@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4145587340066556178=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBTZXAgMjMsIDIwMjEgYXQgMDQ6NTI6MDhQTSArMDIwMCwgTWF4aW1lIFJpcGFyZCB3
-cm90ZToKPiBIaSBOYXRoYW4sCj4gCj4gT24gV2VkLCBTZXAgMjIsIDIwMjEgYXQgMDg6NDk6NTBB
-TSAtMDcwMCwgTmF0aGFuIENoYW5jZWxsb3Igd3JvdGU6Cj4gPiBPbiBXZWQsIFNlcCAyMiwgMjAy
-MSBhdCAxMDo0MTo1NkFNICswMjAwLCBNYXhpbWUgUmlwYXJkIHdyb3RlOgo+ID4gPiBIaSBSYW5k
-eSwKPiA+ID4gCj4gPiA+IE9uIFN1biwgU2VwIDE5LCAyMDIxIGF0IDA5OjQwOjQ0QU0gLTA3MDAs
-IFJhbmR5IER1bmxhcCB3cm90ZToKPiA+ID4gPiBPbiA4LzE5LzIxIDY6NTkgQU0sIE1heGltZSBS
-aXBhcmQgd3JvdGU6Cj4gPiA+ID4gPiBXZSBhbHJlYWR5IGRlcGVuZCBvbiBydW50aW1lIFBNIHRv
-IGdldCB0aGUgcG93ZXIgZG9tYWlucyBhbmQgY2xvY2tzIGZvcgo+ID4gPiA+ID4gbW9zdCBvZiB0
-aGUgZGV2aWNlcyBzdXBwb3J0ZWQgYnkgdGhlIHZjNCBkcml2ZXIsIHNvIGxldCdzIGp1c3Qgc2Vs
-ZWN0IGl0Cj4gPiA+ID4gPiB0byBtYWtlIHN1cmUgaXQncyB0aGVyZSwgYW5kIHJlbW92ZSB0aGUg
-aWZkZWYuCj4gPiA+ID4gPiAKPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IE1heGltZSBSaXBhcmQg
-PG1heGltZUBjZXJuby50ZWNoPgo+ID4gPiA+ID4gLS0tCj4gPiA+ID4gPiAgIGRyaXZlcnMvZ3B1
-L2RybS92YzQvS2NvbmZpZyAgICB8IDEgKwo+ID4gPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0vdmM0
-L3ZjNF9oZG1pLmMgfCAyIC0tCj4gPiA+ID4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDIgZGVsZXRpb25zKC0pCj4gPiA+ID4gPiAKPiA+ID4gPiA+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vdmM0L0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L0tjb25maWcK
-PiA+ID4gPiA+IGluZGV4IDExOGU4YTQyNmIxYS4uZjc3NGFiMzQwODYzIDEwMDY0NAo+ID4gPiA+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3ZjNC9LY29uZmlnCj4gPiA+ID4gPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vdmM0L0tjb25maWcKPiA+ID4gPiA+IEBAIC05LDYgKzksNyBAQCBjb25maWcg
-RFJNX1ZDNAo+ID4gPiA+ID4gICAJc2VsZWN0IERSTV9LTVNfQ01BX0hFTFBFUgo+ID4gPiA+ID4g
-ICAJc2VsZWN0IERSTV9HRU1fQ01BX0hFTFBFUgo+ID4gPiA+ID4gICAJc2VsZWN0IERSTV9QQU5F
-TF9CUklER0UKPiA+ID4gPiA+ICsJc2VsZWN0IFBNCj4gPiA+ID4gPiAgIAlzZWxlY3QgU05EX1BD
-TQo+ID4gPiA+ID4gICAJc2VsZWN0IFNORF9QQ01fRUxECj4gPiA+ID4gPiAgIAlzZWxlY3QgU05E
-X1NPQ19HRU5FUklDX0RNQUVOR0lORV9QQ00KPiA+ID4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMK
-PiA+ID4gPiA+IGluZGV4IGMyODc2NzMxZWUyZC4uNjAyMjAzYjJkOGUxIDEwMDY0NAo+ID4gPiA+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jCj4gPiA+ID4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMKPiA+ID4gPiA+IEBAIC0yMTA3LDcgKzIxMDcs
-NiBAQCBzdGF0aWMgaW50IHZjNV9oZG1pX2luaXRfcmVzb3VyY2VzKHN0cnVjdCB2YzRfaGRtaSAq
-dmM0X2hkbWkpCj4gPiA+ID4gPiAgIAlyZXR1cm4gMDsKPiA+ID4gPiA+ICAgfQo+ID4gPiA+ID4g
-LSNpZmRlZiBDT05GSUdfUE0KPiA+ID4gPiA+ICAgc3RhdGljIGludCB2YzRfaGRtaV9ydW50aW1l
-X3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+ID4gPiA+ID4gICB7Cj4gPiA+ID4gPiAgIAlz
-dHJ1Y3QgdmM0X2hkbWkgKnZjNF9oZG1pID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4gPiA+ID4g
-PiBAQCAtMjEyOCw3ICsyMTI3LDYgQEAgc3RhdGljIGludCB2YzRfaGRtaV9ydW50aW1lX3Jlc3Vt
-ZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gPiA+ID4gPiAgIAlyZXR1cm4gMDsKPiA+ID4gPiA+ICAg
-fQo+ID4gPiA+ID4gLSNlbmRpZgo+ID4gPiA+ID4gICBzdGF0aWMgaW50IHZjNF9oZG1pX2JpbmQo
-c3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0ZXIsIHZvaWQgKmRhdGEpCj4g
-PiA+ID4gPiAgIHsKPiA+ID4gPiA+IAo+ID4gPiA+IAo+ID4gPiA+IEhpLAo+ID4gPiA+IAo+ID4g
-PiA+IEZZSS4KPiA+ID4gPiAKPiA+ID4gPiBUaGlzIHN0aWxsIGNhdXNlcyBhIGJ1aWxkIGVycm9y
-IG9uIGFyY2gvb3BlbnJpc2MvIHNpbmNlIGl0IGRvZXMgbm90IHN1cHBvcnQKPiA+ID4gPiBDT05G
-SUdfUE0gKGl0IGRvZXMgbm90IHNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciIGxpa2Ugc29t
-ZSBvdGhlciBhcmNoZXMgZG8pOgo+ID4gPiA+IAo+ID4gPiA+IC4vYXJjaC9yaXNjdi9LY29uZmln
-OnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNoL3g4Ni9LY29uZmln
-OnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNoL25kczMyL0tjb25m
-aWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+ID4gPiAuL2FyY2gvc2gvS2NvbmZp
-Zzpzb3VyY2UgImtlcm5lbC9wb3dlci9LY29uZmlnIgo+ID4gPiA+IC4vYXJjaC9hcmMvS2NvbmZp
-Zzpzb3VyY2UgImtlcm5lbC9wb3dlci9LY29uZmlnIgo+ID4gPiA+IC4vYXJjaC9hcm02NC9LY29u
-ZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNoL3h0ZW5zYS9L
-Y29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNoL3NwYXJj
-L0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+ID4gPiAuL2FyY2gvYXJt
-L0tjb25maWc6c291cmNlICJrZXJuZWwvcG93ZXIvS2NvbmZpZyIKPiA+ID4gPiAuL2FyY2gvbWlw
-cy9LY29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNoL3Bv
-d2VycGMvS2NvbmZpZzpzb3VyY2UgImtlcm5lbC9wb3dlci9LY29uZmlnIgo+ID4gPiA+IC4vYXJj
-aC91bS9LY29uZmlnOnNvdXJjZSAia2VybmVsL3Bvd2VyL0tjb25maWciCj4gPiA+ID4gLi9hcmNo
-L2lhNjQvS2NvbmZpZzpzb3VyY2UgImtlcm5lbC9wb3dlci9LY29uZmlnIgo+ID4gPiA+IAo+ID4g
-PiA+IHNvIHdpdGgKPiA+ID4gPiBDT05GSUdfRFJNX1ZDND15Cj4gPiA+ID4gIyBDT05GSUdfRFJN
-X1ZDNF9IRE1JX0NFQyBpcyBub3Qgc2V0Cj4gPiA+ID4gCj4gPiA+ID4gSSBzdGlsbCBzZWUKPiA+
-ID4gPiAuLi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmM6MjEzOToxMjogd2FybmluZzog
-J3ZjNF9oZG1pX3J1bnRpbWVfc3VzcGVuZCcgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XdW51c2Vk
-LWZ1bmN0aW9uXQo+ID4gPiA+ICAyMTM5IHwgc3RhdGljIGludCB2YzRfaGRtaV9ydW50aW1lX3N1
-c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+ID4gPiA+ICAgICAgIHwgICAgICAgICAgICBefn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn4KPiA+ID4gCj4gPiA+IFdpdGggd2hhdCB2ZXJzaW9uIGRpZCB5
-b3UgZ2V0IHRoYXQgYnVpbGQgZXJyb3I/IC1yYzIgc2hvdWxkbid0IGhhdmUgaXQKPiA+ID4gYW55
-bW9yZSBzaW5jZSB0aGUgcnVudGltZV9wbSBob29rcyBpbnRyb2R1Y3Rpb24gZ290IHJldmVydGVk
-Lgo+ID4gCj4gPiAtbmV4dCBzdGlsbCBjb250YWlucyB0aGVzZSBwYXRjaGVzIGFzIFN0ZXBoZW4g
-ZWZmZWN0aXZlbHkgcmV2ZXJ0ZWQgdGhlCj4gPiBjaGFuZ2VzIGluIExpbnVzJyB0cmVlIHdoZW4g
-bWVyZ2luZyBpbiB0aGUgZHJtLW1pc2MtZml4ZXMgdHJlZToKPiA+IAo+ID4gaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvci8yMDIxMDkyMDA5MDcyOS4xOTQ1ODk1M0BjYW5iLmF1dWcub3JnLmF1Lwo+
-IAo+IEFoLCBpbmRlZWQsIHRoYW5rcy4KPiAKPiBXaGF0J3MgdGhlIHR5cGljYWwgZml4IGZvciB0
-aGVzZSBlcnJvcnM/Cj4gCj4gSSBndWVzcyBhZGRpbmcgYSBkZXBlbmRzIG9uIEFSTSB8fCBBUk02
-NCB8fCBDT01QSUxFX1RFU1Qgd291bGQgd29yaz8KCkkgdGhpbmsgdGhlIHR5cGljYWwgZml4IGZy
-b20gbW9zdCBwZW9wbGUgaXMgbWFya2luZyB0aGVzZSBmdW5jdGlvbnMgYXMKX19tYXliZV91bnVz
-ZWQgc28gdGhhdCB0aGV5IGFyZSBhbHdheXMgZGVmaW5lZCBidXQgdGhlIGNvbXBpbGVyIGRvZXMg
-bm90Cndhcm4uIEFuIGFsdGVybmF0aXZlIHdvdWxkIGJlIGNoYW5naW5nIHRoZSAic2VsZWN0IFBN
-IiB0byBiZQoiZGVwZW5kcyBvbiBQTSIgSSBiZWxpZXZlIGJ1dCB0aGF0IGlzIGxlc3MgZnJlcXVl
-bnQuCgpDaGVlcnMsCk5hdGhhbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jl
-cy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+
+--===============4145587340066556178==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="tntwzof3quwqbntb"
+Content-Disposition: inline
+
+
+--tntwzof3quwqbntb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Sep 23, 2021 at 07:55:32AM -0700, Nathan Chancellor wrote:
+> On Thu, Sep 23, 2021 at 04:52:08PM +0200, Maxime Ripard wrote:
+> > Hi Nathan,
+> >=20
+> > On Wed, Sep 22, 2021 at 08:49:50AM -0700, Nathan Chancellor wrote:
+> > > On Wed, Sep 22, 2021 at 10:41:56AM +0200, Maxime Ripard wrote:
+> > > > Hi Randy,
+> > > >=20
+> > > > On Sun, Sep 19, 2021 at 09:40:44AM -0700, Randy Dunlap wrote:
+> > > > > On 8/19/21 6:59 AM, Maxime Ripard wrote:
+> > > > > > We already depend on runtime PM to get the power domains and cl=
+ocks for
+> > > > > > most of the devices supported by the vc4 driver, so let's just =
+select it
+> > > > > > to make sure it's there, and remove the ifdef.
+> > > > > >=20
+> > > > > > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> > > > > > ---
+> > > > > >   drivers/gpu/drm/vc4/Kconfig    | 1 +
+> > > > > >   drivers/gpu/drm/vc4/vc4_hdmi.c | 2 --
+> > > > > >   2 files changed, 1 insertion(+), 2 deletions(-)
+> > > > > >=20
+> > > > > > diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/=
+Kconfig
+> > > > > > index 118e8a426b1a..f774ab340863 100644
+> > > > > > --- a/drivers/gpu/drm/vc4/Kconfig
+> > > > > > +++ b/drivers/gpu/drm/vc4/Kconfig
+> > > > > > @@ -9,6 +9,7 @@ config DRM_VC4
+> > > > > >   	select DRM_KMS_CMA_HELPER
+> > > > > >   	select DRM_GEM_CMA_HELPER
+> > > > > >   	select DRM_PANEL_BRIDGE
+> > > > > > +	select PM
+> > > > > >   	select SND_PCM
+> > > > > >   	select SND_PCM_ELD
+> > > > > >   	select SND_SOC_GENERIC_DMAENGINE_PCM
+> > > > > > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/v=
+c4/vc4_hdmi.c
+> > > > > > index c2876731ee2d..602203b2d8e1 100644
+> > > > > > --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > > > > > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > > > > > @@ -2107,7 +2107,6 @@ static int vc5_hdmi_init_resources(struct=
+ vc4_hdmi *vc4_hdmi)
+> > > > > >   	return 0;
+> > > > > >   }
+> > > > > > -#ifdef CONFIG_PM
+> > > > > >   static int vc4_hdmi_runtime_suspend(struct device *dev)
+> > > > > >   {
+> > > > > >   	struct vc4_hdmi *vc4_hdmi =3D dev_get_drvdata(dev);
+> > > > > > @@ -2128,7 +2127,6 @@ static int vc4_hdmi_runtime_resume(struct=
+ device *dev)
+> > > > > >   	return 0;
+> > > > > >   }
+> > > > > > -#endif
+> > > > > >   static int vc4_hdmi_bind(struct device *dev, struct device *m=
+aster, void *data)
+> > > > > >   {
+> > > > > >=20
+> > > > >=20
+> > > > > Hi,
+> > > > >=20
+> > > > > FYI.
+> > > > >=20
+> > > > > This still causes a build error on arch/openrisc/ since it does n=
+ot support
+> > > > > CONFIG_PM (it does not source "kernel/power/Kconfig" like some ot=
+her arches do):
+> > > > >=20
+> > > > > ./arch/riscv/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/x86/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/nds32/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/sh/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/arc/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/arm64/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/xtensa/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/sparc/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/arm/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/mips/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/powerpc/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/um/Kconfig:source "kernel/power/Kconfig"
+> > > > > ./arch/ia64/Kconfig:source "kernel/power/Kconfig"
+> > > > >=20
+> > > > > so with
+> > > > > CONFIG_DRM_VC4=3Dy
+> > > > > # CONFIG_DRM_VC4_HDMI_CEC is not set
+> > > > >=20
+> > > > > I still see
+> > > > > ../drivers/gpu/drm/vc4/vc4_hdmi.c:2139:12: warning: 'vc4_hdmi_run=
+time_suspend' defined but not used [-Wunused-function]
+> > > > >  2139 | static int vc4_hdmi_runtime_suspend(struct device *dev)
+> > > > >       |            ^~~~~~~~~~~~~~~~~~~~~~~~
+> > > >=20
+> > > > With what version did you get that build error? -rc2 shouldn't have=
+ it
+> > > > anymore since the runtime_pm hooks introduction got reverted.
+> > >=20
+> > > -next still contains these patches as Stephen effectively reverted the
+> > > changes in Linus' tree when merging in the drm-misc-fixes tree:
+> > >=20
+> > > https://lore.kernel.org/r/20210920090729.19458953@canb.auug.org.au/
+> >=20
+> > Ah, indeed, thanks.
+> >=20
+> > What's the typical fix for these errors?
+> >=20
+> > I guess adding a depends on ARM || ARM64 || COMPILE_TEST would work?
+>=20
+> I think the typical fix from most people is marking these functions as
+> __maybe_unused so that they are always defined but the compiler does not
+> warn. An alternative would be changing the "select PM" to be
+> "depends on PM" I believe but that is less frequent.
+
+Thanks for the suggestion. Since those functions are always going to be
+used anyway (but on COMPILE_TEST), I've chosen the opposite approach of
+dropping SET_RUNTIME_PM_OPS instead. You're in CC of that patch so feel
+free to comment there if you think this is wrong.
+
+Maxime
+
+--tntwzof3quwqbntb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYUykOwAKCRDj7w1vZxhR
+xXGgAQD3EAxhXlcx5HvILvemGEJLCfFbdWysU0UD8yhxeV+FUAD+P80ZrQ0TxB7l
+QIeyGdWHroAgFhg8vd9TlLujD8BiSgI=
+=ZsrP
+-----END PGP SIGNATURE-----
+
+--tntwzof3quwqbntb--
+
+--===============4145587340066556178==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============4145587340066556178==--
