@@ -2,32 +2,31 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 15901432974
+	by mail.lfdr.de (Postfix) with ESMTP id DB596432975
 	for <lists+openrisc@lfdr.de>; Tue, 19 Oct 2021 00:02:40 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 4933A2420E;
+	by mail.librecores.org (Postfix) with ESMTP id E372F24207;
 	Tue, 19 Oct 2021 00:02:39 +0200 (CEST)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mail.librecores.org (Postfix) with ESMTP id 5BA1423F24
- for <openrisc@lists.librecores.org>; Mon, 18 Oct 2021 15:26:16 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTP id 3122D213CC
+ for <openrisc@lists.librecores.org>; Mon, 18 Oct 2021 15:28:04 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 58926101E;
- Mon, 18 Oct 2021 06:26:15 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 912E8106F;
+ Mon, 18 Oct 2021 06:28:03 -0700 (PDT)
 Received: from bogus (unknown [10.57.25.56])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 13AC93F73D;
- Mon, 18 Oct 2021 06:26:07 -0700 (PDT)
-Date: Mon, 18 Oct 2021 14:26:05 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FC7A3F73D;
+ Mon, 18 Oct 2021 06:27:55 -0700 (PDT)
+Date: Mon, 18 Oct 2021 14:27:53 +0100
 From: Sudeep Holla <sudeep.holla@arm.com>
 To: Rob Herring <robh@kernel.org>
-Message-ID: <20211018132605.jh2huoxmywjcr5xa@bogus>
+Message-ID: <20211018132753.4md4xlerul3odxji@bogus>
 References: <20211006164332.1981454-1-robh@kernel.org>
- <20211006164332.1981454-2-robh@kernel.org>
+ <20211006164332.1981454-5-robh@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211006164332.1981454-2-robh@kernel.org>
+In-Reply-To: <20211006164332.1981454-5-robh@kernel.org>
 X-Mailman-Approved-At: Tue, 19 Oct 2021 00:02:38 +0200
-Subject: Re: [OpenRISC] [PATCH 01/12] of: Add of_get_cpu_hwid() to read
- hardware ID from CPU nodes
+Subject: Re: [OpenRISC] [PATCH 04/12] arm64: Use of_get_cpu_hwid()
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -64,15 +63,13 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBPY3QgMDYsIDIwMjEgYXQgMTE6NDM6MjFBTSAtMDUwMCwgUm9iIEhlcnJpbmcgd3Jv
-dGU6Cj4gVGhlcmUgYXJlIHZhcmlvdXMgb3BlbiBjb2RlZCBpbXBsZW1lbnRpb25zIHBhcnNpbmcg
-dGhlIENQVSBub2RlICdyZWcnCj4gcHJvcGVydHkgd2hpY2ggY29udGFpbnMgdGhlIENQVSdzIGhh
-cmR3YXJlIElELiBJbnRyb2R1Y2UgYSBuZXcgZnVuY3Rpb24sCj4gb2ZfZ2V0X2NwdV9od2lkKCks
-IHRvIHJlYWQgdGhlIGhhcmR3YXJlIElELgo+Cj4gQWxsIHRoZSBjYWxsZXJzIHNob3VsZCBiZSBE
-VCBvbmx5IGNvZGUsIHNvIG5vIG5lZWQgZm9yIGFuIGVtcHR5Cj4gZnVuY3Rpb24uCj4KClRoYW5r
-cyBmb3IgZG9pbmcgdGhpcy4gSSBwb3N0cG9uZWQgYW5kIGZvcmdvdCBhYm91dCB0aGlzIHRob3Vn
-aCBJIGhhZApwbGFubmVkIGZvciB0aGlzIHdoZW4gSSB0b3VjaGVkIGNvZGUgYXJvdW5kIHRoaXMu
-CgpSZXZpZXdlZC1ieTogU3VkZWVwIEhvbGxhIDxzdWRlZXAuaG9sbGFAYXJtLmNvbT4KCi0tClJl
-Z2FyZHMsClN1ZGVlcApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcK
-aHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
+T24gV2VkLCBPY3QgMDYsIDIwMjEgYXQgMTE6NDM6MjRBTSAtMDUwMCwgUm9iIEhlcnJpbmcgd3Jv
+dGU6Cj4gUmVwbGFjZSB0aGUgb3BlbiBjb2RlZCBwYXJzaW5nIG9mIENQVSBub2RlcycgJ3JlZycg
+cHJvcGVydHkgd2l0aAo+IG9mX2dldF9jcHVfaHdpZCgpLgo+IAo+IFRoaXMgY2hhbmdlIGRyb3Bz
+IGFuIGVycm9yIG1lc3NhZ2UgZm9yIG1pc3NpbmcgJ3JlZycgcHJvcGVydHksIGJ1dCB0aGF0Cj4g
+c2hvdWxkIG5vdCBiZSBuZWNlc3NhcnkgYXMgdGhlIERUIHRvb2xzIHdpbGwgZW5zdXJlICdyZWcn
+IGlzIHByZXNlbnQuCj4gCgpSZXZpZXdlZC1ieTogU3VkZWVwIEhvbGxhIDxzdWRlZXAuaG9sbGFA
+YXJtLmNvbT4KCi0tIApSZWdhcmRzLApTdWRlZXAKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3Rz
+LmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3Bl
+bnJpc2MK
