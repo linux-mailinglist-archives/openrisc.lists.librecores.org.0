@@ -2,56 +2,57 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 1781C439E78
-	for <lists+openrisc@lfdr.de>; Mon, 25 Oct 2021 20:25:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 50F0143BBC7
+	for <lists+openrisc@lfdr.de>; Tue, 26 Oct 2021 22:44:07 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A81D424235;
-	Mon, 25 Oct 2021 20:25:47 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by mail.librecores.org (Postfix) with ESMTP id AD9B4209D6
- for <openrisc@lists.librecores.org>; Mon, 25 Oct 2021 20:25:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1635186345;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WmLX7TLtZ9IDJ1JQ+2m7C+nUTKDcem4HGFPTzsvzRlk=;
- b=Wv+Bn4dxhZd55LviAVyViBWcPOU0Rp9ilELfxoHmfPRFMsMTnWyr1KV+vnUb7HxdBQFDfC
- 8u0icaeLpBJuKsHO4IauhD6FqbM2usvJnAy9dRHnG8kAyJQ3OJOmAhBHBf4caR9CwOQhVl
- MPkAtyhKscX5eicRiWleuN3BY3eHf84=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-80-pXULrgXMNu2BFbQqJnWKPA-1; Mon, 25 Oct 2021 14:25:40 -0400
-X-MC-Unique: pXULrgXMNu2BFbQqJnWKPA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3722410B3959;
- Mon, 25 Oct 2021 18:25:37 +0000 (UTC)
-Received: from llong.remote.csb (unknown [10.22.18.111])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 28C21100763D;
- Mon, 25 Oct 2021 18:25:33 +0000 (UTC)
-To: Arnd Bergmann <arnd@kernel.org>
-References: <20211022120058.1031690-1-arnd@kernel.org>
- <cc8e3c58-457d-fdf3-6a62-98bde0cefdea@redhat.com>
- <CAK8P3a0YjaRS+aUCOKGjsfkR3TM49PrG6U4ftG_Fz+OFuyCb0w@mail.gmail.com>
- <YXZ/iLB7BvZtzDMp@hirez.programming.kicks-ass.net>
- <CAK8P3a2Luz7sd5cM1OdZhYCs_UPzo+2qVQYSZPfR2QN+0DkyRg@mail.gmail.com>
- <2413f412-a390-bbc0-e848-e2a77d1f0ab3@redhat.com>
- <CAK8P3a3JEBF-dEg0iVThMMRNK3CDxY+mRtTeStMusycnethO_g@mail.gmail.com>
-From: Waiman Long <longman@redhat.com>
-Message-ID: <d7af2422-3264-b9bb-b515-da4351743448@redhat.com>
-Date: Mon, 25 Oct 2021 14:25:32 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	by mail.librecores.org (Postfix) with ESMTP id EB4312422A;
+	Tue, 26 Oct 2021 22:44:06 +0200 (CEST)
+Received: from mail-out-2.itc.rwth-aachen.de (mail-out-2.itc.rwth-aachen.de
+ [134.130.5.47])
+ by mail.librecores.org (Postfix) with ESMTPS id 9084E24176
+ for <openrisc@lists.librecores.org>; Tue, 26 Oct 2021 22:44:05 +0200 (CEST)
+IronPort-SDR: OUI9gguObYV31SXJ/K+3/j1DrUZjiIATVl9UXH3gyOETIKxOuthurqms2AYxxR6wHFccLYkQ+b
+ DCbx5uWqwzVA==
+X-IPAS-Result: =?us-ascii?q?A2ByCwAGaHhh/50agoZagQmDKoFPWGqER45rgXeeUQsBA?=
+ =?us-ascii?q?QEBAQEBAQEIATcIAgQBAYdTAiU4EwECBAEBAQEDAgMBAQEBBQEBBgEBAQEBA?=
+ =?us-ascii?q?QUEgSSFLzkNhmwPAQV2AiYCSRYNCAEBgm0BgwcBDq4ogTGBAYNOAYEagyyBX?=
+ =?us-ascii?q?QYJAYEGKocdhyCBZUSBFSeGJAICgiuCS4JlBI8/gQCBd5UeqQwHggmBLIpLl?=
+ =?us-ascii?q?BgGQYNqkgKRMZYMgj+HcIJCiyCNawIEAgQFAhaBeIF9TSSDOVAXAg+SEopgQ?=
+ =?us-ascii?q?DICAQE0AgYLAQEDCYVqjQUBAQ?=
+IronPort-Data: A9a23:lX6o9qs7M/VTuxGV2pe4u3Mr4ufnVPNcMUV32f8akzHdYApBsoF/q
+ tZmKWHXOvrbM2GnL950bIXnoUxT7JaAmNBkHQpv+yA8Qi5HgMeUXt7xwmUcns+xBpCZEBg3v
+ 512hv3odp1coqr0/0/1WlTZQPoVOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cw24bhWGthh
+ PuryyHhEA79s9JLGj9Mg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZcxMUdrJp8tuSH
+ I4v+pnkpD+Dr0d1Yj+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRYRQR8/ttmHozx+4
+ MpRucWoQhUwAo/3pOcyUiVSDCNyOqITrdcrIVDn2SCS51fZb3vh07BxVQQ8e5cH5uYyCG0I+
+ fFwxDIlN0vfwbvtmPThFK8125tLwMrDZevzvllCxDefMvsnR4vfRK7JzcVHwDd1j8lFHfvYI
+ cYUAdZqRE2eOU0TZg1MVfrSms/43WOudGJ+iWiHuO0xvEjs7V1a2ZbyZY+9ltuiAJ89clyjj
+ mXe8mLjAwoRHNie0iaetHatjPXCliThVZlUE6e3nsOGm3WJ2XATBQ1TSgL+q7+jlVK+HttTb
+ UAZksYzkZUPGIWQZoGVd3WFTLSs53bwh/I4/zUG1Tyw
+IronPort-HdrOrdr: A9a23:aj6T7q6uF9QlGJH/1APXwPbXdLJyesId70hD6qkRc31om6mj/K
+ qTdZsgpHzJYVoqNU3I4OrwXpVoIkmzyXcW2+Us1N6ZNWHbUAHBFvAa0WKI+VLd8kPFltK02c
+ 9bAspD4NCZNykcsS7xiDPIdurJz7G8gcSVuds=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="5.87,184,1631570400"; d="scan'208";a="162844235"
+Received: from rwthex-w1-b.rwth-ad.de ([134.130.26.157])
+ by mail-in-2.itc.rwth-aachen.de with ESMTP; 26 Oct 2021 22:44:05 +0200
+Received: from [IPv6:2a02:908:108b:a40:b131:ad:affd:8e59]
+ (2a02:908:108b:a40:b131:ad:affd:8e59) by rwthex-w1-b.rwth-ad.de
+ (2a00:8a60:1:e500::26:157) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.14; Tue, 26 Oct
+ 2021 22:44:04 +0200
+From: Jan Henrik Weinstock <jan.weinstock@rwth-aachen.de>
+To: <openrisc@lists.librecores.org>
+Message-ID: <e35018e8-a15b-550d-cc3e-6b6d045f1b52@rwth-aachen.de>
+Date: Tue, 26 Oct 2021 22:43:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a3JEBF-dEg0iVThMMRNK3CDxY+mRtTeStMusycnethO_g@mail.gmail.com>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: Re: [OpenRISC] [PATCH] locking: remove spin_lock_flags() etc
+X-Originating-IP: [2a02:908:108b:a40:b131:ad:affd:8e59]
+X-ClientProxiedBy: RWTHEX-S2-B.rwth-ad.de (2a00:8a60:1:e500::26:155) To
+ rwthex-w1-b.rwth-ad.de (2a00:8a60:1:e500::26:157)
+Subject: [OpenRISC] OpenRISC SMP kernels broken after 5.8?
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -64,40 +65,24 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-ia64@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Paul Mackerras <paulus@samba.org>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Will Deacon <will@kernel.org>, Jonas Bonn <jonas@southpole.se>,
- linux-s390 <linux-s390@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- Christian Borntraeger <borntraeger@de.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Boqun Feng <boqun.feng@gmail.com>, Openrisc <openrisc@lists.librecores.org>,
- Parisc List <linux-parisc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gMTAvMjUvMjEgMTE6NDQgQU0sIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gT24gTW9uLCBPY3Qg
-MjUsIDIwMjEgYXQgNToyOCBQTSBXYWltYW4gTG9uZyA8bG9uZ21hbkByZWRoYXQuY29tPiB3cm90
-ZToKPj4gT24gMTAvMjUvMjEgOTowNiBBTSwgQXJuZCBCZXJnbWFubiB3cm90ZToKPj4+IE9uIHMz
-OTAsIHdlIHBpY2sgYmV0d2VlbiB0aGUgY21weGNoZygpIGJhc2VkIGRpcmVjdGVkLXlpZWxkIHdo
-ZW4KPj4+IHJ1bm5pbmcgb24gdmlydHVhbGl6ZWQgQ1BVcywgYW5kIGEgbm9ybWFsIHFzcGlubG9j
-ayB3aGVuIHJ1bm5pbmcgb24gYQo+Pj4gZGVkaWNhdGVkIENQVS4KPj4gSSBhbSBub3QgYXdhcmUg
-dGhhdCBzMzkwIGlzIHVzaW5nIHFzcGlubG9ja3MgYXQgYWxsIGFzIEkgZG9uJ3Qgc2VlCj4+IEFS
-Q0hfVVNFX1FVRVVFRF9TUElOTE9DS1MgYmVpbmcgc2V0IGFueXdoZXJlIHVuZGVyIGFyY2gvczM5
-MC4gSSBvbmx5IHNlZQo+PiB0aGF0IGl0IHVzZXMgYSBjbXB4Y2hnIGJhc2VkIHNwaW5sb2NrLgo+
-IFNvcnJ5LCBJIHNob3VsZCBub3QgaGF2ZSBzYWlkICJub3JtYWwiIGhlcmUuIFNlZSBhcmNoL3Mz
-OTAvbGliL3NwaW5sb2NrLmMKPiBmb3IgdGhlaXIgY3VzdG9tIHF1ZXVlZCBzcGlubG9ja3MgYXMg
-aW1wbGVtZW50ZWQgaW4gYXJjaF9zcGluX2xvY2tfcXVldWVkKCkuCj4gSSBkb24ndCBrbm93IGlm
-IHRoYXQgY29kZSBhY3R1YWxseSBkb2VzIHRoZSBzYW1lIHRoaW5nIGFzIHRoZSBnZW5lcmljIHFz
-cGlubG9jaywKPiBidXQgaXQgc2VlbXMgYXQgbGVhc3Qgc2ltaWxhci4KClllcywgeW91IGFyZSBy
-aWdodC4gVGhlaXIgcXVldWVkIGxvY2sgY29kZSBsb29rcyBsaWtlIGEgY3VzdG9tIHZlcnNpb24g
-Cm9mIHRoZSBwdnFzcGlubG9jayBjb2RlLgoKQ2hlZXJzLApMb25nbWFuCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QK
-T3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9y
-Zy9saXN0aW5mby9vcGVucmlzYwo=
+SGkgYWxsLAoKSSByZWNlbnRseSB0cmllZCB0byB1cGRhdGUgdGhlIGtlcm5lbCBteSBzaW11bGF0
+b3JbMV0gaXMgcnVubmluZyB0byAKNS4xMCwgYnV0IEkgbm90aWNlZCB0aGUgbmV3ZXIga2VybmVs
+cyAoPjUuOCkgYWxsIHBhbmljIGluIApmbHVzaF90bGJfcGFnZVsyXSwgYmVjYXVzZSBpdCBpcyBj
+YWxsZWQgd2l0aCB2bWEgPT0gTlVMTCBmcm9tIApmbHVzaF90bGJfa2VybmVsX3JhbmdlWzNdLiBM
+b29raW5nIGF0IHRoZSBjb2RlLCBJIGRvIG5vdCBzZWUgaG93IHRoaXMgCmNvdWxkIHdvcmsgZm9y
+IGFueSBTTVAga2VybmVsIChob3dldmVyLCBmb3Igbm9uLVNNUCwgd2UgY2FsbCAKbG9jYWxfdGxi
+X2ZsdXNoX3BhZ2VbNF0sIHdoZXJlIHdlIGRvIG5vdCB1c2Ugdm1hLCBzbyBJIGd1ZXNzIGl0cyBm
+aW5lIAp0aGVyZSkuIEFueSBpZGVhcz8KClsxXSBodHRwczovL2dpdGh1Yi5jb20vamFud2VpbnN0
+b2NrL29yMWttdnAKWzJdIApodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xMC43
+NS9zb3VyY2UvYXJjaC9vcGVucmlzYy9rZXJuZWwvc21wLmMjTDMxMgpbM10gCmh0dHBzOi8vZWxp
+eGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y1LjEwLjc1L3NvdXJjZS9hcmNoL29wZW5yaXNjL2luY2x1
+ZGUvYXNtL3RsYmZsdXNoLmgjTDU5Cls0XSAKaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGlu
+dXgvdjUuMTAuNzUvc291cmNlL2FyY2gvb3BlbnJpc2MvbW0vdGxiLmMjTDk2Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlz
+dApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMu
+b3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
