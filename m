@@ -2,54 +2,64 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id CC21B47668C
-	for <lists+openrisc@lfdr.de>; Thu, 16 Dec 2021 00:33:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D55DD476EE7
+	for <lists+openrisc@lfdr.de>; Thu, 16 Dec 2021 11:30:22 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 5EA37242DF;
-	Thu, 16 Dec 2021 00:33:59 +0100 (CET)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by mail.librecores.org (Postfix) with ESMTPS id 6475223F03
- for <openrisc@lists.librecores.org>; Thu, 16 Dec 2021 00:33:57 +0100 (CET)
-Received: by mail-ed1-f44.google.com with SMTP id z29so383024edl.7
- for <openrisc@lists.librecores.org>; Wed, 15 Dec 2021 15:33:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3MNWxMqgxk64lqLceUMGb2KD2WFKNONTbtIu3karkT0=;
- b=mJJeQ6D3XHKdLp0EkzkPvWKtmiQWMAgvDS+9jtvPvG1Tuy/6E99Zapq+WiLa/56XGt
- h2vz/iwdbkwR68DkEyAyLa7WyQ7dTO1qDmzXifEsYnSrSe+CCdHKoHGXgPHvxd5sSEy1
- vHlwWvxSi6cYDzmgfD/vhaVP7+nI7iyxXo57kW7ADqZbKrfTin4QczvAI7fXUlJEmkx9
- dla6VEWq8GjOY32d5KTFaXDLRn5p1PbVjfS90mxgQOIAtKGrumH0uQmuOJtW+3hjELdS
- ajwBYjK8VmV9QO2Eb1lJjRaBL8po0R4YZu8d9lrX17dRbkaRoD3c5ldyQm6nTzilFL58
- k+3g==
+	by mail.librecores.org (Postfix) with ESMTP id 78F39242D5;
+	Thu, 16 Dec 2021 11:30:22 +0100 (CET)
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
+ by mail.librecores.org (Postfix) with ESMTPS id 6DD4824106
+ for <openrisc@lists.librecores.org>; Thu, 16 Dec 2021 11:30:20 +0100 (CET)
+Received: by mail-qt1-f173.google.com with SMTP id z9so24912174qtj.9
+ for <openrisc@lists.librecores.org>; Thu, 16 Dec 2021 02:30:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=3EV4TjBlbr9QdyaxXp1kgi5df73HlGVUZCPnKEuMUkY=;
+ b=jTtNlBcWCnKXAKnNxDtw/wedsS/r6g1+lBQmnmi1mFZ6mBUkKVdzydeyLcvzJOgmy9
+ lQRDVY79cjG5fVQqkHdEhTxeRVipOwSgmqWUCyFdKXsh1LEfmL4x9R8oV88+UmYgM/2U
+ tCycuCppdUBOkmlP4rhq1lB2oF1htl9qOzrB9auhDGek2KHhUaR/U0fvOJZnI85qlHFK
+ srEWzLlgE4v+ol7HfIJf8kN8Fnaeji2SdCucW7cfPsFOafleJvl0VWeFIe40Inv7C8GV
+ 8DZjMhlvxqrP9CA/wBKVeeDJbdqF88gb1D+MovjVGkwArtIB6mQyoLo3o6e9ljI/nv9M
+ GPFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3MNWxMqgxk64lqLceUMGb2KD2WFKNONTbtIu3karkT0=;
- b=zF7KVq4JyR55gxvGLu7cCyefij9QGiv+foZcRnvtFAIf7Jx812yuHDvBsbBWLOXeEg
- 4o/FaUxQvIBXCOE9hvVEJSBdTX2IvE269Hbuj8FOmxUDq8DgtIxfiJz6bmdr9bAbML+R
- czFYp4ApWDocGzgbZ8T0Ge04uX1AVw0WsZmUOExRsvbvxjxGKX5antYnhTp3m3qvnE4j
- Y39zqVM8ap6f4jN/QafEdUXk8lFTjYlkZmltvt+uGCdprBC3QZ13d6sk+HNVQLqbGDTx
- 60d20qPJDp9swkJKV3/97Vw0stsSI57nt/DtIPifViqyRZUnDFACp7YuVM2Fn+KtQzie
- xzww==
-X-Gm-Message-State: AOAM531KBBTIn1CElfKeFCou/ei/gyFURyINIU9UPe2gbpgT/Vplzswq
- JTYfMRSdiyzu5IHO9J19CUxKvcxPBrgkzkVh5ow=
-X-Google-Smtp-Source: ABdhPJw7jHw9x24rpuT5VqrKQ3OKkjRsmmu9jey2DZrIJqF0LKwR86Fjfuf49MnC6pufDvo9KdLgVSaA67Y/Ul3V0sk=
-X-Received: by 2002:a17:907:6e11:: with SMTP id
- sd17mr14082532ejc.596.1639611236975; 
- Wed, 15 Dec 2021 15:33:56 -0800 (PST)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=3EV4TjBlbr9QdyaxXp1kgi5df73HlGVUZCPnKEuMUkY=;
+ b=f9vrfTbhNe9Rage44N4wHXt5sS3LW+T4dZsaTYOLQG2Ufwf2ZPiRE52XOVL+ziz/9W
+ oAeMlDRq2rZiZ0Nu9bqhEpygBZJ9lZVS5S6aCrJo7eJkNAj+f82UvAb1YH4MVYmTRklO
+ EtOcFgI+9fUwWIBriJuadCfygb2xeD+/72mDX+FZ1EkPbptaUgf9MzZ4Vf9v4upX1Oqm
+ VsHxvtVGzHYM6TDDA7dMJkT4aTZ5QWmzu2CzBdTyyTxXNgMYKawy/lCt4QjENqiRNLCU
+ Qsu3y5ptSQkVr+V0qokDrK+es+fkWURZqWAZ1aCARvFGVqtQddcKs0nCN9luYVWmLh8t
+ avKw==
+X-Gm-Message-State: AOAM532902YrtO8rSupMmrUYcXQG4YnHl7k/1o/rQzTP+rvbRjykaPAt
+ lGM+I/GICcrGvARdHZbdEo0qNg==
+X-Google-Smtp-Source: ABdhPJx+94aN5woBsiGGvtgJZqW9Dd6RaOEVDiphOUqEAlAs15Dtg3MOM8+qEriPwt6dbbVkWgqvzw==
+X-Received: by 2002:ac8:5fd6:: with SMTP id k22mr8923614qta.444.1639650619227; 
+ Thu, 16 Dec 2021 02:30:19 -0800 (PST)
+Received: from ?IPV6:2804:431:c7ca:103f:96e9:fe91:2aff:a44d?
+ ([2804:431:c7ca:103f:96e9:fe91:2aff:a44d])
+ by smtp.gmail.com with ESMTPSA id y15sm2547244qko.74.2021.12.16.02.30.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Dec 2021 02:30:18 -0800 (PST)
+Message-ID: <8bd97df9-e629-feaf-5028-e20f61fd4001@linaro.org>
+Date: Thu, 16 Dec 2021 07:30:16 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Stafford Horne <shorne@gmail.com>
 References: <20211210233456.4146479-1-shorne@gmail.com>
  <20211210233456.4146479-4-shorne@gmail.com>
  <a0644ab7-85a5-e22d-607e-4e6761d87610@linaro.org>
  <alpine.DEB.2.22.394.2112142242120.1558178@digraph.polyomino.org.uk>
  <86e61afa-ab95-62e1-10a7-3de71db8deb8@linaro.org>
-In-Reply-To: <86e61afa-ab95-62e1-10a7-3de71db8deb8@linaro.org>
-From: Stafford Horne <shorne@gmail.com>
-Date: Thu, 16 Dec 2021 08:33:46 +0900
-Message-ID: <CAAfxs769tWjv-T=vCBpDPn9BB5KCZshzWoCfcejhd47-wZKHcA@mail.gmail.com>
-To: Adhemerval Zanella <adhemerval.zanella@linaro.org>
+ <CAAfxs769tWjv-T=vCBpDPn9BB5KCZshzWoCfcejhd47-wZKHcA@mail.gmail.com>
+From: Adhemerval Zanella <adhemerval.zanella@linaro.org>
+In-Reply-To: <CAAfxs769tWjv-T=vCBpDPn9BB5KCZshzWoCfcejhd47-wZKHcA@mail.gmail.com>
 Subject: Re: [OpenRISC] [PATCH v3 03/13] or1k: ABI Implementation
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -66,105 +76,41 @@ List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
 Cc: Openrisc <openrisc@lists.librecores.org>,
  GLIBC patches <libc-alpha@sourceware.org>,
  Joseph Myers <joseph@codesourcery.com>
-Content-Type: multipart/mixed; boundary="===============7971165506456930308=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============7971165506456930308==
-Content-Type: multipart/alternative; boundary="0000000000005988f805d337bd05"
-
---0000000000005988f805d337bd05
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Dec 15, 2021, 10:15 AM Adhemerval Zanella <
-adhemerval.zanella@linaro.org> wrote:
-
->
->
-> On 14/12/2021 19:43, Joseph Myers wrote:
-> > On Tue, 14 Dec 2021, Adhemerval Zanella via Libc-alpha wrote:
-> >
-> >> +if test "x$profile" != xno; then
-> >> +  if test "x$with_profile" == xno; then
-> >> +    AC_MSG_ERROR([ABI does not support profiling])
-> >
-> > Using == in test is a bashism.
-> >
-> > I'd expect such a change to require the build-many-glibcs.py
-> configuration
-> > for OpenRISC to use --disable-profile.
-> >
->
-> I ended up mixing up things and what or1k does not support is LD_PROFILE
-> instead of --enable-profile.  In this case I am not sure if it would
-> be better to just not enable it (by ignoring the LD_PROFILE handling
-> in rtld.c or dl-support.c) and emitting a warning or by just dumping
-> and error at process initialization.
->
-
-I checked, new ports like csky and arc also do not seem to support
-LD_PROFILE.  They choose not to leave a placeholder block in dl-machine.h
-like I did in or1k.
-
-I could remove the comment, or replace it with an abort, but I prefer to
-keep it as it makes it clear where to add the dynamic linker profile hook.
-
--Stafford
-
->
-
---0000000000005988f805d337bd05
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Wed, Dec 15, 2021, 10:15 AM Adhemerval Zanella &lt;=
-<a href=3D"mailto:adhemerval.zanella@linaro.org">adhemerval.zanella@linaro.=
-org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
-<br>
-On 14/12/2021 19:43, Joseph Myers wrote:<br>
-&gt; On Tue, 14 Dec 2021, Adhemerval Zanella via Libc-alpha wrote:<br>
-&gt; <br>
-&gt;&gt; +if test &quot;x$profile&quot; !=3D xno; then<br>
-&gt;&gt; +=C2=A0 if test &quot;x$with_profile&quot; =3D=3D xno; then<br>
-&gt;&gt; +=C2=A0 =C2=A0 AC_MSG_ERROR([ABI does not support profiling])<br>
-&gt; <br>
-&gt; Using =3D=3D in test is a bashism.<br>
-&gt; <br>
-&gt; I&#39;d expect such a change to require the build-many-glibcs.py confi=
-guration <br>
-&gt; for OpenRISC to use --disable-profile.<br>
-&gt; <br>
-<br>
-I ended up mixing up things and what or1k does not support is LD_PROFILE<br=
->
-instead of --enable-profile.=C2=A0 In this case I am not sure if it would<b=
-r>
-be better to just not enable it (by ignoring the LD_PROFILE handling<br>
-in rtld.c or dl-support.c) and emitting a warning or by just dumping<br>
-and error at process initialization.<br></blockquote></div></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">I checked, new ports like csky and ar=
-c also do not seem to support LD_PROFILE.=C2=A0 They choose not to leave a =
-placeholder block in dl-machine.h like I did in or1k.</div><div dir=3D"auto=
-"><br></div><div dir=3D"auto">I could remove the comment, or replace it wit=
-h an abort, but I prefer to keep it as it makes it clear where to add the d=
-ynamic linker profile hook.</div><div dir=3D"auto"><br></div><div dir=3D"au=
-to">-Stafford</div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote=
- class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
-d;padding-left:1ex">
-</blockquote></div></div></div>
-
---0000000000005988f805d337bd05--
-
---===============7971165506456930308==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============7971165506456930308==--
+CgpPbiAxNS8xMi8yMDIxIDIwOjMzLCBTdGFmZm9yZCBIb3JuZSB3cm90ZToKPiAKPiAKPiBPbiBX
+ZWQsIERlYyAxNSwgMjAyMSwgMTA6MTUgQU0gQWRoZW1lcnZhbCBaYW5lbGxhIDxhZGhlbWVydmFs
+LnphbmVsbGFAbGluYXJvLm9yZyA8bWFpbHRvOmFkaGVtZXJ2YWwuemFuZWxsYUBsaW5hcm8ub3Jn
+Pj4gd3JvdGU6Cj4gCj4gCj4gCj4gICAgIE9uIDE0LzEyLzIwMjEgMTk6NDMsIEpvc2VwaCBNeWVy
+cyB3cm90ZToKPiAgICAgPiBPbiBUdWUsIDE0IERlYyAyMDIxLCBBZGhlbWVydmFsIFphbmVsbGEg
+dmlhIExpYmMtYWxwaGEgd3JvdGU6Cj4gICAgID4KPiAgICAgPj4gK2lmIHRlc3QgIngkcHJvZmls
+ZSIgIT0geG5vOyB0aGVuCj4gICAgID4+ICvCoCBpZiB0ZXN0ICJ4JHdpdGhfcHJvZmlsZSIgPT0g
+eG5vOyB0aGVuCj4gICAgID4+ICvCoCDCoCBBQ19NU0dfRVJST1IoW0FCSSBkb2VzIG5vdCBzdXBw
+b3J0IHByb2ZpbGluZ10pCj4gICAgID4KPiAgICAgPiBVc2luZyA9PSBpbiB0ZXN0IGlzIGEgYmFz
+aGlzbS4KPiAgICAgPgo+ICAgICA+IEknZCBleHBlY3Qgc3VjaCBhIGNoYW5nZSB0byByZXF1aXJl
+IHRoZSBidWlsZC1tYW55LWdsaWJjcy5weSBjb25maWd1cmF0aW9uCj4gICAgID4gZm9yIE9wZW5S
+SVNDIHRvIHVzZSAtLWRpc2FibGUtcHJvZmlsZS4KPiAgICAgPgo+IAo+ICAgICBJIGVuZGVkIHVw
+IG1peGluZyB1cCB0aGluZ3MgYW5kIHdoYXQgb3IxayBkb2VzIG5vdCBzdXBwb3J0IGlzIExEX1BS
+T0ZJTEUKPiAgICAgaW5zdGVhZCBvZiAtLWVuYWJsZS1wcm9maWxlLsKgIEluIHRoaXMgY2FzZSBJ
+IGFtIG5vdCBzdXJlIGlmIGl0IHdvdWxkCj4gICAgIGJlIGJldHRlciB0byBqdXN0IG5vdCBlbmFi
+bGUgaXQgKGJ5IGlnbm9yaW5nIHRoZSBMRF9QUk9GSUxFIGhhbmRsaW5nCj4gICAgIGluIHJ0bGQu
+YyBvciBkbC1zdXBwb3J0LmMpIGFuZCBlbWl0dGluZyBhIHdhcm5pbmcgb3IgYnkganVzdCBkdW1w
+aW5nCj4gICAgIGFuZCBlcnJvciBhdCBwcm9jZXNzIGluaXRpYWxpemF0aW9uLgo+IAo+IAo+IEkg
+Y2hlY2tlZCwgbmV3IHBvcnRzIGxpa2UgY3NreSBhbmQgYXJjIGFsc28gZG8gbm90IHNlZW0gdG8g
+c3VwcG9ydCBMRF9QUk9GSUxFLsKgIFRoZXkgY2hvb3NlIG5vdCB0byBsZWF2ZSBhIHBsYWNlaG9s
+ZGVyIGJsb2NrIGluIGRsLW1hY2hpbmUuaCBsaWtlIEkgZGlkIGluIG9yMWsuCj4gCj4gSSBjb3Vs
+ZCByZW1vdmUgdGhlIGNvbW1lbnQsIG9yIHJlcGxhY2UgaXQgd2l0aCBhbiBhYm9ydCwgYnV0IEkg
+cHJlZmVyIHRvIGtlZXAgaXQgYXMgaXQgbWFrZXMgaXQgY2xlYXIgd2hlcmUgdG8gYWRkIHRoZSBk
+eW5hbWljIGxpbmtlciBwcm9maWxlIGhvb2suCgpJIHRoaW5rIHdlIHNob3VsZCByZW1vdmUgdGhl
+IGNvbW1lbnRzLCB0aGUgY29kZSBtaWdodCBlbmRlZCB1cCBiZWluZyBub3QgdXBkYXRlZC4KCkxE
+X1BST0ZJTEUgc2VlbXMgdG8gYmUgbm90IGEgcmVhbGx5IHVzZWQgZmVhdHVyZSwgSSB3aWxsIHRy
+eSB0byBjbGVhbiB0aGlzIHVwCmJ5IGFkZGluZyBhbiBpbnRlcm5hbCBvcHRpb24gdGhhdCBpZiB0
+aGUgcG9ydCB0aGF0IGRvZXMgbm90IHN1cHBvcnQgd2UsCnJ0bGQgYXQgbGVhc3QgZGlzYWJsZSBh
+bGwgdGhlIHJlcXVpcmVkIGNvZGUgYW5kIG5vdCBzdGFydCB0aGUgcHJvZmlsZQpwcm9jZXNzIChs
+aWtlIHByZXBhcmluZyB0aGUgZmlsZSwgZXRjKS4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0
+cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29w
+ZW5yaXNjCg==
