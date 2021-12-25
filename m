@@ -2,58 +2,53 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A37C847E910
-	for <lists+openrisc@lfdr.de>; Thu, 23 Dec 2021 22:26:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3D74647F281
+	for <lists+openrisc@lfdr.de>; Sat, 25 Dec 2021 08:24:47 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 23239242EB;
-	Thu, 23 Dec 2021 22:26:57 +0100 (CET)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by mail.librecores.org (Postfix) with ESMTPS id 405B324126
- for <openrisc@lists.librecores.org>; Thu, 23 Dec 2021 22:26:55 +0100 (CET)
-Received: by mail-pg1-f174.google.com with SMTP id 2so5921026pgb.12
- for <openrisc@lists.librecores.org>; Thu, 23 Dec 2021 13:26:55 -0800 (PST)
+	by mail.librecores.org (Postfix) with ESMTP id CB12722D3C;
+	Sat, 25 Dec 2021 08:24:46 +0100 (CET)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by mail.librecores.org (Postfix) with ESMTPS id CFC0420A41
+ for <openrisc@lists.librecores.org>; Sat, 25 Dec 2021 08:24:44 +0100 (CET)
+Received: by mail-ed1-f51.google.com with SMTP id o6so40713965edc.4
+ for <openrisc@lists.librecores.org>; Fri, 24 Dec 2021 23:24:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=HXDOjTIN+3v5iXMAJwjckqsAXorP+FtuEpepV7jIPxw=;
- b=Zm+yzMAN/+kQuJYdcbku8Pd7YnpGFJ+7IqUQU+PCMw7yFiBSsYj1FFJ7BbpVAuFo1Z
- Q+EcelnsCMU9kXJlhQ9OAnRbht0PifR4iWsy8apsZjbSmkTw9pyjtel8h9nx6wrax22U
- jXzJJAyZBv5mFM4fWUYDiMvrBYRscIH8jNzG7nr/mktTWEqnuTVz1dLEXuN3AOy0fcap
- ApMbt+9GSmSornYQK38JZmAgfSzeCUdMdASPs7QFXxXXfYHfj1xy85YHpSfIZC7raEzF
- jlhM7HQDjp9QgFdvpzHAVHafVtKmN6ofLe/rcTFPd1tKKEYmtcQOWTbnyp/C4IzEogp6
- fcuA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=islgDRvLmIkVaW3Txiz9Hblk6YW3+ysBM2HJxSMqLp0=;
+ b=d+5QUABcVTBl+/YRa6YX45XprFPqRDYUJx9LE7L3ui5OMAhoRoMum+VfDXbXxXMkQM
+ frJG55xnrDNe6swKGnXEptqbz6+2LU/wdQ+n9SzoM11/WK8Zrjpzhnll1pEorZU8IreG
+ lqnx6Vi8Hbed4Lwg/BVPkImlLksjxHVmrWk4UUAMuxrTKs+XI8cmbDlV7FoBj2TXLDLa
+ NTkTa4jEBw8xOUjLQV5J+rPiG0Cc+/hL7QkhSs7dwarP2NQwmeAUfe0d6gFKqVsq+ojO
+ 7pa2fZCM9vKlrN1ABfjgEaPY0O2OfYq1bT/QAZ+VQ504jUC+VTJ08qBoFByDG0C0SmtK
+ 1q+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=HXDOjTIN+3v5iXMAJwjckqsAXorP+FtuEpepV7jIPxw=;
- b=mufIs2ywhm7VKpBaWJRKVxIobNxBbBUCP+GXGQNEwy5+M3T4Q1ZH4ThFGLT64EbhwY
- I9UK3Cu1nHoNgBGvRX2TENviRnoQnCwJbWNuXciaNYB0Ib0hIH+cjOOrGXo8qvDX2aDc
- 9yhj72PHP1xuiyIcu0ZPz15xfh4E7L4c2GQ2LEoeo+DVT8KCxXf3XVuFBpO4KgDAtWp1
- 29pC2bSzjHMwHxOkTzNmIGvWkC0qopeE8cZn7tDnh3746czZlnTZIej5S4Nia4JxYwxx
- c80iObFf6njDoojfgDf05MPOjDrj5aBb+PvCL1W4h9sp1myXy7SQtJ/nlLz3oS+lt9HV
- KnBw==
-X-Gm-Message-State: AOAM533HWzvgi66cNdwqTwFo9jkMhN3l2YlKnC1YhV78VhgKPO+urspG
- wcJQRl5mfB3uVQXb4rBLCOc=
-X-Google-Smtp-Source: ABdhPJxy7Tg0KN5mSURO97DBFGpHe9fgYN8VZkR+eNBirJ/qW04STaXhA6lTPk/uOdTLJMB4VRzQ2A==
-X-Received: by 2002:a63:5b4f:: with SMTP id l15mr3591687pgm.369.1640294813374; 
- Thu, 23 Dec 2021 13:26:53 -0800 (PST)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id x2sm5642664pgo.2.2021.12.23.13.26.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Dec 2021 13:26:52 -0800 (PST)
-Date: Fri, 24 Dec 2021 06:26:50 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Andreas Schwab <schwab@linux-m68k.org>
-Message-ID: <YcTpmhHaqS5KaFTG@antec>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=islgDRvLmIkVaW3Txiz9Hblk6YW3+ysBM2HJxSMqLp0=;
+ b=ZBGTve8FGHsmzeSRheVAxXXbzEeIymvhfVo3sd0bObu2RTRgBqKdr/7ztm81aotT9S
+ S4ycS/F9biLaNltBBeMxKuxVEV0Ag+aKeZ+iZrlYUv7KNVJTxDDX+TExzHXQxxE1PmcP
+ 6oYvSfJnx8W0oxIE7BcOxjUd1MEyt6HfjeQ++XZE9dIVjeXr4DvWabknkSO9hAnvJL7Z
+ SoU2IcJDnoZDcz8fb/NQUzr6S7iaYky4Ur9PeSW+eSDqhj5D4yQoOVuzYxRtP1zfDUZZ
+ TwcdDTOYvZ1CM93Yf9mABswsi85ziwIUzM9lEz4IuPpH3vkqoh5mQh2owD6U+W9tcm+S
+ 4YZw==
+X-Gm-Message-State: AOAM533JdHQbBQbWjDjfmjvtdjS0/A/hm4ud50GvksxjaFgKhMATDlYm
+ 27g9rTCGJi6kOlqWlInp/x0REqJbXq1a7L7lVmv/Jitf
+X-Google-Smtp-Source: ABdhPJxQYvoqVY9PY94n0lFaths8yKnEvZZz33MX2KOyEGVTX4ukF1Yc6RFKOe3ysozrlErIMBg6P7ztao965VsdLnc=
+X-Received: by 2002:a05:6402:354b:: with SMTP id
+ f11mr8363964edd.342.1640417084506; 
+ Fri, 24 Dec 2021 23:24:44 -0800 (PST)
+MIME-Version: 1.0
 References: <20211210233456.4146479-1-shorne@gmail.com>
  <cedcb34e-36e3-3bb8-07b7-8412c052b81d@linaro.org>
- <Ybl/E2BWBGRMwF0G@antec> <YcSZ0iyC6STzh9uP@antec>
- <87pmpnnwjf.fsf@igel.home>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87pmpnnwjf.fsf@igel.home>
+ <Ybl/E2BWBGRMwF0G@antec> <YcSZ0iyC6STzh9uP@antec> <87pmpnnwjf.fsf@igel.home>
+ <YcTpmhHaqS5KaFTG@antec>
+In-Reply-To: <YcTpmhHaqS5KaFTG@antec>
+From: Stafford Horne <shorne@gmail.com>
+Date: Sat, 25 Dec 2021 16:24:35 +0900
+Message-ID: <CAAfxs75QcK2VkXOtbR70y9SjcNnqvNtTMq0bt+8M1az3A_LVPg@mail.gmail.com>
+To: Andreas Schwab <schwab@linux-m68k.org>
 Subject: Re: [OpenRISC] [PATCH v3 00/13] Glibc OpenRISC port
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -70,30 +65,120 @@ List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
 Cc: Openrisc <openrisc@lists.librecores.org>,
  Stafford Horne via Libc-alpha <libc-alpha@sourceware.org>,
  Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2074360922511848216=="
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gVGh1LCBEZWMgMjMsIDIwMjEgYXQgMDQ6NTc6NTZQTSArMDEwMCwgQW5kcmVhcyBTY2h3YWIg
-d3JvdGU6Cj4gT24gRGV6IDI0IDIwMjEsIFN0YWZmb3JkIEhvcm5lIHZpYSBMaWJjLWFscGhhIHdy
-b3RlOgo+IAo+ID4gSXQgc2VlbXMgdGhlIHdyaXRlIHRvIHRoZSB0bXAgZmlsZSB3YXMgZmFpbGlu
-ZyBkdWUgdGhlIHJlLW9wZW4gbm90IHBhc3NpbmcKPiA+IE9fTEFSR0VGSUxFLgo+IAo+IG9wZW42
-NCBpbXBsaWVzIE9fTEFSR0VGSUxFLCBzbyBpZiB0aGF0IGlzIG1ha2luZyBhIGRpZmZlcmVuY2Us
-IHRoZW4geW91cgo+IG9wZW42NCBpcyBicm9rZW4uCgpSaWdodCwgdGhhdCBpcyB3aGF0IHRoZSBk
-b2NzIHNheS4gIFRoaXMgYXJjaGl0ZWN1dHVyZSBpcyAzMi1iaXRzLgoKQW5kIHRoZSBvcGVuNjQg
-cGF0aCBpcyBnZW5lcmljLgoKUG9zc2libHkgdGhpcyBiaXQgcmVtb3ZpbmcgT19MQVJHRUZJTEUg
-aXMgd3Jvbmc/CgpJbiBzeXNkZXBzL3VuaXgvc3lzdi9saW51eC9vcGVuNjQuYzoKCiAgMjcgI2lm
-ZGVmIF9fT0ZGX1RfTUFUQ0hFU19PRkY2NF9UCiAgMjggIyBkZWZpbmUgRVhUUkFfT1BFTl9GTEFH
-UyAwCiAgMjkgI2Vsc2UKICAzMCAjIGRlZmluZSBFWFRSQV9PUEVOX0ZMQUdTIE9fTEFSR0VGSUxF
-CiAgMzEgI2VuZGlmCgpPdGhlcndpc2UgdGhlcmUgaXMgc29tZXRoaW5nIGlzIHdyb25nIG9uIGxp
-bnV4LiAgSXQgaXMgZXhwbGljaXRseSBjaGVja2luZwpmb3IgdGhlIHByZWNlbnNlIG9mIE9fTEFS
-R0VGSUxFLgoKaW4gZnMvcmVhZF93cml0ZS5jIGluIGdlbmVyaWNfd3JpdGVfY2hlY2tfbGltaXRz
-OgoKICAgICAgICBpZiAoIShmaWxlLT5mX2ZsYWdzICYgT19MQVJHRUZJTEUpKQogICAgICAgICAg
-ICAgICAgbWF4X3NpemUgPSBNQVhfTk9OX0xGUzsKCj4gLS0gCj4gQW5kcmVhcyBTY2h3YWIsIHNj
-aHdhYkBsaW51eC1tNjhrLm9yZwo+IEdQRyBLZXkgZmluZ2VycHJpbnQgPSA3NTc4IEVCNDcgRDRF
-NSA0RDY5IDI1MTAgIDI1NTIgREY3MyBFNzgwIEE5REEgQUVDMQo+ICJBbmQgbm93IGZvciBzb21l
-dGhpbmcgY29tcGxldGVseSBkaWZmZXJlbnQuIgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMu
-bGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVu
-cmlzYwo=
+--===============2074360922511848216==
+Content-Type: multipart/alternative; boundary="0000000000009b042305d3f35d9a"
+
+--0000000000009b042305d3f35d9a
+Content-Type: text/plain; charset="UTF-8"
+
+On Fri, Dec 24, 2021, 6:26 AM Stafford Horne <shorne@gmail.com> wrote:
+
+> On Thu, Dec 23, 2021 at 04:57:56PM +0100, Andreas Schwab wrote:
+> > On Dez 24 2021, Stafford Horne via Libc-alpha wrote:
+> >
+> > > It seems the write to the tmp file was failing due the re-open not
+> passing
+> > > O_LARGEFILE.
+> >
+> > open64 implies O_LARGEFILE, so if that is making a difference, then your
+> > open64 is broken.
+>
+> Right, that is what the docs say.  This architecuture is 32-bits.
+>
+> And the open64 path is generic.
+>
+> Possibly this bit removing O_LARGEFILE is wrong?
+>
+> In sysdeps/unix/sysv/linux/open64.c:
+>
+>   27 #ifdef __OFF_T_MATCHES_OFF64_T
+>   28 # define EXTRA_OPEN_FLAGS 0
+>   29 #else
+>   30 # define EXTRA_OPEN_FLAGS O_LARGEFILE
+>   31 #endif
+>
+> Otherwise there is something is wrong on linux.  It is explicitly checking
+> for the precense of O_LARGEFILE.
+>
+> in fs/read_write.c in generic_write_check_limits:
+>
+>         if (!(file->f_flags & O_LARGEFILE))
+>                 max_size = MAX_NON_LFS;
+>
+
+There's something wrong with __OFF_T_MATCHES_OFF64_T in this port.  We have
+32-bit off_t in Linux.  So __OFF_T_MATCHES_OFF64_T should be undefined I
+think.  I'll look into.
+
+-Stafford
+
+>
+
+--0000000000009b042305d3f35d9a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, Dec 24, 2021, 6:26 AM Stafford Horne &lt;<a hr=
+ef=3D"mailto:shorne@gmail.com">shorne@gmail.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex">On Thu, Dec 23, 2021 at 04:57:56PM +0100, Andre=
+as Schwab wrote:<br>
+&gt; On Dez 24 2021, Stafford Horne via Libc-alpha wrote:<br>
+&gt; <br>
+&gt; &gt; It seems the write to the tmp file was failing due the re-open no=
+t passing<br>
+&gt; &gt; O_LARGEFILE.<br>
+&gt; <br>
+&gt; open64 implies O_LARGEFILE, so if that is making a difference, then yo=
+ur<br>
+&gt; open64 is broken.<br>
+<br>
+Right, that is what the docs say.=C2=A0 This architecuture is 32-bits.<br>
+<br>
+And the open64 path is generic.<br>
+<br>
+Possibly this bit removing O_LARGEFILE is wrong?<br>
+<br>
+In sysdeps/unix/sysv/linux/open64.c:<br>
+<br>
+=C2=A0 27 #ifdef __OFF_T_MATCHES_OFF64_T<br>
+=C2=A0 28 # define EXTRA_OPEN_FLAGS 0<br>
+=C2=A0 29 #else<br>
+=C2=A0 30 # define EXTRA_OPEN_FLAGS O_LARGEFILE<br>
+=C2=A0 31 #endif<br>
+<br>
+Otherwise there is something is wrong on linux.=C2=A0 It is explicitly chec=
+king<br>
+for the precense of O_LARGEFILE.<br>
+<br>
+in fs/read_write.c in generic_write_check_limits:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!(file-&gt;f_flags &amp; O_LARGEFILE))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 max_size =3D MAX_NO=
+N_LFS;<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"=
+auto">There&#39;s something wrong with __OFF_T_MATCHES_OFF64_T in this port=
+.=C2=A0 We have 32-bit off_t in Linux.=C2=A0 So __OFF_T_MATCHES_OFF64_T sho=
+uld be undefined I think.=C2=A0 I&#39;ll look into.</div><div dir=3D"auto">=
+<br></div><div dir=3D"auto">-Stafford</div><div dir=3D"auto"><div class=3D"=
+gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;b=
+order-left:1px #ccc solid;padding-left:1ex">
+</blockquote></div></div></div>
+
+--0000000000009b042305d3f35d9a--
+
+--===============2074360922511848216==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+
+--===============2074360922511848216==--
