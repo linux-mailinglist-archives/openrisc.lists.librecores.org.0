@@ -2,57 +2,51 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AE6A492531
-	for <lists+openrisc@lfdr.de>; Tue, 18 Jan 2022 12:48:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0574F496F9F
+	for <lists+openrisc@lfdr.de>; Sun, 23 Jan 2022 03:28:09 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A834A247A2;
-	Tue, 18 Jan 2022 12:48:24 +0100 (CET)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by mail.librecores.org (Postfix) with ESMTPS id D8279202A8
- for <openrisc@lists.librecores.org>; Tue, 18 Jan 2022 12:48:22 +0100 (CET)
-Received: by mail-pl1-f173.google.com with SMTP id e8so10510604plh.8
- for <openrisc@lists.librecores.org>; Tue, 18 Jan 2022 03:48:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Dejh5tcJ4gWGMzdNPEhsckEWG7ff8PXHm722G9XwW+k=;
- b=lhyWQKxAG89IPXoDBrz6HFbtQzqa9iaOYj+PFdjDoTlmha8BtPoN/SFZIdB4e77qbZ
- CBlTTcpb1QSpDDgbaKs/yMQRWx9xJEXXy+ObN+vGaqwEMUHvNvPJBcdihgIWzbIbwIyi
- t0z3JbvURqorA6ScZQzlV6PZRhjt97uJ/0+BbBjzHQmSKSLHn+JB8eFs2Fs6o8tQ/mKQ
- rUwpVZK3W7hmfBhNJ7b3ynsP/J30cSDxjWsJesM1dv+MWnERRqVLqHEqhrY7T3xefrk/
- 40Idt100/aXP2A0ckDAObcJP+ame/UJT0rubeLfx0tMIplSAiSL4vidJMCU86XCODEqc
- kKAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Dejh5tcJ4gWGMzdNPEhsckEWG7ff8PXHm722G9XwW+k=;
- b=WU+HnS1pjezLvfhXSELUyHZqdAmgr7hmYZ+JwIoAC5gPdT3+bNMssU2MvIHiYn8S1W
- fxSCxfjuqQViki/3QoRlRFemM7sBU3o/QpcFXYPf9MamggRY6GUSlueswXF01H3Kpu4J
- 9durMe711dX6+ghITodlRCALDTYSHnGx9yAGw3tmyCNnJJsAaxZ5L1/yPdYUqhfTV4T6
- vvuP6AItPv9R3rKiiCH5eoaNqfvqv09QtFSnY05eC92k7WxVsaxEFLg/kjx7oGju5NxO
- afpNw3NBsjopLuYYJNj/UVpLO7hNUFXq7vWPXVnDaafT+CZn9fxmmQG+A7bG1f29wQVL
- XASQ==
-X-Gm-Message-State: AOAM531RLGWzOsRIDmKz+bdf71hk2SVlbz8YVJQUGr3u3C/C1jYn2j1/
- PXxYpHMFVMJ6+lo4aO/sY8Q=
-X-Google-Smtp-Source: ABdhPJxwzr02xBpJ396V3SpOF+QPWB4Svb44p09ND0mT7txf7kG/F8oGaHQopWM70s1EOb1e2640uQ==
-X-Received: by 2002:a17:902:ec83:b0:14a:3c28:6820 with SMTP id
- x3-20020a170902ec8300b0014a3c286820mr27820410plg.43.1642506501286; 
- Tue, 18 Jan 2022 03:48:21 -0800 (PST)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id k9sm14959387pgr.47.2022.01.18.03.48.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jan 2022 03:48:20 -0800 (PST)
-Date: Tue, 18 Jan 2022 20:48:17 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YeapAai1NIuy0zV4@antec>
-References: <20220118074836.GA20994@lst.de>
+	by mail.librecores.org (Postfix) with ESMTP id 8050220CF1;
+	Sun, 23 Jan 2022 03:28:08 +0100 (CET)
+Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
+ [207.171.184.29])
+ by mail.librecores.org (Postfix) with ESMTPS id 6790223F8D
+ for <openrisc@lists.librecores.org>; Sun, 23 Jan 2022 03:01:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.co.jp; i=@amazon.co.jp; q=dns/txt;
+ s=amazon201209; t=1642903274; x=1674439274;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RD7Kb5HGRmxu1H1Kfab4Hp6cNBfxp5ZMBIq2r6UZWr8=;
+ b=gWRvdhh8387USA6J/m9Uu/pW4s92iXiJI/3qGnPtlRfnSOJMFYO2J//S
+ vG6GN48wciWQHR/Ly6M5EwTDRNSyauk18SDCGgNhhCYeqMvVPkeO7MeL4
+ byCkK91qabAcLUMOnB3Cc8bCJEgaWj9szDYWNBfkB0RFq2bgwNSEYGkem g=;
+X-IronPort-AV: E=Sophos;i="5.88,309,1635206400"; d="scan'208";a="189275472"
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-pdx-2c-72dc3927.us-west-2.amazon.com) ([10.25.36.214])
+ by smtp-border-fw-9102.sea19.amazon.com with ESMTP; 23 Jan 2022 02:01:11 +0000
+Received: from EX13MTAUWB001.ant.amazon.com
+ (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
+ by email-inbound-relay-pdx-2c-72dc3927.us-west-2.amazon.com (Postfix) with
+ ESMTPS id 196E0419A5; Sun, 23 Jan 2022 02:01:11 +0000 (UTC)
+Received: from EX13D04ANC001.ant.amazon.com (10.43.157.89) by
+ EX13MTAUWB001.ant.amazon.com (10.43.161.207) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.28; Sun, 23 Jan 2022 02:01:09 +0000
+Received: from 88665a182662.ant.amazon.com (10.43.160.114) by
+ EX13D04ANC001.ant.amazon.com (10.43.157.89) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.28; Sun, 23 Jan 2022 02:01:05 +0000
+From: Kuniyuki Iwashima <kuniyu@amazon.co.jp>
+To: Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson
+ <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>
+Date: Sun, 23 Jan 2022 11:01:00 +0900
+Message-ID: <20220123020100.45201-1-kuniyu@amazon.co.jp>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220118074836.GA20994@lst.de>
-Subject: Re: [OpenRISC] architectures that still need to remove set_fs()
+X-Originating-IP: [10.43.160.114]
+X-ClientProxiedBy: EX13D45UWA004.ant.amazon.com (10.43.160.151) To
+ EX13D04ANC001.ant.amazon.com (10.43.157.89)
+X-Mailman-Approved-At: Sun, 23 Jan 2022 03:28:08 +0100
+Subject: [OpenRISC] [PATCH] openrisc/boot: Remove unnecessary initialisation
+ in memcpy().
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -65,47 +59,28 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Rich Felker <dalias@libc.org>, linux-ia64@vger.kernel.org,
- linux-sh@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- Guo Ren <guoren@kernel.org>, sparclinux@vger.kernel.org,
- Vincent Chen <deanbo422@gmail.com>, Jonas Bonn <jonas@southpole.se>,
- Brian Cain <bcain@codeaurora.org>, linux-hexagon@vger.kernel.org,
- linux-csky@vger.kernel.org, Vineet Gupta <vgupta@kernel.org>,
- Matt Turner <mattst88@gmail.com>, linux-snps-arc@lists.infradead.org,
- linux-xtensa@linux-xtensa.org, openrisc@lists.librecores.org,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>, Greentime Hu <green.hu@gmail.com>,
- Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Nick Hu <nickhu@andestech.com>,
- linux-kernel@linux-xtensa.org, linux-arch@linux-xtensa.org,
- Dinh Nguyen <dinguyen@kernel.org>, linux-alpha@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+Cc: Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
+ Benjamin Herrenschmidt <benh@amazon.com>, openrisc@lists.librecores.org,
+ Kuniyuki Iwashima <kuni1840@gmail.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-SGksCgpPbiBUdWUsIEphbiAxOCwgMjAyMiBhdCAwODo0ODozNkFNICswMTAwLCBDaHJpc3RvcGgg
-SGVsbHdpZyB3cm90ZToKPiBIaSBhbGwsCj4gCj4geW91IGFyZSBpbiB0aGlzIGxpc3QgYmVjYXVz
-ZSB5b3VyIGFyY2hpdGVjdHVyZSBzdGlsbCBpbXBsZW1lbnRzIGFuZAo+IHVzZXMgYWRkcmVzcyBz
-cGFjZSBvdmVycmlkZXMgdXNpbmcgc2V0X2ZzKCksIHdoaWNoIGFyZSBkZXByZWNhdGVkIGFuZAo+
-IGhhdmUgYmVlbiByZW1vdmVkIGZyb20gYWxsIG1haW5zdHJlYW0gYXJjaGl0ZWN0dXJlIHBvcnRz
-LiAgVG8gaGVscAo+IGNsZWFudXAgdGhlIGNvcmUga2VybmVsIGl0IHdvdWxkIGJlIGdyZWF0IHRv
-IG1ha2UgcHJvZ3Jlc3Mgb24gcmVtb3ZpbmcKPiBzZXRfZnMgZW50aXJlbHkuCj4gCj4gVGhlIGZv
-bGxvd2luZyBzdGVwcyBhcmUgcmVxdWlyZWQ6Cj4gCj4gICgxKSBpbXBsZW1lbnQgdGhlIF9fZ2V0
-X2tlcm5lbF9ub2ZhdWx0IGFuZCBfX3B1dF9rZXJuZWxfbm9mYXVsdAo+ICAgICAgaGVscGVyIHRv
-IGFjY2VzcyBrZXJuZWwgbWVtb3J5IHdpdGhvdXQgcGFnZSBmYXVsdHMsIHJlcGxhY2luZwo+ICAg
-ICAgdGhlIGdldC9wdXRfdXNlciB1bmRlciBzZXRfZnMoS0VSTkVMX0RTKSBhYnVzZS4gIE1pcHMg
-aGFzIGEgZ29vZAo+ICAgICAgZXhhbXBsZSBmb3IgYSB0cml2aWFsIGltcGxlbWVudGF0aW9uIGZv
-ciBhcmNoaXRlY3R1cmVzIHRoYXQgdXNlCj4gICAgICBhIGNvbW1vbiBhZGRyZXNzIHNwYWNlIGlu
-IGNvbW1pdCAwNDMyNGY0NGNiNjkKCkFsc28gc2VlIGNvbW1pdCAwOGVlM2EwMDlmNDlhIHdoaWNo
-IGlzIHByZXBhcmF0aW9uIGZvciByZW1vdmluZyBzZXRfZnMvZ2V0X2ZzCnRoaXMgY29tbWl0IGlt
-cGxlbWVudHMgX19nZXRfa2VybmVsX25vZmF1bHQvX19wdXRfa2VybmVsX25vZmF1bHQgZm9yIG1p
-cHMuCgo+ICAoMikgcmVtb3ZlIGFueSBhcmNoaXRlY3R1cmUgc3BlY2lmaWMgdXNlIG9mIHN1Y2gg
-Y29uc3RydWN0cy4gIFRoaXMKPiAgICAgIG9ubHkgYWZmZWN0cyBpYTY0IGFuZCBzaC4KPiAgKDMp
-IHN0b3Agc2VsZWN0aW5nIHRoZSBTRVRfRlMgYW5kIHJlbW92ZSBhbGwgdGhlIHNldF9mcy1yZWxh
-dGVkCj4gICAgICBpbmZyYXN0cnVjdHVyZS4gIFRoZSBhYm92ZSBtaXBzIGNvbW1pdCBpcyBhIGdv
-b2QgZ3VpZGUgb25jZSBhZ2Fpbi4KPiAKPiBUaGFua3MhCgpJIHdpbGwgbG9vayBpbnRvIHRoaXMg
-Zm9yIE9wZW5SSVNDLgoKLVN0YWZmb3JkCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJy
-ZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNj
-Cg==
+J2QnIGFuZCAncycgYXJlIGluaXRpYWxpc2VkIGxhdGVyIHdpdGggJ2Rlc3RfdycgYW5kICdzcmNf
+dycsIHNvIHdlIG5lZWQgbm90CmluaXRpYWxpc2UgdGhlbSBiZWZvcmUgdGhhdC4KClNpZ25lZC1v
+ZmYtYnk6IEt1bml5dWtpIEl3YXNoaW1hIDxrdW5peXVAYW1hem9uLmNvLmpwPgotLS0KIGFyY2gv
+b3BlbnJpc2MvbGliL21lbWNweS5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
+KCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9vcGVucmlzYy9saWIvbWVtY3B5
+LmMgYi9hcmNoL29wZW5yaXNjL2xpYi9tZW1jcHkuYwppbmRleCBmZTIxNzc2MjguLmUyYWY5YjUx
+MCAxMDA2NDQKLS0tIGEvYXJjaC9vcGVucmlzYy9saWIvbWVtY3B5LmMKKysrIGIvYXJjaC9vcGVu
+cmlzYy9saWIvbWVtY3B5LmMKQEAgLTEwMSw3ICsxMDEsNyBAQCB2b2lkICptZW1jcHkodm9pZCAq
+ZGVzdCwgX19jb25zdCB2b2lkICpzcmMsIF9fa2VybmVsX3NpemVfdCBuKQogICovCiB2b2lkICpt
+ZW1jcHkodm9pZCAqZGVzdCwgX19jb25zdCB2b2lkICpzcmMsIF9fa2VybmVsX3NpemVfdCBuKQog
+ewotCXVuc2lnbmVkIGNoYXIgKmQgPSAodW5zaWduZWQgY2hhciAqKWRlc3QsICpzID0gKHVuc2ln
+bmVkIGNoYXIgKilzcmM7CisJdW5zaWduZWQgY2hhciAqZCwgKnM7CiAJdWludDMyX3QgKmRlc3Rf
+dyA9ICh1aW50MzJfdCAqKWRlc3QsICpzcmNfdyA9ICh1aW50MzJfdCAqKXNyYzsKIAogCS8qIElm
+IGJvdGggc291cmNlIGFuZCBkZXN0IGFyZSB3b3JkIGFsaWduZWQgY29weSB3b3JkcyAqLwotLSAK
+Mi4zMC4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpP
+cGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6
+Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
