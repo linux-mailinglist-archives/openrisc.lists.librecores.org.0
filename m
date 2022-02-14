@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id E01024B57C5
-	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 18:02:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CF484B57D4
+	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 18:03:09 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id C248E24776;
-	Mon, 14 Feb 2022 18:02:32 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id 21A8D24801;
+	Mon, 14 Feb 2022 18:03:09 +0100 (CET)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by mail.librecores.org (Postfix) with ESMTPS id 5A191211B2
- for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 18:02:31 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id 464E1240F6
+ for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 18:03:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=sdZnUMzq4+z5JAUxazcphNdGaICd1jOM0lzfsOlGGP4=; b=ilmpEja/277DxKyEOCWtwolukQ
- TPjFvPd+06Duh+vtGjhRV7kysY6QfnRhDUQM2LPMmQJPp0CcDS7ZITxDjyFmd5QuKSeULHTzQv/dY
- 64hhQASYsNjqn2sxQ8pG09hu68ESlQPBP+ZUUGQuXU+5Zf2NM0DQ50AjfVah1yfzmf28PCovqXoHo
- BshQ9GNqU4Vd+l0inCSwLOM/Kv9mqXQWM0bcy2OkcRImPWSvuzdM6R2QSbW7WDXWrev49VJC5rIfa
- zjELqfCR0DFOQ+1CmCyyesRY7ojy5sRUvp347Q343uxXWWK10wDz2za7INHW8lBnzV6aVrB5MveY8
- 5H/+OeNA==;
+ bh=l2WBiCb5duYJRA9nKpihqrJOH1Qjg6utSrFiu8qAdtc=; b=QlojU+/FbZdIPV2CfVg0g9FlaD
+ X9kD9i79czFm+XrIeETqIBZWp7KUAm9gvK8opnry/mfeikiv8qulZrrIaoXhzvURd/9eHLViQwxv5
+ LXc/98qskY802/1wdBsFyrYTQ+nvdvOcj9mkxEJaE5tu86xQ3mVdrUG3zLa6PvZZs/wj4/RphKMgX
+ Aw4bQl2nwAmM1vfC+2xAC6FWvZxY0AyRmh3Vm08qT5mHqejiG45EXR3L32AXhzoztk3bs49LY+vd9
+ B71zul4Ag63ikl89BxppR2RYdf6sfYunHxkkekkdUEP6CO/3vpDXnf6oETlru/9IYq/AaSIK3lD//
+ 3fbzMB6w==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nJejt-00GFoH-Dz; Mon, 14 Feb 2022 17:02:13 +0000
-Date: Mon, 14 Feb 2022 09:02:13 -0800
+ Hat Linux)) id 1nJekS-00GG7B-B1; Mon, 14 Feb 2022 17:02:48 +0000
+Date: Mon, 14 Feb 2022 09:02:48 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YgqLFYqIqkIsNC92@infradead.org>
+Message-ID: <YgqLONpDAru08JBZ@infradead.org>
 References: <20220214163452.1568807-1-arnd@kernel.org>
- <20220214163452.1568807-5-arnd@kernel.org>
+ <20220214163452.1568807-6-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220214163452.1568807-5-arnd@kernel.org>
+In-Reply-To: <20220214163452.1568807-6-arnd@kernel.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [OpenRISC] [PATCH 04/14] x86: use more conventional access_ok()
- definition
+Subject: Re: [OpenRISC] [PATCH 05/14] uaccess: add generic __{get,
+ put}_kernel_nofault
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,11 +71,7 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NDJQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
-cm90ZToKPiArI2RlZmluZSBfX3JhbmdlX25vdF9vayhhZGRyLCBzaXplLCBsaW1pdCkJKCFfX2Fj
-Y2Vzc19vayhhZGRyLCBzaXplKSkKPiArI2RlZmluZSBfX2Noa19yYW5nZV9ub3Rfb2soYWRkciwg
-c2l6ZSwgbGltaXQpCSghX19hY2Nlc3Nfb2soKHZvaWQgX191c2VyICopYWRkciwgc2l6ZSkpCgpD
-YW4gd2UganVzdCBraWxsIHRoZXNlIG9mZiBpbnN0ZWQgb2YgbGV0dGluZyB0aGVtbSBvYnNmdWNh
-dGUgdGhlIGNvZGU/Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpo
-dHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+TG9va3MgZ29vZCwKClJldmlld2VkLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
