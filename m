@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7792F4B579A
-	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 17:59:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CA1684B57B0
+	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 18:01:31 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 2E093242D7;
-	Mon, 14 Feb 2022 17:59:35 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id 7D28324789;
+	Mon, 14 Feb 2022 18:01:31 +0100 (CET)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by mail.librecores.org (Postfix) with ESMTPS id 925C7240F6
- for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 17:59:33 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id 9077A211B2
+ for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 18:01:30 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=l2WBiCb5duYJRA9nKpihqrJOH1Qjg6utSrFiu8qAdtc=; b=wOZdjvQKGo2j1KEbHamRz5nvfE
- 5N4PSkoVJRW6b85x2udVgbP4nj0LjR0mptXcdR6Dl2/kevucNHdZKP+eczdjmlP1z3MwZ8V8UTNH8
- ZVh+IRtQLoUWBL/sUwTDW6NPocaC06jLxhF5rLfZ9wV8lGf6LC8Pw3PHj2ciuIshvT8D1htdXN0gu
- WGtLp38e6Ay0OYk4bAZhKzSgMaUKRfxf48LEOo7xoUHfsgFT50qfLq5mewlYarA7LCYzBR/7t7hIi
- rVhzxkKIih3DvtQfcPsFmsozbhFuJyeS1XTuYKGWC6P5G+i4WQv8FF5LABK6Yz9enYOIurecqRgkO
- e0Fnj0ng==;
+ bh=MrxZM+dtR1LjIHLm64CmzES4OEtfVkeNuYlvax0H88s=; b=1xI1/Fvb99aqHheC6mtY388ud6
+ 9MT/bHCftGydYIWxm+hS4zGwhvbFt8OzX+edrM5UnO4tP1NBqSh70Lw78bL6Q3BsXOm/Di6JZoJYH
+ wtHggpB7JYRvrXSaY0/s1eEkO2PXvhxpwgVhrfp/eQEItM485WwqPYb5B+6tJYfNWM5IfOyU+3GNz
+ wgU3yHvVJYtieNqr2ZSULdjEvye7TyhUfxnlCnsscD5y8hniE9PulQxdXM5zxaKuNaLViAmRHCutR
+ 73lx+6HTraO/VU29BXdY1lFIki5yroT8XZ/YKJV8c3pSdMpd1Wlg6zLRh5SejJ7jky/eNWrhj93gC
+ ys6P1MSw==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nJegk-00GDzZ-OZ; Mon, 14 Feb 2022 16:58:58 +0000
-Date: Mon, 14 Feb 2022 08:58:58 -0800
+ Hat Linux)) id 1nJeis-00GF7n-M5; Mon, 14 Feb 2022 17:01:10 +0000
+Date: Mon, 14 Feb 2022 09:01:10 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YgqKUscD4Xx62bVt@infradead.org>
+Message-ID: <YgqK1ihlJvRFHJ9h@infradead.org>
 References: <20220214163452.1568807-1-arnd@kernel.org>
- <20220214163452.1568807-2-arnd@kernel.org>
+ <20220214163452.1568807-4-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220214163452.1568807-2-arnd@kernel.org>
+In-Reply-To: <20220214163452.1568807-4-arnd@kernel.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [OpenRISC] [PATCH 01/14] uaccess: fix integer overflow on
- access_ok()
+Subject: Re: [OpenRISC] [PATCH 03/14] nds32: fix access_ok() checks in
+ get/put_user
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -63,8 +63,7 @@ Cc: mark.rutland@arm.com, dalias@libc.org, linux-ia64@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, monstr@monstr.eu,
  tsbogend@alpha.franken.de, nickhu@andestech.com, linux-parisc@vger.kernel.org,
  linux-mm@kvack.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, dinguyen@kernel.org,
- David Laight <David.Laight@aculab.com>, ebiederm@xmission.com,
+ stable@vger.kernel.org, dinguyen@kernel.org, ebiederm@xmission.com,
  linux-alpha@vger.kernel.org, akpm@linux-foundation.org,
  Linus Torvalds <torvalds@linux-foundation.org>, davem@davemloft.net
 Content-Type: text/plain; charset="utf-8"
@@ -72,7 +71,15 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-TG9va3MgZ29vZCwKClJldmlld2VkLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
+T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NDFQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
+cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IFRoZSBnZXRf
+dXNlcigpL3B1dF91c2VyKCkgZnVuY3Rpb25zIGFyZSBtZWFudCB0byBjaGVjayBmb3IKPiBhY2Nl
+c3Nfb2soKSwgd2hpbGUgdGhlIF9fZ2V0X3VzZXIoKS9fX3B1dF91c2VyKCkgZnVuY3Rpb25zCj4g
+ZG9uJ3QuCj4gCj4gVGhpcyBicm9rZSBpbiA0LjE5IGZvciBuZHMzMiwgd2hlbiBpdCBnYWluZWQg
+YW4gZXh0cmFuZW91cwo+IGNoZWNrIGluIF9fZ2V0X3VzZXIoKSwgYnV0IGxvc3QgdGhlIGNoZWNr
+IGl0IG5lZWRzIGluCj4gX19wdXRfdXNlcigpLgoKQ2FuIHdlIGZvbGxvdyB0aGUgbGVhZCBvZiBN
+SVBTICh3aGljaCB0aGlzIHdhcyBvcmlnaW5hbGx5IGNvcGllZApmcm9tIEkgdGhpbmspIGFuZCBr
+aWxsIHRoZSBwb2ludGxlc3MgX19nZXQvcHV0X3VzZXJfY2hlY2sgd3JhcHBlcgp0aGF0IGp1c3Qg
+b2JzZnVjYXRlIHRoZSBjb2RlPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jl
+cy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
