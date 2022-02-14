@@ -2,40 +2,39 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id C4BB94B57EF
-	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 18:06:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F41C4B57FE
+	for <lists+openrisc@lfdr.de>; Mon, 14 Feb 2022 18:07:14 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A835824800;
-	Mon, 14 Feb 2022 18:06:22 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id E6C9824789;
+	Mon, 14 Feb 2022 18:07:13 +0100 (CET)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by mail.librecores.org (Postfix) with ESMTPS id ED252211B2
- for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 18:06:20 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id 2E927211B2
+ for <openrisc@lists.librecores.org>; Mon, 14 Feb 2022 18:07:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=0CqmZAPRvnTQjgxBDbgMZYquENsTA/VPZyRN6//m2xw=; b=A3sA4gEo4nM3H7a0dm/JzGaUgV
- QIajZXmGp6ANWQ7bYVPcoCtAlCwsaPV2mcLSTAMkTtOvct+SPoXoviqH9efT8NLhfT4S3LRw6YQXd
- op4oq2yv8hzQnJjEyzM3+ydZNTbB02+bfC5eJ50MyESjem8R8c2VVjXeHHcWxOdarSNfzvCwtBQpI
- InHc/8TWyFNrwCcTQldIWT4TQ5FyAGciNKaQWRRlcxgPeWZKydhmkMkbIzvof2xUER3lSjyAJ9oA3
- 03ZxL6nD2oE4+Za+YPHuF/EueN4CdELKexFzVobCRN7YS+wtQRgWFdzsDIrcKnFVoJEqcho3LJJfk
- H411B1+g==;
+ bh=8eiqmWZNaqGdpgWNCwPX7gQKQvW9O9nBC/IyuCh5Uu4=; b=NQx4FkYetmttIR/NEzS5oFNUJ1
+ BWCBKtBDtrvX3DAWLa5AHjZdfYdnXv7FjdwcSzL2savzYKFpI5lASGYMwkIMqucgnXjQPE34Wn7gu
+ 8M3f5r3UHVh4xrbUW6OGb2BdNNHu5TEUyOxW4cWbJETnpHoCzg2syNTuuzIoyZ3z2d74fOTRgIzLE
+ gi9PTlFWO384ydDhR2BYapX3HCpvz3Ev+lPbXiiPGJWS2Rir5CtHBihibt3df1WUog3nlAglNFwge
+ SR1bH3Ql6wR2kB6boSvOhKZPud54w/M5Oj73ph5T6NViIfVSmPOQ3F8tUeuO5eYcRAhCTLQ7sPIMg
+ +OiVycgw==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nJenc-00GHV7-F2; Mon, 14 Feb 2022 17:06:04 +0000
-Date: Mon, 14 Feb 2022 09:06:04 -0800
+ Hat Linux)) id 1nJeoP-00GHvG-Sg; Mon, 14 Feb 2022 17:06:53 +0000
+Date: Mon, 14 Feb 2022 09:06:53 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YgqL/NJ3YHEAhj4i@infradead.org>
+Message-ID: <YgqMLYJs0RMecMck@infradead.org>
 References: <20220214163452.1568807-1-arnd@kernel.org>
- <20220214163452.1568807-11-arnd@kernel.org>
+ <20220214163452.1568807-12-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220214163452.1568807-11-arnd@kernel.org>
+In-Reply-To: <20220214163452.1568807-12-arnd@kernel.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [OpenRISC] [PATCH 10/14] uaccess: remove most CONFIG_SET_FS
- users
+Subject: Re: [OpenRISC] [PATCH 11/14] sparc64: remove CONFIG_SET_FS support
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,14 +70,9 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NDhQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
-cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IE9uIGFsbW9z
-dCBhbGwgYXJjaGl0ZWN0dXJlcywgdGhlcmUgYXJlIG5vIHJlbWFpbmluZyBjYWxsZXJzCj4gb2Yg
-c2V0X2ZzKCksIHNvIENPTkZJR19TRVRfRlMgY2FuIGJlIGRpc2FibGVkLCBhbG9uZyB3aXRoCj4g
-cmVtb3ZpbmcgdGhlIHRocmVhZF9pbmZvIGZpZWxkIGFuZCBhbnkgcmVmZXJlbmNlcyB0byBpdC4K
-PiAKPiBUaGlzIHR1cm5zIGFjY2Vzc19vaygpIGludG8gYSBjaGVhcGVyIGNoZWNrIGFnYWluc3Qg
-VEFTS19TSVpFX01BWC4KCldvdWxkbid0IGl0IG1ha2UgbW9yZSBzZW5zZSB0byBqdXN0IG1lcmdl
-IHRoaXMgaW50byB0aGUgbGFzdCBwYXRjaD8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxp
-YnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJp
-c2MK
+PiAgdm9pZCBwcm9tX3dvcmxkKGludCBlbnRlcikKPiAgewo+IC0JaWYgKCFlbnRlcikKPiAtCQlz
+ZXRfZnMoZ2V0X2ZzKCkpOwo+IC0KPiAgCV9fYXNtX18gX192b2xhdGlsZV9fKCJmbHVzaHciKTsK
+PiAgfQoKVGhlIGVudGVyIGFyZ3VtZW50IGlzIG5vdyB1bnVzZWQuCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVu
+UklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xp
+c3RpbmZvL29wZW5yaXNjCg==
