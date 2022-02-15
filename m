@@ -2,26 +2,28 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 2471B4B6152
-	for <lists+openrisc@lfdr.de>; Tue, 15 Feb 2022 04:04:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B201E4B6369
+	for <lists+openrisc@lfdr.de>; Tue, 15 Feb 2022 07:29:49 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id E2E95242C3;
-	Tue, 15 Feb 2022 04:04:48 +0100 (CET)
-Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk [142.44.231.140])
- by mail.librecores.org (Postfix) with ESMTPS id 90C3C240FC
- for <openrisc@lists.librecores.org>; Tue, 15 Feb 2022 04:04:47 +0100 (CET)
-Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nJo7z-001r4A-EX; Tue, 15 Feb 2022 03:03:43 +0000
-Date: Tue, 15 Feb 2022 03:03:43 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YgsYD2nW9GjWJtn5@zeniv-ca.linux.org.uk>
+	by mail.librecores.org (Postfix) with ESMTP id 6F509242C0;
+	Tue, 15 Feb 2022 07:29:49 +0100 (CET)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by mail.librecores.org (Postfix) with ESMTPS id 41D9E242C0
+ for <openrisc@lists.librecores.org>; Tue, 15 Feb 2022 07:29:47 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 11DDB68AA6; Tue, 15 Feb 2022 07:29:43 +0100 (CET)
+Date: Tue, 15 Feb 2022 07:29:42 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Message-ID: <20220215062942.GA12551@lst.de>
 References: <20220214163452.1568807-1-arnd@kernel.org>
- <20220214163452.1568807-15-arnd@kernel.org>
+ <20220214163452.1568807-10-arnd@kernel.org>
+ <Ygr11RGjj3C9uAUg@zeniv-ca.linux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220214163452.1568807-15-arnd@kernel.org>
-Subject: Re: [OpenRISC] [PATCH 14/14] uaccess: drop set_fs leftovers
+In-Reply-To: <Ygr11RGjj3C9uAUg@zeniv-ca.linux.org.uk>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: Re: [OpenRISC] [PATCH 09/14] m68k: drop custom __access_ok()
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -46,34 +48,26 @@ Cc: mark.rutland@arm.com, dalias@libc.org, linux-ia64@vger.kernel.org,
  arnd@arndb.de, hca@linux.ibm.com, linux-alpha@vger.kernel.org,
  linux-um@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  linux-m68k@lists.linux-m68k.org, openrisc@lists.librecores.org,
- green.hu@gmail.com, linux-arm-kernel@lists.infradead.org, monstr@monstr.eu,
- tsbogend@alpha.franken.de, linux-parisc@vger.kernel.org, nickhu@andestech.com,
- jcmvbkbc@gmail.com, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
- dinguyen@kernel.org, ebiederm@xmission.com, richard@nod.at,
- akpm@linux-foundation.org, Linus Torvalds <torvalds@linux-foundation.org>,
- davem@davemloft.net
+ green.hu@gmail.com, linux-arm-kernel@lists.infradead.org,
+ Arnd Bergmann <arnd@kernel.org>, monstr@monstr.eu, tsbogend@alpha.franken.de,
+ linux-parisc@vger.kernel.org, nickhu@andestech.com, jcmvbkbc@gmail.com,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, dinguyen@kernel.org,
+ ebiederm@xmission.com, richard@nod.at, akpm@linux-foundation.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, davem@davemloft.net
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NTJQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
-cm90ZToKPiBkaWZmIC0tZ2l0IGEvYXJjaC9wYXJpc2MvaW5jbHVkZS9hc20vZnV0ZXguaCBiL2Fy
-Y2gvcGFyaXNjL2luY2x1ZGUvYXNtL2Z1dGV4LmgKPiBpbmRleCBiNTgzNTMyNWQ0NGIuLjJmNGEx
-YjFlZjM4NyAxMDA2NDQKPiAtLS0gYS9hcmNoL3BhcmlzYy9pbmNsdWRlL2FzbS9mdXRleC5oCj4g
-KysrIGIvYXJjaC9wYXJpc2MvaW5jbHVkZS9hc20vZnV0ZXguaAo+IEBAIC05OSw3ICs5OSw3IEBA
-IGZ1dGV4X2F0b21pY19jbXB4Y2hnX2luYXRvbWljKHUzMiAqdXZhbCwgdTMyIF9fdXNlciAqdWFk
-ZHIsCj4gIAkvKiBmdXRleC5jIHdhbnRzIHRvIGRvIGEgY21weGNoZ19pbmF0b21pYyBvbiBrZXJu
-ZWwgTlVMTCwgd2hpY2ggaXMKPiAgCSAqIG91ciBnYXRld2F5IHBhZ2UsIGFuZCBjYXVzZXMgbm8g
-ZW5kIG9mIHRyb3VibGUuLi4KPiAgCSAqLwo+IC0JaWYgKHVhY2Nlc3Nfa2VybmVsKCkgJiYgIXVh
-ZGRyKQo+ICsJaWYgKCF1YWRkcikKPiAgCQlyZXR1cm4gLUVGQVVMVDsKCglIdWg/ICB1YWNjZXNz
-X2tlcm5lbCgpIGlzIHJlbW92ZWQgc2luY2UgaXQgYmVjb21lcyBhbHdheXMgZmFsc2Ugbm93LApz
-byB0aGlzIGxvb2tzIG9kZC4KCglBRkFJQ1MsIHRoZSBjb21tZW50IGFib3ZlIHRoYXQgY2hlY2sg
-cmVmZXJzIHRvIGZ1dGV4X2RldGVjdF9jbXB4Y2hnKCkKLT4gY21weGNoZ19mdXRleF92YWx1ZV9s
-b2NrZWQoKSAtPiBmdXRleF9hdG9taWNfY21weGNoZ19pbmF0b21pYygpIGNhbGwgY2hhaW4uCldo
-aWNoIGhhZCBiZWVuIGdvbmUgc2luY2UgY29tbWl0IDMyOTc0ODFkNjg4YSAoZnV0ZXg6IFJlbW92
-ZSBmdXRleF9jbXB4Y2hnCmRldGVjdGlvbikuICBUaGUgY29tbWVudCAqYW5kKiB0aGUgY2hlY2sg
-c2hvdWxkJ3ZlIGJlZW4ga2lsbGVkIG9mZiBiYWNrCnRoZW4uCglMZXQncyBtYWtlIHN1cmUgdG8g
-Z2V0IGJvdGggbm93Li4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9y
-ZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+T24gVHVlLCBGZWIgMTUsIDIwMjIgYXQgMTI6Mzc6NDFBTSArMDAwMCwgQWwgVmlybyB3cm90ZToK
+PiBQZXJoYXBzIHNpbXBseSB3cmFwIHRoYXQgc3Vja2VyIGludG8gI2lmZGVmIENPTkZJR19DUFVf
+SEFTX0FERFJFU1NfU1BBQ0VTCj4gKGFuZCB0cmltIHRoZSBjb21tZW50IGRvd24gdG8gImNvbGRm
+aXJlIGFuZCA2ODAwMCB3aWxsIHBpY2sgZ2VuZXJpYwo+IHZhcmlhbnQiKT8KCkkgd29uZGVyIGlm
+IHdlIHNob3VsZCBpbnZlcnQgQ09ORklHX0FSQ0hfSEFTX05PTl9PVkVSTEFQUElOR19BRERSRVNT
+X1NQQUNFLApzZWxlY3QgdGhlIHNlcGFyYXRlIGFkZHJlc3Mgc3BhY2UgY29uZmlnIGZvciBzMzkw
+LCBzcGFyYzY0LCBub24tY29sZGZpcmUKbTY4ayBhbmQgbWlwcyB3aXRoIEVWQSBhbmQgdGhlbiBq
+dXN0IGhhdmUgb25lIHNpbmdsZSBhY2Nlc3Nfb2sgZm9yCm92ZXJsYXBwaW5nIGFkZHJlc3Mgc3Bh
+Y2UgKGFzIGFkZGVkIGJ5IEFybmQpIGFuZCBub24tb3ZlcmxhcHBpbmcgb25lcwooYWx3YXlzIHJl
+dHVybiB0cnVlKS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KT3BlblJJU0MgbWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0
+dHBzOi8vbGlzdHMubGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
