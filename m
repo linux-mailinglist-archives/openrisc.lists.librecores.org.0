@@ -2,27 +2,26 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id AA00A4B5F1F
-	for <lists+openrisc@lfdr.de>; Tue, 15 Feb 2022 01:32:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B6374B5F35
+	for <lists+openrisc@lfdr.de>; Tue, 15 Feb 2022 01:38:10 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 63639242E8;
-	Tue, 15 Feb 2022 01:32:51 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id DDCDC242E8;
+	Tue, 15 Feb 2022 01:38:09 +0100 (CET)
 Received: from zeniv-ca.linux.org.uk (zeniv-ca.linux.org.uk [142.44.231.140])
- by mail.librecores.org (Postfix) with ESMTPS id 42E0923FA3
- for <openrisc@lists.librecores.org>; Tue, 15 Feb 2022 01:32:50 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id E5D1F23E0C
+ for <openrisc@lists.librecores.org>; Tue, 15 Feb 2022 01:38:08 +0100 (CET)
 Received: from viro by zeniv-ca.linux.org.uk with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nJll2-001pbW-H6; Tue, 15 Feb 2022 00:31:52 +0000
-Date: Tue, 15 Feb 2022 00:31:52 +0000
+ Hat Linux)) id 1nJlqf-001pf0-Dy; Tue, 15 Feb 2022 00:37:41 +0000
+Date: Tue, 15 Feb 2022 00:37:41 +0000
 From: Al Viro <viro@zeniv.linux.org.uk>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <Ygr0eAA+ZR1eX0wb@zeniv-ca.linux.org.uk>
+Message-ID: <Ygr11RGjj3C9uAUg@zeniv-ca.linux.org.uk>
 References: <20220214163452.1568807-1-arnd@kernel.org>
- <20220214163452.1568807-6-arnd@kernel.org>
+ <20220214163452.1568807-10-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220214163452.1568807-6-arnd@kernel.org>
-Subject: Re: [OpenRISC] [PATCH 05/14] uaccess: add generic __{get,
- put}_kernel_nofault
+In-Reply-To: <20220214163452.1568807-10-arnd@kernel.org>
+Subject: Re: [OpenRISC] [PATCH 09/14] m68k: drop custom __access_ok()
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -58,20 +57,33 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NDNQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
-cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IEFsbCBhcmNo
-aXRlY3R1cmVzIHRoYXQgZG9uJ3QgcHJvdmlkZSBfX3tnZXQscHV0fV9rZXJuZWxfbm9mYXVsdCgp
-IHlldAo+IGNhbiBpbXBsZW1lbnQgdGhpcyBvbiB0b3Agb2YgX197Z2V0LHB1dH1fdXNlci4KPiAK
-PiBBZGQgYSBnZW5lcmljIHZlcnNpb24gdGhhdCBsZXRzIGV2ZXJ5dGhpbmcgdXNlIHRoZSBub3Jt
-YWwKPiBjb3B5X3tmcm9tLHRvfV9rZXJuZWxfbm9mYXVsdCgpIGNvZGUgYmFzZWQgb24gdGhlc2Us
-IHJlbW92aW5nIHRoZSBsYXN0Cj4gdXNlIG9mIGdldF9mcygpL3NldF9mcygpIGZyb20gYXJjaGl0
-ZWN0dXJlLWluZGVwZW5kZW50IGNvZGUuCgpJJ2QgcHV0IHRoZSBsaXN0IG9mIHRob3NlIGFyY2hp
-dGVjdHVyZXMgKEFGQUlDUywgdGhhdCdzIGFscGhhLCBpYTY0LAptaWNyb2JsYXplLCBuZHMzMiwg
-bmlvczIsIG9wZW5yaXNjLCBzaCwgc3BhcmMzMiwgeHRlbnNhKSBpbnRvIGNvbW1pdAptZXNzYWdl
-IC0gaXQncyBub3QgdGhhdCBoYXJkIHRvIGZpbmQgb3V0LCBidXQuLi4KCkFuZCBBRkFJQ1MsIHlv
-dSd2ZSBtaXNzZWQgbmlvczIgLSBzZWUKI2RlZmluZSBfX3B1dF91c2VyKHgsIHB0cikgcHV0X3Vz
-ZXIoeCwgcHRyKQppbiB0aGVyZS4gIG5kczMyIG9kZGl0aWVzIGFyZSBkZWFsdCB3aXRoIGVhcmxp
-ZXIgaW4gdGhlIHNlcmllcywgdGhpcwpvbmUgaXMgbm90Li4uCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklT
-Q0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3Rp
-bmZvL29wZW5yaXNjCg==
+T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDU6MzQ6NDdQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
+cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IFdoaWxlIG1v
+c3QgbTY4ayBwbGF0Zm9ybXMgdXNlIHNlcGFyYXRlIGFkZHJlc3Mgc3BhY2VzIGZvciB1c2VyCj4g
+YW5kIGtlcm5lbCBzcGFjZSwgYXQgbGVhc3QgY29sZGZpcmUgZG9lcyBub3QsIGFuZCB0aGUgb3Ro
+ZXIKPiBvbmVzIGhhdmUgYSBUQVNLX1NJWkUgdGhhdCBpcyBsZXNzIHRoYW4gdGhlIGVudGlyZSA0
+R0IgYWRkcmVzcwo+IHJhbmdlLgo+IAo+IFVzaW5nIHRoZSBnZW5lcmljIGltcGxlbWVudGF0aW9u
+IG9mIF9fYWNjZXNzX29rKCkgc3RvcHMgY29sZGZpcmUKPiB1c2VyIHNwYWNlIGZyb20gdHJpdmlh
+bGx5IGFjY2Vzc2luZyBrZXJuZWwgbWVtb3J5LCBhbmQgaXMgcHJvYmFibHkKPiB0aGUgcmlnaHQg
+dGhpbmcgZWxzZXdoZXJlIGZvciBjb25zaXN0ZW5jeSBhcyB3ZWxsLgoKUGVyaGFwcyBzaW1wbHkg
+d3JhcCB0aGF0IHN1Y2tlciBpbnRvICNpZmRlZiBDT05GSUdfQ1BVX0hBU19BRERSRVNTX1NQQUNF
+UwooYW5kIHRyaW0gdGhlIGNvbW1lbnQgZG93biB0byAiY29sZGZpcmUgYW5kIDY4MDAwIHdpbGwg
+cGljayBnZW5lcmljCnZhcmlhbnQiKT8KCj4gU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8
+YXJuZEBhcm5kYi5kZT4KPiAtLS0KPiAgYXJjaC9tNjhrL2luY2x1ZGUvYXNtL3VhY2Nlc3MuaCB8
+IDEzIC0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEzIGRlbGV0aW9ucygtKQo+IAo+
+IGRpZmYgLS1naXQgYS9hcmNoL202OGsvaW5jbHVkZS9hc20vdWFjY2Vzcy5oIGIvYXJjaC9tNjhr
+L2luY2x1ZGUvYXNtL3VhY2Nlc3MuaAo+IGluZGV4IGQ2YmI1NzIwMzY1YS4uNjQ5MTQ4NzJhNWM5
+IDEwMDY0NAo+IC0tLSBhL2FyY2gvbTY4ay9pbmNsdWRlL2FzbS91YWNjZXNzLmgKPiArKysgYi9h
+cmNoL202OGsvaW5jbHVkZS9hc20vdWFjY2Vzcy5oCj4gQEAgLTEwLDE5ICsxMCw2IEBACj4gICNp
+bmNsdWRlIDxsaW51eC9jb21waWxlci5oPgo+ICAjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiAg
+I2luY2x1ZGUgPGFzbS9leHRhYmxlLmg+Cj4gLQo+IC0vKiBXZSBsZXQgdGhlIE1NVSBkbyBhbGwg
+Y2hlY2tpbmcgKi8KPiAtc3RhdGljIGlubGluZSBpbnQgX19hY2Nlc3Nfb2soY29uc3Qgdm9pZCBf
+X3VzZXIgKmFkZHIsCj4gLQkJCSAgICB1bnNpZ25lZCBsb25nIHNpemUpCj4gLXsKPiAtCS8qCj4g
+LQkgKiBYWFg6IGZvciAhQ09ORklHX0NQVV9IQVNfQUREUkVTU19TUEFDRVMgdGhpcyByZWFsbHkg
+bmVlZHMgdG8gY2hlY2sKPiAtCSAqIGZvciBUQVNLX1NJWkUhCj4gLQkgKiBSZW1vdmluZyB0aGlz
+IGhlbHBlciBpcyBwcm9iYWJseSBzdWZmaWNpZW50Lgo+IC0JICovCj4gLQlyZXR1cm4gMTsKPiAt
+fQo+IC0jZGVmaW5lIF9fYWNjZXNzX29rIF9fYWNjZXNzX29rCj4gICNpbmNsdWRlIDxhc20tZ2Vu
+ZXJpYy9hY2Nlc3Nfb2suaD4KPiAgCj4gIC8qCj4gLS0gCj4gMi4yOS4yCj4gCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlz
+dApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMu
+b3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
