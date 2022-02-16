@@ -2,52 +2,51 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 83A6F4B9379
-	for <lists+openrisc@lfdr.de>; Wed, 16 Feb 2022 23:01:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CD4414B9388
+	for <lists+openrisc@lfdr.de>; Wed, 16 Feb 2022 23:03:16 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3684E24845;
-	Wed, 16 Feb 2022 23:01:49 +0100 (CET)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by mail.librecores.org (Postfix) with ESMTPS id AA2C02483D
- for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 23:01:46 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id A315924845;
+	Wed, 16 Feb 2022 23:03:16 +0100 (CET)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by mail.librecores.org (Postfix) with ESMTPS id 4BF4324828
+ for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 23:03:15 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 78A9061B44
- for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 22:01:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DFDC340ED
- for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 22:01:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E343DB82078
+ for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 22:03:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56958C340F3
+ for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 22:03:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645048904;
- bh=3GAgFKFSz4rrd4LtvDFKA/i0kbB+vNidxSnLES7CC90=;
+ s=k20201202; t=1645048993;
+ bh=ay/5589FenTcDxawo4c9r5D5w/FgYtE3zMvoHKiKBw4=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=cqP4swvBSmEmDzilwiAl6hoaKg+rYJVULzcStt6ho4zk1m5ypcExNPVLQZgKy8sx8
- R95M9l3Bjf0n6qwkM2R2kbFNjXShLM9o6q74b6gcclX4vX9wZchI/bUwCZeWYrCTSY
- gsvEv/BA+uLXbpZD65b9rkIEwfFd/eZctL7fHkU/euGbob7Ar/pXDUC3v7xjDMgGwp
- YEgysit9Yo3IdSh1MHlmzjnxgpnmc5WeIMir/51AHJDH6J1zR1tdpEN4fjuXYfhGI7
- eo7HxAH95JU9to+vLgzK1WVTuLSUb/RJdq0M67nN7rgrrV6xt/h4H+7UQ7KLfthF4v
- 8wivpc2dGDTlA==
-Received: by mail-wm1-f43.google.com with SMTP id
- q198-20020a1ca7cf000000b0037bb52545c6so4743677wme.1
- for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 14:01:44 -0800 (PST)
-X-Gm-Message-State: AOAM530SFwfH8LsB7I4sGEveHyZp8L7WK0dIcv1fcB6rpYqCnxp3t6Sg
- tgZA4hGzM9SoQC7NqUVH3/NqBZ/FOtpAz5z52Z0=
-X-Google-Smtp-Source: ABdhPJyTINkf1ZMgp+ijDiSYfGY6PCVSFYe6JpwLrHI4jPiDeP7SC/Zo0zGySiauKL0SyOBYxrfLHIczbDoJsvG/Low=
-X-Received: by 2002:a05:600c:1d27:b0:37c:74bb:2b4d with SMTP id
- l39-20020a05600c1d2700b0037c74bb2b4dmr3428429wms.82.1645048892813; Wed, 16
- Feb 2022 14:01:32 -0800 (PST)
+ b=SKBiXg1qMAxSOG7O/+fAEZVno6RY18W0gjWd48YvWVehxkUtMksFHxAKOXPaf1Nim
+ qHK3jdeXyT7izApYt/dKY/APNToDbzS30oZ/3+FsRDGwHCYVq4RDe7vcie8TG09GCB
+ VJT0268zX83XvVza5Mt2NT9M5MRvq5jsvfN9DDwEAft1MUWYI2uGvfXze8xcMLyYPl
+ W5bKKzwddcuQftrn4B+eRiSOdBTv8tp7msayxnS9iimb1X7zN2rzIA/p/RbCumDYFK
+ ozI4OSbpqbFd1JHV5fS/CeCxidkU8UzvVlyBvKvVSqnpavPgI6V4RqMDH4eF/+tdlu
+ AnRmCFW169S3A==
+Received: by mail-ej1-f42.google.com with SMTP id lw4so2312284ejb.12
+ for <openrisc@lists.librecores.org>; Wed, 16 Feb 2022 14:03:13 -0800 (PST)
+X-Gm-Message-State: AOAM532c7xlFA9EJh45WNJ0OG8S8Si5kT9o5WpuDf/NC0iRxj8wTcxM2
+ jAnlL9ZDB5ovRvEAyfz6bqppB4woBEbqEoFueBE=
+X-Google-Smtp-Source: ABdhPJyk0zQXj5EZ1uP9z1YUTizioO4kJ6rvneTTyuZji8J8rGr64s8uMSDVOcQeT3f3UOdAxVtCGFpnKRwe/RHh9ys=
+X-Received: by 2002:adf:cf0c:0:b0:1e6:22fe:4580 with SMTP id
+ o12-20020adfcf0c000000b001e622fe4580mr53483wrj.12.1645048981311; Wed, 16 Feb
+ 2022 14:03:01 -0800 (PST)
 MIME-Version: 1.0
 References: <20220216131332.1489939-1-arnd@kernel.org>
- <20220216131332.1489939-16-arnd@kernel.org>
- <Yg1D08+olCSGmnYU@ravnborg.org> <Yg1FRZcrhlh5C//V@ravnborg.org>
-In-Reply-To: <Yg1FRZcrhlh5C//V@ravnborg.org>
+ <20220216131332.1489939-19-arnd@kernel.org>
+ <Yg1F/VT4vRX4aHEt@ravnborg.org>
+In-Reply-To: <Yg1F/VT4vRX4aHEt@ravnborg.org>
 From: Arnd Bergmann <arnd@kernel.org>
-Date: Wed, 16 Feb 2022 23:01:16 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1kV=0G9WYkdjYCiBu=fuT1fbPGHVD9cgHX3ht6J3MFEw@mail.gmail.com>
-Message-ID: <CAK8P3a1kV=0G9WYkdjYCiBu=fuT1fbPGHVD9cgHX3ht6J3MFEw@mail.gmail.com>
+Date: Wed, 16 Feb 2022 23:02:45 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a2gx2w=RDECNbrO4Zu3ZUTfz2UrLbNSz+ieCgMEFiK3TA@mail.gmail.com>
+Message-ID: <CAK8P3a2gx2w=RDECNbrO4Zu3ZUTfz2UrLbNSz+ieCgMEFiK3TA@mail.gmail.com>
 To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [OpenRISC] [PATCH v2 15/18] sparc64: remove CONFIG_SET_FS
- support
+Subject: Re: [OpenRISC] [PATCH v2 18/18] uaccess: drop maining CONFIG_SET_FS
+ users
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -96,22 +95,23 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBGZWIgMTYsIDIwMjIgYXQgNzo0MSBQTSBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9y
-Zy5vcmc+IHdyb3RlOgo+IE9uIFdlZCwgRmViIDE2LCAyMDIyIGF0IDA3OjM0OjU5UE0gKzAxMDAs
-IFNhbSBSYXZuYm9yZyB3cm90ZToKCj4gPgo+ID4gSSB0aGluayB5b3Ugc29tZWhvdyBtaXNzZWQg
-dGhlIEtjb25maWcgY2hhbmdlLCBhbmQgYWxzbyB0aGUgcmVsYXRlZAo+ID4gc3BhcmMzMiBjaGFu
-Z2Ugd2hpY2ggY29udGludWUgdG8gaGF2ZSBzZXRfZnMoKSBhZnRlciB0aGlzIHBhdGNoLgoKUmln
-aHQsIHRoYW5rcyBmb3IgcG9pbnRpbmcgb3V0IHRoZSBpc3N1ZS4KCj4gSSBub3cgbm90aWNlIHRo
-ZSBzcGFyYzMyIGJpdHMgYXJlIGluIHRoZSBsYXN0IHBhdGNoLgo+IFRvIGF2b2lkIGJyZWFraW5n
-IGJpc2VjdC1hYmlsaXR5IG9uIHNwYXJjNjQgSSB0aGluayB5b3UgbmVlZCB0byBtZXJnZQo+IHRo
-ZSBzcGFyYzMyIGNoYW5nZXMgd2l0aCB0aGlzIHBhdGNoLCB1bmxlc3MgdGhlIHNwYXJjNjQgY2hh
-bmdlcyBjYW4KPiBjb2V4aXN0IHdpdGggQ09ORklHX1NFVF9GUyBjb250aW51ZSB0byBiZSBzZXQu
-CgpJIG9yaWdpbmFsbHkgaGFkIHRoZW0gaW4gdGhlIHJldmVyc2Ugb3JkZXIgYW5kIGJyb2tlIGJp
-c2VjdGFiaWxpdHkgZHVyaW5nIG15CnJlYmFzZS4gVGhlIGVuZCByZXN1bHQgaXMgc3RpbGwgZmlu
-ZSwgYnV0IG5vdyBJIG5lZWQgdG8gbW92ZSB0aGUgJ3NlbGVjdApTRVRfRlMnIGZyb20gQ09ORklH
-X1NQQVJDIHRvIENPTkZJR19TUEFSQzMyIGluIHRoaXMgcGF0Y2gKYW5kIHRoZW4gcmVtb3ZlIGl0
-IGFnYWluIGZyb20gdGhlcmUgaW4gdGhlIGxhc3Qgc3RlcC4KCkkndmUgZG9uZSB0aGF0IGluIG15
-IGxvY2FsIGNvcHkgbm93LgoKICAgICAgICAgQXJuZApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5nIGxpc3QKT3BlblJJU0NAbGlz
-dHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNvcmVzLm9yZy9saXN0aW5mby9v
-cGVucmlzYwo=
+T24gV2VkLCBGZWIgMTYsIDIwMjIgYXQgNzo0NCBQTSBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9y
+Zy5vcmc+IHdyb3RlOgo+Cj4gSGkgQXJuZCwKPgo+IEZpeCBzcGVsbGluZyBpbiAkc3ViamVjdC4u
+LgoKZG9uZQoKPiBzcGFyYy9LY29uZmlnIGIvYXJjaC9zcGFyYy9LY29uZmlnCj4gPiBpbmRleCA5
+ZjZmOWJjZTUyOTIuLjkyNzZmMzIxYjNlMyAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvc3BhcmMvS2Nv
+bmZpZwo+ID4gKysrIGIvYXJjaC9zcGFyYy9LY29uZmlnCj4gPiBAQCAtNDYsNyArNDYsNiBAQCBj
+b25maWcgU1BBUkMKPiA+ICAgICAgIHNlbGVjdCBMT0NLREVQX1NNQUxMIGlmIExPQ0tERVAKPiA+
+ICAgICAgIHNlbGVjdCBORUVEX0RNQV9NQVBfU1RBVEUKPiA+ICAgICAgIHNlbGVjdCBORUVEX1NH
+X0RNQV9MRU5HVEgKPiA+IC0gICAgIHNlbGVjdCBTRVRfRlMKPiA+ICAgICAgIHNlbGVjdCBUUkFD
+RV9JUlFGTEFHU19TVVBQT1JUCj4gPgo+ID4gIGNvbmZpZyBTUEFSQzMyCj4gPiBAQCAtMTAxLDYg
+KzEwMCw3IEBAIGNvbmZpZyBTUEFSQzY0Cj4gPiAgICAgICBzZWxlY3QgSEFWRV9TRVRVUF9QRVJf
+Q1BVX0FSRUEKPiA+ICAgICAgIHNlbGVjdCBORUVEX1BFUl9DUFVfRU1CRURfRklSU1RfQ0hVTksK
+PiA+ICAgICAgIHNlbGVjdCBORUVEX1BFUl9DUFVfUEFHRV9GSVJTVF9DSFVOSwo+ID4gKyAgICAg
+c2VsZWN0IFNFVF9GUwo+IFRoaXMgbG9va3Mgd3JvbmcgLSBsb29rcyBsaWtlIHNvbWUgbWVyZ2Ug
+d2VudCB3cm9uZyBoZXJlLgoKRml4ZWQgbm93LgoKPgo+IE90aGVyIHRoYW4gdGhlIGFib3ZlIHRo
+ZSBzcGFyYzMyIGNoYW5nZXMgbG9va3MgZmluZSwgYW5kIHdpdGggdGhlIEtjb25mCj4gc3R1ZmYg
+Zml4ZWQ6Cj4gQWNrZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9yZz4gIyBmb3Ig
+c3BhcmMzMiBjaGFuZ2VzCgpUaGFua3MhCgogICAgICBBcm5kCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklT
+Q0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3Rp
+bmZvL29wZW5yaXNjCg==
