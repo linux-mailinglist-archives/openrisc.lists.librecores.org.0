@@ -2,28 +2,28 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 1394B4BB21C
-	for <lists+openrisc@lfdr.de>; Fri, 18 Feb 2022 07:29:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 49FCA4BB22B
+	for <lists+openrisc@lfdr.de>; Fri, 18 Feb 2022 07:30:23 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id EB38D24858;
-	Fri, 18 Feb 2022 07:29:47 +0100 (CET)
+	by mail.librecores.org (Postfix) with ESMTP id 2FC872485D;
+	Fri, 18 Feb 2022 07:30:23 +0100 (CET)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by mail.librecores.org (Postfix) with ESMTPS id 1C52F24851
- for <openrisc@lists.librecores.org>; Fri, 18 Feb 2022 07:29:47 +0100 (CET)
+ by mail.librecores.org (Postfix) with ESMTPS id 8679924857
+ for <openrisc@lists.librecores.org>; Fri, 18 Feb 2022 07:30:21 +0100 (CET)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 229CB67373; Fri, 18 Feb 2022 07:29:45 +0100 (CET)
-Date: Fri, 18 Feb 2022 07:29:44 +0100
+ id 8EFA667373; Fri, 18 Feb 2022 07:30:19 +0100 (CET)
+Date: Fri, 18 Feb 2022 07:30:19 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <20220218062944.GE22576@lst.de>
+Message-ID: <20220218063019.GF22576@lst.de>
 References: <20220216131332.1489939-1-arnd@kernel.org>
- <20220216131332.1489939-8-arnd@kernel.org>
+ <20220216131332.1489939-9-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220216131332.1489939-8-arnd@kernel.org>
+In-Reply-To: <20220216131332.1489939-9-arnd@kernel.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [OpenRISC] [PATCH v2 07/18] nios2: drop access_ok() check from
- __put_user()
+Subject: Re: [OpenRISC] [PATCH v2 08/18] uaccess: add generic __{get,
+ put}_kernel_nofault
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,13 +59,7 @@ Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBGZWIgMTYsIDIwMjIgYXQgMDI6MTM6MjFQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
-cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IFVubGlrZSBv
-dGhlciBhcmNoaXRlY3R1cmVzLCB0aGUgbmlvczIgdmVyc2lvbiBvZiBfX3B1dF91c2VyKCkgaGFz
-IGFuCj4gZXh0cmEgY2hlY2sgZm9yIGFjY2Vzc19vaygpLCBwcmV2ZW50aW5nIGl0IGZyb20gYmVp
-bmcgdXNlZCB0byBpbXBsZW1lbnQKPiBfX3B1dF9rZXJuZWxfbm9mYXVsdCgpLgo+IAo+IFNwbGl0
-IHVwIHB1dF91c2VyKCkgYWxvbmcgdGhlIHNhbWUgbGluZXMgYXMgX19nZXRfdXNlcigpL2dldF91
-c2VyKCkKCkxvb2tzIGdvb2Q6CgpSZXZpZXdlZC1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBs
-c3QuZGU+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9w
-ZW5SSVNDIG1haWxpbmcgbGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczov
-L2xpc3RzLmxpYnJlY29yZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
+TG9va3MgZ29vZDoKClJldmlld2VkLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
+bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
+bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
