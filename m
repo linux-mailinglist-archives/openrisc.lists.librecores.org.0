@@ -2,48 +2,61 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id BB3A84C0F33
-	for <lists+openrisc@lfdr.de>; Wed, 23 Feb 2022 10:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0FF874C1CCD
+	for <lists+openrisc@lfdr.de>; Wed, 23 Feb 2022 21:05:34 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3A1C1247D7;
-	Wed, 23 Feb 2022 10:27:20 +0100 (CET)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id CA29C20A95
- for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 10:27:18 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1870BB81EAB
- for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 09:27:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAB7C340E7
- for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 09:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645608437;
- bh=D2jUPs6ryRSFqPbSylqUkNdDZuOthbzsmeMEmvziyjY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=qqmQ8wyO3KiiRoY+dyct/TIYMNusVUOO5uBkZTYhtUECfjZmkRmaumdg0efpJyqu+
- 1NUJbC9Z3gU9iKZ76MO3UpT4/QBmKBCF88pqLt144UXdY+HMEMC0NKwBLt8ddIYdhA
- 4cfTyACUBNndKvI7l6kYGtTfeLVnOQvi9cvhrJ7Y5seMk3xdn+vhInqbypWk75PDVV
- ukutm41uLJwz1+2AWQrMOJbx4wCwKg3g5Buv7RBtSh5+DWH6WYdCZ0cfRiqBTSFz57
- YjiY60e2PdpP+9klK1djKE86K0i7Gd0U+HA/0LucKwfDZ0JvqvKDMnqMv8zSd6wwoq
- DHan5qZHkfXig==
-Received: by mail-wm1-f52.google.com with SMTP id y5so2897231wmi.0
- for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 01:27:17 -0800 (PST)
-X-Gm-Message-State: AOAM531MfL4XZlJlWo/2C9F8Ljle+shcBHF3lODLlIBWxQjhLf1T1GIE
- RjsLHLfAlfSxQXcMIWzdpf9xtqesqg74jX1aNCM=
-X-Google-Smtp-Source: ABdhPJwtMkGkHNVPhtWq1LOTi2OcT9JVNmxiOoaUyabWMpAtHbaXvG0B+oJZMTvLmHy/MuDTQEaSkGsJ6B3oEOPptXw=
-X-Received: by 2002:a05:600c:1d27:b0:37c:74bb:2b4d with SMTP id
- l39-20020a05600c1d2700b0037c74bb2b4dmr6779098wms.82.1645608425823; Wed, 23
- Feb 2022 01:27:05 -0800 (PST)
+	by mail.librecores.org (Postfix) with ESMTP id B84182480A;
+	Wed, 23 Feb 2022 21:05:33 +0100 (CET)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by mail.librecores.org (Postfix) with ESMTPS id E399E2419E
+ for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 21:05:32 +0100 (CET)
+Received: by mail-ej1-f45.google.com with SMTP id a23so54589269eju.3
+ for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 12:05:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+S6BFzj6o5ckty5iXSThNrfkPsdFE94/fVb8NP4+aFs=;
+ b=F/2f/aEUKxSuzDdCknAbug+t8clrlE0v7gj9NkhphhHftuFg6XGIjvpJXVx+ZHKhn9
+ jOIdz4l7lK+/F1JhXkxR/PARyehOhzu1/S93ijWQKe7fGKOKTiRs9R81aIq3OYNVOgnf
+ G4UcKLBEtMgH8cssPIzV42vV3R64/Z0YRVhdY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+S6BFzj6o5ckty5iXSThNrfkPsdFE94/fVb8NP4+aFs=;
+ b=hqpxEsqwAWlg1WHHCEcfdy+pIC322xyh0TH6J99qSTIIpERKJVBvMLfJ/1yp0mFuir
+ AnWay7JabIz1ri27oozJ5Wc483Ov/JmOp7nocdnZXlSpRqhvkiG+r8fERRrj4xfY3+X7
+ 0HKM0Y2Fw1KYc/+564gxLh/UUZNc0odwhnJyY13yhj2cQgIBUo4IYqqEo2oI1dpZpOWw
+ q/7XQaQ5RFEBpaC4cuVt4PMr/kbeuqkv0DLOj6BB0walVqymtkL8+zwoj/0PzxqGqVMK
+ VA4uLyISplv8Jhw/G/wlXjA44uaG5/idKjP8aQP0Z+vb5wrO3kWqWGPxvfHu4I6Y3Ien
+ wWOQ==
+X-Gm-Message-State: AOAM533rucgz3RGX20dtTfQCf/poCZvtlPUN0wIbQwMjo0UXtEm8ADxX
+ PdzEsDGctejvcIbw2bBZJzyEnYa/7dEeTlyZxoo=
+X-Google-Smtp-Source: ABdhPJxfo9wnhXkZO1lMeV9ygEvCy/ZaogM0eCrHYR4nBI6eANTgEaKPwcwvdq3AsLfnprWfHMH8NQ==
+X-Received: by 2002:a17:906:d8dc:b0:6cf:d1d1:db25 with SMTP id
+ re28-20020a170906d8dc00b006cfd1d1db25mr1014489ejb.285.1645646732260; 
+ Wed, 23 Feb 2022 12:05:32 -0800 (PST)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com.
+ [209.85.221.54])
+ by smtp.gmail.com with ESMTPSA id e18sm337312edj.85.2022.02.23.12.05.30
+ for <openrisc@lists.librecores.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Feb 2022 12:05:30 -0800 (PST)
+Received: by mail-wr1-f54.google.com with SMTP id f17so16588459wrh.7
+ for <openrisc@lists.librecores.org>; Wed, 23 Feb 2022 12:05:30 -0800 (PST)
+X-Received: by 2002:a05:6512:130b:b0:443:c2eb:399d with SMTP id
+ x11-20020a056512130b00b00443c2eb399dmr822016lfu.27.1645646720244; Wed, 23 Feb
+ 2022 12:05:20 -0800 (PST)
 MIME-Version: 1.0
 References: <20220216131332.1489939-1-arnd@kernel.org>
  <20220216131332.1489939-10-arnd@kernel.org>
- <20220223074127.GA8287@alpha.franken.de>
-In-Reply-To: <20220223074127.GA8287@alpha.franken.de>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Wed, 23 Feb 2022 10:26:49 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1nM3yPhjhMtUQyd5srgB99OkUvmapWv13KCuJXsf=euw@mail.gmail.com>
-Message-ID: <CAK8P3a1nM3yPhjhMtUQyd5srgB99OkUvmapWv13KCuJXsf=euw@mail.gmail.com>
+ <20220221132456.GA7139@alpha.franken.de>
+In-Reply-To: <20220221132456.GA7139@alpha.franken.de>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 23 Feb 2022 12:05:04 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjdHz6OU3M9T5zE9Fc9SNdDs52iOE+eVn-wuUT6UDpBLg@mail.gmail.com>
+Message-ID: <CAHk-=wjdHz6OU3M9T5zE9Fc9SNdDs52iOE+eVn-wuUT6UDpBLg@mail.gmail.com>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Subject: Re: [OpenRISC] [PATCH v2 09/18] mips: use simpler access_ok()
 X-BeenThere: openrisc@lists.librecores.org
@@ -63,8 +76,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Rich Felker <dalias@libc.org>,
  Peter Zijlstra <peterz@infradead.org>,
  "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
  Linux-MM <linux-mm@kvack.org>, Guo Ren <guoren@kernel.org>,
- sparclinux <sparclinux@vger.kernel.org>,
- "open list:QUALCOMM HEXAGON..." <linux-hexagon@vger.kernel.org>,
+ linux-sparc <sparclinux@vger.kernel.org>,
+ linux-hexagon <linux-hexagon@vger.kernel.org>,
  linux-riscv <linux-riscv@lists.infradead.org>, Will Deacon <will@kernel.org>,
  Christoph Hellwig <hch@lst.de>, linux-arch <linux-arch@vger.kernel.org>,
  linux-s390 <linux-s390@vger.kernel.org>, Brian Cain <bcain@codeaurora.org>,
@@ -76,35 +89,45 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Rich Felker <dalias@libc.org>,
  "open list:TENSILICA XTENSA PORT \(xtensa\)" <linux-xtensa@linux-xtensa.org>,
  Arnd Bergmann <arnd@arndb.de>, Heiko Carstens <hca@linux.ibm.com>,
  alpha <linux-alpha@vger.kernel.org>, linux-um <linux-um@lists.infradead.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
  linux-m68k <linux-m68k@lists.linux-m68k.org>,
  Openrisc <openrisc@lists.librecores.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Michal Simek <monstr@monstr.eu>, Parisc List <linux-parisc@vger.kernel.org>,
- Nick Hu <nickhu@andestech.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Linux API <linux-api@vger.kernel.org>,
+ Arnd Bergmann <arnd@kernel.org>, Michal Simek <monstr@monstr.eu>,
+ linux-parisc <linux-parisc@vger.kernel.org>, Nick Hu <nickhu@andestech.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Linux API <linux-api@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dinh Nguyen <dinguyen@kernel.org>,
- "Eric W . Biederman" <ebiederm@xmission.com>,
+ Dinh Nguyen <dinguyen@kernel.org>, "Eric W. Biederman" <ebiederm@xmission.com>,
  Richard Weinberger <richard@nod.at>, Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
  David Miller <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-T24gV2VkLCBGZWIgMjMsIDIwMjIgYXQgODo0MSBBTSBUaG9tYXMgQm9nZW5kb2VyZmVyCjx0c2Jv
-Z2VuZEBhbHBoYS5mcmFua2VuLmRlPiB3cm90ZToKPgo+IE9uIFdlZCwgRmViIDE2LCAyMDIyIGF0
-IDAyOjEzOjIzUE0gKzAxMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gPiBkaWZmIC0tZ2l0IGEv
-YXJjaC9taXBzL2luY2x1ZGUvYXNtL3VhY2Nlc3MuaCBiL2FyY2gvbWlwcy9pbmNsdWRlL2FzbS91
-YWNjZXNzLmgKPiA+IGluZGV4IGRiOWE4ZTAwMmI2Mi4uZDdjODlkYzM0MjZjIDEwMDY0NAo+ID4g
-LS0tIGEvYXJjaC9taXBzL2luY2x1ZGUvYXNtL3VhY2Nlc3MuaAo+ID4gKysrIGIvYXJjaC9taXBz
-L2luY2x1ZGUvYXNtL3VhY2Nlc3MuaAo+ID4gQEAgLTE5LDYgKzE5LDcgQEAKPiA+ICAjaWZkZWYg
-Q09ORklHXzMyQklUCj4gPgo+ID4gICNkZWZpbmUgX19VQV9MSU1JVCAweDgwMDAwMDAwVUwKPiA+
-ICsjZGVmaW5lIFRBU0tfU0laRV9NQVggICAgICAgIF9fVUFfTElNSVQKPgo+IHVzaW5nIEtTRUcw
-IGluc3RlYWQgd291bGQgSU1ITyBiZSB0aGUgYmV0dGVyIGNob2ljZS4gVGhpcyBnaXZlcyB0aGUK
-PiBjaGFuY2UgdG8gcmVtb3ZlIF9fVUFfTElNSVQgY29tcGxldGx5IGFmdGVyIGNsZWFuaW5nIHVw
-IHB0cmFjZS5jCgpPaywgY2hhbmdlZCBub3cuCgogICAgICBBcm5kCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcgbGlzdApPcGVu
-UklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29yZXMub3JnL2xp
-c3RpbmZvL29wZW5yaXNjCg==
+T24gTW9uLCBGZWIgMjEsIDIwMjIgYXQgNToyNSBBTSBUaG9tYXMgQm9nZW5kb2VyZmVyCjx0c2Jv
+Z2VuZEBhbHBoYS5mcmFua2VuLmRlPiB3cm90ZToKPgo+IFdpdGggdGhpcyBwYXRjaApbIC4uIHNu
+aXAgc25pcCAuLl0KPiBJIGF0IGxlYXN0IGdldCBteSBzaW1wbGUgdGVzdCBjYXNlcyBmaXhlZCwg
+YnV0IEknbSBub3Qgc3VyZSB0aGlzIGlzCj4gY29ycmVjdC4KCkkgdGhpbmsgeW91IHJlYWxseSB3
+YW50IHRvIGRvIHRoYXQgYW55d2F5LCBqdXN0IHRvIGdldCB0aGluZ3MgbGlrZQp3aWxkIGtlcm5l
+bCBwb2ludGVycyByaWdodCAoaWUgdGhpbmsgZ2V0X2tlcm5lbF9ub2ZhdWx0KCkgYW5kIGZyaWVu
+ZHMKZm9yIGZ0cmFjZSBldGMpLgoKVGhleSBzaG91bGRuJ3QgaGFwcGVuIGluIGFueSBub3JtYWwg
+c2l0dWF0aW9uLCBidXQgdGhvc2Uga2luZHMgb2YKdW52ZXJpZmllZCBwb2ludGVycyBpcyB3aHkg
+d2UgX2hhdmVfIGdldF9rZXJuZWxfbm9mYXVsdCgpIGluIHRoZSBmaXJzdApwbGFjZS4KCk9uIHg4
+Ni02NCwgdGhlIHJvdWdobHkgZXF1aXZhbGVudCBzaXR1YXRpb24gaXMgdGhhdCBhZGRyZXNzZXMg
+dGhhdAphcmVuJ3QgaW4gY2Fub25pY2FsIGZvcm1hdCBkbyBub3QgdGFrZSBhICNQRiAocGFnZSBm
+YXVsdCksIHRoZXkgdGFrZSBhCiNHUCAoZ2VuZXJhbCBwcm90ZWN0aW9uKSBmYXVsdC4KClNvIEkg
+dGhpbmsgeW91IHdhbnQgdG8gZG8gdGhhdCBmaXh1cF9leGNlcHRpb24oKSBmb3IgYW55IHBvc3Np
+YmxlIGFkZHJlc3Nlcy4KCj4gSXMgdGhlcmUgYSByZWFzb24gdG8gbm90IGFsc28gI2RlZmluZSBU
+QVNLX1NJWkVfTUFYICAgX19VQV9MSU1JVCBsaWtlCj4gZm9yIHRoZSAzMmJpdCBjYXNlID8KCkkg
+d291bGQgc3VnZ2VzdCBhZ2FpbnN0IHVzaW5nIGEgbm9uLWNvbnN0YW50IFRBU0tfU0laRV9NQVgu
+IEJlaW5nCmNvbnN0YW50IGlzIGxpdGVyYWxseSBvbmUgcmVhc29uIHdoeSBpdCBleGlzdHMsIHdo
+ZW4gVEFTS19TSVpFIGl0c2VsZgpoYXMgb2Z0ZW4gYmVlbiBhYm91dCBvdGhlciB0aGluZ3MgKGll
+ICIzMi1iaXQgcHJvY2VzcyIpLgoKSGF2aW5nIHRvIGxvYWQgdmFyaWFibGVzIGZvciB0aGluZ3Mg
+bGlrZSBnZXRfdXNlcigpIGlzIGFubm95aW5nLCBpZgp5b3UgY291bGQgZG8gaXQgd2l0aCBhIHNp
+bXBsZSBjb25zdGFudCBpbnN0ZWFkICh3aGVyZSB0aGF0ICJzaW1wbGUiCnBhcnQgaXMgdG8gYXZv
+aWQgaGF2aW5nIHRvIGxvYWQgYmlnIHZhbHVlcyBmcm9tIGEgY29uc3RhbnQgcG9vbCAtCm9mdGVu
+IGNvbnN0YW50cyBsaWtlICJoaWdoIGJpdCBzZXQiIGNhbiBiZSBsb2FkZWQgYW5kIGNvbXBhcmVk
+IGFnYWluc3QKbW9yZSBlZmZpY2llbnRseSkuCgogICAgICAgICAgICAgICBMaW51cwpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpPcGVuUklTQyBtYWlsaW5n
+IGxpc3QKT3BlblJJU0NAbGlzdHMubGlicmVjb3Jlcy5vcmcKaHR0cHM6Ly9saXN0cy5saWJyZWNv
+cmVzLm9yZy9saXN0aW5mby9vcGVucmlzYwo=
