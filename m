@@ -2,49 +2,52 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 97F364FF68B
-	for <lists+openrisc@lfdr.de>; Wed, 13 Apr 2022 14:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 85C26500032
+	for <lists+openrisc@lfdr.de>; Wed, 13 Apr 2022 22:48:21 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3C73A235F1;
-	Wed, 13 Apr 2022 14:16:24 +0200 (CEST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by mail.librecores.org (Postfix) with ESMTPS id 0AB8A22126
- for <openrisc@lists.librecores.org>; Mon, 11 Apr 2022 03:01:59 +0200 (CEST)
-Received: by mail-ej1-f48.google.com with SMTP id bg10so27814725ejb.4
- for <openrisc@lists.librecores.org>; Sun, 10 Apr 2022 18:01:59 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 3762B211D5;
+	Wed, 13 Apr 2022 22:48:21 +0200 (CEST)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by mail.librecores.org (Postfix) with ESMTPS id 8F1B221376
+ for <openrisc@lists.librecores.org>; Wed, 13 Apr 2022 22:48:18 +0200 (CEST)
+Received: by mail-io1-f51.google.com with SMTP id 9so3282916iou.5
+ for <openrisc@lists.librecores.org>; Wed, 13 Apr 2022 13:48:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=swwYRn4sQuTu8BAiQhLS1M5nn176wzwUNVL4PSfOccs=;
- b=RfCn+qCSkM9GU2kzYbexgAuf2V+kkDz2vHH5G98tfIVIJ+nF0MjKplJb8kxW39K7a8
- NeLno8+i0EWvMFiCrsl3N5luZYSID5xEpVQoU1tSGs4VjeAEPYBR5wa6YgI9hGmVAOZN
- 9zLw7xlT6ePGTVOtEoKs3AmBuHfhjH7MNk642jNemxq6WqRsNuP2y5aAFrrkitwaURyV
- G0UXPcAY/t0ED6tTqnx1dBk2GpQjI1nQB3Kf3xwMF15+0JPkWSMjD9Nf+EZtJSg4bvoV
- 4pP4jSAOwu6zdl9ESTrRMUaJHQD4ylq5RroC8xe3efPZTRmuvUNEnLWibLaSevD9zAlR
- ZnqQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Hd1YZSgXpg6X/9p6UiYoZww0vIP75IIXaXf9dPKdspo=;
+ b=GFFGZmizl6zaTXYGdzuXFJ8Gc6VBR6VD7WKqibwHSJB2p6W0IwVzPaUpl3PdDNMX+2
+ xpeSzahaWwo2n9XcYmCf2LNNAWBa3M1tjGYktmwT0yQBMtcFVBYMvncmwUuQiEkYegwc
+ 2BzkH7M9ZwrOsXp9Gyv4FvDt2ogFI8PwM9umMvhZ2Vyue2bMpmuFGveQyzFYWJeIjEim
+ iC2CSEUFPSJefQKW7Np8ZdulibFZK8F+HTNmuYz1f44U0UPGBA1ub4BJOtbql8uN+gc5
+ a504TTAGv4TJ2Jd5f2GDusA0OsFhZy+craGEBcjOE6V1Pg+mmsRo+ubpC4k2Ogg7kD6S
+ TE3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=swwYRn4sQuTu8BAiQhLS1M5nn176wzwUNVL4PSfOccs=;
- b=Fs17US9uwMT/SBem/gW4dLvSlHLpAJ+75foN8+yy3b3gu08lLf63JxWBAquSJuY29l
- HjON2KRLdDo6ltdSuJhLumfwPiEnUAmIlnQRZp6nz+VILd/vpFdrDSyFFGBLbsJ7OEzE
- KDHAgcg9D9JspL76wAJ7oxWGBC/qZoUsO85XiEvAamW+TIl2El5nkDSw51ClPa2xKH5o
- pC7lLfDd/DDD+598xMDaVTeZEBoz9kSqv2EGnIv9itQ8KKk58GjjdGb1o3L/0y7TZXot
- vdoNDohd26qjDb14d9rlnsHHp96IsystQhoZXbBFbA8QeFKJl4G5BxANT5kT6vwsw8uw
- A5/Q==
-X-Gm-Message-State: AOAM5303WuZY4VxCSlqZbopy8sjTdvsvamOOoH4q5lE96rXqzsjWYbOg
- OtLzCnPmDroDZe9yrVqcYCbp6grzFQE4lfo+vphmdP0a80I=
-X-Google-Smtp-Source: ABdhPJxoFvV7YvXgr8UHYlctqFW7sQqkVwTs+HUsL8UjwnDuX0m4zEk3/0KnGdg48I1WnGrIQZ2XPE7FvgowSKAJf8s=
-X-Received: by 2002:a17:907:1c19:b0:6e8:322f:cdd7 with SMTP id
- nc25-20020a1709071c1900b006e8322fcdd7mr17838627ejc.493.1649638918576; Sun, 10
- Apr 2022 18:01:58 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Hd1YZSgXpg6X/9p6UiYoZww0vIP75IIXaXf9dPKdspo=;
+ b=NXYHtBjyBNf8KAJTztX8+K2HTm2rutzQ1rYbDod5+rqlwUVuo7xO5WxMTAMqCzcGip
+ IFIRD1T/Gop4sD52Nse78ERCm7JjiItWe3H6xflxLHA3JEugNyxnR3SdAmVQpLIJw1Ch
+ ijg8bdaqtg+kdonN8mxKOhExx2gA8RldNYhtj6VP3BSBSV6eCxcuAtVGstsyp5GwZSP/
+ Y08zSdmcsTy59ZVLf1IXxdoMRJCiKNzjXiv/Om5U5YFyAab0ZT1Yrsx0nZDW2smkMU9b
+ xsxXU5lkFh8tRaf9lEFQ1ssv78nuaV94k/vMCtmO789vgXtnG7gNhvr/0KJDE0MD0umt
+ +eFA==
+X-Gm-Message-State: AOAM531EmzoLFtDbBxMRappZ1QcspQYheOVhYU0TvgoRvJSBQFE6i5X/
+ 8CIjZCp2qqVkhCbc6N9IMYc1VpbrSAbFuT09YYs=
+X-Google-Smtp-Source: ABdhPJwNbXbMMSxkJnO2Z2w8ScfKPUjIEdoe2PtQdLkbDN3uVaW2cqmCjW3eMyel/wJyfA84r0wTJbLPhNKHwBgqGY0=
+X-Received: by 2002:a05:6638:e8d:b0:326:684e:ab4c with SMTP id
+ p13-20020a0566380e8d00b00326684eab4cmr2679718jas.186.1649882897182; Wed, 13
+ Apr 2022 13:48:17 -0700 (PDT)
 MIME-Version: 1.0
-From: Robert Finch <robfi680@gmail.com>
-Date: Sun, 10 Apr 2022 21:01:56 -0400
-Message-ID: <CAOkYDM+3gwtprv87SzZaiZ+bkhe5Vc3SZ-txTzrxjR_9SHKW9Q@mail.gmail.com>
-To: openrisc@lists.librecores.org
-X-Mailman-Approved-At: Wed, 13 Apr 2022 14:16:23 +0200
-Subject: [OpenRISC] Tomasulo's Core
+References: <CAOkYDM+3gwtprv87SzZaiZ+bkhe5Vc3SZ-txTzrxjR_9SHKW9Q@mail.gmail.com>
+In-Reply-To: <CAOkYDM+3gwtprv87SzZaiZ+bkhe5Vc3SZ-txTzrxjR_9SHKW9Q@mail.gmail.com>
+From: Stafford Horne <shorne@gmail.com>
+Date: Thu, 14 Apr 2022 05:48:06 +0900
+Message-ID: <CAAfxs74vng_-sz8ckT_D1KT7ToqaiKu8iOMgA+yq4epj=qN_VQ@mail.gmail.com>
+To: Robert Finch <robfi680@gmail.com>
+Subject: Re: [OpenRISC] Tomasulo's Core
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -57,68 +60,36 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3853314898377205875=="
+Cc: Openrisc <openrisc@lists.librecores.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
---===============3853314898377205875==
-Content-Type: multipart/alternative; boundary="000000000000bfdc9b05dc567d24"
-
---000000000000bfdc9b05dc567d24
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi, I have been perusing the OpenRISC site and studying the OpenRISC
-design. I read a comment about the lack of out-of-order cores and thought
-people may be interested in the one I am working on. It is not really ready
-for prime-time yet. It is located in Github at
-https://github.com/robfinch/Thor/tree/main/Thor2022
-
-It is another core using a version of Tomasulo=E2=80=99s Algorithm.
-
-I was glad to see the OpenRISC design make branch delay slots optional. Is
-there a way to set a true/ false value in a register using a set
-instruction? OpenRISC looks like an excellent design. I am interested in
-64/128 bit though. 128-bit decimal floating-point.
-
-
-Robert Finch
-
---000000000000bfdc9b05dc567d24
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><p class=3D"MsoNormal">Hi, I have been pe=
-rusing the OpenRISC site and studying the OpenRISC
-design. I read a comment about the lack of out-of-order cores and thought p=
-eople
-may be interested in the one I am working on. It is not really ready for
-prime-time yet. It is located in Github at <a href=3D"https://github.com/ro=
-bfinch/Thor/tree/main/Thor2022">https://github.com/robfinch/Thor/tree/main/=
-Thor2022</a><span></span></p>
-
-<p class=3D"MsoNormal">It is another core using a version of Tomasulo=E2=80=
-=99s Algorithm.<span></span></p>
-
-<p class=3D"MsoNormal">I was glad to see the OpenRISC design make branch de=
-lay
-slots optional. Is there a way to set a true/ false value in a register usi=
-ng a
-set instruction? OpenRISC looks like an excellent design. I am interested i=
-n
-64/128 bit though. 128-bit decimal floating-point.<span></span></p><p class=
-=3D"MsoNormal"><br></p><p class=3D"MsoNormal">Robert Finch</p></div></div>
-
---000000000000bfdc9b05dc567d24--
-
---===============3853314898377205875==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KT3BlblJJU0Mg
-bWFpbGluZyBsaXN0Ck9wZW5SSVNDQGxpc3RzLmxpYnJlY29yZXMub3JnCmh0dHBzOi8vbGlzdHMu
-bGlicmVjb3Jlcy5vcmcvbGlzdGluZm8vb3BlbnJpc2MK
-
---===============3853314898377205875==--
+SGkgUm9iZXJ0LAoKVGhpcyBsb29rcyBsaWtlIGEgbmVhdCBwcm9qZWN0IHlvdSBhcmUgd29ya2lu
+ZyBvbi4KCk9uIFdlZCwgQXByIDEzLCAyMDIyIGF0IDk6MTYgUE0gUm9iZXJ0IEZpbmNoIDxyb2Jm
+aTY4MEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSGksIEkgaGF2ZSBiZWVuIHBlcnVzaW5nIHRoZSBP
+cGVuUklTQyBzaXRlIGFuZCBzdHVkeWluZyB0aGUgT3BlblJJU0MgZGVzaWduLiBJIHJlYWQgYSBj
+b21tZW50IGFib3V0IHRoZSBsYWNrIG9mIG91dC1vZi1vcmRlciBjb3JlcyBhbmQgdGhvdWdodCBw
+ZW9wbGUgbWF5IGJlIGludGVyZXN0ZWQgaW4gdGhlIG9uZSBJIGFtIHdvcmtpbmcgb24uIEl0IGlz
+IG5vdCByZWFsbHkgcmVhZHkgZm9yIHByaW1lLXRpbWUgeWV0LiBJdCBpcyBsb2NhdGVkIGluIEdp
+dGh1YiBhdCBodHRwczovL2dpdGh1Yi5jb20vcm9iZmluY2gvVGhvci90cmVlL21haW4vVGhvcjIw
+MjIKPgo+IEl0IGlzIGFub3RoZXIgY29yZSB1c2luZyBhIHZlcnNpb24gb2YgVG9tYXN1bG/igJlz
+IEFsZ29yaXRobS4KClRoZXJlIGlzIGEgIFRvbWFzdWxvJ3MgYWxnb3JpdGhtIGltcGxlbWVudGF0
+aW9uIG9mIG9wZW5yaXNjIGhlcmU6Cmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVucmlzYy9vcjFrX21h
+cm9jY2hpbm8KCkRvZXMgeW91ciBmZXRjaCBzdGFnZSBmZXRjaCBtdWx0aXBsZSBpbnN0cnVjdGlv
+bnMgaW4gcGFyYWxsZWw/ICBUaGUKbWFyb2NjaGlubyBjdXJyZW50bHkgb25seSBmZXRjaGVzIG9u
+ZSBpbnN0cnVjdGlvbiBhdCBhIHRpbWUuICBJdCB0aGVuCmV4ZWN1dGVzIGluIHBhcmFsbGVsLgoK
+V2UgaGF2ZSBmb3VuZCBhIG5lYXQgdG9vbCBmb3IgbWVhc3VyaW5nIHBhcmFsbGVsaXphdGlvbjoK
+ICBodHRwczovL2dpdGh1Yi5jb20vc2hpb3lhZGFuL0tvbmF0YQoKPiBJIHdhcyBnbGFkIHRvIHNl
+ZSB0aGUgT3BlblJJU0MgZGVzaWduIG1ha2UgYnJhbmNoIGRlbGF5IHNsb3RzIG9wdGlvbmFsLiBJ
+cyB0aGVyZSBhIHdheSB0byBzZXQgYSB0cnVlLyBmYWxzZSB2YWx1ZSBpbiBhIHJlZ2lzdGVyIHVz
+aW5nIGEgc2V0IGluc3RydWN0aW9uPyBPcGVuUklTQyBsb29rcyBsaWtlIGFuIGV4Y2VsbGVudCBk
+ZXNpZ24uIEkgYW0gaW50ZXJlc3RlZCBpbiA2NC8xMjggYml0IHRob3VnaC4gMTI4LWJpdCBkZWNp
+bWFsIGZsb2F0aW5nLXBvaW50LgoKSGF2aW5nIGRlbGF5IHNsb3RzIG9uIGFuZCBvZmYgaW4gdGhl
+IENQVSBjb3JlIGlzIGhhcmQgY29kZWQgYW5kIGNhbm5vdApiZSBjaGFuZ2VkIGR1cmluZyBydW50
+aW1lLiAgIFRoZSBPcGVuUklTQyBjb3JlcyBhcmUgYWxsIDMyLWJpdCBub3csCnRoZSBNYXJvY2No
+aW5vIGltcGxlbWVudHMgNjQtYml0IGZsb2F0aW5nIHBvaW50LgoKLVN0YWZmb3JkCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk9wZW5SSVNDIG1haWxpbmcg
+bGlzdApPcGVuUklTQ0BsaXN0cy5saWJyZWNvcmVzLm9yZwpodHRwczovL2xpc3RzLmxpYnJlY29y
+ZXMub3JnL2xpc3RpbmZvL29wZW5yaXNjCg==
