@@ -2,61 +2,59 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7DBE551B1C1
-	for <lists+openrisc@lfdr.de>; Thu,  5 May 2022 00:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F5D451B1C7
+	for <lists+openrisc@lfdr.de>; Thu,  5 May 2022 00:24:56 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 6D7B0248F5;
-	Thu,  5 May 2022 00:23:11 +0200 (CEST)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by mail.librecores.org (Postfix) with ESMTPS id A3604247FE
- for <openrisc@lists.librecores.org>; Thu,  5 May 2022 00:23:08 +0200 (CEST)
-Received: by mail-pf1-f174.google.com with SMTP id a11so2217251pff.1
- for <openrisc@lists.librecores.org>; Wed, 04 May 2022 15:23:08 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id F12B8248F5;
+	Thu,  5 May 2022 00:24:55 +0200 (CEST)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by mail.librecores.org (Postfix) with ESMTPS id 58BF6247FE
+ for <openrisc@lists.librecores.org>; Thu,  5 May 2022 00:24:54 +0200 (CEST)
+Received: by mail-pf1-f181.google.com with SMTP id x23so2201820pff.9
+ for <openrisc@lists.librecores.org>; Wed, 04 May 2022 15:24:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=kYPjshZPWZRxlyOXuRE0i0eYpRN407/bZgJI2j/y13A=;
- b=TGdx4OjT67TfDvR1hrCi4fDOrvdlNUGymmur+DNADiERpHTuyXnajjbOZkMM+6NsO5
- fhG9LS4ly1R292cU4G6kKlhkI5cesNE7mRnEfxv3POLUi6sejYKhHrLMvNSF+4eaPTFN
- 0s7lRdezYScBPeLca6vggADHoWL+r4HjM18B6cw+yZss2P/06FiSeurWACi6jpjC2Og0
- NxlI287XkSZrhF3IwmY+SU1K/pderVT4wXhgxRvnqCuvvq3JNw2UyyOF8UJv73G1UjBh
- B0lS6K7TwC98PQRUosTwe43ig69RXOdL8njeoXaX3Fd184wwAhO9lmHZKu5TZTjJVt2k
- faTA==
+ bh=qvo1dzGzL2JmCNjYZk1fNrTcxUgcm4KOWzurldTYI3s=;
+ b=gK03qTKIXewQFhPyvT47pEbIcdipk3r2FH2iFUMyT+KEiD/2rHJLN7rbUJq7v/HZMw
+ r4EUmyTvIeET2LHKdQhORxf/vAo5/3E+/V6CmKSWJkDmvhaMbydTNjEgvfMO271wKD7A
+ 4/BvxyEA2KR1JDzk88Ui7WAUpU18dAk1bcdpPdVkePfdjUsoR9k+tUvAi2CvEgPkEvd3
+ iWL/4IADtrrnj8Y38qG0gLcdQP8eb/EnCH3qsYNciZCGkxRxC7DDwj3d15AegUnFWtEv
+ P1XSQ5vMJ8rav/dxEJ4SWmyQIdLzqprROriIJCV3AK9bRoDgHbU88ymG8rB/6iN759XO
+ I0ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=kYPjshZPWZRxlyOXuRE0i0eYpRN407/bZgJI2j/y13A=;
- b=QZ8k6W1/L4QMFfpxpSJxBb6fclt/t7XvVDhbDpg81U2N9xgiZKP1mnzTBintc8OWNv
- OQpzBylVu+r4lyGFiaKMURZ3HQRKUYfVMrNi39gYmv3G+lkE6K8VZSg3/Rmju8O5Gqp4
- Hjkg6fzfzYsl2HJxYvULWSUjnTka7B7gyTNAdnW8zvDATppzEncCfK9UZwsRRhFgrvmf
- 6P6g9YjO4pgR2shoNRGUSx3u4fa4wEYHIc9MrshqPvWAp08VZ3MxQbe89KmuUirYBD1O
- 11aE4ibIzf9ZtrGefrAdAWfcIX9ZRgDPzfQeMvMwDD8FwE948L921+u3gRNfhKYoUp8U
- cXaA==
-X-Gm-Message-State: AOAM531x7Tz5KigM1YrgrTIK7Nk6Te2umLsqJnhS5Ri1yDLZSAMV5GhK
- bx/uPBq4k92WcRTDyLgDDIY=
-X-Google-Smtp-Source: ABdhPJzBrP7vU8o1Xyyb1tFlyFDyDQBvUGTHNDWxv3wj4jdX2VrM28VlZnJTms3kTCp5BKT977XdQg==
-X-Received: by 2002:a65:524b:0:b0:383:1b87:2d21 with SMTP id
- q11-20020a65524b000000b003831b872d21mr19539514pgp.482.1651702987068; 
- Wed, 04 May 2022 15:23:07 -0700 (PDT)
+ bh=qvo1dzGzL2JmCNjYZk1fNrTcxUgcm4KOWzurldTYI3s=;
+ b=B6Pm0UuUWpRD7YQWElvntMSYXar5xn94OqbfnhccVMl+nOa/mH+PpeOhB4vdfs3Rpn
+ LN8AUz/MPFDgjbuSuqtAuiL1rUzjM4xea5fKhx6ws60UFyY4wOMd6JusqjVhYghPMc/S
+ UJiD4xLuSm3qTuxxtXkI0FCAIN23x/kVZZLe4JqtpUSKN1wTPyECMbqxiDd+oTCXWd9d
+ Ppue5+Fbnlb2bd0zpvY+Pik3qzwW6bmy3tq2so1oEZym5jfnQ16FmSwQuo6lp+fHQBv+
+ SU3KkVrzz1d1hKFE6x8W8fEnK0U4ZOeSu/yxHTa60hcDxnp6uivUKlmvJNw6qZikLK19
+ +mew==
+X-Gm-Message-State: AOAM532gK5lmPgC0uop3xVTCYJsAkWJ131rNPb096u9ndrUUMga6Lp6H
+ qLa/V7LPxxeHMr0noIj89JM=
+X-Google-Smtp-Source: ABdhPJwFc5JLjAEky7LScOnRsmDKdESGn+FrABNggxtJwcgl3s8HkaiqtnUdTAsUBOwMcsKhZM3YeQ==
+X-Received: by 2002:a65:4787:0:b0:39d:96b7:bfaa with SMTP id
+ e7-20020a654787000000b0039d96b7bfaamr20027629pgs.495.1651703092915; 
+ Wed, 04 May 2022 15:24:52 -0700 (PDT)
 Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
  by smtp.gmail.com with ESMTPSA id
- m19-20020a17090a7f9300b001cd60246575sm3806415pjl.17.2022.05.04.15.23.05
+ r7-20020a17090b050700b001d2bff34228sm3862102pjz.9.2022.05.04.15.24.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 15:23:06 -0700 (PDT)
-Date: Thu, 5 May 2022 07:23:04 +0900
+ Wed, 04 May 2022 15:24:52 -0700 (PDT)
+Date: Thu, 5 May 2022 07:24:50 +0900
 From: Stafford Horne <shorne@gmail.com>
 To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Subject: Re: [PATCH v2] hw/openrisc: use right OMPIC size variable
-Message-ID: <YnL8yLrfC0EcyFgy@antec>
-References: <20220502232800.259036-1-Jason@zx2c4.com>
- <20220503094533.402157-1-Jason@zx2c4.com> <YnGPDumfp1+6DUQG@antec>
- <CAHmME9prmCzpg6h-j3o7zUiYzePuegqJOAGSH167H4L-DH=QMg@mail.gmail.com>
+Subject: Re: [PATCH] openrisc: remove bogus nops and shutdowns
+Message-ID: <YnL9MuVLtiGWD2EV@antec>
+References: <20220504110911.283525-1-Jason@zx2c4.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHmME9prmCzpg6h-j3o7zUiYzePuegqJOAGSH167H4L-DH=QMg@mail.gmail.com>
+In-Reply-To: <20220504110911.283525-1-Jason@zx2c4.com>
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,47 +67,51 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: openrisc@lists.librecores.org, richard.henderson@linaro.org,
- QEMU Developers <qemu-devel@nongnu.org>
+Cc: openrisc@lists.librecores.org, linux-kernel@vger.kernel.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Wed, May 04, 2022 at 01:10:04PM +0200, Jason A. Donenfeld wrote:
-> On Tue, May 3, 2022 at 10:22 PM Stafford Horne <shorne@gmail.com> wrote:
-> >
-> > On Tue, May 03, 2022 at 11:45:33AM +0200, Jason A. Donenfeld wrote:
-> > > This appears to be a copy and paste error. The UART size was used
-> > > instead of the much smaller OMPIC size. But actually that smaller OMPIC
-> > > size is wrong too and doesn't allow the IPI to work in Linux. So set it
-> > > to the old value.
-> > >
-> > > Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
-> > > ---
-> > >  hw/openrisc/openrisc_sim.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/hw/openrisc/openrisc_sim.c b/hw/openrisc/openrisc_sim.c
-> > > index 99b14940f4..3218db6656 100644
-> > > --- a/hw/openrisc/openrisc_sim.c
-> > > +++ b/hw/openrisc/openrisc_sim.c
-> > > @@ -78,7 +78,7 @@ static const struct MemmapEntry {
-> > >      [OR1KSIM_DRAM] =      { 0x00000000,          0 },
-> > >      [OR1KSIM_UART] =      { 0x90000000,      0x100 },
-> > >      [OR1KSIM_ETHOC] =     { 0x92000000,      0x800 },
-> > > -    [OR1KSIM_OMPIC] =     { 0x98000000,         16 },
-> > > +    [OR1KSIM_OMPIC] =     { 0x98000000,      0x100 },
-> >
-> > Right, I missed this as part of my series.  OMPIC will allocate 2 32-bit
-> > registers per CPU.  I documented this here:
-> >
-> >   - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/irqchip/irq-ompic.c
-> >
-> > I think what we will want here is something like:
-> >
-> > [OR1KSIM_OMPIC] =     { 0x98000000, 8 * OR1KSIM_CPUS_MAX },
-> 
-> Do you want a v3 or are you going to fix it up yourself?
+On Wed, May 04, 2022 at 01:09:11PM +0200, Jason A. Donenfeld wrote:
+> Nop 42 is some leftover debugging thing by the looks of it. Nop 1 will
+> shut down the simulator, which isn't what we want, since it makes it
+> possible to handle errors.
 
-I'll fix it up.
+Do you mean impossible to handler errors?
+
+> Cc: Stafford Horne <shorne@gmail.com>
+> Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+
+This looks good to me, I didn't add these debug's I think we can remove them.
 
 -Stafford
+
+> ---
+>  arch/openrisc/mm/fault.c | 5 -----
+>  1 file changed, 5 deletions(-)
+> 
+> diff --git a/arch/openrisc/mm/fault.c b/arch/openrisc/mm/fault.c
+> index 80bb66ad42f6..860da58d7509 100644
+> --- a/arch/openrisc/mm/fault.c
+> +++ b/arch/openrisc/mm/fault.c
+> @@ -223,8 +223,6 @@ asmlinkage void do_page_fault(struct pt_regs *regs, unsigned long address,
+>  	{
+>  		const struct exception_table_entry *entry;
+>  
+> -		__asm__ __volatile__("l.nop 42");
+> -
+>  		if ((entry = search_exception_tables(regs->pc)) != NULL) {
+>  			/* Adjust the instruction pointer in the stackframe */
+>  			regs->pc = entry->fixup;
+> @@ -252,9 +250,6 @@ asmlinkage void do_page_fault(struct pt_regs *regs, unsigned long address,
+>  	 */
+>  
+>  out_of_memory:
+> -	__asm__ __volatile__("l.nop 42");
+> -	__asm__ __volatile__("l.nop 1");
+> -
+>  	mmap_read_unlock(mm);
+>  	if (!user_mode(regs))
+>  		goto no_context;
+> -- 
+> 2.35.1
+> 
