@@ -2,53 +2,58 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CE6551B692
-	for <lists+openrisc@lfdr.de>; Thu,  5 May 2022 05:30:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 37F8651BDB3
+	for <lists+openrisc@lfdr.de>; Thu,  5 May 2022 13:05:30 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 2376D248EC;
-	Thu,  5 May 2022 05:30:27 +0200 (CEST)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id 8BBE1248EB
- for <openrisc@lists.librecores.org>; Thu,  5 May 2022 05:30:25 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 16A3AB82B20
- for <openrisc@lists.librecores.org>; Thu,  5 May 2022 03:30:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EA6C385B3
- for <openrisc@lists.librecores.org>; Thu,  5 May 2022 03:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651721423;
- bh=vOH0kAdmR1eNZn7dq7qeSAVj/s+a8/0GdFuCXLUW/CU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=g+9CtdtO3/zzV1+bZ2QmOejc7pc6dzZz5V0iTRIcx1bdlYXlMHrs9nQqg10r/BeYs
- +PmvWnmGptI78zUdjkwjx425vxkvJixLXLplrhuBg86OnLbNCrvh/M64SOvKglEE7s
- 0EjNWcc7pr28auxz3kD64IaTwkSpy2qGJiCIvsSSsgdLp6NiCzjf1gNecbuBIFY5tR
- OM5TFGUGGcWe4m9ktlTyOKeRL1GmMjEVGuX31mfWrJbyYnZVyp1slkTqDDEDsRonTS
- p54NUkVH61i1VhOaYPi3pWgpqZoPBA/yCGJdCl1YnaYAHSCWgzgfOKzyePzU9CTlQA
- ur4WWGWOtmk9w==
-Received: by mail-ua1-f54.google.com with SMTP id z15so1219616uad.7
- for <openrisc@lists.librecores.org>; Wed, 04 May 2022 20:30:22 -0700 (PDT)
-X-Gm-Message-State: AOAM532p1317pg+YBnWLUf8qivOfBhbGhum5FMf4wViBXUMB0pIVdR+O
- 0vo4ob6zr3Sxd9cu/BYkMdr4F5tzO1UBFlELqV4=
-X-Google-Smtp-Source: ABdhPJzbU/iPzb/jLBOfTd8HLatPunLFi+iu4xyj0d3kkgDuJ1vstUU5IUyh/crnvfi60C0KDYx5aW4fbp9tD6SDpKg=
-X-Received: by 2002:ab0:2a87:0:b0:362:9cdb:8b64 with SMTP id
- h7-20020ab02a87000000b003629cdb8b64mr7496584uar.83.1651721421926; Wed, 04 May
- 2022 20:30:21 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 954FD248FB;
+	Thu,  5 May 2022 13:05:29 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ by mail.librecores.org (Postfix) with ESMTPS id 9E6C923E0C
+ for <openrisc@lists.librecores.org>; Thu,  5 May 2022 13:05:28 +0200 (CEST)
+Received: from mail-wr1-f43.google.com ([209.85.221.43]) by
+ mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MrPyJ-1o8gE30vmp-00oatP for <openrisc@lists.librecores.org>; Thu, 05 May
+ 2022 13:05:28 +0200
+Received: by mail-wr1-f43.google.com with SMTP id v12so5596335wrv.10
+ for <openrisc@lists.librecores.org>; Thu, 05 May 2022 04:05:28 -0700 (PDT)
+X-Gm-Message-State: AOAM532gIY6A84VwmjkeKwW3+vGZnFd9dqdErlsdLb2Ykz03R96MpnNz
+ 3B6HMRcz1KsNb1wlSGeCfG/fo0W/XEjwtKvAwI8=
+X-Google-Smtp-Source: ABdhPJxGGq5Fa9Cx5SSfnKSUo4b+MfSDkdVAVLGUTqD/GBtgFGV3C400pAFOppOt2I8pMGzWGNhT2WNvFkyhjBMEOv4=
+X-Received: by 2002:a5d:49cb:0:b0:20a:cee3:54fc with SMTP id
+ t11-20020a5d49cb000000b0020acee354fcmr19580488wrs.12.1651748727768; Thu, 05
+ May 2022 04:05:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220430153626.30660-1-palmer@rivosinc.com>
- <20220430153626.30660-2-palmer@rivosinc.com>
- <2180881.iZASKD2KPV@diego>
-In-Reply-To: <2180881.iZASKD2KPV@diego>
-From: Guo Ren <guoren@kernel.org>
-Date: Thu, 5 May 2022 11:30:09 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTSjwu3-SLfXAh=UrqSq28mq_7nxbFNQ9j9kqY32EiXcJw@mail.gmail.com>
-Message-ID: <CAJF2gTSjwu3-SLfXAh=UrqSq28mq_7nxbFNQ9j9kqY32EiXcJw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/7] asm-generic: ticket-lock: New generic ticket-based
- spinlock
+ <20220430153626.30660-3-palmer@rivosinc.com>
+ <7375410.EvYhyI6sBW@diego>
+In-Reply-To: <7375410.EvYhyI6sBW@diego>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Thu, 5 May 2022 13:05:11 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2fLg9DJvQeOAFhRQk-O72PAhJ77CLQ+Pz_Vvh1WV1APQ@mail.gmail.com>
+Message-ID: <CAK8P3a2fLg9DJvQeOAFhRQk-O72PAhJ77CLQ+Pz_Vvh1WV1APQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/7] asm-generic: qspinlock: Indicate the use of
+ mixed-size atomics
 To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:T4FSz3DHkDoWZLJexU/cZCGyhDVRQkO3+Pb9sZdJhMYVTAK2vi8
+ iT32JzFdebOlwV66Lwy06BoxLZaLhB6PcTPS1L6SSMM28W3T0sIwhNcxQs8lHBgrOmiZnhN
+ qASVNWsLZmKKImqN2GsGB24YxJCbGlXkRUcRcN1DkuUkJANdVy5rXiNXdNrpeQPF4j9QBNs
+ bfmcmkdgnQWu6mmMiKaXQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:G8EDPOorFIE=:INoRAO/1QFt8dREbEQxRvD
+ LPHTGaGsS+qqce64ioX9j8/wngjOgE534KBm17qZkJ692+f5o14cr2XPjIJLd4CeOlOxEKrYW
+ kvLQbpyk6uxp0ndp2gMKp3yoPFRFazTATDbxJkwE+dwWRAE8m+IwI7tnEB1XQloDhNc+KKl+a
+ 1Yc9zoJie9Ev9t3srpoSPaGiahWZ8aVjfoU3xbjyGo1MRAbE0OKy2GzV7yeGbuNHjhL7MI9Vj
+ Ffkp+989g+d98qMd+G6Qimn8FNw+OR/EdH18GLzvSt7kYobFgQOLRCJ/VLGcMbwFsc/UkG8NH
+ Bc+kFI2ogMX7C1j4o4oKnDghYQzYIXZGbA5PMkG8Avf/cVSMQ0zqgDpbm9gFo+WEV9rsCdxR+
+ QJWch1k7Ugx8RS7U3Jr/JknqbAzSa3RQveeNOiPbphEYKVRUiPw1PaQen2c1iF2lTVRldu6Ss
+ lPSTC07IJ0EKKXbt7AMmR8754kGQ1M/pAOrNwP6h/WYPbG3vbfKEBWban7OF7RrciV9GwVnZO
+ bicTASa4T30NPBb7z5frRO3cr5dN7EtWNudpaH5cUMS7PcxBEQNXiV5S/coYx08TmI/PIqklU
+ C7LmB3J9EYBxb6PMnptSIfa80NAUJNA+2K9ovHSA24l/14rTls9zUoAjgGkrAdnDUi2F3yBdG
+ bLGn7EM579LgRxAvNx+xEqNoO6vsbYlur8cpvX6CGVhwebr8eM3t19iB/Td1Zp5ZRNUfH3YoO
+ DyFF0q5WWILxJtGnlswX3CLDdWQUW5sB68J5llSdB9SASQa8Avxk2r5eNnEsyncvBwYDVMJ7z
+ 0No2txfDe5/5vXUp5X19/LuOiPAXs4kqRcr8dCOQzmX/Va+Z9k=
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -62,48 +67,48 @@ List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
 Cc: Peter Zijlstra <peterz@infradead.org>, Palmer Dabbelt <palmer@rivosinc.com>,
- jszhang@kernel.org, linux-riscv <linux-riscv@lists.infradead.org>,
- Will Deacon <will@kernel.org>, Jonas Bonn <jonas@southpole.se>,
- linux-csky@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Waiman Long <longman@redhat.com>, linux-arch <linux-arch@vger.kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Arnd Bergmann <arnd@arndb.de>,
- Boqun Feng <boqun.feng@gmail.com>, Openrisc <openrisc@lists.librecores.org>,
+ Guo Ren <guoren@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
+ linux-riscv <linux-riscv@lists.infradead.org>, Will Deacon <will@kernel.org>,
+ Jonas Bonn <jonas@southpole.se>, linux-csky@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
+ linux-arch <linux-arch@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Arnd Bergmann <arnd@arndb.de>, Boqun Feng <boqun.feng@gmail.com>,
+ Openrisc <openrisc@lists.librecores.org>,
  Paul Walmsley <paul.walmsley@sifive.com>, Greg KH <gregkh@linuxfoundation.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, sudipm.mukherjee@gmail.com,
- macro@orcam.me.uk
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Reviewed-by: Guo Ren <guoren@kernel.org>
+On Wed, May 4, 2022 at 2:02 PM Heiko St=C3=BCbner <heiko@sntech.de> wrote:
+> > index d74b13825501..95be3f3c28b5 100644
+> > --- a/include/asm-generic/qspinlock.h
+> > +++ b/include/asm-generic/qspinlock.h
+> > @@ -2,6 +2,37 @@
+> >  /*
+> >   * Queued spinlock
+> >   *
+> > + * A 'generic' spinlock implementation that is based on MCS locks. An
+>
+> _For_ an architecture that's ... ?
+>
+> > + * architecture that's looking for a 'generic' spinlock, please first =
+consider
+> > + * ticket-lock.h and only come looking here when you've considered all=
+ the
+> > + * constraints below and can show your hardware does actually perform =
+better
+> > + * with qspinlock.
+> > + *
+> > + *
+>
+> double empty line is probably not necessary
+>
 
-On Wed, May 4, 2022 at 7:57 PM Heiko St=C3=BCbner <heiko@sntech.de> wrote:
->
-> Am Samstag, 30. April 2022, 17:36:20 CEST schrieb Palmer Dabbelt:
-> > From: Peter Zijlstra <peterz@infradead.org>
-> >
-> > This is a simple, fair spinlock.  Specifically it doesn't have all the
-> > subtle memory model dependencies that qspinlock has, which makes it mor=
-e
-> > suitable for simple systems as it is more likely to be correct.  It is
-> > implemented entirely in terms of standard atomics and thus works fine
-> > without any arch-specific code.
-> >
-> > This replaces the existing asm-generic/spinlock.h, which just errored
-> > out on SMP systems.
-> >
-> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
->
-> on riscv64+riscv32 qemu, beaglev and d1-nezha
->
-> Tested-by: Heiko Stuebner <heiko@sntech.de>
->
->
+I've applied the series to the asm-generic tree now, and edited both the ab=
+ove
+as you suggested in the process, to save Palmer the v5.
 
-
---=20
-Best Regards
- Guo Ren
-
-ML: https://lore.kernel.org/linux-csky/
+         Arnd
