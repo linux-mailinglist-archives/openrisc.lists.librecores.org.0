@@ -2,40 +2,40 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 37458537C07
-	for <lists+openrisc@lfdr.de>; Mon, 30 May 2022 15:30:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E82D9537CA6
+	for <lists+openrisc@lfdr.de>; Mon, 30 May 2022 15:36:55 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A53412414D;
-	Mon, 30 May 2022 15:30:10 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 9D578247D6;
+	Mon, 30 May 2022 15:36:55 +0200 (CEST)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id B56202410F
- for <openrisc@lists.librecores.org>; Mon, 30 May 2022 15:30:09 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id E12322410F
+ for <openrisc@lists.librecores.org>; Mon, 30 May 2022 15:36:53 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 585AFB80DAE;
- Mon, 30 May 2022 13:30:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EE4C3411C;
- Mon, 30 May 2022 13:30:06 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 673D5B80D84;
+ Mon, 30 May 2022 13:36:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82EFC385B8;
+ Mon, 30 May 2022 13:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917408;
+ s=k20201202; t=1653917812;
  bh=n+AaXBeWTOxHXF2nYHq4qOyEFHDvsdaw+ZoRXf+hNbc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gaaQjzi8WoHxnzlkC8vH9y5aWEHov2Np1OF2ossQWbulKfgvwmAElrlcrsS6JWxLR
- meOzUp7+6ZQ3zph18dwgNCXoshXgwzcDKMRTSXcyQT16efXlYERji5an4CCB48dbKA
- S3gDshFTLkH6UtTy9qVuxgdGHIOhohAm2grIiOUZFL/T7hbgTwtdxCPY8BRLphyjqN
- RWbnvn6TipSHCZOzx1nOKT1dl3hjmoZTUVi5ZUg9ta/fofnXqfxZWJzf/L2YRfzhyx
- Ni7wDUMDFf2x1rAICZL2m4ZbVDvxQcXyg7A27VwkpMeki0RXdlZ432/YdEdYQj5inA
- LGFhx2l1sgIRg==
+ b=KryPp5jV70oIQyo94ClUlXl/MzGqkYa/I9pMBr4j7LF+/MMOY80EmM+b3OXsUvw51
+ Qk4AvO8G5ERngi2QPQXdM9SHZZXr6q7KDyG2PfjxSIg82pnL4RgzIMrV/tJFW8gxap
+ FHKhPBLEinDH+2Bchhr/2lv3Qnapd9M4r3gLL3WJi+9vP0CYYv+BuFJRBjSEDoqK0p
+ 3BijunGBmI/fuXXr28pb9mgbNxcUYriER6MDBFb87xxldiZpYI0Wt69B37+I1sCXmI
+ VJVD79UcESED8usYKfbnMlJ06jLs0xQ3vWicdVNzvW4A3J2oEr0sPPdwVOPodGI4Lg
+ v5tymBlBpxN0w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.18 125/159] openrisc: start CPU timer early in boot
-Date: Mon, 30 May 2022 09:23:50 -0400
-Message-Id: <20220530132425.1929512-125-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 104/135] openrisc: start CPU timer early in boot
+Date: Mon, 30 May 2022 09:31:02 -0400
+Message-Id: <20220530133133.1931716-104-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
-References: <20220530132425.1929512-1-sashal@kernel.org>
+In-Reply-To: <20220530133133.1931716-1-sashal@kernel.org>
+References: <20220530133133.1931716-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
