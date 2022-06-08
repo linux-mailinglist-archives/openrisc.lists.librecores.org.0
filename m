@@ -2,56 +2,56 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A1DC543FB5
-	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 82616543FB3
+	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id CCD54249EB;
-	Thu,  9 Jun 2022 01:00:34 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 3C4C6249E9;
+	Thu,  9 Jun 2022 01:00:33 +0200 (CEST)
 Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
- by mail.librecores.org (Postfix) with ESMTPS id 04E99249B2
- for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 22:27:50 +0200 (CEST)
-Received: from mail-yb1-f169.google.com ([209.85.219.169]) by
+ by mail.librecores.org (Postfix) with ESMTPS id D06B720CC0
+ for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 20:20:40 +0200 (CEST)
+Received: from mail-yb1-f176.google.com ([209.85.219.176]) by
  mrelayeu.kundenserver.de (mreue109 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1M3lgL-1nzJGH1Fz9-000ukY for <openrisc@lists.librecores.org>; Wed, 08 Jun
- 2022 22:27:50 +0200
-Received: by mail-yb1-f169.google.com with SMTP id v22so38438227ybd.5
- for <openrisc@lists.librecores.org>; Wed, 08 Jun 2022 13:27:50 -0700 (PDT)
-X-Gm-Message-State: AOAM532YWUAOGs/l4eC3soUe3m1JVTOfSYCWBVSJ1YcAtabw7DwYUeOI
- 8cyW8jQRln+AXlPImSiCpsHVaXzGPXOBYW2LJ8s=
-X-Google-Smtp-Source: ABdhPJzN5kbTwiXruPcKSpnmqojFIl1cGQUBuhNCCdRneCrpSwm0deMOGKvKLmavgOJ05DHkpAoCHNV4Fm5CQu/QOU4=
-X-Received: by 2002:a0d:efc2:0:b0:2fe:d2b7:da8 with SMTP id
- y185-20020a0defc2000000b002fed2b70da8mr36982567ywe.42.1654705351589; Wed, 08
- Jun 2022 09:22:31 -0700 (PDT)
+ id 1MkYkC-1nKgOE0h8I-00m7GV for <openrisc@lists.librecores.org>; Wed, 08 Jun
+ 2022 20:20:40 +0200
+Received: by mail-yb1-f176.google.com with SMTP id v22so37910941ybd.5
+ for <openrisc@lists.librecores.org>; Wed, 08 Jun 2022 11:20:39 -0700 (PDT)
+X-Gm-Message-State: AOAM532FMwQJiPrT0md0xceW7gIxv2l6uaH0yJ8HnhF5rha5wU7hLStg
+ oCZX1aQ/KyI7/gAsoenjQaRtQ5239g2hzjDmrA8=
+X-Google-Smtp-Source: ABdhPJzNVjvOg+I4TKoqtI9Mj5r7eGnKl4yZEYVHLzTr22uimte8bgKc1nTgREfDsecVqzQDeuxH8v8jGezndj85u8s=
+X-Received: by 2002:a25:e64b:0:b0:663:ffad:eac5 with SMTP id
+ d72-20020a25e64b000000b00663ffadeac5mr3789690ybh.550.1654705730388; Wed, 08
+ Jun 2022 09:28:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220608142723.103523089@infradead.org>
- <20220608144517.188449351@infradead.org>
-In-Reply-To: <20220608144517.188449351@infradead.org>
+ <20220608144518.010587032@infradead.org>
+In-Reply-To: <20220608144518.010587032@infradead.org>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 8 Jun 2022 18:22:12 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2y5+nrQFzhjrTTZe+d57Ug261J3kwLNe8Mu8i2qxtG2w@mail.gmail.com>
-Message-ID: <CAK8P3a2y5+nrQFzhjrTTZe+d57Ug261J3kwLNe8Mu8i2qxtG2w@mail.gmail.com>
-Subject: Re: [PATCH 20/36] arch/idle: Change arch_cpu_idle() IRQ behaviour
+Date: Wed, 8 Jun 2022 18:28:33 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+Message-ID: <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+Subject: Re: [PATCH 33/36] cpuidle,omap3: Use WFI for omap3_pm_idle()
 To: Peter Zijlstra <peterz@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:rElXuRyH0LOUF4iUItu+bNIuTciJWdtdE77ACXG88dnLuYCZ81z
- 4cO422lmnEJafrHQ+JvxuGCKr7rvu5N61oXJyiIznEIMm9MveX8O+WKF2dXnrHZR0hbE2hM
- yluFNHQ7ESqLZ4a+sUNeGJ0Vn8yIvtioKcaMIlIXAqnQzi7fY94ARFEZEC7jdW9yVIWlIHc
- 8Asb9iCVtDzysbcKp2CbA==
+X-Provags-ID: V03:K1:m3IqppAKm5/KdKJjPbxCNRncFxbPHFyHTxz+/pjeiT3nXEmjniY
+ LG6gPY3vc67087BmxtbyagP/33rPeBQyN15lU2x46KWwU9unhF+C9i18tJo9yPutr0EnROX
+ iFE+0psfuGqr1c9Rba0VVPBNY+ZFEYlMgzw0wHx75zHCXN5OXCSsIyGEW4DH1gtsAlx58VM
+ 1I158NcjMHdJT+IFPOsGA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:xEf9Q2Pc8LM=:dMNUstRn7d3bmDmU8dHlW2
- vfC25pKWT4lfqHEDLeMQ4ocwbJikWd6+7jXh5110rb/tPbYUrXSsUofIZvNpVQkDMbFZHTyiz
- sjkaypemuX8ucOVNZLbQmzSZebXOJpdi688GrIwNM/zmJaLG982EWCHq8kIJOfKQI13rqRb+t
- TWX551akj+GINcYqLyk4EeNJSBKEVk1nsiJPoGdOQvfNa3m0JOHi4jhdbp/V7G9kRAcuV7ZEa
- UPi9GUzdPagGEI6MKcGzCPFcDHtnCmOuWk8dDNETe93Mz/dB4DrG/REgDAI8qJl9lmQT7HMvI
- cq8geKDl3ymvR96FZWkdkU6nAUf06Kc1N4WUHWgwXMiut2u1SZD6lptBEAT4W+xaq9E2mRgDm
- mu6PKZ6mFYRccg7sD2gbwCLY1TJklfsjiinBeQhwwseJx9zKdkf8pN9tlGTg87RnTxWQJ5cuO
- zj8+otwHkgY61ETWl2y8X1t7+1dqSV0FeK5fbCLG5f4FbSyR3ku6+N0B2klUQSU2iQvfjXt55
- 1dpt18A13IlMOTDvSo4Bsqz9OhW+mgCxSnXzkuQw85+6MU0n7I/PCEZ15MO5BDz29vgWXsVZ6
- D7M/x5P+XMfY6l+l1TbygsaWpWMRQnkAqNVlHko729bEMI17+pZnrdgVkyMDriipJhJRZ7462
- iCVB2BlkObqp89f9sHq301efQt8pCdnOat+iKt12wLEOx3efrl1epvpaKwBlh9nhW/3Ptu3da
- YBSbN7LdV9q1bX7bubY5+SaD+eC9iWOOrzLQExWh+RBPqT1OfBf6CZ+YswqWgd3iG621aVGM5
- ++wZNzi1JzG+qkjrCCvFIuJvGUB3sLvMV/pz9WuWpoHQvPpj3dykzAMnt2ZLBPdUww1FbvuEa
- rezt521+mI6vQ4znFAIdQWhmjsnhPWwnX5j2RDS/s=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4NqRi0Y15Go=:62hnv0zgPOFEQchCu4GUhU
+ 5rKaiv+bs4y19hPo+aFqSoHs3EcRrN5eT2p/Ax9eSPTLgV3muNZnnIhwBhCK7BnaWb6KpSueH
+ m7lZzCf76irJWw/uP6+augD09AgKpjJeXAu1L7W4np8WEfrBkTMTzvFnCihVfDaaTo7/vozCj
+ dS60ux5xLVa+W3K7jKQTy8X9rhJx0b1BUzufeEpxAo4RvUTg8qX9TSz/+sjofaDjXqCzzuvPs
+ bay97SZl4l5YQ7IhEoK4pH6Vs5oyRis8eSOqb3q51+Xwxn8g0OQ4HGeu4fY8oHQwCna0nj0lI
+ 0x8QNNiTREChiz7p4aIIMqrGoayJo78g03ErsidcHFrkeAdTSF+Rll568HTSOiVa4+eCWtIeq
+ QoI6XPZMyex5lNW3tz5BjzEnSIkhwhBR7jimaOJpMTHdWHoWISpfzd0kYyovA6PGCktV+1+KL
+ h+MmOihPAZ7qnyY/Mt2mb5Fpz9u2zaE0Mx2x62hkmjZCro759hM7qY9w+CMSGyPaXca4gFZx1
+ +XkBCL6r6aD2X4kR6FN7OKMQUuSteP1zhH8r0rVl3yMyGMfcCSwZjdidw+9k4oZyUH3W73Wij
+ 6S7eH6+wV/FQtzTQxfMq64aqq80dEu3PShulw/dft8StjJGDAEkMmcSGESY6AAp0v9O29Tq5J
+ jYSIEV0Y33C/PtYso/DQxQTTTzjPsCYzxrmVv+7BVpljqJQtKpUyhhQQcQnJouXh6ODZ9hw7o
+ QApRQ5z8aQfVUmizmI9z+n81e9eezPj+BWZXPzqnee/1TSKhW5IjW0VEmZWn4NHHTYYIgS6Ia
+ paGgv2fCWL9edsnWaP6RPsKspMtM7VKYoDeEHX7SlZlHNvKrMnYpyZZGfT5SG3HAs7BPUSXmg
+ bYDs2UNosbG58CF0Hk7dAwMGYmUNW6ioU1HAB/t28=
 X-Mailman-Approved-At: Thu, 09 Jun 2022 00:59:57 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -158,20 +158,22 @@ Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
 On Wed, Jun 8, 2022 at 4:27 PM Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> Current arch_cpu_idle() is called with IRQs disabled, but will return
-> with IRQs enabled.
+> arch_cpu_idle() is a very simple idle interface and exposes only a
+> single idle state and is expected to not require RCU and not do any
+> tracing/instrumentation.
 >
-> However, the very first thing the generic code does after calling
-> arch_cpu_idle() is raw_local_irq_disable(). This means that
-> architectures that can idle with IRQs disabled end up doing a
-> pointless 'enable-disable' dance.
->
-> Therefore, push this IRQ disabling into the idle function, meaning
-> that those architectures can avoid the pointless IRQ state flipping.
+> As such, omap_sram_idle() is not a valid implementation. Replace it
+> with the simple (shallow) omap3_do_wfi() call. Leaving the more
+> complicated idle states for the cpuidle driver.
 >
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-I think you now need to add the a raw_local_irq_disable(); in loongarch
-as well.
+I see similar code in omap2:
 
-       Arnd
+omap2_pm_idle()
+ -> omap2_enter_full_retention()
+     -> omap2_sram_suspend()
+
+Is that code path safe to use without RCU or does it need a similar change?
+
+        Arnd
