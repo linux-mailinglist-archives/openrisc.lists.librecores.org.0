@@ -2,103 +2,37 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 98409543FAE
-	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 274D3543FAF
+	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:30 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 5E8E1249BF;
+	by mail.librecores.org (Postfix) with ESMTP id EAD71247DA;
 	Thu,  9 Jun 2022 01:00:29 +0200 (CEST)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id E3D2224999
- for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 17:05:05 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 9C069249A5
+ for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 17:07:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:To:From:Date:Sender:Reply-To:Cc:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Ukp02Ivtbnt/qfD+Hr8nM4W5X9OZTZ1VV5qELeaRbZ8=; b=bbxN9JJ2Y40pQW61I7MOn5Xh9V
- S2c5QQ85ziHXD+1t+vjh+fhEPqK3iKxsEIjt7edJojnVzBl9gYwXvjRIeRNrN7ZibzX36WHLDVayV
- nInDIdKkQ3BbhSqYmNWsz/BWsnpgq0hnvQFNP0XQXQaQmMCitXKvbycTG4I5w7PN7aMWKy95vrTUX
- Uzl0vpf81V6OGBp/kwTpeykt3MVn9hantJe3I/I9BoxiPWvicF7AqjWicEUzWX/bGUDW8mfpyxbC/
- CHmKhktwPRwgpVTZHfY5ORW3ZQsK5N3aBEK/OQ7rkuVgMtsoWyCiQqRvNg8qTMNOWWW7Vr6eX+dTm
- f13zRk5g==;
-Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nyxEg-00CjUs-8y; Wed, 08 Jun 2022 15:04:42 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 227AC301BE7;
- Wed,  8 Jun 2022 17:04:41 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 089E520C0B5D8; Wed,  8 Jun 2022 17:04:41 +0200 (CEST)
-Date: Wed, 8 Jun 2022 17:04:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
- vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
- linus.walleij@linaro.org, shawnguo@kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, tony@atomide.com,
- khilman@kernel.org, catalin.marinas@arm.com, will@kernel.org,
- guoren@kernel.org, bcain@quicinc.com, chenhuacai@kernel.org,
- kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
- monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
- jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
- shorne@gmail.com, James.Bottomley@hansenpartnership.com,
- deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
- paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
- agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
- davem@davemloft.net, richard@nod.at,
- anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- acme@kernel.org, mark.rutland@arm.com,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
- amakhalov@vmware.com, pv-drivers@vmware.com,
- boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
- rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
- gregkh@linuxfoundation.org, mturquette@baylibre.com,
- sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
- sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
- anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
- jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
- yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, rostedt@goodmis.org, pmladek@suse.com,
- senozhatsky@chromium.org, john.ogness@linutronix.de,
- paulmck@kernel.org, frederic@kernel.org, quic_neeraju@quicinc.com,
- josh@joshtriplett.org, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, joel@joelfernandes.org,
- juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
- bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
- linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
- rcu@vger.kernel.org
-Subject: Re: [PATCH 34/36] cpuidle,omap3: Push RCU-idle into omap_sram_idle()
-Message-ID: <YqC6iJx4ygSmry0G@hirez.programming.kicks-ass.net>
-References: <20220608142723.103523089@infradead.org>
- <20220608144518.073801916@infradead.org>
+ bh=ezwSP2ycpO1p3eEM9FoNLAzo6tW/B/UAxq7z/I5YF+c=; b=VX18ZEOxSUcNpyBZYrsteOdpBT
+ HZTcWzeAfZ6BJYQuFjLWfCOJvTMUxk8MBr1xKoL2P60bmS4cJFpNLiXDZtftqzI+rgduxGS68DtiK
+ n2sX7U8y/70osNz3d2Xt0J6OluKnOUM3YB9Zi9fJja9GYLe+tapPXdVPaGQ3u9lSN6Xi3CMW1rzUO
+ e3CAfEEv9OEh2D7wgtx4oI2+cs3IN1VyHSrg0xW5CGtOKE5NiMzT399Egt+AxLGeudx7a3sdf9LdV
+ Mi/zih0vfnOHChkKnY+yM8XUEhW7zxYgPk9eAQTvAmT+1w3WkGykJpFbfD3mdaGEeXhyHnkHSdNZ4
+ EXPPsicA==;
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1nyxHH-00CjeB-22; Wed, 08 Jun 2022 15:07:23 +0000
+Date: Wed, 8 Jun 2022 16:07:23 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: kernel test robot <oliver.sang@intel.com>
+Subject: Re: [mm]  9b12e49e9b: BUG:Bad_page_state_in_process
+Message-ID: <YqC7K0e2FFp7vT6i@casper.infradead.org>
+References: <d35f42f7b598f629437940f941826e2cc49a97f6.1654271618.git.baolin.wang@linux.alibaba.com>
+ <20220608143819.GA31193@xsang-OptiPlex-9020>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144518.073801916@infradead.org>
+In-Reply-To: <20220608143819.GA31193@xsang-OptiPlex-9020>
 X-Mailman-Approved-At: Thu, 09 Jun 2022 00:59:57 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -112,24 +46,41 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
+Cc: linux-arch@vger.kernel.org, 0day robot <lkp@intel.com>, linux-mm@kvack.org,
+ LKML <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org,
+ lkp@lists.01.org, openrisc@lists.librecores.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Wed, Jun 08, 2022 at 04:27:57PM +0200, Peter Zijlstra wrote:
-> @@ -254,11 +255,18 @@ void omap_sram_idle(void)
->  	 */
->  	if (save_state)
->  		omap34xx_save_context(omap3_arm_context);
-> +
-> +	if (rcuidle)
-> +		cpuidle_rcu_enter();
-> +
->  	if (save_state == 1 || save_state == 3)
->  		cpu_suspend(save_state, omap34xx_do_sram_idle);
->  	else
->  		omap34xx_do_sram_idle(save_state);
->  
-> +	if (rcuidle)
-> +		rcuidle_rcu_exit();
+On Wed, Jun 08, 2022 at 10:38:19PM +0800, kernel test robot wrote:
+> 
+> 
+> Greeting,
+> 
+> FYI, we noticed the following commit (built with gcc-11):
+> 
+> commit: 9b12e49e9b02bbaca8041f236a6b2fd4586d45c8 ("[RFC PATCH 3/3] mm: Add kernel PTE level pagetable pages account")
 
-*sigh* so much for this having been exposed to the robots for >2 days :/
+> [   75.338681][ T4873] BUG: Bad page state in process 444  pfn:20b066
+> [   75.338840][ T4873] page:0000000016cf0259 refcount:0 mapcount:-512 mapping:0000000000000000 index:0x0 pfn:0x20b066
+
+mapcount:-512 is PG_table.  Somebody forgot to call
+pgtable_pte_page_dtor() (or similar)
+
+> [   75.339041][ T4873] flags: 0x17ffffc0000000(node=0|zone=2|lastcpupid=0x1fffff)
+> [   75.339190][ T4873] raw: 0017ffffc0000000 dead000000000100 dead000000000122 0000000000000000
+> [   75.339350][ T4873] raw: 0000000000000000 0000000000000000 00000000fffffdff 0000000000000000
+> [   75.339508][ T4873] page dumped because: nonzero mapcount
+> [   75.341013][ T4873] Call Trace:
+> [   75.341080][ T4873]  <TASK>
+> [ 75.341142][ T4873] dump_stack_lvl (lib/dump_stack.c:107 (discriminator 1)) 
+> [ 75.341236][ T4873] bad_page.cold (mm/page_alloc.c:637) 
+> [ 75.341326][ T4873] free_pcppages_bulk (mm/page_alloc.c:1511) 
+> [ 75.341428][ T4873] free_unref_page (arch/x86/include/asm/irqflags.h:137 mm/page_alloc.c:3444) 
+> [ 75.341524][ T4873] __mmdrop (arch/x86/include/asm/mmu_context.h:125 (discriminator 3) kernel/fork.c:791 (discriminator 3)) 
+> [ 75.341608][ T4873] ? __mmput (arch/x86/include/asm/atomic.h:123 include/linux/atomic/atomic-instrumented.h:576 include/linux/sched/mm.h:49 kernel/fork.c:1194) 
+> [ 75.341889][ T4873] exec_mmap (fs/exec.c:1035) 
+> [ 75.341977][ T4873] begin_new_exec (fs/exec.c:1293) 
+> [ 75.342071][ T4873] ? kernel_read (fs/read_write.c:455) 
+> [ 75.342160][ T4873] load_elf_binary (fs/binfmt_elf.c:1002) 
