@@ -2,43 +2,43 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 030DF543F99
-	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C31E543FAB
+	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 01:00:25 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id B84EB249EF;
-	Thu,  9 Jun 2022 01:00:15 +0200 (CEST)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id 3AA4D249AD
- for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 16:47:03 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 464D1249F6;
+	Thu,  9 Jun 2022 01:00:25 +0200 (CEST)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by mail.librecores.org (Postfix) with ESMTPS id 3E2C1249E0
+ for <openrisc@lists.librecores.org>; Wed,  8 Jun 2022 16:47:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+ d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
  Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:In-Reply-To;
- bh=rYkYazBjkfDgerhAXoQmSQo0bqbhUZdR/pxZJBUI/ng=; b=vu07N0jdKUpflmoXw9ffNL6Z73
- erDS9h9Rs2elipxuuO4E6oiZH+Xt8Kduq8uIy0K8+Ab0UB0Ng85EAEgq7IePggGQkxci90i2DCS1y
- 8hasm97zpwVR42qXyoEVcdAAXC0o1yjBEf2zXDXzDeV7u6KYIrksdlid9J/WVIYBdEcU6d6Gvdj7E
- u0DN3Ge62DOP6wTTVj2hf27+jjO+Ouhx1rAS3CxarHAIYXw+7tlexjGWTNw7nu0E3iu6Ok6OCplMs
- JoqeWWF7u27G3D9d8dvjFXenflW76lfCYePvRuxdlq/eC0M85xlj/iHefoDUVMnKfItqMCLHKrmNd
- qd303QFw==;
+ bh=OtI5HbrqLesCtm4u4WFjeviiqkcvkrIAtN470m5UDAY=; b=YxAxQQTnVMjXt5F5qT80bkgPh5
+ ixluP6Zz3hO7fx8vJIQrj4C5TqUSGKakaJJsFYPkJyX/quow9i3Q1RHxs4fPIHvQqAI4ItoUKSg9H
+ Q96BC3qMYMoqP4qCHwfqrdYRb4hE4ZTb5URJUGq6ct2gnpSWNNz0/tb6QgN8X/3EG+8+Hn8P0Jpfj
+ s1Mx2wUY/shYiCwGx373RWVVV8k86WJZX6RUBzcpDy2OG/HxZoSIcohcw28STfEH3IheSXP1uOHaG
+ ZHJWiPNFWu4NLZ6eL7MRQvDj+sp0KsDvF/li+47ulaB6B0czYcAARGWueTqt7adXuGkZdkHCdgM5d
+ rhVbSspQ==;
 Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nywx6-00ChZm-Gu; Wed, 08 Jun 2022 14:46:32 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nywx5-0066DR-V8; Wed, 08 Jun 2022 14:46:32 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id D3A8C302F34;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id D41E1302F3B;
  Wed,  8 Jun 2022 16:46:23 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id B3C6F20C119AC; Wed,  8 Jun 2022 16:46:18 +0200 (CEST)
-Message-ID: <20220608144517.822208471@infradead.org>
+ id B77DB20C119AE; Wed,  8 Jun 2022 16:46:18 +0200 (CEST)
+Message-ID: <20220608144517.885263942@infradead.org>
 User-Agent: quilt/0.66
-Date: Wed, 08 Jun 2022 16:27:53 +0200
+Date: Wed, 08 Jun 2022 16:27:54 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: peterz@infradead.org
-Subject: [PATCH 30/36] cpuidle,nospec: Make noinstr clean
+Subject: [PATCH 31/36] cpuidle,acpi: Make noinstr clean
 References: <20220608142723.103523089@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -104,27 +104,59 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-vmlinux.o: warning: objtool: mwait_idle+0x47: call to mds_idle_clear_cpu_buffers() leaves .noinstr.text section
-vmlinux.o: warning: objtool: acpi_processor_ffh_cstate_enter+0xa2: call to mds_idle_clear_cpu_buffers() leaves .noinstr.text section
-vmlinux.o: warning: objtool: intel_idle+0x91: call to mds_idle_clear_cpu_buffers() leaves .noinstr.text section
-vmlinux.o: warning: objtool: intel_idle_s2idle+0x8c: call to mds_idle_clear_cpu_buffers() leaves .noinstr.text section
-vmlinux.o: warning: objtool: intel_idle_irq+0xaa: call to mds_idle_clear_cpu_buffers() leaves .noinstr.text section
+vmlinux.o: warning: objtool: io_idle+0xc: call to __inb.isra.0() leaves .noinstr.text section
+vmlinux.o: warning: objtool: acpi_idle_enter+0xfe: call to num_online_cpus() leaves .noinstr.text section
+vmlinux.o: warning: objtool: acpi_idle_enter+0x115: call to acpi_idle_fallback_to_c1.isra.0() leaves .noinstr.text section
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/include/asm/nospec-branch.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/include/asm/shared/io.h |    4 ++--
+ drivers/acpi/processor_idle.c    |    2 +-
+ include/linux/cpumask.h          |    4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
---- a/arch/x86/include/asm/nospec-branch.h
-+++ b/arch/x86/include/asm/nospec-branch.h
-@@ -310,7 +310,7 @@ static __always_inline void mds_user_cle
-  *
-  * Clear CPU buffers if the corresponding static key is enabled
-  */
--static inline void mds_idle_clear_cpu_buffers(void)
-+static __always_inline void mds_idle_clear_cpu_buffers(void)
+--- a/arch/x86/include/asm/shared/io.h
++++ b/arch/x86/include/asm/shared/io.h
+@@ -5,13 +5,13 @@
+ #include <linux/types.h>
+ 
+ #define BUILDIO(bwl, bw, type)						\
+-static inline void __out##bwl(type value, u16 port)			\
++static __always_inline void __out##bwl(type value, u16 port)		\
+ {									\
+ 	asm volatile("out" #bwl " %" #bw "0, %w1"			\
+ 		     : : "a"(value), "Nd"(port));			\
+ }									\
+ 									\
+-static inline type __in##bwl(u16 port)					\
++static __always_inline type __in##bwl(u16 port)				\
+ {									\
+ 	type value;							\
+ 	asm volatile("in" #bwl " %w1, %" #bw "0"			\
+--- a/drivers/acpi/processor_idle.c
++++ b/drivers/acpi/processor_idle.c
+@@ -593,7 +593,7 @@ static int acpi_idle_play_dead(struct cp
+ 	return 0;
+ }
+ 
+-static bool acpi_idle_fallback_to_c1(struct acpi_processor *pr)
++static __always_inline bool acpi_idle_fallback_to_c1(struct acpi_processor *pr)
  {
- 	if (static_branch_likely(&mds_idle_clear))
- 		mds_clear_cpu_buffers();
+ 	return IS_ENABLED(CONFIG_HOTPLUG_CPU) && !pr->flags.has_cst &&
+ 		!(acpi_gbl_FADT.flags & ACPI_FADT_C2_MP_SUPPORTED);
+--- a/include/linux/cpumask.h
++++ b/include/linux/cpumask.h
+@@ -908,9 +908,9 @@ static inline const struct cpumask *get_
+  * concurrent CPU hotplug operations unless invoked from a cpuhp_lock held
+  * region.
+  */
+-static inline unsigned int num_online_cpus(void)
++static __always_inline unsigned int num_online_cpus(void)
+ {
+-	return atomic_read(&__num_online_cpus);
++	return arch_atomic_read(&__num_online_cpus);
+ }
+ #define num_possible_cpus()	cpumask_weight(cpu_possible_mask)
+ #define num_present_cpus()	cpumask_weight(cpu_present_mask)
 
 
