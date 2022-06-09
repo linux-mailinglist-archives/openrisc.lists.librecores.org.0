@@ -2,42 +2,59 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id EC608544961
-	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 12:42:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D5E9F5449E4
+	for <lists+openrisc@lfdr.de>; Thu,  9 Jun 2022 13:21:26 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id BA06B24906;
-	Thu,  9 Jun 2022 12:42:04 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by mail.librecores.org (Postfix) with ESMTPS id 1C88E247CF
- for <openrisc@lists.librecores.org>; Thu,  9 Jun 2022 12:14:48 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8501C21E03;
- Thu,  9 Jun 2022 10:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1654769687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DrcvBEFljM5p6TtbSeEidSTZ/fg57f/9Kkfw39rL09Y=;
- b=DMcdvAORR690fi8pr+U8fk3+hyZsj7Tt5x9qwl047KjZChmxVjUcAfS5VoE+jvBI94jRA8
- x1qWl9NmnYPcL1/wsN/jGmXJEl3+KOTwVVBHmebd33G6ciWPS6jZdzz9VOlvQCAFmLQ8Zj
- Z7XOIERpCYK8sshW0SQuT7wCuIg0KcE=
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 311FB2C141;
- Thu,  9 Jun 2022 10:14:40 +0000 (UTC)
-Date: Thu, 9 Jun 2022 12:14:42 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH 24/36] printk: Remove trace_.*_rcuidle() usage
-Message-ID: <YqHIEthhhi5e+Mtb@alley>
-References: <20220608142723.103523089@infradead.org>
- <20220608144517.444659212@infradead.org>
+	by mail.librecores.org (Postfix) with ESMTP id 19904248F2;
+	Thu,  9 Jun 2022 13:21:26 +0200 (CEST)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by mail.librecores.org (Postfix) with ESMTPS id 3033A24761
+ for <openrisc@lists.librecores.org>; Thu,  9 Jun 2022 13:21:24 +0200 (CEST)
+Received: by mail-pf1-f177.google.com with SMTP id p8so20816271pfh.8
+ for <openrisc@lists.librecores.org>; Thu, 09 Jun 2022 04:21:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=EcsA5Xk9qdF4JRhDkCDDD5AUfavauyZNCQMYPZiGgkU=;
+ b=mlUq1rFElmA/IefTTITNX+a02y1a01Hza2TkFJHaKwspRNip8VJZ2oJ9kWSCF0IFlf
+ nyF2P49c1A61kulmTGXKfHPl1UJZeHFcR28dNdVFQJy7IpL76+rAFfwRzSu4jNQPnFlm
+ 8Z0+XuwpRY6f6hck9MrI9ikt3LHNpeuU38Y2GLYBSBVkNK3ZF+4ZmeU51g3BcnQoUqCJ
+ oZlInJLj4BZ+dSeQiJ17jY81yOtpEVjxnXBIujwJv76pK4+0ZJN1GXQn5Fow49Tyfp+x
+ 1PI4JqS9aGo4L50fPDJVb1NFD97LKX9Ww2bjWCRq8Mjiz9irGti466UFIoBVuBlKHy1y
+ Fw9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=EcsA5Xk9qdF4JRhDkCDDD5AUfavauyZNCQMYPZiGgkU=;
+ b=alJHf34PgsyRc2J7xm83ttAmSfPKB9dPgSMfHdy0bK7Tt7iWDDxUCEHSm9ef8VAP7N
+ JoBoWAkifzsg3KN6xocEDKDMUJgRHrG8KAbVDVcc9/v0Z8RRYGTTwNPM66Z8y4nJ+W3v
+ zoxsBKLp8nLQS5uMHyNY5yG3azq2Oc+cLda1CzviF56YF+RGo77iKagwBMGyYglAxGhN
+ PQe0eUWJv488TJp6CfkCN2xys6Q9oCzVw9d63GDLJNwzWuPrbZq6o+O8cu7I6EwDCPBb
+ K4V4GN7i02e/glla7Zn/97dK+sw3HUljgHjJ80l2LhP2QzxPXtdSJC5zvAM3jA09x/HP
+ R3EQ==
+X-Gm-Message-State: AOAM531AqE2Bs/JN4PGXc7VhQRZjbpNuHD1PaT7tuJ4wyuUslRT/tO4K
+ k67HaGGkyOGPlDPoGKCRtr7tN/tLuNxZ4w==
+X-Google-Smtp-Source: ABdhPJx3dQx5otB2AfQD2Pnuu4z68uVCX9EHTkr8iDUIIxx6Pt+ix2PoWZysO6R0bgEqotUEbaTxVw==
+X-Received: by 2002:a63:3184:0:b0:3fc:5893:c866 with SMTP id
+ x126-20020a633184000000b003fc5893c866mr34776237pgx.56.1654773682531; 
+ Thu, 09 Jun 2022 04:21:22 -0700 (PDT)
+Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
+ by smtp.gmail.com with ESMTPSA id
+ 5-20020a630105000000b003f27f91135asm17294068pgb.76.2022.06.09.04.21.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jun 2022 04:21:21 -0700 (PDT)
+Date: Thu, 9 Jun 2022 20:21:19 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH] or1k: Add support for a little-endian target variant
+Message-ID: <YqHXrxh5BRTk48o7@antec>
+References: <20220609060133.26409-1-samuel@sholland.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144517.444659212@infradead.org>
-X-Mailman-Approved-At: Thu, 09 Jun 2022 12:41:56 +0200
+In-Reply-To: <20220609060133.26409-1-samuel@sholland.org>
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -50,102 +67,82 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
- linus.walleij@linaro.org, bsegall@google.com, guoren@kernel.org, pavel@ucw.cz,
- agordeev@linux.ibm.com, srivatsa@csail.mit.edu, linux-arch@vger.kernel.org,
- vincent.guittot@linaro.org, mpe@ellerman.id.au, chenhuacai@kernel.org,
- linux-acpi@vger.kernel.org, agross@kernel.org, linux-imx@nxp.com,
- catalin.marinas@arm.com, xen-devel@lists.xenproject.org, mattst88@gmail.com,
- borntraeger@linux.ibm.com, mturquette@baylibre.com, sammy@sammy.net,
- linux-pm@vger.kernel.org, jiangshanlai@gmail.com,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-um@lists.infradead.org,
- acme@kernel.org, tglx@linutronix.de, linux-omap@vger.kernel.org,
- dietmar.eggemann@arm.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- senozhatsky@chromium.org, svens@linux.ibm.com, jolsa@kernel.org,
- paulus@samba.org, mark.rutland@arm.com, linux-ia64@vger.kernel.org,
- dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
- James.Bottomley@hansenpartnership.com, jcmvbkbc@gmail.com,
- thierry.reding@gmail.com, kernel@xen0n.name, quic_neeraju@quicinc.com,
- linux-s390@vger.kernel.org, vschneid@redhat.com, john.ogness@linutronix.de,
- ysato@users.sourceforge.jp, linux-sh@vger.kernel.org, festevam@gmail.com,
- deller@gmx.de, daniel.lezcano@linaro.org, jonathanh@nvidia.com,
- mathieu.desnoyers@efficios.com, frederic@kernel.org, lenb@kernel.org,
- linux-xtensa@linux-xtensa.org, kernel@pengutronix.de, gor@linux.ibm.com,
- linux-arm-msm@vger.kernel.org, linux-alpha@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-arm-kernel@lists.infradead.org,
- chris@zankel.net, sboyd@kernel.org, dinguyen@kernel.org, bristot@redhat.com,
- alexander.shishkin@linux.intel.com, lpieralisi@kernel.org,
- linux@rasmusvillemoes.dk, joel@joelfernandes.org, will@kernel.org,
- boris.ostrovsky@oracle.com, khilman@kernel.org, linux-csky@vger.kernel.org,
- pv-drivers@vmware.com, linux-snps-arc@lists.infradead.org, mgorman@suse.de,
- jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
- ulli.kroll@googlemail.com, vgupta@kernel.org, linux-clk@vger.kernel.org,
- josh@joshtriplett.org, rostedt@goodmis.org, rcu@vger.kernel.org, bp@alien8.de,
- bcain@quicinc.com, tsbogend@alpha.franken.de, linux-parisc@vger.kernel.org,
- sudeep.holla@arm.com, shawnguo@kernel.org, davem@davemloft.net,
- dalias@libc.org, tony@atomide.com, amakhalov@vmware.com,
- bjorn.andersson@linaro.org, hpa@zytor.com, sparclinux@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-riscv@lists.infradead.org,
- anton.ivanov@cambridgegreys.com, jonas@southpole.se, yury.norov@gmail.com,
- richard@nod.at, x86@kernel.org, linux@armlinux.org.uk, mingo@redhat.com,
- aou@eecs.berkeley.edu, paulmck@kernel.org, hca@linux.ibm.com,
- openrisc@lists.librecores.org, paul.walmsley@sifive.com,
- linux-tegra@vger.kernel.org, namhyung@kernel.org,
- andriy.shevchenko@linux.intel.com, jpoimboe@kernel.org, jgross@suse.com,
- monstr@monstr.eu, linux-mips@vger.kernel.org, palmer@dabbelt.com,
- anup@brainfault.org, ink@jurassic.park.msu.ru, johannes@sipsolutions.net,
- linuxppc-dev@lists.ozlabs.org
+Cc: openrisc@lists.librecores.org, binutils@sourceware.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Sending again. The previous attempt was rejected by several
-recipients. It was caused by a mail server changes on my side.
+On Thu, Jun 09, 2022 at 01:01:33AM -0500, Samuel Holland wrote:
+> While not officially sanctioned by the architecture spec, little-endian
+> or1k processors do exist in the wild, for example the Allwinner AR100.
+> Let's add native support for this, instead of hacks like using objcopy
+> to byteswap ELF file contents.
 
-I am sorry for spamming those who got the 1st mail already.
+Hello,
 
-On Wed 2022-06-08 16:27:47, Peter Zijlstra wrote:
-> The problem, per commit fc98c3c8c9dc ("printk: use rcuidle console
-> tracepoint"), was printk usage from the cpuidle path where RCU was
-> already disabled.
-> 
-> Per the patches earlier in this series, this is no longer the case.
+In general I have no objections to this.  If there are processors that
+hare little endian it makes sense to support it.  Do you have any details
+of how people built for these before? I am curious.
 
-My understanding is that this series reduces a lot the amount
-of code called with RCU disabled. As a result the particular printk()
-call mentioned by commit fc98c3c8c9dc ("printk: use rcuidle console
-tracepoint") is called with RCU enabled now. Hence this particular
-problem is fixed better way now.
-
-But is this true in general?
-Does this "prevent" calling printk() a safe way in code with
-RCU disabled?
-
-I am not sure if anyone cares. printk() is the best effort
-functionality because of the consoles code anyway. Also I wonder
-if anyone uses this trace_console().
-
-Therefore if this patch allows to remove some tricky tracing
-code then it might be worth it. But if trace_console_rcuidle()
-variant is still going to be available then I would keep using it.
-
-Best Regards,
-Petr
-
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  kernel/printk/printk.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- a/kernel/printk/printk.c
-> +++ b/kernel/printk/printk.c
-> @@ -2238,7 +2238,7 @@ static u16 printk_sprint(char *text, u16
->  		}
->  	}
+> diff --git a/gas/config/tc-or1k.c b/gas/config/tc-or1k.c
+> index ae4e3452f48..9dc5a46f2e2 100644
+> --- a/gas/config/tc-or1k.c
+> +++ b/gas/config/tc-or1k.c
+> @@ -58,8 +58,16 @@ const char FLT_CHARS[]            = "dD";
+>  #define OR1K_SHORTOPTS "m:"
+>  const char * md_shortopts = OR1K_SHORTOPTS;
 >  
-> -	trace_console_rcuidle(text, text_len);
-> +	trace_console(text, text_len);
+> +enum
+> +{
+> +  OPTION_LITTLE_ENDIAN = OPTION_MD_BASE,
+> +  OPTION_BIG_ENDIAN
+> +};
+> +
+>  struct option md_longopts[] =
+>  {
+> +  {"EB", no_argument, NULL, OPTION_BIG_ENDIAN},
+> +  {"EL", no_argument, NULL, OPTION_LITTLE_ENDIAN},
+>    {NULL, no_argument, NULL, 0}
+>  };
+>  size_t md_longopts_size = sizeof (md_longopts);
+> @@ -67,14 +75,30 @@ size_t md_longopts_size = sizeof (md_longopts);
+>  unsigned long or1k_machine = 0; /* default */
 >  
->  	return text_len;
+>  int
+> -md_parse_option (int c ATTRIBUTE_UNUSED, const char * arg ATTRIBUTE_UNUSED)
+> +md_parse_option (int c, const char * arg ATTRIBUTE_UNUSED)
+>  {
+> -  return 0;
+> +  switch (c)
+> +    {
+> +    case OPTION_BIG_ENDIAN:
+> +      target_big_endian = 1;
+> +      break;
+> +    case OPTION_LITTLE_ENDIAN:
+> +      target_big_endian = 0;
+> +      break;
+> +    default:
+> +      return 0;
+> +    }
+> +
+> +  return 1;
 >  }
-> 
+>  
+>  void
+> -md_show_usage (FILE * stream ATTRIBUTE_UNUSED)
+> +md_show_usage (FILE * stream)
+>  {
+> +  fprintf (stream, _(" OR1K-specific assembler options:\n"));
+> +  fprintf (stream, _("\
+> +  --EB			generate code for a big endian machine\n\
+> +  --EL			generate code for a little endian machine\n"));
+>  }
+
+Aboce you mention -EB, -EL, here is is --EB, --EL.
+
+Does this setup big endian as the default?  We should specify that in the
+options.  i.e. "generate code for a big endian machine, this is the default."
+
+But I am not sure how that defaulting works now.  I will try to build this
+and understand better.
+
+-Stafford
