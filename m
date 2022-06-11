@@ -2,49 +2,50 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 7FC4C5477C7
-	for <lists+openrisc@lfdr.de>; Sat, 11 Jun 2022 23:54:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1BDB45477C8
+	for <lists+openrisc@lfdr.de>; Sat, 11 Jun 2022 23:54:11 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id E1A552499F;
-	Sat, 11 Jun 2022 23:54:08 +0200 (CEST)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by mail.librecores.org (Postfix) with ESMTPS id 5533424761
- for <openrisc@lists.librecores.org>; Sat, 11 Jun 2022 04:23:13 +0200 (CEST)
-Received: by mail-ed1-f54.google.com with SMTP id d14so969716eda.12
- for <openrisc@lists.librecores.org>; Fri, 10 Jun 2022 19:23:13 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 47947249A5;
+	Sat, 11 Jun 2022 23:54:09 +0200 (CEST)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by mail.librecores.org (Postfix) with ESMTPS id 744BE24803
+ for <openrisc@lists.librecores.org>; Sat, 11 Jun 2022 04:33:16 +0200 (CEST)
+Received: by mail-ed1-f45.google.com with SMTP id x5so1036073edi.2
+ for <openrisc@lists.librecores.org>; Fri, 10 Jun 2022 19:33:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HvaEucNyttJ72r4dgkt1sbWCJsvBPyIh5zMt0LNXalY=;
- b=D62jI1p8sOcmW+dGG367yCKI6736qfwlRYdRbtg+pQI3VQ/mZvhMkSh4muEy4yFzXi
- 1pifN6keFBPADAFAutLs2f+vKDRy3jOy1SmannYfmHY7tjbpoLbP8600CMqIboz22zit
- FmdCeKC+IDyY3i3YwKCGDz5In1oYgHbIW3q58=
+ :cc; bh=rgKkPquDB/3ylB22sdoq44O3nuMRqOGPmfYPJEM3DpI=;
+ b=JsXVqmPM/FghNi+FuyecZKJimRfQRZRaZMN7LbU4AElduixKN8TVkmhpZTWnrsGkbZ
+ 5LwE/p8/n+cIXvQ1YTcLTi0yyURcD/DMLBUnB+eqSpwlWIAygkMHM4b3P17Zp5erCg7D
+ knTgcyr8j5ARmG7z3CGlckVUGoumxDAZyb+n8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HvaEucNyttJ72r4dgkt1sbWCJsvBPyIh5zMt0LNXalY=;
- b=y0sK9joNBLbCt12HtYqKVld2dXQ+Y91Pnaa1xTa/1BJS5R+gkgzHXwOE0AFj+ACP+s
- PuOA80u7bp6ZWjKLLS5SzhqMAC8UVA6iU6nvQDU+K8IA5iVLvnBqcd0jyPhX7o39WnDt
- L5MMkPpqC1aM61KCLzwVedyUWULyM/WoFilVvdf9HSoId6IzoJf0OkPsOxheAWKuWl5p
- 7wPCaWW47IRk6B1o+2T17AKN9GBH7iI0TN9A9G2ZikIZxeILQp4FOVMaXDdHtgQ1Hezx
- NM7xFxRJNwKwoTLjGC4j+RwoaS7/DxTvCk5FvofvrwrsBiyK71MN9rsga4bDnjI2mDoA
- kLBA==
-X-Gm-Message-State: AOAM533Rc9wvEZHPhYjIjOVRigy4cynVx8gavkpxo6THDrXWUlCPiWUP
- sm5vxpssm6VKKGhmzBNt0JM7zT8w9dm0NnAF77JIzQ==
-X-Google-Smtp-Source: ABdhPJz16+9kQdS9QDTB0tjL4FsLbUEsFaIS0ykQfnx5qpyFYyBQCn1i8W4mcCkA/y3viUzYkXAgYYv9JpSOTwgMdpQ=
-X-Received: by 2002:a50:eb91:0:b0:42d:c1d8:616a with SMTP id
- y17-20020a50eb91000000b0042dc1d8616amr54940771edr.219.1654914192936; Fri, 10
- Jun 2022 19:23:12 -0700 (PDT)
+ bh=rgKkPquDB/3ylB22sdoq44O3nuMRqOGPmfYPJEM3DpI=;
+ b=YsbXqfp/TLlXwPEmqzk/ItM6wBTCdBmNTxtm6Pm6ep2lRi9w1Py1DL8c17jbGgi9tk
+ D4Aj4Y35+9PwV/rDSSiidUNJXi+zq3qJOrFOJ7eNMs7707Z5+xX7bVZuxo+99RK+1qXM
+ sfW44pUTMqgukXE/J6QXfxSklwma73+PxfAOOu1n+PqjO/u7fzfdi/xoNPF5J4X5WF77
+ Mvgp9WKu+QUj5Q8HEAicKguYvQdgrCTi1d74xCWHScGFIJlQy1wiaGtANVvIiSMvrCEH
+ SMsB1lKc97vKG4aqC5TdUmmMykkQoVURz5MB+Ps/32CIzEGDB3dYC4JjdnAQ0lUIB9Lp
+ R9Ng==
+X-Gm-Message-State: AOAM532TOWzrQdqlBApcBtfZ5JGU+Qte0mM5VdhbphnstLcdkCvBRKoN
+ nYv+/8Mh7AZzhSPKu0LZub/TvFlQhTgZpoHHFFxw2Q==
+X-Google-Smtp-Source: ABdhPJzFbgEeXrjhdaEFlL5CPKYiFgrRM2XGTpISMDDKOxh3YJg+nd70yb1Qcu1fnLsZwhWAweXqTRUn04uTYMjQVNU=
+X-Received: by 2002:aa7:c604:0:b0:42d:cffb:f4dc with SMTP id
+ h4-20020aa7c604000000b0042dcffbf4dcmr55022482edq.270.1654914796079; Fri, 10
+ Jun 2022 19:33:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220608142723.103523089@infradead.org>
  <20220608144517.444659212@infradead.org>
  <YqG6URbihTNCk9YR@alley> <YqHFHB6qqv5wiR8t@worktop.programming.kicks-ass.net>
- <YqHwOFg/WlMqe8/Z@alley>
-In-Reply-To: <YqHwOFg/WlMqe8/Z@alley>
+ <CA+_sPaoJGrXhNPCs2dKf2J7u07y1xYrRFZBUtkKwzK9GqcHSuQ@mail.gmail.com>
+ <YqHvXFdIJfvUDI6e@alley>
+In-Reply-To: <YqHvXFdIJfvUDI6e@alley>
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
-Date: Sat, 11 Jun 2022 11:23:02 +0900
-Message-ID: <CA+_sPaq_47C2PWnGU7WfGXMc03E1Nz+1=F-wZe0B2+ymqdm3Fg@mail.gmail.com>
+Date: Sat, 11 Jun 2022 11:33:05 +0900
+Message-ID: <CA+_sPaq1ez7jah0bibAdeA__Yp92K_VA7E-NZ9knoUmOW9itJg@mail.gmail.com>
 Subject: Re: [PATCH 24/36] printk: Remove trace_.*_rcuidle() usage
 To: Petr Mladek <pmladek@suse.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -111,10 +112,31 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Thu, Jun 9, 2022 at 10:06 PM Petr Mladek <pmladek@suse.com> wrote:
+On Thu, Jun 9, 2022 at 10:02 PM Petr Mladek <pmladek@suse.com> wrote:
 >
-> Makes sense. Feel free to use for this patch:
+> On Thu 2022-06-09 20:30:58, Sergey Senozhatsky wrote:
+> > My emails are getting rejected... Let me try web-interface
 >
-> Acked-by: Petr Mladek <pmladek@suse.com>
+> Bad day for mail sending. I have problems as well ;-)
 
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+For me the problem is still there and apparently it's an "too many
+recipients" error.
+
+> > I'm somewhat curious whether we can actually remove that trace event.
+>
+> Good question.
+>
+> Well, I think that it might be useful. It allows to see trace and
+> printk messages together.
+
+Fair enough. Seems that back in 2011 people were pretty happy with it
+https://lore.kernel.org/all/1322161388.5366.54.camel@jlt3.sipsolutions.net/T/#m7bf6416f469119372191f22a6ecf653c5f7331d2
+
+but... reportedly, one of the folks who Ack-ed it (*cough cough*
+PeterZ) has never used it.
+
+> It was ugly when it was in the console code. The new location
+> in vprintk_store() allows to have it even "correctly" sorted
+> (timestamp) against other tracing messages.
+
+That's true.
