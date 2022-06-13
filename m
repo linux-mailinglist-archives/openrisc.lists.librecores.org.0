@@ -2,28 +2,29 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 8CFBB54A33B
-	for <lists+openrisc@lfdr.de>; Tue, 14 Jun 2022 02:48:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3715D54A33C
+	for <lists+openrisc@lfdr.de>; Tue, 14 Jun 2022 02:48:18 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 7E06B249B3;
-	Tue, 14 Jun 2022 02:48:15 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 48F74249AA;
+	Tue, 14 Jun 2022 02:48:16 +0200 (CEST)
 Received: from muru.com (muru.com [72.249.23.125])
- by mail.librecores.org (Postfix) with ESMTP id D9021248F4
- for <openrisc@lists.librecores.org>; Mon, 13 Jun 2022 14:33:56 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTP id 9671124973
+ for <openrisc@lists.librecores.org>; Mon, 13 Jun 2022 14:35:17 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id 07F638191;
- Mon, 13 Jun 2022 12:29:14 +0000 (UTC)
-Date: Mon, 13 Jun 2022 15:33:54 +0300
+ by muru.com (Postfix) with ESMTPS id 5285681CC;
+ Mon, 13 Jun 2022 12:30:34 +0000 (UTC)
+Date: Mon, 13 Jun 2022 15:35:14 +0300
 From: Tony Lindgren <tony@atomide.com>
 To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH 12/36] cpuidle,omap2: Push RCU-idle into driver
-Message-ID: <YqcusjKzpN/d0qFf@atomide.com>
+Subject: Re: [PATCH 34/36] cpuidle,omap3: Push RCU-idle into omap_sram_idle()
+Message-ID: <YqcvAmiDSOAOAdA9@atomide.com>
 References: <20220608142723.103523089@infradead.org>
- <20220608144516.677524509@infradead.org>
+ <20220608144518.073801916@infradead.org>
+ <YqC6iJx4ygSmry0G@hirez.programming.kicks-ass.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144516.677524509@infradead.org>
+In-Reply-To: <YqC6iJx4ygSmry0G@hirez.programming.kicks-ass.net>
 X-Mailman-Approved-At: Tue, 14 Jun 2022 02:48:12 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -86,11 +87,27 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-* Peter Zijlstra <peterz@infradead.org> [220608 14:42]:
-> Doing RCU-idle outside the driver, only to then temporarily enable it
-> again, some *four* times, before going idle is daft.
+* Peter Zijlstra <peterz@infradead.org> [220608 15:00]:
+> On Wed, Jun 08, 2022 at 04:27:57PM +0200, Peter Zijlstra wrote:
+> > @@ -254,11 +255,18 @@ void omap_sram_idle(void)
+> >  	 */
+> >  	if (save_state)
+> >  		omap34xx_save_context(omap3_arm_context);
+> > +
+> > +	if (rcuidle)
+> > +		cpuidle_rcu_enter();
+> > +
+> >  	if (save_state == 1 || save_state == 3)
+> >  		cpu_suspend(save_state, omap34xx_do_sram_idle);
+> >  	else
+> >  		omap34xx_do_sram_idle(save_state);
+> >  
+> > +	if (rcuidle)
+> > +		rcuidle_rcu_exit();
+> 
+> *sigh* so much for this having been exposed to the robots for >2 days :/
 
-Maybe update the subject line with s/omap2/omap4/, other than that:
+I tested your git branch of these patches, so:
 
 Reviewed-by: Tony Lindgren <tony@atomide.com>
 Tested-by: Tony Lindgren <tony@atomide.com>
