@@ -2,28 +2,28 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id F1F1454A33A
-	for <lists+openrisc@lfdr.de>; Tue, 14 Jun 2022 02:48:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8CFBB54A33B
+	for <lists+openrisc@lfdr.de>; Tue, 14 Jun 2022 02:48:17 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 08407249B1;
+	by mail.librecores.org (Postfix) with ESMTP id 7E06B249B3;
 	Tue, 14 Jun 2022 02:48:15 +0200 (CEST)
 Received: from muru.com (muru.com [72.249.23.125])
- by mail.librecores.org (Postfix) with ESMTP id 703A124845
- for <openrisc@lists.librecores.org>; Mon, 13 Jun 2022 14:33:14 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTP id D9021248F4
+ for <openrisc@lists.librecores.org>; Mon, 13 Jun 2022 14:33:56 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id B3AA88125;
- Mon, 13 Jun 2022 12:28:30 +0000 (UTC)
-Date: Mon, 13 Jun 2022 15:33:10 +0300
+ by muru.com (Postfix) with ESMTPS id 07F638191;
+ Mon, 13 Jun 2022 12:29:14 +0000 (UTC)
+Date: Mon, 13 Jun 2022 15:33:54 +0300
 From: Tony Lindgren <tony@atomide.com>
 To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH 10/36] cpuidle,omap3: Push RCU-idle into driver
-Message-ID: <YqcuhiPVqktEpZxy@atomide.com>
+Subject: Re: [PATCH 12/36] cpuidle,omap2: Push RCU-idle into driver
+Message-ID: <YqcusjKzpN/d0qFf@atomide.com>
 References: <20220608142723.103523089@infradead.org>
- <20220608144516.552202452@infradead.org>
+ <20220608144516.677524509@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144516.552202452@infradead.org>
+In-Reply-To: <20220608144516.677524509@infradead.org>
 X-Mailman-Approved-At: Tue, 14 Jun 2022 02:48:12 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -87,8 +87,10 @@ Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
 * Peter Zijlstra <peterz@infradead.org> [220608 14:42]:
-> Doing RCU-idle outside the driver, only to then teporarily enable it
-> again before going idle is daft.
+> Doing RCU-idle outside the driver, only to then temporarily enable it
+> again, some *four* times, before going idle is daft.
+
+Maybe update the subject line with s/omap2/omap4/, other than that:
 
 Reviewed-by: Tony Lindgren <tony@atomide.com>
 Tested-by: Tony Lindgren <tony@atomide.com>
