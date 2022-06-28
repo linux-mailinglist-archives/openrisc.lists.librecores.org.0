@@ -2,51 +2,61 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 13A625625D0
-	for <lists+openrisc@lfdr.de>; Fri,  1 Jul 2022 00:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F3E4855EFB9
+	for <lists+openrisc@lfdr.de>; Tue, 28 Jun 2022 22:45:05 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A8DAA2414D;
-	Fri,  1 Jul 2022 00:08:07 +0200 (CEST)
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by mail.librecores.org (Postfix) with ESMTPS id 2142424987
- for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 22:36:46 +0200 (CEST)
-Received: by mail-yb1-f173.google.com with SMTP id i15so24311233ybp.1
- for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 13:36:46 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 87988249BB;
+	Tue, 28 Jun 2022 22:45:05 +0200 (CEST)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by mail.librecores.org (Postfix) with ESMTPS id 0B31024830
+ for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 22:45:03 +0200 (CEST)
+Received: by mail-pj1-f44.google.com with SMTP id go6so13745100pjb.0
+ for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 13:45:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=Am+buBS6l9nDliYi+u6nlrkdsgJwYS/B4MsYLVetbz0=;
- b=D+OVeNm+qvlXxecJvzQgMO+iI5wnx/Q+mmwN4AY3Lk+s3B2SwNd9P1y9S+PGzcyFzV
- bZ1n9262BipKLcCfsy4kigvYQiheYVnfgCmWcUusxVNPE8tgJyqzmmqyPg7q0YPoP8XY
- sBQEeSytPIU4FhSXkTuxZD7+ddIgxI9Z4hmeZx1r4LjPVE1+/forNrC+qxY0COQ3b9sh
- Se0VL0Mt/Dq6iiq1HzWEFJFk9ja+BIEK2KeOdGZ0nPsapflE8jJ413qa6OxkupFS9vxD
- vgra8Hzvb9AurSik+ryWVWxUcUl42un9D7jR8K4f8O+BkBDMrpDOiBHclho6e8A6qPct
- g2Jg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=klHwOIrGUdoErqjay96x3dFn9GkD+dj20qf/FYcK12c=;
+ b=X1i5WzweIaOt4XY1kmRXEbKZUdnuCT+fLaExkoVCRnE3JAsx/bTF0pDmO2QTDtm8Fw
+ A5+awOokJJ59Cmj/cp0AOFgthP2Uyl5ZBd90AcTwerYAX+tnuYJZi+5iW2WVqxVUHUKu
+ 9lYxUaOFtveWIpTFFupPy07e0u15Jhpf+6A22ZzQ3VWy4iTaXdFxbTLLBMOkY7VfEVcl
+ uNdwGBa6P0p6k31C9gp0jqSHZ2SsTHspthrB5+WmguUodkpRMeaplWfelsjlypPqdVY5
+ UEPfPh3kE6PLyKNtF3hcx75UlE1306/bY+L+2+zCgDFOPp8OvQveDB7cvYRLWGRXD6s7
+ +Dyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Am+buBS6l9nDliYi+u6nlrkdsgJwYS/B4MsYLVetbz0=;
- b=KPJZphsCY0ZhxSR6EGgkk8zjnCr8udQ3GU9L8wLxAeRGd2h6PFB27KVo5axU/LjreJ
- MqicF8ZqEBPVjPMgrj668dXgED8PaqfnK+T5UEVTjRy7QdlVhLFULvHUhQeGpW07l5Tv
- OxeSokbSsBVs6tVq/JVawEtntKb3AFB1b0IRq7UWQoxTgPzLcg6DjBeIRPbmwZ9NgywS
- Q6DDueZ4HcLC8K2UrFeqzGIGaXNmxJUGkWsolrU36KpyvaoBgpX7sT3Lhl5kb/TA/2H7
- JLSV5GL1XY8Bojncmvd+S33r/JGuaHqDIh4VzzClIv77vkeZZSVmJLbZttoa55NBNfHZ
- FSOQ==
-X-Gm-Message-State: AJIora8WewdZJUZ0Cr+Yr6G8G0XiQExQo3TkcHVSL0IgycCp1Ospk84W
- 2ESHrlGwLwizhLW2NhfXm/fltTnKVhqQRN3LQ+DQAJtfYQRMX2QJ314=
-X-Google-Smtp-Source: AGRyM1s5E4nHxae1yrblcbA4tTqiFMh24HYtR3/tjtzturQ07ZM7iIEDC9rbqQPZlZI5e3z6g50bhHP7kYzrpMPKrq8=
-X-Received: by 2002:a5b:f43:0:b0:665:6ff:c70b with SMTP id
- y3-20020a5b0f43000000b0066506ffc70bmr21793547ybr.216.1656448604796; 
- Tue, 28 Jun 2022 13:36:44 -0700 (PDT)
-MIME-Version: 1.0
-From: Joe R <joelinux1992@gmail.com>
-Date: Tue, 28 Jun 2022 16:36:34 -0400
-Message-ID: <CANmBqSDd-n2gyvkDgAqOO_Q43dRodrS9_BFmkxDY27O87p=Q=Q@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=klHwOIrGUdoErqjay96x3dFn9GkD+dj20qf/FYcK12c=;
+ b=UaFR/unICmeW9rAHOKJ+4feSglm0jnKFeCkzxk9xcy9ihE18zmP6cAszk71UZBaPRr
+ 5HfXHlAizhJcQJzQQeO7lDQSooMdzDGkP9PNbEkwpeTwXvKPArC4VtxGLlI+iHhz+AJE
+ Yf98oyOS/N+rt60aPnRuRo6DGM4wy0VkAobsttBhs1A2E7lfGOVKdIb52cjMFfm4mBwS
+ TFuUpvnt7N89aHWWyq9SYyvBSkcKj5VOkM/fKM09XUDYBfzIXtcnby4lv390TK1/WEw/
+ JYELX/dYIVJae+mRQ4pFqZGezkIfm0T33OQYd7dL14MF5iiWQle54gk4ao/JhMxpK6kD
+ McpA==
+X-Gm-Message-State: AJIora9KEzde1yM+YwEdFS4RK9DUyuEb0+exrHMW8eF/gstE8Dh0oEWF
+ QIqiK9oVLJJzLAPiU4FE/6E=
+X-Google-Smtp-Source: AGRyM1thlfN+vY8bV/1O836jKS536CGQUOb+TlJKrsUHmr0aLtbqVvyJN8rXzGMMSYz/3jZsbw1VXw==
+X-Received: by 2002:a17:902:ac90:b0:16a:1c0d:b586 with SMTP id
+ h16-20020a170902ac9000b0016a1c0db586mr6790829plr.155.1656449101406; 
+ Tue, 28 Jun 2022 13:45:01 -0700 (PDT)
+Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
+ by smtp.gmail.com with ESMTPSA id
+ 8-20020aa79208000000b0050dc76281e0sm5578951pfo.186.2022.06.28.13.45.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jun 2022 13:45:01 -0700 (PDT)
+Date: Wed, 29 Jun 2022 05:44:59 +0900
+From: Stafford Horne <shorne@gmail.com>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
 Subject: Re: [PATCH] wireguard: selftests: support OpenRISC
-To: openrisc@lists.librecores.org, linux-kernel@vger.kernel.org, 
- shorne@gmail.com, Jason@zx2c4.com
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 01 Jul 2022 00:08:06 +0200
+Message-ID: <YrtoS7ZUnKUg8Soz@antec>
+References: <20220628000210.763674-1-Jason@zx2c4.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220628000210.763674-1-Jason@zx2c4.com>
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -59,14 +69,30 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
+Cc: openrisc@lists.librecores.org, linux-kernel@vger.kernel.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Thank you for the patch, it seems like you put in a lot of time into it.
+On Tue, Jun 28, 2022 at 02:02:10AM +0200, Jason A. Donenfeld wrote:
+> Stafford and I have been using this to shake out OpenRISC bugs, and it's
+> been a great help, so it's time OpenRISC support for the WireGuard test
+> suite is made into a proper commit. The QEMU changes necessary for this
+> to work should also be around the corner now, and they seem some what
+> stationary in their interface too.
+> 
+> Cc: Stafford Horne <shorne@gmail.com>
+> Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
 
-However, I do have one question: on the website
-(https://www.wireguard.com/build-status/) it says that the test is
-still failing. Is that due to the QEMU changes that have yet to be
-upstream, or is it outdated and has already been fixed?
+Hello,
 
-Thanks again for all the hard work you do!
+I am not sure what happened to my reply on this yesterday, but I did have this
+queued for 5.19 fixes.  However, as we just discussed there are still some soft
+lockup issues that cause 'rcu: INFO: rcu_preempt detected stalls' noise.
+
+I will hold off sending this upstream for now.
+
+Example isssues:
+ - https://א.cc/x3Vt402T
+ - https://xn--4db.cc/bKiNzmFE
+
+-Stafford
