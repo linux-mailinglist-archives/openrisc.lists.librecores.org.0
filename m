@@ -2,61 +2,51 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B58655BF72
-	for <lists+openrisc@lfdr.de>; Tue, 28 Jun 2022 10:31:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 13A625625D0
+	for <lists+openrisc@lfdr.de>; Fri,  1 Jul 2022 00:08:08 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id C1393249B3;
-	Tue, 28 Jun 2022 10:31:02 +0200 (CEST)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by mail.librecores.org (Postfix) with ESMTPS id CB812240E1
- for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 10:31:01 +0200 (CEST)
-Received: by mail-pf1-f177.google.com with SMTP id i64so11342232pfc.8
- for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 01:31:01 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id A8DAA2414D;
+	Fri,  1 Jul 2022 00:08:07 +0200 (CEST)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173])
+ by mail.librecores.org (Postfix) with ESMTPS id 2142424987
+ for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 22:36:46 +0200 (CEST)
+Received: by mail-yb1-f173.google.com with SMTP id i15so24311233ybp.1
+ for <openrisc@lists.librecores.org>; Tue, 28 Jun 2022 13:36:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=2TpQEUwBlGb88p4IGzi7coXlKXR6VM/Rxu7edgxZRdk=;
- b=aDHAR+gThE7DCHiMc4w+Xv3mkdu4rkVcgXPF4v+8X8PUvOGiD8/v36X1k4A6RW/uNs
- Wcs/s0KQGad+czgeUL1BFEdgFXjpzIGT9VHf1J3Btmuqn5TWE1SO9k3Ub1Cuj2wPXdjP
- oiHmgyW3Mo1xkPaGmn+cEOLw9ylL/C2D5qGfZNSwOS4wUGIXKAQsYoRB3mscXSt9hez0
- 6DsC1Mnw75dCIc/sU+YFSvQTk+9Ik1HJc+8FpUxpk7njKXZhvdr8dGLt8h34iV3XUKkz
- zAJL1cMHV+FtKiGWoDgKggTNoEugbHIL95tfX/HdtkUF9FBTCUSyWxKu+o8Z230rCi/n
- 5IJA==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Am+buBS6l9nDliYi+u6nlrkdsgJwYS/B4MsYLVetbz0=;
+ b=D+OVeNm+qvlXxecJvzQgMO+iI5wnx/Q+mmwN4AY3Lk+s3B2SwNd9P1y9S+PGzcyFzV
+ bZ1n9262BipKLcCfsy4kigvYQiheYVnfgCmWcUusxVNPE8tgJyqzmmqyPg7q0YPoP8XY
+ sBQEeSytPIU4FhSXkTuxZD7+ddIgxI9Z4hmeZx1r4LjPVE1+/forNrC+qxY0COQ3b9sh
+ Se0VL0Mt/Dq6iiq1HzWEFJFk9ja+BIEK2KeOdGZ0nPsapflE8jJ413qa6OxkupFS9vxD
+ vgra8Hzvb9AurSik+ryWVWxUcUl42un9D7jR8K4f8O+BkBDMrpDOiBHclho6e8A6qPct
+ g2Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=2TpQEUwBlGb88p4IGzi7coXlKXR6VM/Rxu7edgxZRdk=;
- b=Lqmj3Xg4sEXC+Gy3Fu93rzLiKRmO96QYekX+6yS2cx/LMwFDFZaxZqJHKUcEM9LDLF
- YXZxGE6tllRwBLbXegBYuM/CjDIaLxtXamtKK4F8FJ9R77oHVlC8VA8fiKDG8A3RzmJL
- iV5xlLvePBwXKUuqudI/9UrxGd9mTwR0te2Amt0+xiBIEv5u0VqyAj8A11Ts4l36k1r7
- QynzKTjNJLiO8inuI9/WMfUGegIpTru8OjjiF6JiW8fqLLixAJbRBHO1d3UuDmmK0IYt
- ebYkP5udOkHmTFBDFjyzyRt59pgWEjlA8AU1+JMlK59GX0JeKHDT/Od0v3SPiSY98XBh
- RFtQ==
-X-Gm-Message-State: AJIora9pbPNPQxbihD5akP9LG9MWTJa40lq8qB0RAI0L1stmvZM/t13k
- WQ8O2kDEo9AJ3nMmkiDnCnQ=
-X-Google-Smtp-Source: AGRyM1t7VQLkR1oO3Z/OyJLVwJsR2RoJKs4ViIJTiEBeq57yqGnKG7zKU0eZOc74hdIrVGHSNEbuIg==
-X-Received: by 2002:a05:6a00:1489:b0:525:b83f:b32f with SMTP id
- v9-20020a056a00148900b00525b83fb32fmr3542633pfu.25.1656405059955; 
- Tue, 28 Jun 2022 01:30:59 -0700 (PDT)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id
- u9-20020a170902e5c900b0016760c06b76sm250708plf.194.2022.06.28.01.30.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 01:30:59 -0700 (PDT)
-Date: Tue, 28 Jun 2022 17:30:57 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH] irqchip: or1k-pic: Undefine mask_ack for level triggered
- hardware
-Message-ID: <Yrq8QaYRfcnRJcKP@antec>
-References: <20220628012854.681220-1-shorne@gmail.com>
- <877d512o0a.wl-maz@kernel.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Am+buBS6l9nDliYi+u6nlrkdsgJwYS/B4MsYLVetbz0=;
+ b=KPJZphsCY0ZhxSR6EGgkk8zjnCr8udQ3GU9L8wLxAeRGd2h6PFB27KVo5axU/LjreJ
+ MqicF8ZqEBPVjPMgrj668dXgED8PaqfnK+T5UEVTjRy7QdlVhLFULvHUhQeGpW07l5Tv
+ OxeSokbSsBVs6tVq/JVawEtntKb3AFB1b0IRq7UWQoxTgPzLcg6DjBeIRPbmwZ9NgywS
+ Q6DDueZ4HcLC8K2UrFeqzGIGaXNmxJUGkWsolrU36KpyvaoBgpX7sT3Lhl5kb/TA/2H7
+ JLSV5GL1XY8Bojncmvd+S33r/JGuaHqDIh4VzzClIv77vkeZZSVmJLbZttoa55NBNfHZ
+ FSOQ==
+X-Gm-Message-State: AJIora8WewdZJUZ0Cr+Yr6G8G0XiQExQo3TkcHVSL0IgycCp1Ospk84W
+ 2ESHrlGwLwizhLW2NhfXm/fltTnKVhqQRN3LQ+DQAJtfYQRMX2QJ314=
+X-Google-Smtp-Source: AGRyM1s5E4nHxae1yrblcbA4tTqiFMh24HYtR3/tjtzturQ07ZM7iIEDC9rbqQPZlZI5e3z6g50bhHP7kYzrpMPKrq8=
+X-Received: by 2002:a5b:f43:0:b0:665:6ff:c70b with SMTP id
+ y3-20020a5b0f43000000b0066506ffc70bmr21793547ybr.216.1656448604796; 
+ Tue, 28 Jun 2022 13:36:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877d512o0a.wl-maz@kernel.org>
+From: Joe R <joelinux1992@gmail.com>
+Date: Tue, 28 Jun 2022 16:36:34 -0400
+Message-ID: <CANmBqSDd-n2gyvkDgAqOO_Q43dRodrS9_BFmkxDY27O87p=Q=Q@mail.gmail.com>
+Subject: Re: [PATCH] wireguard: selftests: support OpenRISC
+To: openrisc@lists.librecores.org, linux-kernel@vger.kernel.org, 
+ shorne@gmail.com, Jason@zx2c4.com
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 01 Jul 2022 00:08:06 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,53 +59,14 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, Thomas Gleixner <tglx@linutronix.de>,
- Openrisc <openrisc@lists.librecores.org>, LKML <linux-kernel@vger.kernel.org>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Tue, Jun 28, 2022 at 09:25:25AM +0100, Marc Zyngier wrote:
-> On Tue, 28 Jun 2022 02:28:54 +0100,
-> Stafford Horne <shorne@gmail.com> wrote:
-> > 
-> > The mask_ack operation clears the interrupt by writing to the PICSR
-> > register.  This we don't want for level triggered interrupt because
-> > it does not actually clear the interrupt on the source hardware.
-> > 
-> > This was causing issues in qemu with multi core setups where
-> > interrupts would continue to fire even though they had been cleared in
-> > PICSR.
-> > 
-> > Just remove the mask_ack operation.
-> > 
-> > Signed-off-by: Stafford Horne <shorne@gmail.com>
-> > ---
-> > Note,
-> > 
-> > I currently have this queued with openrisc fixes for 5.19-rcX.  If this is ok
-> > with the IRQ maintainers I would like to have this merged via the OpenRISC
-> > queue.
-> > 
-> >  drivers/irqchip/irq-or1k-pic.c | 1 -
-> >  1 file changed, 1 deletion(-)
-> > 
-> > diff --git a/drivers/irqchip/irq-or1k-pic.c b/drivers/irqchip/irq-or1k-pic.c
-> > index 49b47e787644..f289ccd95291 100644
-> > --- a/drivers/irqchip/irq-or1k-pic.c
-> > +++ b/drivers/irqchip/irq-or1k-pic.c
-> > @@ -66,7 +66,6 @@ static struct or1k_pic_dev or1k_pic_level = {
-> >  		.name = "or1k-PIC-level",
-> >  		.irq_unmask = or1k_pic_unmask,
-> >  		.irq_mask = or1k_pic_mask,
-> > -		.irq_mask_ack = or1k_pic_mask_ack,
-> >  	},
-> >  	.handle = handle_level_irq,
-> >  	.flags = IRQ_LEVEL | IRQ_NOPROBE,
-> 
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> 
-> Feel free to take this via your tree.
+Thank you for the patch, it seems like you put in a lot of time into it.
 
-Thanks,
+However, I do have one question: on the website
+(https://www.wireguard.com/build-status/) it says that the test is
+still failing. Is that due to the QEMU changes that have yet to be
+upstream, or is it outdated and has already been fixed?
 
--Stafford
+Thanks again for all the hard work you do!
