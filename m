@@ -2,29 +2,56 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id C041356113C
-	for <lists+openrisc@lfdr.de>; Thu, 30 Jun 2022 07:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DBC9F5649F9
+	for <lists+openrisc@lfdr.de>; Sun,  3 Jul 2022 23:28:48 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 9E41324A08;
-	Thu, 30 Jun 2022 07:20:34 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mail.librecores.org (Postfix) with ESMTP id 97F0124A20
- for <openrisc@lists.librecores.org>; Thu, 30 Jun 2022 07:20:32 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 532E71BC0;
- Wed, 29 Jun 2022 22:20:32 -0700 (PDT)
-Received: from a077893.blr.arm.com (unknown [10.162.41.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D96BE3F66F;
- Wed, 29 Jun 2022 22:20:23 -0700 (PDT)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-mm@kvack.org,
-	akpm@linux-foundation.org
-Subject: [PATCH V6 26/26] mm/mmap: Drop ARCH_HAS_VM_GET_PAGE_PROT
-Date: Thu, 30 Jun 2022 10:46:30 +0530
-Message-Id: <20220630051630.1718927-27-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220630051630.1718927-1-anshuman.khandual@arm.com>
-References: <20220630051630.1718927-1-anshuman.khandual@arm.com>
+	by mail.librecores.org (Postfix) with ESMTP id 2132324854;
+	Sun,  3 Jul 2022 23:28:48 +0200 (CEST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by mail.librecores.org (Postfix) with ESMTPS id 4B91D2406B
+ for <openrisc@lists.librecores.org>; Sun,  3 Jul 2022 23:28:47 +0200 (CEST)
+Received: by mail-pj1-f54.google.com with SMTP id
+ n16-20020a17090ade9000b001ed15b37424so7734120pjv.3
+ for <openrisc@lists.librecores.org>; Sun, 03 Jul 2022 14:28:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BnOvjZiW9u4sx8x+Ss3mNCv4J9tIowByCWqNKuz5lKQ=;
+ b=WgAJPuRMgibvmQi0sUlccPkrX/iiPAHnaOLe8SStio1pl1zdIRly0EBkW75+CWeaYK
+ 3zR8YwLlRfxV3U1cfZBQI3QzWjTjKHCaEV0N+FMPkMNvPvY0Nu5fbNUxcKWEB3A1zaRT
+ m2RxvbKbZN9DfpaBowUpWhgJ5NU2oO6xez6pt/gd+YSQ/WOhoHpLnIkdUxOkkQqK0/db
+ NgIQjqSKL3QbiZ+UKUeF7WhiJC8vgomh7RYVsgGEBU4co6pryt4/t6bhKYbksm1S9vNi
+ 5pVQDOewLDcdPRhaputi16eID2fxux99yL+XdR4vYgdRKhvBiqzMZF38cysef6WqUfgI
+ vS9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BnOvjZiW9u4sx8x+Ss3mNCv4J9tIowByCWqNKuz5lKQ=;
+ b=mkaNz1TvoMyNKCynbj0QJ6ILzl9FZ0A0TdYmC1urA6yiDJLzkL1WVTvx9TkkE0qvdu
+ O88YSQeHqHkZjR19+PxtpdytOdcDrUuqSB3k3b4yFCjFLAJcqEm6u9dLwHelpLFH/159
+ txP0tNz2nmEXIV9tswCQsy0miWWJykRIMngfQRPsrkzOJ2co4YvR4p1KwwspZ9DotnxR
+ +3IxZN77nphslie0CilAAglqRFpb3X+hbn1VPhRk83TYAeLGKJ1BfTQshs0TLrkBpKv/
+ wx20Vdtzl5IGpr6kOzppyIWWdl5nZ1KEj0QD7m4stOXdevDkGhMD3uRcNTp4C2qqZuog
+ CxUw==
+X-Gm-Message-State: AJIora86FzzkG2gyGpcQvgjryZqDe8TkR+Fn0nP2BqN2/3vL1lFL9z02
+ +U0boHJ7DkEDWbCu7QIy5YLC90zDGEc=
+X-Google-Smtp-Source: AGRyM1s7d1u9/66Gm8B1U9hFHMS+NTp6IaA1tPWQkH77kzVmLVnPcYMcTCsBzu+H9KIYbYbCH1SB2A==
+X-Received: by 2002:a17:90a:9e7:b0:1ef:6fd7:b5f7 with SMTP id
+ 94-20020a17090a09e700b001ef6fd7b5f7mr11279329pjo.158.1656883725660; 
+ Sun, 03 Jul 2022 14:28:45 -0700 (PDT)
+Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
+ by smtp.gmail.com with ESMTPSA id
+ p4-20020a170902bd0400b0016b81679c31sm13912883pls.213.2022.07.03.14.28.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Jul 2022 14:28:45 -0700 (PDT)
+From: Stafford Horne <shorne@gmail.com>
+To: QEMU Development <qemu-devel@nongnu.org>
+Subject: [PATCH v2 00/11] OpenRISC Virtual Machine
+Date: Mon,  4 Jul 2022 06:28:12 +0900
+Message-Id: <20220703212823.10067-1-shorne@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openrisc@lists.librecores.org
@@ -39,384 +66,94 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-ia64@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>, linux-s390@vger.kernel.org,
- linux-hexagon@vger.kernel.org, x86@kernel.org, christophe.leroy@csgroup.eu,
- hch@infradead.org, linux-snps-arc@lists.infradead.org,
- linux-xtensa@linux-xtensa.org, Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-um@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
- openrisc@lists.librecores.org, linux-arm-kernel@lists.infradead.org,
- linux-parisc@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Openrisc <openrisc@lists.librecores.org>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Now all the platforms enable ARCH_HAS_GET_PAGE_PROT. They define and export
-own vm_get_page_prot() whether custom or standard DECLARE_VM_GET_PAGE_PROT.
-Hence there is no need for default generic fallback for vm_get_page_prot().
-Just drop this fallback and also ARCH_HAS_GET_PAGE_PROT mechanism.
+Hello,
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
- arch/alpha/Kconfig      |  1 -
- arch/arc/Kconfig        |  1 -
- arch/arm/Kconfig        |  1 -
- arch/arm64/Kconfig      |  1 -
- arch/csky/Kconfig       |  1 -
- arch/hexagon/Kconfig    |  1 -
- arch/ia64/Kconfig       |  1 -
- arch/loongarch/Kconfig  |  1 -
- arch/m68k/Kconfig       |  1 -
- arch/microblaze/Kconfig |  1 -
- arch/mips/Kconfig       |  1 -
- arch/nios2/Kconfig      |  1 -
- arch/openrisc/Kconfig   |  1 -
- arch/parisc/Kconfig     |  1 -
- arch/powerpc/Kconfig    |  1 -
- arch/riscv/Kconfig      |  1 -
- arch/s390/Kconfig       |  1 -
- arch/sh/Kconfig         |  1 -
- arch/sparc/Kconfig      |  1 -
- arch/um/Kconfig         |  1 -
- arch/x86/Kconfig        |  1 -
- arch/xtensa/Kconfig     |  1 -
- include/linux/mm.h      |  3 ---
- mm/Kconfig              |  3 ---
- mm/mmap.c               | 22 ----------------------
- 25 files changed, 50 deletions(-)
+This is the OpenRISC Virtual Machine plaform which we are now using for OpenRISC
+CI such as the wireguard testing that Jason has been working on.
 
-diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-index db1c8b329461..7d0d26b5b3f5 100644
---- a/arch/alpha/Kconfig
-+++ b/arch/alpha/Kconfig
-@@ -2,7 +2,6 @@
- config ALPHA
- 	bool
- 	default y
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_32BIT_USTAT_F_TINODE
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_MIGHT_HAVE_PC_SERIO
-diff --git a/arch/arc/Kconfig b/arch/arc/Kconfig
-index 8be56a5d8a9b..9e3653253ef2 100644
---- a/arch/arc/Kconfig
-+++ b/arch/arc/Kconfig
-@@ -13,7 +13,6 @@ config ARC
- 	select ARCH_HAS_SETUP_DMA_OPS
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_SUPPORTS_ATOMIC_RMW if ARC_HAS_LLSC
- 	select ARCH_32BIT_OFF_T
- 	select BUILDTIME_TABLE_SORT
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index e153b6d4fc5b..7630ba9cb6cc 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -24,7 +24,6 @@ config ARM
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU if SWIOTLB || !MMU
- 	select ARCH_HAS_TEARDOWN_DMA_OPS if MMU
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAVE_CUSTOM_GPIO_H
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG if CPU_V7 || CPU_V7M || CPU_V6K
- 	select ARCH_HAS_GCOV_PROFILE_ALL
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1652a9800ebe..7030bf3f8d6f 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -45,7 +45,6 @@ config ARM64
- 	select ARCH_HAS_SYSCALL_WRAPPER
- 	select ARCH_HAS_TEARDOWN_DMA_OPS if IOMMU_SUPPORT
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAS_ZONE_DMA_SET if EXPERT
- 	select ARCH_HAVE_ELF_PROT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
-diff --git a/arch/csky/Kconfig b/arch/csky/Kconfig
-index 588b8a9c68ed..21d72b078eef 100644
---- a/arch/csky/Kconfig
-+++ b/arch/csky/Kconfig
-@@ -6,7 +6,6 @@ config CSKY
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_USE_BUILTIN_BSWAP
- 	select ARCH_USE_QUEUED_RWLOCKS
- 	select ARCH_WANT_FRAME_POINTERS if !CPU_CK610 && $(cc-option,-mbacktrace)
-diff --git a/arch/hexagon/Kconfig b/arch/hexagon/Kconfig
-index bc4ceecd0588..54eadf265178 100644
---- a/arch/hexagon/Kconfig
-+++ b/arch/hexagon/Kconfig
-@@ -6,7 +6,6 @@ config HEXAGON
- 	def_bool y
- 	select ARCH_32BIT_OFF_T
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_NO_PREEMPT
- 	select DMA_GLOBAL_POOL
- 	# Other pending projects/to-do items.
-diff --git a/arch/ia64/Kconfig b/arch/ia64/Kconfig
-index 0510a5737711..cb93769a9f2a 100644
---- a/arch/ia64/Kconfig
-+++ b/arch/ia64/Kconfig
-@@ -12,7 +12,6 @@ config IA64
- 	select ARCH_HAS_DMA_MARK_CLEAN
- 	select ARCH_HAS_STRNCPY_FROM_USER
- 	select ARCH_HAS_STRNLEN_USER
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_MIGHT_HAVE_PC_SERIO
- 	select ACPI
-diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-index fd07b8e760ee..1920d52653b4 100644
---- a/arch/loongarch/Kconfig
-+++ b/arch/loongarch/Kconfig
-@@ -9,7 +9,6 @@ config LOONGARCH
- 	select ARCH_HAS_ACPI_TABLE_UPGRADE	if ACPI
- 	select ARCH_HAS_PHYS_TO_DMA
- 	select ARCH_HAS_PTE_SPECIAL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
- 	select ARCH_INLINE_READ_LOCK if !PREEMPTION
- 	select ARCH_INLINE_READ_LOCK_BH if !PREEMPTION
-diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
-index 49aa0cf13e96..936cce42ae9a 100644
---- a/arch/m68k/Kconfig
-+++ b/arch/m68k/Kconfig
-@@ -7,7 +7,6 @@ config M68K
- 	select ARCH_HAS_CURRENT_STACK_POINTER
- 	select ARCH_HAS_DMA_PREP_COHERENT if HAS_DMA && MMU && !COLDFIRE
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE if HAS_DMA
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG if RMW_INSNS
- 	select ARCH_MIGHT_HAVE_PC_PARPORT if ISA
- 	select ARCH_NO_PREEMPT if !COLDFIRE
-diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
-index 15f91ba8a0c4..8cf429ad1c84 100644
---- a/arch/microblaze/Kconfig
-+++ b/arch/microblaze/Kconfig
-@@ -7,7 +7,6 @@ config MICROBLAZE
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_WANT_IPC_PARSE_VERSION
- 	select BUILDTIME_TABLE_SORT
-diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-index d0b7eb11ec81..db09d45d59ec 100644
---- a/arch/mips/Kconfig
-+++ b/arch/mips/Kconfig
-@@ -14,7 +14,6 @@ config MIPS
- 	select ARCH_HAS_STRNLEN_USER
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_KEEP_MEMBLOCK
- 	select ARCH_SUPPORTS_UPROBES
-diff --git a/arch/nios2/Kconfig b/arch/nios2/Kconfig
-index e0459dffd218..4167f1eb4cd8 100644
---- a/arch/nios2/Kconfig
-+++ b/arch/nios2/Kconfig
-@@ -6,7 +6,6 @@ config NIOS2
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
- 	select ARCH_HAS_DMA_SET_UNCACHED
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_NO_SWAP
- 	select COMMON_CLK
- 	select TIMER_OF
-diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
-index fe0dfb50eb86..e814df4c483c 100644
---- a/arch/openrisc/Kconfig
-+++ b/arch/openrisc/Kconfig
-@@ -10,7 +10,6 @@ config OPENRISC
- 	select ARCH_HAS_DMA_SET_UNCACHED
- 	select ARCH_HAS_DMA_CLEAR_UNCACHED
- 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select COMMON_CLK
- 	select OF
- 	select OF_EARLY_FLATTREE
-diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
-index 891d82393957..fa400055b2d5 100644
---- a/arch/parisc/Kconfig
-+++ b/arch/parisc/Kconfig
-@@ -12,7 +12,6 @@ config PARISC
- 	select ARCH_HAS_STRICT_KERNEL_RWX
- 	select ARCH_HAS_STRICT_MODULE_RWX
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAS_PTE_SPECIAL
- 	select ARCH_NO_SG_CHAIN
- 	select ARCH_SUPPORTS_HUGETLBFS if PA20
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 1035d172c7dd..250b8658b2d4 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -140,7 +140,6 @@ config PPC
- 	select ARCH_HAS_TICK_BROADCAST		if GENERIC_CLOCKEVENTS_BROADCAST
- 	select ARCH_HAS_UACCESS_FLUSHCACHE
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
- 	select ARCH_KEEP_MEMBLOCK
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index 583389d4e43a..32ffef9f6e5b 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -32,7 +32,6 @@ config RISCV
- 	select ARCH_HAS_STRICT_MODULE_RWX if MMU && !XIP_KERNEL
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
- 	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
- 	select ARCH_STACKWALK
-diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
-index c4481377ca83..91c0b80a8bf0 100644
---- a/arch/s390/Kconfig
-+++ b/arch/s390/Kconfig
-@@ -81,7 +81,6 @@ config S390
- 	select ARCH_HAS_SYSCALL_WRAPPER
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
- 	select ARCH_HAS_VDSO_DATA
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
- 	select ARCH_INLINE_READ_LOCK
- 	select ARCH_INLINE_READ_LOCK_BH
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index 91f3ea325388..5f220e903e5a 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -12,7 +12,6 @@ config SUPERH
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_HAS_PTE_SPECIAL
- 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HIBERNATION_POSSIBLE if MMU
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_WANT_IPC_PARSE_VERSION
-diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
-index 09f868613a4d..9c1cce74953a 100644
---- a/arch/sparc/Kconfig
-+++ b/arch/sparc/Kconfig
-@@ -13,7 +13,6 @@ config 64BIT
- config SPARC
- 	bool
- 	default y
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_MIGHT_HAVE_PC_PARPORT if SPARC64 && PCI
- 	select ARCH_MIGHT_HAVE_PC_SERIO
- 	select DMA_OPS
-diff --git a/arch/um/Kconfig b/arch/um/Kconfig
-index 7fb43654e5b5..4ec22e156a2e 100644
---- a/arch/um/Kconfig
-+++ b/arch/um/Kconfig
-@@ -10,7 +10,6 @@ config UML
- 	select ARCH_HAS_KCOV
- 	select ARCH_HAS_STRNCPY_FROM_USER
- 	select ARCH_HAS_STRNLEN_USER
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_NO_PREEMPT
- 	select HAVE_ARCH_AUDITSYSCALL
- 	select HAVE_ARCH_SECCOMP_FILTER
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index be0b95e51df6..841e4843d0c4 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -94,7 +94,6 @@ config X86
- 	select ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
- 	select ARCH_HAS_SYSCALL_WRAPPER
- 	select ARCH_HAS_UBSAN_SANITIZE_ALL
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_HAS_DEBUG_WX
- 	select ARCH_HAS_ZONE_DMA_SET if EXPERT
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
-diff --git a/arch/xtensa/Kconfig b/arch/xtensa/Kconfig
-index 4c0d83520ff1..0b0f0172cced 100644
---- a/arch/xtensa/Kconfig
-+++ b/arch/xtensa/Kconfig
-@@ -11,7 +11,6 @@ config XTENSA
- 	select ARCH_HAS_DMA_SET_UNCACHED if MMU
- 	select ARCH_HAS_STRNCPY_FROM_USER if !KASAN
- 	select ARCH_HAS_STRNLEN_USER
--	select ARCH_HAS_VM_GET_PAGE_PROT
- 	select ARCH_USE_MEMTEST
- 	select ARCH_USE_QUEUED_RWLOCKS
- 	select ARCH_USE_QUEUED_SPINLOCKS
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 07b56995e0fe..4ccd29f6828f 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -424,9 +424,6 @@ extern unsigned int kobjsize(const void *objp);
-  * mapping from the currently active vm_flags protection bits (the
-  * low four bits) to a page protection mask..
-  */
--#ifndef CONFIG_ARCH_HAS_VM_GET_PAGE_PROT
--extern pgprot_t protection_map[16];
--#endif
- 
- /*
-  * The default fault flags that should be used by most of the
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 169e64192e48..f47d257a053b 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -951,9 +951,6 @@ config ARCH_HAS_CURRENT_STACK_POINTER
- 	  register alias named "current_stack_pointer", this config can be
- 	  selected.
- 
--config ARCH_HAS_VM_GET_PAGE_PROT
--	bool
--
- config ARCH_HAS_PTE_DEVMAP
- 	bool
- 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 2cc722e162fa..02d6889f0ef6 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -81,28 +81,6 @@ static void unmap_region(struct mm_struct *mm,
- 		struct vm_area_struct *vma, struct vm_area_struct *prev,
- 		unsigned long start, unsigned long end);
- 
--#ifndef CONFIG_ARCH_HAS_VM_GET_PAGE_PROT
--pgprot_t protection_map[16] __ro_after_init = {
--	[VM_NONE]					= __P000,
--	[VM_READ]					= __P001,
--	[VM_WRITE]					= __P010,
--	[VM_WRITE | VM_READ]				= __P011,
--	[VM_EXEC]					= __P100,
--	[VM_EXEC | VM_READ]				= __P101,
--	[VM_EXEC | VM_WRITE]				= __P110,
--	[VM_EXEC | VM_WRITE | VM_READ]			= __P111,
--	[VM_SHARED]					= __S000,
--	[VM_SHARED | VM_READ]				= __S001,
--	[VM_SHARED | VM_WRITE]				= __S010,
--	[VM_SHARED | VM_WRITE | VM_READ]		= __S011,
--	[VM_SHARED | VM_EXEC]				= __S100,
--	[VM_SHARED | VM_EXEC | VM_READ]			= __S101,
--	[VM_SHARED | VM_EXEC | VM_WRITE]		= __S110,
--	[VM_SHARED | VM_EXEC | VM_WRITE | VM_READ]	= __S111
--};
--DECLARE_VM_GET_PAGE_PROT
--#endif	/* CONFIG_ARCH_HAS_VM_GET_PAGE_PROT */
--
- static pgprot_t vm_pgprot_modify(pgprot_t oldprot, unsigned long vm_flags)
- {
- 	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
+The first few patches help get OpenRISC QEMU ready for the virtual machine.
+There is one bug fix for GDB debugging there too.
+
+Next we have the Virt patch followed by a separate patch to add PCI support
+which is split out because it's a bit easier to review that way I thought.  The
+next few patches are fixes to get the Multicore platform stable, such as adding
+MTTCG support and fixing some interrupt and timer related bugs.
+
+The platform is relatively stable now, but every few boots we get ~10 second soft
+lockups.  My hunch is that this is another interrupt race condition where IPI's
+end up getting lost.  However, overall the is much more stable than the SMP
+support we had before.  So I want to submit this for review and maybe upstream
+it before tracking down these last issues which might take significant more
+time.
+
+This is being tested with my or1k-virt kernel branch here:
+
+  https://github.com/stffrdhrn/linux/commits/or1k-virt
+
+  This tree has support for: OpenRISC PCI and virt_defconfig and an irqchip bug
+  fix.
+
+Changes since v1:
+ - Dropped semihosting support
+ - Added PCI support
+ - Added OpenRISC documentation
+ - Added OpenRISC support for MTTCG
+ - Support Configurating Goldfish RTC endianness
+ - Added a few bug fix patches
+
+-Stafford
+
+Jason A. Donenfeld (1):
+  hw/openrisc: virt: pass random seed to fdt
+
+Stafford Horne (10):
+  hw/openrisc: Split re-usable boot time apis out to boot.c
+  target/openrisc: Fix memory reading in debugger
+  goldfish_rtc: Add endianness property
+  hw/openrisc: Add the OpenRISC virtual machine
+  hw/openrisc: Add PCI bus support to virt
+  hw/openrisc: Initialize timer time at startup
+  target/openrisc: Add interrupted CPU to log
+  target/openrisc: Enable MTTCG
+  target/openrisc: Interrupt handling fixes
+  docs/system: openrisc: Add OpenRISC documentation
+
+ configs/devices/or1k-softmmu/default.mak |   1 +
+ configs/targets/or1k-softmmu.mak         |   1 +
+ docs/system/openrisc/cpu-features.rst    |  15 +
+ docs/system/openrisc/emulation.rst       |  17 +
+ docs/system/openrisc/or1k-sim.rst        |  43 ++
+ docs/system/openrisc/virt.rst            |  50 ++
+ docs/system/target-openrisc.rst          |  72 +++
+ docs/system/targets.rst                  |   1 +
+ hw/openrisc/Kconfig                      |  12 +
+ hw/openrisc/boot.c                       | 117 +++++
+ hw/openrisc/cputimer.c                   |  18 +
+ hw/openrisc/meson.build                  |   2 +
+ hw/openrisc/openrisc_sim.c               | 106 +----
+ hw/openrisc/virt.c                       | 578 +++++++++++++++++++++++
+ hw/rtc/goldfish_rtc.c                    |  46 +-
+ include/hw/openrisc/boot.h               |  34 ++
+ include/hw/rtc/goldfish_rtc.h            |   2 +
+ target/openrisc/cpu.c                    |   1 -
+ target/openrisc/cpu.h                    |   3 +
+ target/openrisc/interrupt.c              |   4 +-
+ target/openrisc/mmu.c                    |   8 +-
+ target/openrisc/sys_helper.c             |  18 +-
+ 22 files changed, 1035 insertions(+), 114 deletions(-)
+ create mode 100644 docs/system/openrisc/cpu-features.rst
+ create mode 100644 docs/system/openrisc/emulation.rst
+ create mode 100644 docs/system/openrisc/or1k-sim.rst
+ create mode 100644 docs/system/openrisc/virt.rst
+ create mode 100644 docs/system/target-openrisc.rst
+ create mode 100644 hw/openrisc/boot.c
+ create mode 100644 hw/openrisc/virt.c
+ create mode 100644 include/hw/openrisc/boot.h
+
 -- 
-2.25.1
+2.36.1
 
