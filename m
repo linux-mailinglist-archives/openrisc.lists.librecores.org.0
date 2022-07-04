@@ -2,81 +2,64 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 44BFD565E58
-	for <lists+openrisc@lfdr.de>; Mon,  4 Jul 2022 22:19:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC5EC565203
+	for <lists+openrisc@lfdr.de>; Mon,  4 Jul 2022 12:20:20 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 7680724165;
-	Mon,  4 Jul 2022 22:19:57 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by mail.librecores.org (Postfix) with ESMTP id DC6DA20C94
- for <openrisc@lists.librecores.org>; Mon,  4 Jul 2022 12:16:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1656929812;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y5yELtTdELIv7VIGZgeMH4CiGHZUar6RzmTrSw9j30Y=;
- b=F8lolbEygS747+C631c2gyHPqeuB5ARxTIii02Gpo/Z7fZlT4vVpqdVE1ezRgy8//O8SV8
- 9kZ0fQ5R6mNSkflYVUnzrqrUhEsdfhHlTbrGOsZ5hJhrzOoQfaasYdbWp/PYV+mJYnco94
- wZlrqTSTzSOpf59n5I0dL2oDMO4ZflE=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-481-u1CAhm-KMLugSd8jdMdGAA-1; Mon, 04 Jul 2022 06:16:51 -0400
-X-MC-Unique: u1CAhm-KMLugSd8jdMdGAA-1
-Received: by mail-qt1-f200.google.com with SMTP id
- bc7-20020a05622a1cc700b0031e7e46e660so480664qtb.10
- for <openrisc@lists.librecores.org>; Mon, 04 Jul 2022 03:16:51 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id 4C379248F3;
+	Mon,  4 Jul 2022 12:20:20 +0200 (CEST)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by mail.librecores.org (Postfix) with ESMTPS id 37FAC20FF5
+ for <openrisc@lists.librecores.org>; Mon,  4 Jul 2022 12:20:18 +0200 (CEST)
+Received: by mail-pg1-f172.google.com with SMTP id 145so8517567pga.12
+ for <openrisc@lists.librecores.org>; Mon, 04 Jul 2022 03:20:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=IEpUPe6OelLAnFFUtEwqJArazfaJNRFBOBPI9yOWGjk=;
+ b=trAeMPpfCNi7GO/3u3YDEE1xu3oKdssFJK7NlhqNKY+eVzTfotB28HMjLwnUynQU9r
+ hb8vnG+WjkpMUDizWkXnhLjgTXL6Btj3mYJDSdvKzwUAMdkj0ZUnR1cZcMtiYsbzy7dc
+ 2ST3ZGBnIyU6QUtUmyNysMNba6+mboDBGWYJ7Iljm5VK8lfFC4/A2iHpsWodsVKAxWdO
+ qNXxZ9kVPNQSm6eXGMd0OGqLZOomwOR9EO/Tq79yK1NDDLPA5SJMbpsWrEUpyvMdZJUq
+ J8oKP31vW3smmimzQJKBH7Wh47oMC+nSJlsVIsmzhZIFGz8c95B2znM5MlwXwd/uwOS0
+ nYnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=Y5yELtTdELIv7VIGZgeMH4CiGHZUar6RzmTrSw9j30Y=;
- b=67vNYc4TTc9VoG5CUq5pN54ZkdGv3j8OOATBx4uRwGMsa4/dtdkuI5HVeHdCUIJXmZ
- jfRzAaMVpDfg/J9etjM+xTQMeh2mwhAuYjtDeVjGubWGfVDdcat8DDx8+Sztz0FWyKJq
- 1A0tb9utN5wdwqKWkd+uw/SDl4/C60L++NsUbnz1nLYtaIY5hiMiiWNWZMgEL/n/sOW4
- JgMb/xDkrNXhOlt4PWpQ+7nj24IQsUsmsd4LsSpUdLJcnHJV2RNMYrSXDZnX1/iOk27I
- MEKBIl/F8/h5M890BQ3jMecJOBJMzwyaVrRA/1cuJlEUCPxYTTEI6vsCGSo9AuYgViUo
- t38w==
-X-Gm-Message-State: AJIora/hgLzHR0AuMFo+yJSZ7R2VY39QCZy5ZYW6pDHUAZSAhTtgtcRs
- zJhXZvI5AXSYM6Vdz4oQzxzJZT/EnsiCzU+vy9yb7++pCx2CKMK/+Y0tg4JSRyDl4gr3ihvtO1o
- ErkN9wfm/gt7CVwC0XX/rkJw5gw==
-X-Received: by 2002:ad4:5aed:0:b0:472:7778:ff87 with SMTP id
- c13-20020ad45aed000000b004727778ff87mr26430718qvh.28.1656929811121; 
- Mon, 04 Jul 2022 03:16:51 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1vjlUq1XlEkFFJxbANJNMJkD14jL7MU+k/cunLgR262M2/UAJwOwaKcp4jQ6IoO80vX//GXBA==
-X-Received: by 2002:ad4:5aed:0:b0:472:7778:ff87 with SMTP id
- c13-20020ad45aed000000b004727778ff87mr26430705qvh.28.1656929810811; 
- Mon, 04 Jul 2022 03:16:50 -0700 (PDT)
-Received: from [192.168.100.42] ([82.142.8.70])
+ bh=IEpUPe6OelLAnFFUtEwqJArazfaJNRFBOBPI9yOWGjk=;
+ b=xgCEBYzoraE//6VAPclml4Xc/mehH65HwcUzuuhvRlIKI916NumLM9zBvAGN17fQh6
+ cD3J2jdBsf0DYPO2EWnyeWHejFFIb4fqUKFVmMcFQkzTdjc0hzphVwQwlXdKrCyX5RNt
+ IvKNUQY/OAgrjQ5gPgDMiLCPRKNLJfcoh6Puz6FuV0jCs9SM9vn4Iz+J1Q7rNGQo1kyP
+ qQOLHI9kgLzUeGsdMTSM6lxmO+KHuZGHWGzgbPesj7nO73nghGbykQJFOsBXJutHYU1K
+ qDi6w08O7OEQ+5w09dE4jTEg0+xNdvw0enmc5bE8pMrQrE0o2+m7q6Qh6YFG5KVnoRpb
+ 423g==
+X-Gm-Message-State: AJIora8E59OJEVwl7m05VNvieUicg5LfhE4E1Q3uxxJEXTH/5IxC/l4K
+ Ef5ol5zvHWa/3uKYAnkXBeDZxg==
+X-Google-Smtp-Source: AGRyM1tdsuw4a1j9gy33F5H6/1lCJNtmcoHDg3JPe0urArTe9CdfL96TXQkmJ0C4uBCkAT9O6q1zTg==
+X-Received: by 2002:a63:2014:0:b0:411:90a4:6e9c with SMTP id
+ g20-20020a632014000000b0041190a46e9cmr21751683pgg.500.1656930016820; 
+ Mon, 04 Jul 2022 03:20:16 -0700 (PDT)
+Received: from [192.168.138.227] ([122.255.60.245])
  by smtp.gmail.com with ESMTPSA id
- y11-20020a05620a44cb00b006a37eb728cfsm19463960qkp.1.2022.07.04.03.16.48
+ t19-20020a63dd13000000b00401a9bc0f33sm19926332pgg.85.2022.07.04.03.20.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Jul 2022 03:16:50 -0700 (PDT)
-Message-ID: <b8d2595b-c86a-b1b8-8912-13fc9ba782d3@redhat.com>
-Date: Mon, 4 Jul 2022 12:16:47 +0200
+ Mon, 04 Jul 2022 03:20:16 -0700 (PDT)
+Message-ID: <73e221ba-4680-48bb-6472-95ea01fd9b37@linaro.org>
+Date: Mon, 4 Jul 2022 15:50:03 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v2 03/11] goldfish_rtc: Add endianness property
-To: Richard Henderson <richard.henderson@linaro.org>,
- Stafford Horne <shorne@gmail.com>, QEMU Development <qemu-devel@nongnu.org>
-References: <20220703212823.10067-1-shorne@gmail.com>
- <20220703212823.10067-4-shorne@gmail.com>
- <272f1e82-ff1b-9a7a-931b-91472dd244bf@linaro.org>
-From: Laurent Vivier <lvivier@redhat.com>
-In-Reply-To: <272f1e82-ff1b-9a7a-931b-91472dd244bf@linaro.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lvivier@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v2 09/11] target/openrisc: Interrupt handling fixes
 Content-Language: en-US
+To: Stafford Horne <shorne@gmail.com>, QEMU Development <qemu-devel@nongnu.org>
+References: <20220703212823.10067-1-shorne@gmail.com>
+ <20220703212823.10067-10-shorne@gmail.com>
+From: Richard Henderson <richard.henderson@linaro.org>
+In-Reply-To: <20220703212823.10067-10-shorne@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 04 Jul 2022 22:19:56 +0200
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -89,69 +72,26 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: "open list:Goldfish RTC" <qemu-riscv@nongnu.org>,
- Anup Patel <anup.patel@wdc.com>, Openrisc <openrisc@lists.librecores.org>,
- Alistair Francis <Alistair.Francis@wdc.com>
+Cc: Openrisc <openrisc@lists.librecores.org>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On 04/07/2022 11:59, Richard Henderson wrote:
-> On 7/4/22 02:58, Stafford Horne wrote:
->> -static const MemoryRegionOps goldfish_rtc_ops = {
->> -    .read = goldfish_rtc_read,
->> -    .write = goldfish_rtc_write,
->> -    .endianness = DEVICE_NATIVE_ENDIAN,
->> -    .valid = {
->> -        .min_access_size = 4,
->> -        .max_access_size = 4
->> -    }
->> +static const MemoryRegionOps goldfish_rtc_ops[3] = {
->> +    [DEVICE_NATIVE_ENDIAN] = {
->> +        .read = goldfish_rtc_read,
->> +        .write = goldfish_rtc_write,
->> +        .endianness = DEVICE_NATIVE_ENDIAN,
->> +        .valid = {
->> +            .min_access_size = 4,
->> +            .max_access_size = 4
->> +        }
->> +    },
->> +    [DEVICE_LITTLE_ENDIAN] = {
->> +        .read = goldfish_rtc_read,
->> +        .write = goldfish_rtc_write,
->> +        .endianness = DEVICE_LITTLE_ENDIAN,
->> +        .valid = {
->> +            .min_access_size = 4,
->> +            .max_access_size = 4
->> +        }
->> +    },
->> +    [DEVICE_BIG_ENDIAN] = {
->> +        .read = goldfish_rtc_read,
->> +        .write = goldfish_rtc_write,
->> +        .endianness = DEVICE_BIG_ENDIAN,
->> +        .valid = {
->> +            .min_access_size = 4,
->> +            .max_access_size = 4
->> +        }
->> +    },
->>   };
+On 7/4/22 02:58, Stafford Horne wrote:
+> When running SMP systems we sometimes were seeing lockups where
+> IPI interrupts were being raised by never handled.
 > 
-> You don't need 3 copies, only big and little.
+> This looks to be caused by 2 issues in the openrisc interrupt handling
+> logic.
 > 
->> +static Property goldfish_rtc_properties[] = {
->> +    DEFINE_PROP_UINT8("endianness", GoldfishRTCState, endianness,
->> +                      DEVICE_NATIVE_ENDIAN),
->> +    DEFINE_PROP_END_OF_LIST(),
->> +};
+>   1. After clearing an interrupt the openrisc_cpu_set_irq handler will
+>      always clear PICSR.  This is not correct as masked interrupts
+>      should still be visible in PICSR.
+>   2. After setting PICMR (mask register) and exposed interrupts should
+>      cause an interrupt to be raised.  This was not being done so add it.
 > 
-> ... and I think the clear desire for default is little-endian.  I would make the property 
-> be bool, and add a comment that this is only for m68k compatibility, so don't use it in 
-> new code.
+> This patch fixes both issues.
 
-m68k doesn't really need this.
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
-kernel with the m68k virt machine and goldfish device supports "native" mode so I think 
-it's not needed to add another layer of complexity for it.
 
-Thanks,
-Laurent
-
+r~
