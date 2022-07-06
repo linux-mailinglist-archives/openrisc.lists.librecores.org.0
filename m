@@ -2,60 +2,46 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 952CE56894F
-	for <lists+openrisc@lfdr.de>; Wed,  6 Jul 2022 15:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E304C5694C0
+	for <lists+openrisc@lfdr.de>; Wed,  6 Jul 2022 23:55:29 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 28EC02493F;
-	Wed,  6 Jul 2022 15:24:14 +0200 (CEST)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by mail.librecores.org (Postfix) with ESMTPS id 70AD12422B
- for <openrisc@lists.librecores.org>; Wed,  6 Jul 2022 15:24:13 +0200 (CEST)
-Received: by mail-pj1-f45.google.com with SMTP id
- i8-20020a17090a4b8800b001ef8a65bfbdso8217143pjh.1
- for <openrisc@lists.librecores.org>; Wed, 06 Jul 2022 06:24:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=V4tYWS6dWP+j40mx+/UNIOoszj7Dg0+fwwT9LMM38/A=;
- b=BymM1sgLJt0ol6c/OkpKcKga1FfwNzmj7SD3OVhwdIzmeiXka3XMDDYBOZz7N/unqb
- Yc1CQm5KJBp+A9+pGPu7amuQkf2evnu3jhzRx95ns4w6rWRASkpj0aPC7hKBc29GZ5wH
- c2NVSBShJgMbjAtfU5DG9aOnT/nBqEHa6lbVajwOcZqWRhZI9BM6zjbzdA3YFdZ2qi4M
- 1E69zM2GkrFzsYjQS7spE6yKbaQgI0zQdjsJwebF8CA35S7tYc0bSruS98u2jqL0sGsV
- ITvfDdOPvZetx38qWdvVpyvqBDg6fYgBqAF0xlYhsdVFYYdafJzdAA/ql23igshpuRNP
- +uvw==
+	by mail.librecores.org (Postfix) with ESMTP id 7607D2492A;
+	Wed,  6 Jul 2022 23:55:29 +0200 (CEST)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by mail.librecores.org (Postfix) with ESMTPS id 17F1124844
+ for <openrisc@lists.librecores.org>; Wed,  6 Jul 2022 15:51:22 +0200 (CEST)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-2ef5380669cso140480577b3.9
+ for <openrisc@lists.librecores.org>; Wed, 06 Jul 2022 06:51:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=V4tYWS6dWP+j40mx+/UNIOoszj7Dg0+fwwT9LMM38/A=;
- b=h23YFkM/vEcHf1x5MHtA0cajDP9nPushJBqJNX0OqKgwpSovZRp3yWxSVIHVyBD2Ht
- DX3GktrILUZmB5LZbtQeQJgSE5CvVEfEZf08azywbXn39nUZn481YVujX56hwe6Z/UH9
- srjMl7ONxD2rjcPCtr/GTnxIGnDHUUguBvT4ztVFoW6BrSHqtdoT9v1kM6guZ8oW1pKN
- nBRes8kOftG6cfYaNGKGDwHCsifGDUvf6+MPe+oF+RRVQL8xRC2J1GeL9GPdWd2MghnF
- vPEFB7H3raU4dsfEBifCpPieES8/xs3sodSJtWS9ayHN74Dgy49Ly0oDEq+VLU/DuKwx
- Xv6g==
-X-Gm-Message-State: AJIora8YDikCYPeiL+ZWcCd5HlLWvWe+G+obFYWmhm2BE09/MhbKOhoR
- vtraV4Wepe3fXRMly4jYmuA=
-X-Google-Smtp-Source: AGRyM1v1X0JOuWMSFiehFCvxxt1YfSFIT12ay1QZmQPqS97R0CElAt7P40mDOtgXxuBvfH+b3Bg2bA==
-X-Received: by 2002:a17:902:ba8a:b0:16b:988f:9279 with SMTP id
- k10-20020a170902ba8a00b0016b988f9279mr42995621pls.114.1657113852026; 
- Wed, 06 Jul 2022 06:24:12 -0700 (PDT)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id
- m184-20020a6258c1000000b005289eafbd08sm2432646pfb.18.2022.07.06.06.24.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 06:24:11 -0700 (PDT)
-Date: Wed, 6 Jul 2022 22:24:10 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [GIT PULL] OpenRISC fixes for 5.19-rc5
-Message-ID: <YsWM+im7pmU8MdeZ@antec>
-References: <YsWMXAF3ePlWuxyF@antec>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5SiPC3jj492VC8TfaG5lxiX62rjLNKysidcQlbSYqow=;
+ b=Y/9zTDq0hDTLJJHW7Ww4rQim+3okLKvE49puVGWNOvHsIbOLbR33TadpKxMKTg6U3e
+ 9wWPmKqYRIVYKE2EpQDvzhwZaJ2vfCaB3NOHfHaqjA1rHh1nWNA6SmA9gXho2c8Ffyjj
+ amf9fw7Amyg4eUmYXYnGQVkSWo3AjrLt9a7Uz3FqvlU8xBrMlI/x/e40/PMEx1xKD/LV
+ luYZ+LRiokVEaNUfrmTlsBZtYzdmYdgy7bEHvIRW/tbD0wyb1z1Jl59Or/DCmhDXqtEt
+ 3IFxnC7ZyI7xhC/ZMltodCGI/lUMLtR4OAM8XYIf+GqQmVsiQ6BMtmPIUufs6PdnZZmJ
+ Aiqg==
+X-Gm-Message-State: AJIora8KRJKXBftOHSdFQ58XgtsbJqzOmb12f1pmnmwTZ6z77xhtFfRy
+ QRX5tadA/+sBrscYUTmtLcG2pLET/qnkPMWbaHI=
+X-Google-Smtp-Source: AGRyM1t2zFLeLAi3TOz/3FKNOaozLIghzMJavy2698E42fvxt6d4SsTob1/anQx1a1kTDZPSEUZEInHEN/JL2sa2rXc=
+X-Received: by 2002:a81:1b97:0:b0:2db:640f:49d8 with SMTP id
+ b145-20020a811b97000000b002db640f49d8mr45075306ywb.326.1657115480888; Wed, 06
+ Jul 2022 06:51:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YsWMXAF3ePlWuxyF@antec>
+References: <20220608142723.103523089@infradead.org>
+ <20220608144516.109792837@infradead.org>
+In-Reply-To: <20220608144516.109792837@infradead.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 6 Jul 2022 15:51:09 +0200
+Message-ID: <CAJZ5v0jO9+jRSm3d58K15JaO3=kgM2Ueo7W+Smi3WCBPR_VM5Q@mail.gmail.com>
+Subject: Re: [PATCH 03/36] cpuidle/poll: Ensure IRQ state is invariant
+To: Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 06 Jul 2022 23:55:27 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,51 +54,116 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Benjamin Segall <bsegall@google.com>,
+ Guo Ren <guoren@kernel.org>, Pavel Machek <pavel@ucw.cz>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, srivatsa@csail.mit.edu,
+ linux-arch <linux-arch@vger.kernel.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Huacai Chen <chenhuacai@kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Andy Gross <agross@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, xen-devel@lists.xenproject.org,
+ mattst88@gmail.com, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Michael Turquette <mturquette@baylibre.com>, sammy@sammy.net,
+ Petr Mladek <pmladek@suse.com>, Linux PM <linux-pm@vger.kernel.org>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-um@lists.infradead.org, acme@kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Linux OMAP Mailing List <linux-omap@vger.kernel.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, rth@twiddle.net,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-perf-users@vger.kernel.org, senozhatsky@chromium.org,
+ Sven Schnelle <svens@linux.ibm.com>, jolsa@kernel.org,
+ Paul Mackerras <paulus@samba.org>, Mark Rutland <mark.rutland@arm.com>,
+ linux-ia64@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ virtualization@lists.linux-foundation.org,
+ James Bottomley <James.Bottomley@hansenpartnership.com>, jcmvbkbc@gmail.com,
+ Thierry Reding <thierry.reding@gmail.com>, kernel@xen0n.name,
+ quic_neeraju@quicinc.com, linux-s390@vger.kernel.org, vschneid@redhat.com,
+ John Ogness <john.ogness@linutronix.de>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Linux-sh list <linux-sh@vger.kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Helge Deller <deller@gmx.de>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Jon Hunter <jonathanh@nvidia.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Frederic Weisbecker <frederic@kernel.org>, Len Brown <lenb@kernel.org>,
+ linux-xtensa@linux-xtensa.org, Sascha Hauer <kernel@pengutronix.de>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-alpha@vger.kernel.org,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Chris Zankel <chris@zankel.net>, Stephen Boyd <sboyd@kernel.org>,
+ dinguyen@kernel.org, Daniel Bristot de Oliveira <bristot@redhat.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Joel Fernandes <joel@joelfernandes.org>, Will Deacon <will@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Kevin Hilman <khilman@kernel.org>, linux-csky@vger.kernel.org,
+ pv-drivers@vmware.com, linux-snps-arc@lists.infradead.org,
+ Mel Gorman <mgorman@suse.de>, Jacob Pan <jacob.jun.pan@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, ulli.kroll@googlemail.com, vgupta@kernel.org,
+ linux-clk <linux-clk@vger.kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Steven Rostedt <rostedt@goodmis.org>, rcu@vger.kernel.org,
+ Borislav Petkov <bp@alien8.de>, bcain@quicinc.com,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Parisc List <linux-parisc@vger.kernel.org>,
+ Sudeep Holla <sudeep.holla@arm.com>, Shawn Guo <shawnguo@kernel.org>,
+ David Miller <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
+ Tony Lindgren <tony@atomide.com>, amakhalov@vmware.com,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ sparclinux@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ linux-riscv <linux-riscv@lists.infradead.org>, anton.ivanov@cambridgegreys.com,
+ jonas@southpole.se, Yury Norov <yury.norov@gmail.com>,
+ Richard Weinberger <richard@nod.at>, the arch/x86 maintainers <x86@kernel.org>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>,
+ Ingo Molnar <mingo@redhat.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+ openrisc@lists.librecores.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>, namhyung@kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jpoimboe@kernel.org,
+ Juergen Gross <jgross@suse.com>, Michal Simek <monstr@monstr.eu>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>,
+ ink@jurassic.park.msu.ru, Johannes Berg <johannes@sipsolutions.net>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Sorry, again with proper subject.
+On Wed, Jun 8, 2022 at 4:47 PM Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> cpuidle_state::enter() methods should be IRQ invariant
+>
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-On Wed, Jul 06, 2022 at 10:21:32PM +0900, Stafford Horne wrote:
-> Hi Linus,
-> 
-> Please consider for pull.
-> 
-> The following changes since commit 03c765b0e3b4cb5063276b086c76f7a612856a9a:
-> 
->   Linux 5.19-rc4 (2022-06-26 14:22:10 -0700)
-> 
-> are available in the Git repository at:
-> 
->   git@github.com:openrisc/linux.git tags/for-linus
-> 
-> for you to fetch changes up to 48bddb89d59eec27c3305d179b1832d5292e285d:
-> 
->   openrisc: unwinder: Fix grammar issue in comment (2022-06-28 17:31:24 +0900)
-> 
-> ----------------------------------------------------------------
-> OpenRISC fixes for 5.19-rc5
-> 
-> Fixups for OpenRISC found during recent testing:
->  - An OpenRISC irqchip fix to stop acking level interrupts which was
->    causing issues on SMP platforms.
->  - A comment typo fix in our unwinder code.
-> 
-> ----------------------------------------------------------------
-> 
-> Note, if you do check this against being in linux-next I dropped one patch from
-> the linux next tree before creating this pull request.  The dropped patch was to
-> add wireguard selftest support, but we decided against it as there are still
-> some qemu bugs to workout before turning on wireguard selftests for OpenRISC.
-> 
-> Stafford Horne (1):
->       irqchip: or1k-pic: Undefine mask_ack for level triggered hardware
-> 
-> Xiang wangx (1):
->       openrisc: unwinder: Fix grammar issue in comment
-> 
->  arch/openrisc/kernel/unwinder.c | 2 +-
->  drivers/irqchip/irq-or1k-pic.c  | 1 -
->  2 files changed, 1 insertion(+), 2 deletions(-)
+Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+> ---
+>  drivers/cpuidle/poll_state.c |    4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> --- a/drivers/cpuidle/poll_state.c
+> +++ b/drivers/cpuidle/poll_state.c
+> @@ -17,7 +17,7 @@ static int __cpuidle poll_idle(struct cp
+>
+>         dev->poll_time_limit = false;
+>
+> -       local_irq_enable();
+> +       raw_local_irq_enable();
+>         if (!current_set_polling_and_test()) {
+>                 unsigned int loop_count = 0;
+>                 u64 limit;
+> @@ -36,6 +36,8 @@ static int __cpuidle poll_idle(struct cp
+>                         }
+>                 }
+>         }
+> +       raw_local_irq_disable();
+> +
+>         current_clr_polling();
+>
+>         return index;
+>
+>
