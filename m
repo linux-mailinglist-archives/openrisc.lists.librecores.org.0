@@ -2,43 +2,42 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id F1F345694C2
-	for <lists+openrisc@lfdr.de>; Wed,  6 Jul 2022 23:55:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5398F5694C3
+	for <lists+openrisc@lfdr.de>; Wed,  6 Jul 2022 23:55:31 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A277624928;
+	by mail.librecores.org (Postfix) with ESMTP id DC22B24992;
 	Wed,  6 Jul 2022 23:55:30 +0200 (CEST)
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by mail.librecores.org (Postfix) with ESMTPS id 73EEE24928
- for <openrisc@lists.librecores.org>; Wed,  6 Jul 2022 15:59:33 +0200 (CEST)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-31c86fe1dddso93337557b3.1
- for <openrisc@lists.librecores.org>; Wed, 06 Jul 2022 06:59:33 -0700 (PDT)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ by mail.librecores.org (Postfix) with ESMTPS id AED7E246C7
+ for <openrisc@lists.librecores.org>; Wed,  6 Jul 2022 16:00:40 +0200 (CEST)
+Received: by mail-yb1-f174.google.com with SMTP id j7so21112526ybj.10
+ for <openrisc@lists.librecores.org>; Wed, 06 Jul 2022 07:00:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Onduqp6mjVbUTy8onn0jWt/mqpI9kGBQEYh+QUeZcBU=;
- b=G3wwCqY7gySQC266WZwnBvLy3Ic56RG6MfRyvHM+hltOqHXL1/6zV5DRpm4DrRbRUP
- nNj18wmaJhsyW8qS6wximYkzcwH+MpnbduX7fuWVl52Pan+ZOOJ4t7dKS6xxWTq9ZuTX
- 63wP2WjQTZqs+Tc8AdXcygmV+3DMdeFX0PeUcEPl8oDmJ7J0ZiEE29JrwX7i8KgXXrw1
- BaV1iGip8vFu+6TOAqoNU16iTyiRW4Kf7ZXs4339DjbIkz+s1ZfNY+6SEDM4HbQdaK0a
- 7L2NLwaowv3ESCtyEpJAslbNdupRzjoG8lzmfsuGBzJaCsIXS5Bu83jEn4v+Fhptvfe7
- L2Bw==
-X-Gm-Message-State: AJIora+APobzR9z0P8So6c+0GxZ+1TqsrQLPxGPuBiSswtkHUwWcePKX
- IIIT98oaHrdHk2DuJHWsk8UvLPrgU3H1axNUVWo=
-X-Google-Smtp-Source: AGRyM1tNbC/Hml4tsQcA7xFkjwPTBe4V9sculTi4g4WqVg8ltnNA+flCFfg0CHpb2ZdV5OvqewQ30xyxgoEo0qXCWHo=
-X-Received: by 2002:a81:1b97:0:b0:2db:640f:49d8 with SMTP id
- b145-20020a811b97000000b002db640f49d8mr45117410ywb.326.1657115972382; Wed, 06
- Jul 2022 06:59:32 -0700 (PDT)
+ bh=Lln/3deL7qOtLziJcXYPqqy6CqnXU6Vj8A13Rxsyfck=;
+ b=MvbCcncEMjWfx7Puo39yT+KsZ8uVZx7zl6u0q9+tTcfpuYVUqer3yzNQn26wkAwOUs
+ AWqynvUwMZoaBzZQ+1vN46pxWczZLfyU7bDX/+mDTqYbtwKT8fXB/3KlCKxCUoaaub4E
+ AyIV2NYMBsRZpWHuACUbhhHmwWTgGL+9xPy24qzTYvkbwGt15L7kL/JR8ajuX9XGJw0C
+ DjoZDt3hF1XFys85HW4V0BZ3tbbuzFjX6CAnQwAUFmB2YTq0iBG80toHBPCXLv/OTiMB
+ iYhEWtHLYxlQyezUjkux723W9R3E1G3KgwJSMgSP03+28qjI17/DTsGD14eujaxBnRqy
+ mqtA==
+X-Gm-Message-State: AJIora/lqkjFNhIxbyFw08VXnMF4hsjgm2H8MAscQ9H0xAu60+7myRIu
+ GuknBwA7eb11FgR2WC8JFfQcUBy0PrFllf9U47k=
+X-Google-Smtp-Source: AGRyM1vGBIO6ejUezqbzrzuaUC5etUaxh8lxWDh293Sam2Jc/zFfeBj4g08hdYpvSA8zzuIj5u2PxdHOfRWqZSWT82c=
+X-Received: by 2002:a05:6902:50e:b0:66e:7f55:7a66 with SMTP id
+ x14-20020a056902050e00b0066e7f557a66mr7763507ybs.365.1657116039561; Wed, 06
+ Jul 2022 07:00:39 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220608142723.103523089@infradead.org>
- <20220608144516.998681585@infradead.org>
-In-Reply-To: <20220608144516.998681585@infradead.org>
+ <20220608144517.061583457@infradead.org>
+In-Reply-To: <20220608144517.061583457@infradead.org>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 6 Jul 2022 15:59:21 +0200
-Message-ID: <CAJZ5v0jSfvUoReFHjA5A+brExnnEKidak-GnjTbY0CKoaWpGVQ@mail.gmail.com>
-Subject: Re: [PATCH 17/36] acpi_idle: Remove tracing
+Date: Wed, 6 Jul 2022 16:00:28 +0200
+Message-ID: <CAJZ5v0iBAt7xyBzrFwgVSOk7dLx017X_naLZAjnDuwi=oUmREg@mail.gmail.com>
+Subject: Re: [PATCH 18/36] cpuidle: Annotate poll_idle()
 To: Peter Zijlstra <peterz@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 06 Jul 2022 23:55:27 +0200
@@ -133,82 +132,40 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Wed, Jun 8, 2022 at 4:47 PM Peter Zijlstra <peterz@infradead.org> wrote:
+On Wed, Jun 8, 2022 at 4:46 PM Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> All the idle routines are called with RCU disabled, as such there must
-> not be any tracing inside.
+> The __cpuidle functions will become a noinstr class, as such they need
+> explicit annotations.
 >
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-This actually does some additional code duplication cleanup which
-would be good to mention in the changelog.  Or even move to a separate
-patch for that matter.
-
-Otherwise LGTM.
+Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
 > ---
->  drivers/acpi/processor_idle.c |   24 +++++++++++++-----------
->  1 file changed, 13 insertions(+), 11 deletions(-)
+>  drivers/cpuidle/poll_state.c |    6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> --- a/drivers/acpi/processor_idle.c
-> +++ b/drivers/acpi/processor_idle.c
-> @@ -108,8 +108,8 @@ static const struct dmi_system_id proces
->  static void __cpuidle acpi_safe_halt(void)
+> --- a/drivers/cpuidle/poll_state.c
+> +++ b/drivers/cpuidle/poll_state.c
+> @@ -13,7 +13,10 @@
+>  static int __cpuidle poll_idle(struct cpuidle_device *dev,
+>                                struct cpuidle_driver *drv, int index)
 >  {
->         if (!tif_need_resched()) {
-> -               safe_halt();
-> -               local_irq_disable();
-> +               raw_safe_halt();
-> +               raw_local_irq_disable();
->         }
->  }
->
-> @@ -524,16 +524,21 @@ static int acpi_idle_bm_check(void)
->         return bm_status;
->  }
->
-> -static void wait_for_freeze(void)
-> +static __cpuidle void io_idle(unsigned long addr)
->  {
-> +       /* IO port based C-state */
-> +       inb(addr);
+> -       u64 time_start = local_clock();
+> +       u64 time_start;
 > +
->  #ifdef CONFIG_X86
->         /* No delay is needed if we are in guest */
->         if (boot_cpu_has(X86_FEATURE_HYPERVISOR))
->                 return;
->  #endif
-> -       /* Dummy wait op - must do something useless after P_LVL2 read
-> -          because chipsets cannot guarantee that STPCLK# signal
-> -          gets asserted in time to freeze execution properly. */
-> +       /*
-> +        * Dummy wait op - must do something useless after P_LVL2 read
-> +        * because chipsets cannot guarantee that STPCLK# signal
-> +        * gets asserted in time to freeze execution properly.
-> +        */
->         inl(acpi_gbl_FADT.xpm_timer_block.address);
+> +       instrumentation_begin();
+> +       time_start = local_clock();
+>
+>         dev->poll_time_limit = false;
+>
+> @@ -39,6 +42,7 @@ static int __cpuidle poll_idle(struct cp
+>         raw_local_irq_disable();
+>
+>         current_clr_polling();
+> +       instrumentation_end();
+>
+>         return index;
 >  }
->
-> @@ -553,9 +558,7 @@ static void __cpuidle acpi_idle_do_entry
->         } else if (cx->entry_method == ACPI_CSTATE_HALT) {
->                 acpi_safe_halt();
->         } else {
-> -               /* IO port based C-state */
-> -               inb(cx->address);
-> -               wait_for_freeze();
-> +               io_idle(cx->address);
->         }
->
->         perf_lopwr_cb(false);
-> @@ -577,8 +580,7 @@ static int acpi_idle_play_dead(struct cp
->                 if (cx->entry_method == ACPI_CSTATE_HALT)
->                         safe_halt();
->                 else if (cx->entry_method == ACPI_CSTATE_SYSTEMIO) {
-> -                       inb(cx->address);
-> -                       wait_for_freeze();
-> +                       io_idle(cx->address);
->                 } else
->                         return -ENODEV;
->
 >
 >
