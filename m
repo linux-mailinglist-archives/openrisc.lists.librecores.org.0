@@ -2,60 +2,35 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 2880056944B
-	for <lists+openrisc@lfdr.de>; Wed,  6 Jul 2022 23:24:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B8EE56A10A
+	for <lists+openrisc@lfdr.de>; Thu,  7 Jul 2022 13:32:53 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 9D76924992;
-	Wed,  6 Jul 2022 23:24:50 +0200 (CEST)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by mail.librecores.org (Postfix) with ESMTPS id EE0EA24973
- for <openrisc@lists.librecores.org>; Wed,  6 Jul 2022 23:24:49 +0200 (CEST)
-Received: by mail-pl1-f181.google.com with SMTP id 5so8802529plk.9
- for <openrisc@lists.librecores.org>; Wed, 06 Jul 2022 14:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Lhp1fGKvwPNvsFfAFG1v3Vbo0uyHrO24/F8qohRrG4o=;
- b=TRsoU0qDks4bE5PcZFE0V98Tfj8OdOJ1+B8/RemOIavn7ZRlu4qEFl8Ey+KDlPIEDa
- q+RfpsegBpcL43ZGX1Twpx6xURoNXLhB8+hTEAKfaz1WV60ps5HS0F7F3kKRW++YS5B+
- JFchZcVx5CIVb2fY2Hk3Tf22puSNHCGEuFUqSzUjLyIWNtnqpq1GKoO0dCF+Y3jetJjz
- ydWxtnAFo9aEz2xW97yoU795D1iSalUQvs0m3vwyCabunIBAjHd4o3LtgQO/HbR7kJZl
- r5IwJC5rfa/6VRZpMsQVZryp13AHThbNiuILkjF8jgDlhaemC3MGv3jD8EaL7415som4
- uuIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Lhp1fGKvwPNvsFfAFG1v3Vbo0uyHrO24/F8qohRrG4o=;
- b=FwXxWDBqc1GgUi3Iy5rxFfSGh5EAoPqtuD79uej3R9Blsqc2o5hi9FaIWgtSC/XVVa
- UNvT4tfXHjob0bbJb0ADQJtNxCXI2cD2dMjPQRg8KZwzxmKoS4XHv3/w94OZsOP33vSd
- 3g1+lgUd0C1hRENGNgXKTO54Ft+AKlQ3oayvOghzD4CpiM6qcf51aqFUfRzjHXR4ktTb
- YbQ7ncvCJNRhVGPzBzHjtKOfM/3w3Q/rL12o+V/8iV3f0T4so0Uy0tjjYQ9QxJWxX/KR
- C+0VSeLU1bHiax4JQOfS+oU1yOseACSr1lGzEdjF1/pFQ/Sajhok1xDyrChKQtYVt9LI
- P/LA==
-X-Gm-Message-State: AJIora+5yCJfA6nlpHimQpUsQd0LqlCo8+OTHs/ApvcRYz1ewY6dUQkI
- azG1vsKQTgPMXxOxEFaYA5o=
-X-Google-Smtp-Source: AGRyM1vMNxnbxtFl/qv8nXCo7/FyRkmRkL9VygDE57x/TUc1m1XNkCtk/aXL01zatnnkHJ/XNfCqvw==
-X-Received: by 2002:a17:90b:1e44:b0:1ec:cc44:be77 with SMTP id
- pi4-20020a17090b1e4400b001eccc44be77mr861283pjb.34.1657142688375; 
- Wed, 06 Jul 2022 14:24:48 -0700 (PDT)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id
- cd24-20020a056a00421800b005259341029asm22166467pfb.49.2022.07.06.14.24.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 14:24:47 -0700 (PDT)
-Date: Thu, 7 Jul 2022 06:24:44 +0900
-From: Stafford Horne <shorne@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [GIT PULL] OpenRISC fixes for 5.19-rc5
-Message-ID: <YsX9nNRJb4qVqYW1@antec>
-References: <YsWMXAF3ePlWuxyF@antec> <YsWM+im7pmU8MdeZ@antec>
- <CAHk-=wigH3PcQFjvEYcOZRQvqREcwy88iNFg0_ah32TJhQLCqw@mail.gmail.com>
+	by mail.librecores.org (Postfix) with ESMTP id B7F92240E1;
+	Thu,  7 Jul 2022 13:32:52 +0200 (CEST)
+Received: from out30-56.freemail.mail.aliyun.com
+ (out30-56.freemail.mail.aliyun.com [115.124.30.56])
+ by mail.librecores.org (Postfix) with ESMTPS id D673B2133D
+ for <openrisc@lists.librecores.org>; Thu,  7 Jul 2022 13:32:50 +0200 (CEST)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+ MF=baolin.wang@linux.alibaba.com; NM=1; PH=DS; RN=33; SR=0;
+ TI=SMTPD_---0VIdIQWG_1657193558; 
+Received: from 30.97.48.62(mailfrom:baolin.wang@linux.alibaba.com
+ fp:SMTPD_---0VIdIQWG_1657193558) by smtp.aliyun-inc.com;
+ Thu, 07 Jul 2022 19:32:40 +0800
+Message-ID: <ef376131-bf5f-7e5b-ea1b-1e8f64a6d060@linux.alibaba.com>
+Date: Thu, 7 Jul 2022 19:32:44 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wigH3PcQFjvEYcOZRQvqREcwy88iNFg0_ah32TJhQLCqw@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 0/3] Add PUD and kernel PTE level pagetable account
+To: Dave Hansen <dave.hansen@intel.com>, akpm@linux-foundation.org
+References: <cover.1657096412.git.baolin.wang@linux.alibaba.com>
+ <d2d58cc2-7e6d-aa2d-3096-a500ce321494@intel.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <d2d58cc2-7e6d-aa2d-3096-a500ce321494@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,22 +43,33 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org, loongarch@lists.linux.dev, peterz@infradead.org,
+ catalin.marinas@arm.com, dave.hansen@linux.intel.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, guoren@kernel.org,
+ linux-csky@vger.kernel.org, hpa@zytor.com, kernel@xen0n.name, will@kernel.org,
+ tglx@linutronix.de, jonas@southpole.se, aneesh.kumar@linux.ibm.com,
+ chenhuacai@kernel.org, willy@infradead.org, rppt@linux.ibm.com,
+ mingo@redhat.com, linux-arch@vger.kernel.org, arnd@arndb.de, npiggin@gmail.com,
+ openrisc@lists.librecores.org, bp@alien8.de, luto@kernel.org,
+ linux-arm-kernel@lists.infradead.org, monstr@monstr.eu,
+ tsbogend@alpha.franken.de, linux-mips@vger.kernel.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Wed, Jul 06, 2022 at 11:12:23AM -0700, Linus Torvalds wrote:
-> On Wed, Jul 6, 2022 at 6:24 AM Stafford Horne <shorne@gmail.com> wrote:
-> >
-> > Sorry, again with proper subject.
-> 
-> Well, pr-tracker-bot still didn't like it, probably because you
-> replying to yourself meant that the pull request details were quoted
-> and indented.
-> 
-> So no automated reply for you.
 
-Thanks, I need to automate creating these mails in my workflow.
 
--Stafford
+On 7/6/2022 11:48 PM, Dave Hansen wrote:
+> On 7/6/22 01:59, Baolin Wang wrote:
+>> Now we will miss to account the PUD level pagetable and kernel PTE level
+>> pagetable, as well as missing to set the PG_table flags for these pagetable
+>> pages, which will get an inaccurate pagetable accounting, and miss
+>> PageTable() validation in some cases. So this patch set introduces new
+>> helpers to help to account PUD and kernel PTE pagetable pages.
+> 
+> Could you explain the motivation for this series a bit more?  Is there a
+> real-world problem that this fixes?
+
+Not fix real problem. The motivation is that making the pagetable 
+accounting more accurate, which helps us to analyse the consumption of 
+the pagetable pages in some cases, and maybe help to do some empty 
+pagetable reclaiming in future.
