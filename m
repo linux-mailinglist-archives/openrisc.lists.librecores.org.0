@@ -2,34 +2,60 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 30A6C573249
-	for <lists+openrisc@lfdr.de>; Wed, 13 Jul 2022 11:17:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 453AF5743EB
+	for <lists+openrisc@lfdr.de>; Thu, 14 Jul 2022 06:51:22 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id D854B249B3;
-	Wed, 13 Jul 2022 11:17:52 +0200 (CEST)
-Received: from out199-18.us.a.mail.aliyun.com (out199-18.us.a.mail.aliyun.com
- [47.90.199.18])
- by mail.librecores.org (Postfix) with ESMTPS id 60BE020E97
- for <openrisc@lists.librecores.org>; Wed, 13 Jul 2022 11:17:50 +0200 (CEST)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
- MF=baolin.wang@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
- TI=SMTPD_---0VJDOi.B_1657703862; 
-Received: from 30.97.48.50(mailfrom:baolin.wang@linux.alibaba.com
- fp:SMTPD_---0VJDOi.B_1657703862) by smtp.aliyun-inc.com;
- Wed, 13 Jul 2022 17:17:43 +0800
-Message-ID: <1badee01-b872-8de8-4fe1-83d6dc6b756c@linux.alibaba.com>
-Date: Wed, 13 Jul 2022 17:17:44 +0800
+	by mail.librecores.org (Postfix) with ESMTP id 793B324807;
+	Thu, 14 Jul 2022 06:51:21 +0200 (CEST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by mail.librecores.org (Postfix) with ESMTPS id D960624993
+ for <openrisc@lists.librecores.org>; Mon, 11 Jul 2022 05:46:39 +0200 (CEST)
+Received: by mail-pl1-f179.google.com with SMTP id r1so3389937plo.10
+ for <openrisc@lists.librecores.org>; Sun, 10 Jul 2022 20:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qmBhjPhdel7Ory0h+LtHmaoT8CpQHwHtjRSzAczsGS8=;
+ b=UY5oZcsZHFdGH9KcetDN8dqr2Mf0qiwqMqlLdkQ+0PNZPPWK8nytWfBrVg68lCyEAN
+ jrVXhCD+p/9vhueaNcEswnstaaqhbi96KvKB1URC0IEAGTbb7bQ3L2sJKv8fP4/q3fdz
+ qnhDuiRe5eJunmVyfmUC7y6G6huMy6rKKY2vpo7MUN+GN+8Yg69bDGSpiExtmJG6nmwc
+ HGrj6W5Zy4EILKOUdTTBtFEUayRpo9P6vRZIShjByCsnQmdWy7cHknQIBwTn6y+6JaHt
+ 7Jslc7TiuDWWVL3D1WVwoeXWF4xp0s+zIBfTFhbW89tgNx9jEYuB6VyOj7QkOyyjH+tF
+ MEOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qmBhjPhdel7Ory0h+LtHmaoT8CpQHwHtjRSzAczsGS8=;
+ b=w3lKC1kqFuItOAx4AV0wekN4D1v+RcuW848OizTCqIQdvGNN3v+45syqrPt+a9ornB
+ LF7wi8eWufEhtuA9/yxxF3QeKPhMe4da9OFXsysQrbBlqQr9t9JX5kEwtLuk/8v8q/i5
+ TJW2Jm0cKmvERNyj9k9Mlc7vTZbxUL+PMJRZABVC3mA8zd6vOC/EmxXDkLZJzk3y8OVs
+ Bzbml9ly1UFDcCYnHfazI9iRfH5V694xwFA77M3ECyc9S4Ee9Ern1k+pnL0uoslyE0I3
+ +FDWnXmXlYANGg0tXtSm8NYAsHiy6fqt7hmGzk92BE9x9q32g3VZkVgy50dYZh+xK8oz
+ UKZg==
+X-Gm-Message-State: AJIora8etZV1HXQoLygxGS6be8YxLytgBwrtqfURsgdU1h1Qs6TmkyZw
+ eJXjcNe4bNQr1lasl/qMU9s=
+X-Google-Smtp-Source: AGRyM1uXqBxzEnWgTK+S6bqpqoqltGNYamS7CTaFawotYp6lLuQkplQPx4DboSyk03U1rFf9/7Vqqw==
+X-Received: by 2002:a17:90b:1b48:b0:1ef:a90d:eae1 with SMTP id
+ nv8-20020a17090b1b4800b001efa90deae1mr15050227pjb.68.1657511198328; 
+ Sun, 10 Jul 2022 20:46:38 -0700 (PDT)
+Received: from localhost.localdomain (47-72-206-164.dsl.dyn.ihug.co.nz.
+ [47.72.206.164]) by smtp.gmail.com with ESMTPSA id
+ a13-20020a170902eccd00b001664d88aab3sm3447949plh.240.2022.07.10.20.46.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Jul 2022 20:46:37 -0700 (PDT)
+From: Barry Song <21cnbao@gmail.com>
+To: akpm@linux-foundation.org, linux-mm@kvack.org,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ catalin.marinas@arm.com, will@kernel.org, linux-doc@vger.kernel.org
+Subject: [PATCH v2 0/4] mm: arm64: bring up BATCHED_UNMAP_TLB_FLUSH
+Date: Mon, 11 Jul 2022 15:46:11 +1200
+Message-Id: <20220711034615.482895-1-21cnbao@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [mm] 0bf5cdf08f: BUG:Bad_page_state_in_process
-To: kernel test robot <oliver.sang@intel.com>
-References: <Ys0P+ssAhAyfdA56@xsang-OptiPlex-9020>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <Ys0P+ssAhAyfdA56@xsang-OptiPlex-9020>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 14 Jul 2022 06:51:20 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -42,102 +68,81 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, 0day robot <lkp@intel.com>, linux-mm@kvack.org,
- LKML <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org,
- rppt@linux.ibm.com, lkp@lists.01.org, openrisc@lists.librecores.org,
- willy@infradead.org, akpm@linux-foundation.org
+Cc: linux-s390@vger.kernel.org, zhangshiming@oppo.com, lipeifeng@oppo.com,
+ arnd@arndb.de, corbet@lwn.net, realmz6@gmail.com,
+ Barry Song <21cnbao@gmail.com>, linux-kernel@vger.kernel.org,
+ yangyicong@hisilicon.com, openrisc@lists.librecores.org,
+ darren@os.amperecomputing.com, huzhanyuan@oppo.com, guojian@oppo.com,
+ linux-riscv@lists.infradead.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
+Though ARM64 has the hardware to do tlb shootdown, the hardware
+broadcasting is not free.
+A simplest micro benchmark shows even on snapdragon 888 with only
+8 cores, the overhead for ptep_clear_flush is huge even for paging
+out one page mapped by only one process:
+5.36%  a.out    [kernel.kallsyms]  [k] ptep_clear_flush
+
+While pages are mapped by multiple processes or HW has more CPUs,
+the cost should become even higher due to the bad scalability of
+tlb shootdown.
+
+The same benchmark can result in 16.99% CPU consumption on ARM64
+server with around 100 cores according to Yicong's test on patch
+4/4.
+
+This patchset leverages the existing BATCHED_UNMAP_TLB_FLUSH by
+1. only send tlbi instructions in the first stage -
+	arch_tlbbatch_add_mm()
+2. wait for the completion of tlbi by dsb while doing tlbbatch
+	sync in arch_tlbbatch_flush()
+My testing on snapdragon shows the overhead of ptep_clear_flush
+is removed by the patchset. The micro benchmark becomes 5% faster
+even for one page mapped by single process on snapdragon 888.
 
 
-On 7/12/2022 2:08 PM, kernel test robot wrote:
-> 
-> 
-> Greeting,
-> 
-> FYI, we noticed the following commit (built with gcc-11):
-> 
-> commit: 0bf5cdf08f32bbb2d5dbc794fe609e1d97ca5257 ("[RFC PATCH v2 3/3] mm: Add kernel PTE level pagetable pages account")
-> url: https://github.com/intel-lab-lkp/linux/commits/Baolin-Wang/Add-PUD-and-kernel-PTE-level-pagetable-account/20220622-170051
-> base: https://git.kernel.org/cgit/linux/kernel/git/arnd/asm-generic.git master
-> patch link: https://lore.kernel.org/linux-mm/7882bbf467440f9a3ebe41d96ba5b6f384081bb7.1655887440.git.baolin.wang@linux.alibaba.com
-> 
-> in testcase: stress-ng
-> version: stress-ng-x86_64-0.11-06_20220709
-> with following parameters:
-> 
-> 	nr_threads: 10%
-> 	disk: 1HDD
-> 	testtime: 60s
-> 	fs: xfs
-> 	class: filesystem
-> 	test: dnotify
-> 	cpufreq_governor: performance
-> 	ucode: 0xb000280
-> 
-> 
-> 
-> on test machine: 96 threads 2 sockets Ice Lake with 256G memory
-> 
-> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
-> 
-> 
-> 
-> If you fix the issue, kindly add following tag
-> Reported-by: kernel test robot <oliver.sang@intel.com>
+-v2:
+1. Collected Yicong's test result on kunpeng920 ARM64 server;
+2. Removed the redundant vma parameter in arch_tlbbatch_add_mm()
+   according to the comments of Peter Zijlstra and Dave Hansen
+3. Added ARCH_HAS_MM_CPUMASK rather than checking if mm_cpumask
+   is empty according to the comments of Nadav Amit
 
-Thanks for reporting. I think I missed the changes in 
-pud_free_pmd_page(), which also can free a kernel pte page table.
+Thanks, Yicong, Peter, Dave and Nadav for your testing or reviewing
+, and comments.
 
-And I will use pte_free_kernel() instead in new version patch set.
+-v1:
+https://lore.kernel.org/lkml/20220707125242.425242-1-21cnbao@gmail.com/
 
-diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-index 20f30762d618..f961578e2a54 100644
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -828,6 +828,7 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
-         for (i = 0; i < PTRS_PER_PMD; i++) {
-                 if (!pmd_none(pmd_sv[i])) {
-                         pte = (pte_t *)pmd_page_vaddr(pmd_sv[i]);
-+                       pgtable_clear_and_dec(virt_to_page(pte));
-                         free_page((unsigned long)pte);
-                 }
-         }
+Barry Song (4):
+  Revert "Documentation/features: mark BATCHED_UNMAP_TLB_FLUSH doesn't
+    apply to ARM64"
+  mm: rmap: Allow platforms without mm_cpumask to defer TLB flush
+  mm: rmap: Extend tlbbatch APIs to fit new platforms
+  arm64: support batched/deferred tlb shootdown during page reclamation
 
+ Documentation/features/arch-support.txt       |  1 -
+ .../features/vm/TLB/arch-support.txt          |  2 +-
+ arch/arm/Kconfig                              |  1 +
+ arch/arm64/Kconfig                            |  1 +
+ arch/arm64/include/asm/tlbbatch.h             | 12 ++++++++++
+ arch/arm64/include/asm/tlbflush.h             | 23 +++++++++++++++++--
+ arch/loongarch/Kconfig                        |  1 +
+ arch/mips/Kconfig                             |  1 +
+ arch/openrisc/Kconfig                         |  1 +
+ arch/powerpc/Kconfig                          |  1 +
+ arch/riscv/Kconfig                            |  1 +
+ arch/s390/Kconfig                             |  1 +
+ arch/um/Kconfig                               |  1 +
+ arch/x86/Kconfig                              |  1 +
+ arch/x86/include/asm/tlbflush.h               |  3 ++-
+ mm/Kconfig                                    |  3 +++
+ mm/rmap.c                                     | 14 +++++++----
+ 17 files changed, 59 insertions(+), 9 deletions(-)
+ create mode 100644 arch/arm64/include/asm/tlbbatch.h
 
-> 
-> 
-> [   36.465236][ T1887] BUG: Bad page state in process ucfr  pfn:1ed9a9
-> [   36.465238][ T1887] page:00000000c52990fe refcount:0 mapcount:-512 mapping:0000000000000000 index:0x0 pfn:0x1ed9a9
-> [   36.465244][ T1887] flags: 0x17ffffc0000000(node=0|zone=2|lastcpupid=0x1fffff)
-> [   36.465248][ T1887] raw: 0017ffffc0000000 dead000000000100 dead000000000122 0000000000000000
-> [   36.465249][ T1887] raw: 0000000000000000 0000000000000000 00000000fffffdff 0000000000000000
-> [   36.465249][ T1887] page dumped because: nonzero mapcount
-> [   36.465250][ T1887] Modules linked in: acpi_cpufreq(-) device_dax(+) nd_pmem nd_btt dax_pmem intel_rapl_msr intel_rapl_common btrfs ipmi_ssif x86_pkg_temp_thermal blake2b_generic intel_powerclamp xor raid6_pq coretemp zstd_compress libcrc32c nvme sd_mod ast drm_vram_helper sg drm_ttm_helper nvme_core kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul crc32c_intel t10_pi ghash_clmulni_intel ttm rapl drm_kms_helper crc64_rocksoft_generic ahci intel_cstate syscopyarea crc64_rocksoft libahci intel_uncore crc64 sysfillrect ioatdma sysimgblt joydev fb_sys_fops libata dca wmi acpi_ipmi ipmi_si ipmi_devintf ipmi_msghandler nfit libnvdimm acpi_pad acpi_power_meter drm fuse ip_tables
-> [   36.465278][ T1887] CPU: 8 PID: 1887 Comm: ucfr Tainted: G S                5.19.0-rc2-00013-g0bf5cdf08f32 #1
-> [   36.465280][ T1887] Call Trace:
-> [   36.465283][ T1887]  <TASK>
-> [ 36.465285][ T1887] dump_stack_lvl (lib/dump_stack.c:107 (discriminator 1))
-> [ 36.465292][ T1887] bad_page.cold (mm/page_alloc.c:642)
-> [ 36.465296][ T1887] free_pcppages_bulk (mm/page_alloc.c:1526)
-> [ 36.465302][ T1887] free_unref_page (arch/x86/include/asm/irqflags.h:137 mm/page_alloc.c:3459)
-> [ 36.465304][ T1887] __mmdrop (arch/x86/include/asm/mmu_context.h:125 (discriminator 3) kernel/fork.c:789 (discriminator 3))
-> [ 36.465307][ T1887] finish_task_switch+0x200/0x2c0
-> [ 36.465312][ T1887] schedule_tail (arch/x86/include/asm/preempt.h:85 kernel/sched/core.c:5053)
-> [ 36.465315][ T1887] ret_from_fork (arch/x86/entry/entry_64.S:289)
-> [   36.465320][ T1887]  </TASK>
-> [   36.465320][ T1887] Disabling lock debugging due to kernel taint
-> [   37.204107][  T656] BUG: Bad page state in process kworker/7:1  pfn:4067654
-> [   37.204114][  T656] page:0000000017c1d009 refcount:0 mapcount:-512 mapping:0000000000000000 index:0x0 pfn:0x4067654
-> [   37.204120][  T656] flags: 0x57ffffc0000000(node=1|zone=2|lastcpupid=0x1fffff)
-> [   37.204126][  T656] raw: 0057ffffc0000000 dead000000000100 dead000000000122 0000000000000000
-> [   37.204128][  T656] raw: 0000000000000000 0000000000000000 00000000fffffdff 0000000000000000
-> [   37.204128][  T656] page dumped because: nonzero mapcount
-> [   37.204129][  T656] Modules linked in: acpi_cpufreq(-) device_dax(+) nd_pmem nd_btt dax_pmem intel_rapl_msr intel_rapl_common btrfs ipmi_ssif x86_pkg_temp_thermal blake2b_generic intel_powerclamp xor raid6_pq coretemp zstd_compress libcrc32c nvme sd_mod ast drm_vram_helper sg drm_ttm_helper nvme_core kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul crc32c_intel t10_pi ghash_clmulni_intel ttm rapl drm_kms_helper crc64_rocksoft_generic ahci intel_cstate syscopyarea crc64_rocksoft libahci intel_uncore crc64 sysfillrect ioatdma sysimgblt joydev fb_sys_fops libata dca wmi acpi_ipmi ipmi_si ipmi_devintf ipmi_msghandler nfit libnvdimm acpi_pad acpi_power_meter drm fuse ip_tables
-> [   37.204165][  T656] CPU: 7 PID: 656 Comm: kworker/7:1 Tainted: G S  B             5.19.0-rc2-00013-g0bf5cdf08f32 #1
-> [   37.204168][  T656] Workqueue: mm_percpu_wq vmstat_update
-> [   37.204181][  T656] Call Trace:
-> [   37.204184][  T656]  <TASK>
+-- 
+2.25.1
 
-snip.
