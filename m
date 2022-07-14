@@ -2,60 +2,53 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id D83FC5742E7
-	for <lists+openrisc@lfdr.de>; Thu, 14 Jul 2022 06:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C6435743F2
+	for <lists+openrisc@lfdr.de>; Thu, 14 Jul 2022 06:51:59 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id C559B249F9;
-	Thu, 14 Jul 2022 06:27:58 +0200 (CEST)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by mail.librecores.org (Postfix) with ESMTPS id C7354248B4
- for <openrisc@lists.librecores.org>; Thu, 14 Jul 2022 06:27:56 +0200 (CEST)
-Received: by mail-pj1-f50.google.com with SMTP id
- cp18-20020a17090afb9200b001ef79e8484aso5191896pjb.1
- for <openrisc@lists.librecores.org>; Wed, 13 Jul 2022 21:27:56 -0700 (PDT)
+	by mail.librecores.org (Postfix) with ESMTP id F021B21052;
+	Thu, 14 Jul 2022 06:51:58 +0200 (CEST)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by mail.librecores.org (Postfix) with ESMTPS id 6AEAE20D55
+ for <openrisc@lists.librecores.org>; Thu, 14 Jul 2022 06:51:57 +0200 (CEST)
+Received: by mail-ed1-f44.google.com with SMTP id eq6so918628edb.6
+ for <openrisc@lists.librecores.org>; Wed, 13 Jul 2022 21:51:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZWuX6ov4197gAn7zaYMbI8DUTRJY83Rd6vcUzJETd9g=;
- b=Ua3dc38Hbc65M6quhX/3f0MkSCWwVwSy1uos75L73bLQo9YOkV/ouWet0LzjrrwCC4
- 7TZWVHIrXc3GzXr/bDq0x/Vg+7g151sJY1c564aIk1bV3mpPHaqWOGQkr7vMuqYxJUV9
- wU5EeVMBlQk1NqzxdDYwPGdaVCuiWdZGcPU85jII6EcRQ7/K+hyH/jw1mG4tDZqLKrbZ
- 45S3kjiKmeZ4TauWOrjKizVBNeRk6ddu05eo+L+ovbzTSoby8ZD31UiRD8OA/wnCYdU0
- xFeF8IeefmGh2UTI7sfeuyifpe9WtY9Z1faqvKhwl1ms4cl60s+ym0BkyO5hsJIVJIeK
- tTWg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hW7IbWPmYdn2d1NNnyMMYZo7sUWhfXMc3EeZopJnd9s=;
+ b=ixpskF3es1ZmyzgNugOOlVGXEXU01wH8x+O+9c0Hn53VnayTkfg7B02WDNC5tIrO7l
+ iEwg3ca5x42mE2uIM8nqQUrXVwXLpT6ULvvEDEhDoQovcbWbHLnoAwOv78ubyxnHhjrc
+ b+F58wCwdRfZkdz4PEAGwhDlQaXN17a/dAqjH7lRr9IZR6Oxl15yDJPqx5DZqhd1LDca
+ m3K9L9Ce8HJHQ3yTYC00bD8m8HCeZVO9kN8Rn4LXDKPCB1TSqsZxNf0zJQAMyjXyiJ7g
+ cpQu1lJzObpQ/9Off5+y4JJmm1YPuTUAuigqbDyhvyv4ipfIih1IQ2OiwKFqjfHfMEIL
+ 9Opw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZWuX6ov4197gAn7zaYMbI8DUTRJY83Rd6vcUzJETd9g=;
- b=36Rj4DMdgWtpwqilAkR9nQk//RwiElUeO6hl+wG1eTo0KQSPAdbeKnKpKG33RLhru1
- w8KPX58O06j/WB5rxGU4BcVPO3Gr5gynMM9ZP8YD5zTP7a1/hRXKb9Rw1DkuOfuUBHAg
- Kgt/EtcXYoe64yYWggkJazmfZB85eea8qiW5l1krpmZefWKlr5DMMnB8HGXNYEtDfblq
- ihh5fducD34DhMsKF1u1ogw4PvVEnZSAX+1IM2bu6EP64IWhJw4lwsSKizJF5aP58Xvm
- nKCJQLQYeO4KIl9qradT6UAKnoqFfHSC2YSz1pg4EAEZ/kYVVArl3a8ABey6u0fo+8Or
- 2dnQ==
-X-Gm-Message-State: AJIora8CJ68Dvbd2bvEiIxpIFYGyzADMgh/k1g3GWD3XG7I4ULlOLaXy
- DVZzOhxWgJYLVwW25ZbTJjc=
-X-Google-Smtp-Source: AGRyM1vsh2RRLIselvsASRcdl5YWYuT5WWUUCVkeqtEIqmBcATZPEZELX2HnIYva/iFeDF9StaNh8A==
-X-Received: by 2002:a17:902:6a81:b0:16b:d807:9acd with SMTP id
- n1-20020a1709026a8100b0016bd8079acdmr6595961plk.40.1657772875392; 
- Wed, 13 Jul 2022 21:27:55 -0700 (PDT)
-Received: from localhost ([2409:10:24a0:4700:e8ad:216a:2a9d:6d0c])
- by smtp.gmail.com with ESMTPSA id
- y14-20020a17090aa40e00b001eee7950428sm318181pjp.44.2022.07.13.21.27.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jul 2022 21:27:55 -0700 (PDT)
-From: Stafford Horne <shorne@gmail.com>
-To: LKML <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 2/2] openrisc: Add virt defconfig
-Date: Thu, 14 Jul 2022 13:27:35 +0900
-Message-Id: <20220714042736.2133067-3-shorne@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220714042736.2133067-1-shorne@gmail.com>
-References: <20220714042736.2133067-1-shorne@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hW7IbWPmYdn2d1NNnyMMYZo7sUWhfXMc3EeZopJnd9s=;
+ b=2kmq0upCpTZipgOKBSHZ08xTWhXNPpKRiYpTd2gOK6Kup34IgNVWlhJpeL6NmNAuwp
+ StDzenoExEywZD/JCryS4VZGRvNLl1oOTMKEQvt3BaX/25H7wYbSxeINMJ0rH8+Y12AP
+ tZ55t9DklJsAlMftnuvTg034O/6hIYqWhgqfnUsDERyDpxfMgllplsXGiZaOKsXmMSpZ
+ 4FH/04W7mgxsCY/QKTRCTpk7KwagsqRiIYUwtF0HJD6aztEpgIYVmzVMlp6LedvgfE/6
+ d7mqoXyEm6hkQ+2ud6QIc3hunQUkfKgd51goeaDJF2KwaH/KHX5gMacLQ8QlkVlh+XjN
+ 4HQg==
+X-Gm-Message-State: AJIora9s4lQ+pyqxlJwguqPytROHNAgg0AtXjS87lNWGbfLLhxLmT8XO
+ 8SDgBVxst+zW+r5SjfzU7PKbdErI14LwsKkuoaA=
+X-Google-Smtp-Source: AGRyM1sCekI8nbaSkEz0wXp62jC4NmfsPr1d7cEeKiuuhPUbnQAKxU8DeX6rgQmQqaqEEOVW9HUjdoQGawmviSj4Nuo=
+X-Received: by 2002:aa7:db9a:0:b0:43a:76bf:5401 with SMTP id
+ u26-20020aa7db9a000000b0043a76bf5401mr9638511edt.244.1657774317014; Wed, 13
+ Jul 2022 21:51:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220711034615.482895-1-21cnbao@gmail.com>
+ <24f5e25b-3946-b92a-975b-c34688005398@linux.alibaba.com>
+In-Reply-To: <24f5e25b-3946-b92a-975b-c34688005398@linux.alibaba.com>
+From: Barry Song <21cnbao@gmail.com>
+Date: Thu, 14 Jul 2022 16:51:45 +1200
+Message-ID: <CAGsJ_4zjnmQV6LT3yo--K-qD-92=hBmgfK121=n-Y0oEFX8RnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] mm: arm64: bring up BATCHED_UNMAP_TLB_FLUSH
+To: xhao@linux.alibaba.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,138 +61,202 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, Openrisc <openrisc@lists.librecores.org>
+Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Yicong Yang <yangyicong@hisilicon.com>, Linux-MM <linux-mm@kvack.org>,
+ =?UTF-8?B?6YOt5YGl?= <guojian@oppo.com>, linux-riscv@lists.infradead.org,
+ Will Deacon <will@kernel.org>, linux-s390@vger.kernel.org,
+ =?UTF-8?B?5byg6K+X5piOKFNpbW9uIFpoYW5nKQ==?= <zhangshiming@oppo.com>,
+ =?UTF-8?B?5p2O5Z+56ZSLKHdpbmsp?= <lipeifeng@oppo.com>,
+ Jonathan Corbet <corbet@lwn.net>, x86 <x86@kernel.org>,
+ linux-mips@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ real mz <realmz6@gmail.com>, openrisc@lists.librecores.org,
+ Darren Hart <darren@os.amperecomputing.com>,
+ LAK <linux-arm-kernel@lists.infradead.org>,
+ LKML <linux-kernel@vger.kernel.org>, huzhanyuan@oppo.com,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-I have been developing a new qemu virt platform to help with more
-efficient toolchain and kernel testing [1].
+On Thu, Jul 14, 2022 at 3:29 PM Xin Hao <xhao@linux.alibaba.com> wrote:
+>
+> Hi barry.
+>
+> I do some test on Kunpeng arm64 machine use Unixbench.
+>
+> The test  result as below.
+>
+> One core, we can see the performance improvement above +30%.
 
-This patch adds the defconfig which is needed to support booting
-linux on the platform.
+I am really pleased to see the 30%+ improvement on unixbench on single core.
 
-[1] https://lore.kernel.org/qemu-devel/YpwNtowUTxRbh2Uq@antec/T/#m6db180b0d682785fb320e4a05345c12a063e0c47
+> ./Run -c 1 -i 1 shell1
+> w/o
+> System Benchmarks Partial Index              BASELINE RESULT INDEX
+> Shell Scripts (1 concurrent)                     42.4 5481.0 1292.7
+> ========
+> System Benchmarks Index Score (Partial Only)                         1292.7
+>
+> w/
+> System Benchmarks Partial Index              BASELINE RESULT INDEX
+> Shell Scripts (1 concurrent)                     42.4 6974.6 1645.0
+> ========
+> System Benchmarks Index Score (Partial Only)                         1645.0
+>
+>
+> But with whole cores, there have little performance degradation above -5%
 
-Signed-off-by: Stafford Horne <shorne@gmail.com>
----
- arch/openrisc/configs/virt_defconfig | 108 +++++++++++++++++++++++++++
- 1 file changed, 108 insertions(+)
- create mode 100644 arch/openrisc/configs/virt_defconfig
+That is sad as we might get more concurrency between mprotect(), madvise(),
+mremap(), zap_pte_range() and the deferred tlbi.
 
-diff --git a/arch/openrisc/configs/virt_defconfig b/arch/openrisc/configs/virt_defconfig
-new file mode 100644
-index 000000000000..c1b69166c500
---- /dev/null
-+++ b/arch/openrisc/configs/virt_defconfig
-@@ -0,0 +1,108 @@
-+CONFIG_SYSVIPC=y
-+CONFIG_POSIX_MQUEUE=y
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_LOG_BUF_SHIFT=14
-+CONFIG_CGROUPS=y
-+CONFIG_BLK_DEV_INITRD=y
-+CONFIG_OPENRISC_HAVE_INST_CMOV=y
-+CONFIG_OPENRISC_HAVE_INST_ROR=y
-+CONFIG_OPENRISC_HAVE_INST_RORI=y
-+CONFIG_OPENRISC_HAVE_INST_SEXT=y
-+CONFIG_NR_CPUS=8
-+CONFIG_SMP=y
-+CONFIG_HZ_100=y
-+# CONFIG_OPENRISC_NO_SPR_SR_DSX is not set
-+# CONFIG_COMPAT_BRK is not set
-+CONFIG_NET=y
-+CONFIG_PACKET=y
-+CONFIG_UNIX=y
-+CONFIG_INET=y
-+# CONFIG_INET_DIAG is not set
-+CONFIG_TCP_CONG_ADVANCED=y
-+# CONFIG_TCP_CONG_BIC is not set
-+# CONFIG_TCP_CONG_CUBIC is not set
-+# CONFIG_TCP_CONG_WESTWOOD is not set
-+# CONFIG_TCP_CONG_HTCP is not set
-+# CONFIG_IPV6 is not set
-+# CONFIG_WIRELESS is not set
-+CONFIG_PCI=y
-+CONFIG_PCIEPORTBUS=y
-+CONFIG_PCI_HOST_GENERIC=y
-+CONFIG_DEVTMPFS=y
-+CONFIG_DEVTMPFS_MOUNT=y
-+# CONFIG_PREVENT_FIRMWARE_BUILD is not set
-+CONFIG_BLK_DEV_LOOP=y
-+CONFIG_BLK_DEV_NBD=y
-+CONFIG_VIRTIO_BLK=y
-+CONFIG_NETDEVICES=y
-+CONFIG_VIRTIO_NET=y
-+CONFIG_ETHOC=y
-+CONFIG_MICREL_PHY=y
-+# CONFIG_WLAN is not set
-+CONFIG_INPUT_MOUSEDEV=y
-+# CONFIG_LEGACY_PTYS is not set
-+CONFIG_SERIAL_8250=y
-+CONFIG_SERIAL_8250_CONSOLE=y
-+CONFIG_SERIAL_OF_PLATFORM=y
-+CONFIG_VIRTIO_CONSOLE=y
-+# CONFIG_HW_RANDOM is not set
-+CONFIG_POWER_RESET=y
-+CONFIG_POWER_RESET_SYSCON=y
-+CONFIG_POWER_RESET_SYSCON_POWEROFF=y
-+CONFIG_SYSCON_REBOOT_MODE=y
-+# CONFIG_HWMON is not set
-+CONFIG_DRM=y
-+# CONFIG_DRM_FBDEV_EMULATION is not set
-+CONFIG_DRM_VIRTIO_GPU=y
-+CONFIG_FB=y
-+CONFIG_FIRMWARE_EDID=y
-+CONFIG_FRAMEBUFFER_CONSOLE=y
-+CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y
-+CONFIG_LOGO=y
-+CONFIG_SOUND=y
-+CONFIG_SND=y
-+CONFIG_SND_INTEL8X0=y
-+CONFIG_SND_INTEL8X0M=y
-+CONFIG_SND_SOC=y
-+CONFIG_SND_VIRTIO=y
-+# CONFIG_HID_A4TECH is not set
-+# CONFIG_HID_BELKIN is not set
-+# CONFIG_HID_CHERRY is not set
-+# CONFIG_HID_CHICONY is not set
-+# CONFIG_HID_CYPRESS is not set
-+# CONFIG_HID_EZKEY is not set
-+# CONFIG_HID_ITE is not set
-+# CONFIG_HID_KENSINGTON is not set
-+# CONFIG_HID_REDRAGON is not set
-+# CONFIG_HID_MICROSOFT is not set
-+# CONFIG_HID_MONTEREY is not set
-+CONFIG_USB=y
-+CONFIG_USB_XHCI_HCD=y
-+CONFIG_USB_XHCI_PLATFORM=y
-+CONFIG_USB_EHCI_HCD=y
-+CONFIG_USB_EHCI_HCD_PLATFORM=y
-+CONFIG_USB_OHCI_HCD=y
-+CONFIG_USB_OHCI_HCD_PLATFORM=y
-+CONFIG_USB_SERIAL=y
-+CONFIG_USB_GADGET=y
-+CONFIG_TYPEC=y
-+CONFIG_RTC_CLASS=y
-+CONFIG_RTC_DRV_GOLDFISH=y
-+CONFIG_VIRT_DRIVERS=y
-+CONFIG_VIRTIO_PCI=y
-+# CONFIG_VIRTIO_PCI_LEGACY is not set
-+CONFIG_VIRTIO_INPUT=y
-+CONFIG_VIRTIO_MMIO=y
-+CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
-+CONFIG_EXT3_FS=y
-+CONFIG_EXT3_FS_POSIX_ACL=y
-+# CONFIG_DNOTIFY is not set
-+CONFIG_MSDOS_FS=y
-+CONFIG_VFAT_FS=y
-+CONFIG_EXFAT_FS=y
-+CONFIG_TMPFS=y
-+CONFIG_NFS_FS=y
-+CONFIG_UNICODE=y
-+CONFIG_PRINTK_TIME=y
-+CONFIG_DYNAMIC_DEBUG=y
-+CONFIG_FTRACE=y
--- 
-2.36.1
+>
+> ./Run -c 96 -i 1 shell1
+> w/o
+> Shell Scripts (1 concurrent)                  80765.5 lpm   (60.0 s, 1
+> samples)
+> System Benchmarks Partial Index              BASELINE RESULT INDEX
+> Shell Scripts (1 concurrent)                     42.4 80765.5 19048.5
+> ========
+> System Benchmarks Index Score (Partial Only)                        19048.5
+>
+> w
+> Shell Scripts (1 concurrent)                  76333.6 lpm   (60.0 s, 1
+> samples)
+> System Benchmarks Partial Index              BASELINE RESULT INDEX
+> Shell Scripts (1 concurrent)                     42.4 76333.6 18003.2
+> ========
+> System Benchmarks Index Score (Partial Only)                        18003.2
+>
+> ----------------------------------------------------------------------------------------------
+>
+>
+> After discuss with you, and do some changes in the patch.
+>
+> ndex a52381a680db..1ecba81f1277 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -727,7 +727,11 @@ void flush_tlb_batched_pending(struct mm_struct *mm)
+>          int flushed = batch >> TLB_FLUSH_BATCH_FLUSHED_SHIFT;
+>
+>          if (pending != flushed) {
+> +#ifdef CONFIG_ARCH_HAS_MM_CPUMASK
+>                  flush_tlb_mm(mm);
+> +#else
+> +               dsb(ish);
+> +#endif
+>
 
+i was guessing the problem might be flush_tlb_batched_pending()
+so i asked you to change this to verify my guess.
+
+     /*
+>                   * If the new TLB flushing is pending during flushing, leave
+>                   * mm->tlb_flush_batched as is, to avoid losing flushing.
+>
+> there have a performance improvement with whole cores, above +30%
+
+But I don't think it is a proper patch. There is no guarantee the cpu calling
+flush_tlb_batched_pending is exactly the cpu sending the deferred
+tlbi. so the solution is unsafe. But since this temporary code can bring the
+30%+ performance improvement back for high concurrency, we have huge
+potential to finally make it.
+
+Unfortunately I don't have an arm64 server to debug on this. I only have
+8 cores which are unlikely to reproduce regression which happens in
+high concurrency with 96 parallel tasks.
+
+So I'd ask if @yicong or someone else working on kunpeng or other
+arm64 servers  is able to actually debug and figure out a proper
+patch for this, then add the patch as 5/5 into this series?
+
+>
+> ./Run -c 96 -i 1 shell1
+> 96 CPUs in system; running 96 parallel copies of tests
+>
+> Shell Scripts (1 concurrent)                 109229.0 lpm   (60.0 s, 1 samples)
+> System Benchmarks Partial Index              BASELINE       RESULT    INDEX
+> Shell Scripts (1 concurrent)                     42.4     109229.0  25761.6
+>                                                                     ========
+> System Benchmarks Index Score (Partial Only)                        25761.6
+>
+>
+> Tested-by: Xin Hao<xhao@linux.alibaba.com>
+
+Thanks for your testing!
+
+>
+> Looking forward to your next version patch.
+>
+> On 7/11/22 11:46 AM, Barry Song wrote:
+> > Though ARM64 has the hardware to do tlb shootdown, the hardware
+> > broadcasting is not free.
+> > A simplest micro benchmark shows even on snapdragon 888 with only
+> > 8 cores, the overhead for ptep_clear_flush is huge even for paging
+> > out one page mapped by only one process:
+> > 5.36%  a.out    [kernel.kallsyms]  [k] ptep_clear_flush
+> >
+> > While pages are mapped by multiple processes or HW has more CPUs,
+> > the cost should become even higher due to the bad scalability of
+> > tlb shootdown.
+> >
+> > The same benchmark can result in 16.99% CPU consumption on ARM64
+> > server with around 100 cores according to Yicong's test on patch
+> > 4/4.
+> >
+> > This patchset leverages the existing BATCHED_UNMAP_TLB_FLUSH by
+> > 1. only send tlbi instructions in the first stage -
+> >       arch_tlbbatch_add_mm()
+> > 2. wait for the completion of tlbi by dsb while doing tlbbatch
+> >       sync in arch_tlbbatch_flush()
+> > My testing on snapdragon shows the overhead of ptep_clear_flush
+> > is removed by the patchset. The micro benchmark becomes 5% faster
+> > even for one page mapped by single process on snapdragon 888.
+> >
+> >
+> > -v2:
+> > 1. Collected Yicong's test result on kunpeng920 ARM64 server;
+> > 2. Removed the redundant vma parameter in arch_tlbbatch_add_mm()
+> >     according to the comments of Peter Zijlstra and Dave Hansen
+> > 3. Added ARCH_HAS_MM_CPUMASK rather than checking if mm_cpumask
+> >     is empty according to the comments of Nadav Amit
+> >
+> > Thanks, Yicong, Peter, Dave and Nadav for your testing or reviewing
+> > , and comments.
+> >
+> > -v1:
+> > https://lore.kernel.org/lkml/20220707125242.425242-1-21cnbao@gmail.com/
+> >
+> > Barry Song (4):
+> >    Revert "Documentation/features: mark BATCHED_UNMAP_TLB_FLUSH doesn't
+> >      apply to ARM64"
+> >    mm: rmap: Allow platforms without mm_cpumask to defer TLB flush
+> >    mm: rmap: Extend tlbbatch APIs to fit new platforms
+> >    arm64: support batched/deferred tlb shootdown during page reclamation
+> >
+> >   Documentation/features/arch-support.txt       |  1 -
+> >   .../features/vm/TLB/arch-support.txt          |  2 +-
+> >   arch/arm/Kconfig                              |  1 +
+> >   arch/arm64/Kconfig                            |  1 +
+> >   arch/arm64/include/asm/tlbbatch.h             | 12 ++++++++++
+> >   arch/arm64/include/asm/tlbflush.h             | 23 +++++++++++++++++--
+> >   arch/loongarch/Kconfig                        |  1 +
+> >   arch/mips/Kconfig                             |  1 +
+> >   arch/openrisc/Kconfig                         |  1 +
+> >   arch/powerpc/Kconfig                          |  1 +
+> >   arch/riscv/Kconfig                            |  1 +
+> >   arch/s390/Kconfig                             |  1 +
+> >   arch/um/Kconfig                               |  1 +
+> >   arch/x86/Kconfig                              |  1 +
+> >   arch/x86/include/asm/tlbflush.h               |  3 ++-
+> >   mm/Kconfig                                    |  3 +++
+> >   mm/rmap.c                                     | 14 +++++++----
+> >   17 files changed, 59 insertions(+), 9 deletions(-)
+> >   create mode 100644 arch/arm64/include/asm/tlbbatch.h
+> >
+> --
+> Best Regards!
+> Xin Hao
+>
+
+Thanks
+Barry
