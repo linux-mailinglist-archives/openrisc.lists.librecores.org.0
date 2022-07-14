@@ -2,37 +2,45 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A9FB5743F1
-	for <lists+openrisc@lfdr.de>; Thu, 14 Jul 2022 06:51:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 936A5574253
+	for <lists+openrisc@lfdr.de>; Thu, 14 Jul 2022 06:23:28 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 4A1C320D5D;
-	Thu, 14 Jul 2022 06:51:23 +0200 (CEST)
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- by mail.librecores.org (Postfix) with ESMTPS id C2B4F249F3
- for <openrisc@lists.librecores.org>; Thu, 14 Jul 2022 05:29:06 +0200 (CEST)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
- MF=xhao@linux.alibaba.com; NM=1; PH=DS; RN=23; SR=0;
- TI=SMTPD_---0VJHMqdX_1657769336; 
-Received: from B-X3VXMD6M-2058.local(mailfrom:xhao@linux.alibaba.com
- fp:SMTPD_---0VJHMqdX_1657769336) by smtp.aliyun-inc.com;
- Thu, 14 Jul 2022 11:28:59 +0800
-Subject: Re: [PATCH v2 0/4] mm: arm64: bring up BATCHED_UNMAP_TLB_FLUSH
-To: Barry Song <21cnbao@gmail.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, x86@kernel.org,
- catalin.marinas@arm.com, will@kernel.org, linux-doc@vger.kernel.org
-References: <20220711034615.482895-1-21cnbao@gmail.com>
-From: Xin Hao <xhao@linux.alibaba.com>
-Message-ID: <24f5e25b-3946-b92a-975b-c34688005398@linux.alibaba.com>
-Date: Thu, 14 Jul 2022 11:28:56 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
+	by mail.librecores.org (Postfix) with ESMTP id 470F4249F8;
+	Thu, 14 Jul 2022 06:23:28 +0200 (CEST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by mail.librecores.org (Postfix) with ESMTPS id A7FFE249D9
+ for <openrisc@lists.librecores.org>; Thu, 14 Jul 2022 06:23:26 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 849CC61E96;
+ Thu, 14 Jul 2022 04:23:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766F0C34114;
+ Thu, 14 Jul 2022 04:23:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657772605;
+ bh=TqZD68mi36gm9aiOSQeCq3F2D3ZSF1PXzG4Ef1OaD6k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZGxykcsNy3p1QIUnS4/EZEoVBLncppL1tsl9PadOT1hhnhZZL88P7z4zlg6beQy3d
+ GPoMU7oxHPvX7MyhNVHFdlCI3lzL2zDP754TeoJ1m/jvUa/sxQzmStljMMk0+OL9fH
+ gtWWUZZ9U2RY2xCRlpX+DTzMjkfjZIIdjgLH2bXsRm8PqyfTeIQq1/U0b6GbiZEyAC
+ rDvkglNaN+0d5XKT8Q6HiCB4BTzFa550sSirzDHTUzyfySK/VZikwRTMoMsGpYxAtr
+ YDKhu+nHUNDm3T1TTt0AzrkHXRISFuQ7PATF8qrQHlvFGQ7OcJSuXMDBWAu0Oj676e
+ DTQY7uhGupTVQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.18 26/41] irqchip: or1k-pic: Undefine mask_ack for
+ level triggered hardware
+Date: Thu, 14 Jul 2022 00:22:06 -0400
+Message-Id: <20220714042221.281187-26-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220714042221.281187-1-sashal@kernel.org>
+References: <20220714042221.281187-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20220711034615.482895-1-21cnbao@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 14 Jul 2022 06:51:20 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -45,160 +53,45 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Reply-To: xhao@linux.alibaba.com
-Cc: linux-s390@vger.kernel.org, zhangshiming@oppo.com, lipeifeng@oppo.com,
- arnd@arndb.de, corbet@lwn.net, realmz6@gmail.com, linux-kernel@vger.kernel.org,
- yangyicong@hisilicon.com, openrisc@lists.librecores.org,
- darren@os.amperecomputing.com, huzhanyuan@oppo.com, guojian@oppo.com,
- linux-riscv@lists.infradead.org, linux-mips@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+Cc: Sasha Levin <sashal@kernel.org>, jonas@southpole.se,
+ Marc Zyngier <maz@kernel.org>, openrisc@lists.librecores.org,
+ tglx@linutronix.de
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Hi barry.
+From: Stafford Horne <shorne@gmail.com>
 
-I do some test on Kunpeng arm64 machine use Unixbench.
+[ Upstream commit 8520501346ed8d1c4a6dfa751cb57328a9c843f1 ]
 
-The test  result as below.
+The mask_ack operation clears the interrupt by writing to the PICSR
+register.  This we don't want for level triggered interrupt because
+it does not actually clear the interrupt on the source hardware.
 
-One core, we can see the performance improvement above +30%.
-./Run -c 1 -i 1 shell1
-w/o
-System Benchmarks Partial Index              BASELINE RESULT INDEX
-Shell Scripts (1 concurrent)                     42.4 5481.0 1292.7
-========
-System Benchmarks Index Score (Partial Only)                         1292.7
+This was causing issues in qemu with multi core setups where
+interrupts would continue to fire even though they had been cleared in
+PICSR.
 
-w/
-System Benchmarks Partial Index              BASELINE RESULT INDEX
-Shell Scripts (1 concurrent)                     42.4 6974.6 1645.0
-========
-System Benchmarks Index Score (Partial Only)                         1645.0
+Just remove the mask_ack operation.
 
+Acked-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Stafford Horne <shorne@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/irqchip/irq-or1k-pic.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-But with whole cores, there have little performance degradation above -5%
-
-./Run -c 96 -i 1 shell1
-w/o
-Shell Scripts (1 concurrent)                  80765.5 lpm   (60.0 s, 1 
-samples)
-System Benchmarks Partial Index              BASELINE RESULT INDEX
-Shell Scripts (1 concurrent)                     42.4 80765.5 19048.5
-========
-System Benchmarks Index Score (Partial Only)                        19048.5
-
-w
-Shell Scripts (1 concurrent)                  76333.6 lpm   (60.0 s, 1 
-samples)
-System Benchmarks Partial Index              BASELINE RESULT INDEX
-Shell Scripts (1 concurrent)                     42.4 76333.6 18003.2
-========
-System Benchmarks Index Score (Partial Only)                        18003.2
-
----------------------------------------------------------------------------------------------- 
-
-
-After discuss with you, and do some changes in the patch.
-
-ndex a52381a680db..1ecba81f1277 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -727,7 +727,11 @@ void flush_tlb_batched_pending(struct mm_struct *mm)
-         int flushed = batch >> TLB_FLUSH_BATCH_FLUSHED_SHIFT;
-
-         if (pending != flushed) {
-+#ifdef CONFIG_ARCH_HAS_MM_CPUMASK
-                 flush_tlb_mm(mm);
-+#else
-+               dsb(ish);
-+#endif
-                 /*
-                  * If the new TLB flushing is pending during flushing, leave
-                  * mm->tlb_flush_batched as is, to avoid losing flushing.
-
-there have a performance improvement with whole cores, above +30%
-
-./Run -c 96 -i 1 shell1
-96 CPUs in system; running 96 parallel copies of tests
-
-Shell Scripts (1 concurrent)                 109229.0 lpm   (60.0 s, 1 samples)
-System Benchmarks Partial Index              BASELINE       RESULT    INDEX
-Shell Scripts (1 concurrent)                     42.4     109229.0  25761.6
-                                                                    ========
-System Benchmarks Index Score (Partial Only)                        25761.6
-
-
-Tested-by: Xin Hao<xhao@linux.alibaba.com>
-
-Looking forward to your next version patch.
-
-On 7/11/22 11:46 AM, Barry Song wrote:
-> Though ARM64 has the hardware to do tlb shootdown, the hardware
-> broadcasting is not free.
-> A simplest micro benchmark shows even on snapdragon 888 with only
-> 8 cores, the overhead for ptep_clear_flush is huge even for paging
-> out one page mapped by only one process:
-> 5.36%  a.out    [kernel.kallsyms]  [k] ptep_clear_flush
->
-> While pages are mapped by multiple processes or HW has more CPUs,
-> the cost should become even higher due to the bad scalability of
-> tlb shootdown.
->
-> The same benchmark can result in 16.99% CPU consumption on ARM64
-> server with around 100 cores according to Yicong's test on patch
-> 4/4.
->
-> This patchset leverages the existing BATCHED_UNMAP_TLB_FLUSH by
-> 1. only send tlbi instructions in the first stage -
-> 	arch_tlbbatch_add_mm()
-> 2. wait for the completion of tlbi by dsb while doing tlbbatch
-> 	sync in arch_tlbbatch_flush()
-> My testing on snapdragon shows the overhead of ptep_clear_flush
-> is removed by the patchset. The micro benchmark becomes 5% faster
-> even for one page mapped by single process on snapdragon 888.
->
->
-> -v2:
-> 1. Collected Yicong's test result on kunpeng920 ARM64 server;
-> 2. Removed the redundant vma parameter in arch_tlbbatch_add_mm()
->     according to the comments of Peter Zijlstra and Dave Hansen
-> 3. Added ARCH_HAS_MM_CPUMASK rather than checking if mm_cpumask
->     is empty according to the comments of Nadav Amit
->
-> Thanks, Yicong, Peter, Dave and Nadav for your testing or reviewing
-> , and comments.
->
-> -v1:
-> https://lore.kernel.org/lkml/20220707125242.425242-1-21cnbao@gmail.com/
->
-> Barry Song (4):
->    Revert "Documentation/features: mark BATCHED_UNMAP_TLB_FLUSH doesn't
->      apply to ARM64"
->    mm: rmap: Allow platforms without mm_cpumask to defer TLB flush
->    mm: rmap: Extend tlbbatch APIs to fit new platforms
->    arm64: support batched/deferred tlb shootdown during page reclamation
->
->   Documentation/features/arch-support.txt       |  1 -
->   .../features/vm/TLB/arch-support.txt          |  2 +-
->   arch/arm/Kconfig                              |  1 +
->   arch/arm64/Kconfig                            |  1 +
->   arch/arm64/include/asm/tlbbatch.h             | 12 ++++++++++
->   arch/arm64/include/asm/tlbflush.h             | 23 +++++++++++++++++--
->   arch/loongarch/Kconfig                        |  1 +
->   arch/mips/Kconfig                             |  1 +
->   arch/openrisc/Kconfig                         |  1 +
->   arch/powerpc/Kconfig                          |  1 +
->   arch/riscv/Kconfig                            |  1 +
->   arch/s390/Kconfig                             |  1 +
->   arch/um/Kconfig                               |  1 +
->   arch/x86/Kconfig                              |  1 +
->   arch/x86/include/asm/tlbflush.h               |  3 ++-
->   mm/Kconfig                                    |  3 +++
->   mm/rmap.c                                     | 14 +++++++----
->   17 files changed, 59 insertions(+), 9 deletions(-)
->   create mode 100644 arch/arm64/include/asm/tlbbatch.h
->
+diff --git a/drivers/irqchip/irq-or1k-pic.c b/drivers/irqchip/irq-or1k-pic.c
+index 49b47e787644..f289ccd95291 100644
+--- a/drivers/irqchip/irq-or1k-pic.c
++++ b/drivers/irqchip/irq-or1k-pic.c
+@@ -66,7 +66,6 @@ static struct or1k_pic_dev or1k_pic_level = {
+ 		.name = "or1k-PIC-level",
+ 		.irq_unmask = or1k_pic_unmask,
+ 		.irq_mask = or1k_pic_mask,
+-		.irq_mask_ack = or1k_pic_mask_ack,
+ 	},
+ 	.handle = handle_level_irq,
+ 	.flags = IRQ_LEVEL | IRQ_NOPROBE,
 -- 
-Best Regards!
-Xin Hao
+2.35.1
 
