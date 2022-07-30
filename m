@@ -2,38 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B873D58619C
-	for <lists+openrisc@lfdr.de>; Mon,  1 Aug 2022 00:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3322D58619D
+	for <lists+openrisc@lfdr.de>; Mon,  1 Aug 2022 00:07:43 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 9333824A1A;
-	Mon,  1 Aug 2022 00:07:42 +0200 (CEST)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id 93133248E4
- for <openrisc@lists.librecores.org>; Fri, 29 Jul 2022 17:28:15 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0B522B82844;
- Fri, 29 Jul 2022 15:28:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F1EC433D6;
- Fri, 29 Jul 2022 15:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659108493;
- bh=+Eu1+NpdMQSxhSpBOHg1xq9IY5RE5+jGBaKhcxBU/fw=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=SYC3Dsw++Jo9/onL7ZbEg1e34NjAkGJ0/LEyzxxtRyARi5tsRhnhMCBXpA48hlrbx
- /ygCpipyirN70BTWI+O7BPw3KEXhwiaeJ1toIS9f4x8NNUrtDb0g9IXD0fU2Bmoo6M
- w/YCbZ5sds6/EqIKdGN13GNgPIYzv0deYvecUifHVmZHvmvFFPvpCRqJ8szO8EVscM
- zHVucD9HNGWsnSLNuXErgrHHYht/KZ+I5xQvurQSs2gAeRSzLQTzOZZkq+fQyiif2B
- dBwd0T3KOaUJi1JScRgdDFB1nTqlfa6EEzGGbx1ADBkWPp5B2oyL/vemt0EQW8/A3l
- tsRJX93dX43kQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 77B5C5C033E; Fri, 29 Jul 2022 08:28:13 -0700 (PDT)
-Date: Fri, 29 Jul 2022 08:28:13 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Michel Lespinasse <michel@lespinasse.org>
+	by mail.librecores.org (Postfix) with ESMTP id 0B9EE2491F;
+	Mon,  1 Aug 2022 00:07:43 +0200 (CEST)
+Received: from server.lespinasse.org (server.lespinasse.org [63.205.204.226])
+ by mail.librecores.org (Postfix) with ESMTPS id 5847B24A4C
+ for <openrisc@lists.librecores.org>; Sat, 30 Jul 2022 11:40:34 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=lespinasse.org; i=@lespinasse.org; q=dns/txt; s=srv-79-ed;
+ t=1659174032; h=date : from : to : cc : subject : message-id :
+ references : mime-version : content-type : in-reply-to : from;
+ bh=weCa4etYCrU0JKpJO/Ui+2clGa/1cbP+1Ce8uxB4Z2U=;
+ b=x/Ziq42GBYdLObjVTEjRxMr42JGNj1S6ikUonHkCSS9+QUAEIEusirhrUb1NLAhWCN9I/
+ 26gXmKmVFCvOvm8Ag==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lespinasse.org;
+ i=@lespinasse.org; q=dns/txt; s=srv-79-rsa; t=1659174032; h=date :
+ from : to : cc : subject : message-id : references : mime-version :
+ content-type : in-reply-to : from;
+ bh=weCa4etYCrU0JKpJO/Ui+2clGa/1cbP+1Ce8uxB4Z2U=;
+ b=xjlyRJ2PLCvlHddIpET9xkdQ9b2YJIlAuRmqVD4Zi9LYcfMqzgs3mU4rkm/FKHLXNUOaJ
+ LyyP89/nFeA6CHdOEfvoMWe+2hvIc5qWIl7OAgthzIj8J1BY1lyEpfvyFmhVmffdeRhfjdo
+ vMuxuuddA8OZu54a34mTh9dLsyNfUY1VEPbkQXmB5bXD5tY51a2x0Dy7lPzCrgrdbPY9jea
+ g6bR8AptJZSZjsf3hgGuxahRdvKbF0nVgvjROX7b4fAX0R64UDLs/zIoRFldyB9Yfr1EawK
+ tm9ki9L5Z6WkfftzLymxjgxhP/KXmf4WU+QM/fsd13mCq3dze1SIRx1wUOGA==
+Received: by server.lespinasse.org (Postfix, from userid 1000)
+ id 1452116096D; Sat, 30 Jul 2022 02:40:32 -0700 (PDT)
+Date: Sat, 30 Jul 2022 02:40:32 -0700
+From: Michel Lespinasse <michel@lespinasse.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
 Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-Message-ID: <20220729152813.GA3579395@paulmck-ThinkPad-P17-Gen-1>
+Message-ID: <20220730094032.GA1587@lespinasse.org>
 References: <20220608142723.103523089@infradead.org>
  <20220608144516.172460444@infradead.org>
  <20220725194306.GA14746@lespinasse.org>
@@ -44,6 +44,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20220729152622.GM2860372@paulmck-ThinkPad-P17-Gen-1>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Mon, 01 Aug 2022 00:07:35 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -57,15 +58,15 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
-Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
- linus.walleij@linaro.org, bsegall@google.com, guoren@kernel.org, pavel@ucw.cz,
- agordeev@linux.ibm.com, srivatsa@csail.mit.edu, linux-arch@vger.kernel.org,
- vincent.guittot@linaro.org, mpe@ellerman.id.au, chenhuacai@kernel.org,
- linux-acpi@vger.kernel.org, agross@kernel.org, linux-imx@nxp.com,
- catalin.marinas@arm.com, xen-devel@lists.xenproject.org, mattst88@gmail.com,
- borntraeger@linux.ibm.com, mturquette@baylibre.com, sammy@sammy.net,
- pmladek@suse.com, linux-pm@vger.kernel.org, jiangshanlai@gmail.com,
+Cc: Michel Lespinasse <michel@lespinasse.org>, juri.lelli@redhat.com,
+ rafael@kernel.org, benh@kernel.crashing.org, linus.walleij@linaro.org,
+ bsegall@google.com, guoren@kernel.org, pavel@ucw.cz, agordeev@linux.ibm.com,
+ srivatsa@csail.mit.edu, linux-arch@vger.kernel.org, vincent.guittot@linaro.org,
+ mpe@ellerman.id.au, chenhuacai@kernel.org, linux-acpi@vger.kernel.org,
+ agross@kernel.org, linux-imx@nxp.com, catalin.marinas@arm.com,
+ xen-devel@lists.xenproject.org, mattst88@gmail.com, borntraeger@linux.ibm.com,
+ mturquette@baylibre.com, sammy@sammy.net, pmladek@suse.com,
+ linux-pm@vger.kernel.org, jiangshanlai@gmail.com,
  Sascha Hauer <s.hauer@pengutronix.de>, linux-um@lists.infradead.org,
  acme@kernel.org, tglx@linutronix.de, linux-omap@vger.kernel.org,
  dietmar.eggemann@arm.com, rth@twiddle.net, gregkh@linuxfoundation.org,
@@ -108,118 +109,13 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, benh@kernel.crashing.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Or better yet, try the patch that Rafael proposed.  ;-)
-
-							Thanx, Paul
-
-On Fri, Jul 29, 2022 at 08:26:22AM -0700, Paul E. McKenney wrote:
-> On Fri, Jul 29, 2022 at 03:24:58AM -0700, Michel Lespinasse wrote:
-> > On Thu, Jul 28, 2022 at 10:20:53AM -0700, Paul E. McKenney wrote:
-> > > On Mon, Jul 25, 2022 at 12:43:06PM -0700, Michel Lespinasse wrote:
-> > > > On Wed, Jun 08, 2022 at 04:27:27PM +0200, Peter Zijlstra wrote:
-> > > > > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
-> > > > > Xeons") wrecked intel_idle in two ways:
-> > > > > 
-> > > > >  - must not have tracing in idle functions
-> > > > >  - must return with IRQs disabled
-> > > > > 
-> > > > > Additionally, it added a branch for no good reason.
-> > > > > 
-> > > > > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
-> > > > > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > > > 
-> > > > After this change was introduced, I am seeing "WARNING: suspicious RCU
-> > > > usage" when booting a kernel with debug options compiled in. Please
-> > > > see the attached dmesg output. The issue starts with commit 32d4fd5751ea
-> > > > and is still present in v5.19-rc8.
-> > > > 
-> > > > I'm not sure, is this too late to fix or revert in v5.19 final ?
-> > > 
-> > > I finally got a chance to take a quick look at this.
-> > > 
-> > > The rcu_eqs_exit() function is making a lockdep complaint about
-> > > being invoked with interrupts enabled.  This function is called from
-> > > rcu_idle_exit(), which is an expected code path from cpuidle_enter_state()
-> > > via its call to rcu_idle_exit().  Except that rcu_idle_exit() disables
-> > > interrupts before invoking rcu_eqs_exit().
-> > > 
-> > > The only other call to rcu_idle_exit() does not disable interrupts,
-> > > but it is via rcu_user_exit(), which would be a very odd choice for
-> > > cpuidle_enter_state().
-> > > 
-> > > It seems unlikely, but it might be that it is the use of local_irq_save()
-> > > instead of raw_local_irq_save() within rcu_idle_exit() that is causing
-> > > the trouble.  If this is the case, then the commit shown below would
-> > > help.  Note that this commit removes the warning from lockdep, so it
-> > > is necessary to build the kernel with CONFIG_RCU_EQS_DEBUG=y to enable
-> > > equivalent debugging.
-> > > 
-> > > Could you please try your test with the -rce commit shown below applied?
-> > 
-> > Thanks for looking into it.
-> 
-> And thank you for trying this shot in the dark!
-> 
-> > After checking out Peter's commit 32d4fd5751ea,
-> > cherry picking your commit ed4ae5eff4b3,
-> > and setting CONFIG_RCU_EQS_DEBUG=y in addition of my usual debug config,
-> > I am now seeing this a few seconds into the boot:
-> > 
-> > [    3.010650] ------------[ cut here ]------------
-> > [    3.010651] WARNING: CPU: 0 PID: 0 at kernel/sched/clock.c:397 sched_clock_tick+0x27/0x60
-> 
-> And this is again a complaint about interrupts not being disabled.
-> 
-> But it does appear that the problem was the lockdep complaint, and
-> eliminating that did take care of part of the problem.  But lockdep
-> remained enabled, and you therefore hit the next complaint.
-> 
-> > [    3.010657] Modules linked in:
-> > [    3.010660] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.19.0-rc1-test-00005-g1be22fea0611 #1
-> > [    3.010662] Hardware name: LENOVO 30BFS44D00/1036, BIOS S03KT51A 01/17/2022
-> > [    3.010663] RIP: 0010:sched_clock_tick+0x27/0x60
-> 
-> The most straightforward way to get to sched_clock_tick() from
-> cpuidle_enter_state() is via the call to sched_clock_idle_wakeup_event().
-> 
-> Except that it disables interrupts before invoking sched_clock_tick().
-> 
-> > [    3.010665] Code: 1f 40 00 53 eb 02 5b c3 66 90 8b 05 2f c3 40 01 85 c0 74 18 65 8b 05 60 88 8f 4e 85 c0 75 0d 65 8b 05 a9 85 8f 4e 85 c0 74 02 <0f> 0b e8 e2 6c 89 00 48 c7 c3 40 d5 02 00
-> >  89 c0 48 03 1c c5 c0 98
-> > [    3.010667] RSP: 0000:ffffffffb2803e28 EFLAGS: 00010002
-> > [    3.010670] RAX: 0000000000000001 RBX: ffffc8ce7fa07060 RCX: 0000000000000001
-> > [    3.010671] RDX: 0000000000000000 RSI: ffffffffb268dd21 RDI: ffffffffb269ab13
-> > [    3.010673] RBP: 0000000000000001 R08: ffffffffffc300d5 R09: 000000000002be80
-> > [    3.010674] R10: 000003625b53183a R11: ffffa012b802b7a4 R12: ffffffffb2aa9e80
-> > [    3.010675] R13: ffffffffb2aa9e00 R14: 0000000000000001 R15: 0000000000000000
-> > [    3.010677] FS:  0000000000000000(0000) GS:ffffa012b8000000(0000) knlGS:0000000000000000
-> > [    3.010678] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [    3.010680] CR2: ffffa012f81ff000 CR3: 0000000c99612001 CR4: 00000000003706f0
-> > [    3.010681] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> > [    3.010682] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> > [    3.010683] Call Trace:
-> > [    3.010685]  <TASK>
-> > [    3.010688]  cpuidle_enter_state+0xb7/0x4b0
-> > [    3.010694]  cpuidle_enter+0x29/0x40
-> > [    3.010697]  do_idle+0x1d4/0x210
-> > [    3.010702]  cpu_startup_entry+0x19/0x20
-> > [    3.010704]  rest_init+0x117/0x1a0
-> > [    3.010708]  arch_call_rest_init+0xa/0x10
-> > [    3.010711]  start_kernel+0x6d8/0x6ff
-> > [    3.010716]  secondary_startup_64_no_verify+0xce/0xdb
-> > [    3.010728]  </TASK>
-> > [    3.010729] irq event stamp: 44179
-> > [    3.010730] hardirqs last  enabled at (44179): [<ffffffffb2000ccb>] asm_sysvec_apic_timer_interrupt+0x1b/0x20
-> > [    3.010734] hardirqs last disabled at (44177): [<ffffffffb22003f0>] __do_softirq+0x3f0/0x498
-> > [    3.010736] softirqs last  enabled at (44178): [<ffffffffb2200332>] __do_softirq+0x332/0x498
-> > [    3.010738] softirqs last disabled at (44171): [<ffffffffb16c760b>] irq_exit_rcu+0xab/0xf0
-> > [    3.010741] ---[ end trace 0000000000000000 ]---
-> 
-> Would you be willing to try another shot in the dark, but untested
+On Fri, Jul 29, 2022 at 08:26:22AM -0700, Paul E. McKenney wrote:> Would you be willing to try another shot in the dark, but untested
 > this time?  I freely admit that this is getting strange.
 > 
 > 							Thanx, Paul
-> 
+
+Yes, adding this second change got rid of the boot time warning for me.
+
 > ------------------------------------------------------------------------
 > 
 > diff --git a/kernel/sched/clock.c b/kernel/sched/clock.c
