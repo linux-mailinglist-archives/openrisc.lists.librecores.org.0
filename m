@@ -2,52 +2,52 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id B96765861A1
-	for <lists+openrisc@lfdr.de>; Mon,  1 Aug 2022 00:07:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A9B765873F0
+	for <lists+openrisc@lfdr.de>; Tue,  2 Aug 2022 00:30:40 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A1FB6248E8;
-	Mon,  1 Aug 2022 00:07:44 +0200 (CEST)
-Received: from server.lespinasse.org (server.lespinasse.org [63.205.204.226])
- by mail.librecores.org (Postfix) with ESMTPS id 671FD242D7
- for <openrisc@lists.librecores.org>; Sun, 31 Jul 2022 01:45:32 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=lespinasse.org; i=@lespinasse.org; q=dns/txt; s=srv-79-ed;
- t=1659224730; h=date : from : to : cc : subject : message-id :
- references : mime-version : content-type : in-reply-to : from;
- bh=nAVqtDkPyoGTnjQOsobKhENqaeU5rNiWFfP8mKVev5k=;
- b=HFFhCK7R4iKO9dp7xadnNvlJ3TFgnIFCD+mWF8YiQOWKhEk/dwPTWNRYWGC9XfN1WRDf2
- g306xaRkvMw+dqoAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lespinasse.org;
- i=@lespinasse.org; q=dns/txt; s=srv-79-rsa; t=1659224730; h=date :
- from : to : cc : subject : message-id : references : mime-version :
- content-type : in-reply-to : from;
- bh=nAVqtDkPyoGTnjQOsobKhENqaeU5rNiWFfP8mKVev5k=;
- b=xEm4vrS+nhrfg16KlTSOz6xKHVgl2anxivbQOaQ8iyITrSIXx3k7S+7DNm3/9PE3/hP5/
- weBfs5WCmns8PrJOUh5+LyucC170rSw2K/NgNrAjDpputAJGflo+dG36LsXYxD+GZSSZKbP
- Pj/N5DYITgz/J3aBedmEOjvEEcNa6ityOyI32KA+gNj6htWosOb+QOsIsRx/2q9SXnXOMQE
- CoO7nRU+J2kcBx1HiMTnfjr/eN+QixQZGT0tRp8own4vN9hl237pUBRGLyuycFtncUUh4v4
- MsO6ge1ke2qwlIabxdvLZxjhahuiQC5BaBfCoCYkudJkUo4tS5HM55MrUsVw==
-Received: by server.lespinasse.org (Postfix, from userid 1000)
- id F117B160977; Sat, 30 Jul 2022 16:45:29 -0700 (PDT)
-Date: Sat, 30 Jul 2022 16:45:29 -0700
-From: Michel Lespinasse <michel@lespinasse.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-Message-ID: <20220730234529.GC1587@lespinasse.org>
-References: <20220608142723.103523089@infradead.org>
- <20220608144516.172460444@infradead.org>
- <20220725194306.GA14746@lespinasse.org>
- <20220728172053.GA3607379@paulmck-ThinkPad-P17-Gen-1>
- <20220729102458.GA1695@lespinasse.org>
- <CAJZ5v0gyPtX=ksCibo2ZN_BztCqUn9KRtRu+gsJ5KetB_1MwEQ@mail.gmail.com>
- <20220730094800.GB1587@lespinasse.org>
- <CAJZ5v0hXVjsWab=qYZfXBTqcjkpWV0CFT9_oQBKQ28rFG3_VLw@mail.gmail.com>
+	by mail.librecores.org (Postfix) with ESMTP id A38F6209D9;
+	Tue,  2 Aug 2022 00:30:38 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by mail.librecores.org (Postfix) with ESMTP id F32CA24929
+ for <openrisc@lists.librecores.org>; Mon,  1 Aug 2022 16:41:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1659364880;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lrcGo2VjlmbeUcV8YVny+PT0CCF9ywqcopB5qQcKwTQ=;
+ b=ZRprI8SWyHCkTA2X2piJKYyFxhjM4ESbVsWzs3MhrQethx9FefO/v4a20mK4ofAzH7BYhr
+ wCD91A0pNX2aTSfsAGIOLW/IsQs75LL2mpki3o5V2N85lMRFMgHkjq827jZ6FypZukgmAJ
+ sDxK2/AEnyP/+ZLuAxHylyRoNLTeVDI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-562-n4sgo9WMP_y0ca4olRObJw-1; Mon, 01 Aug 2022 10:41:17 -0400
+X-MC-Unique: n4sgo9WMP_y0ca4olRObJw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4EDAB18E6C5E;
+ Mon,  1 Aug 2022 14:41:17 +0000 (UTC)
+Received: from MiWiFi-R3L-srv.redhat.com (ovpn-12-103.pek2.redhat.com
+ [10.72.12.103])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 24ED1141510F;
+ Mon,  1 Aug 2022 14:41:11 +0000 (UTC)
+From: Baoquan He <bhe@redhat.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 07/11] openrisc: mm: Convert to GENERIC_IOREMAP
+Date: Mon,  1 Aug 2022 22:40:25 +0800
+Message-Id: <20220801144029.57829-8-bhe@redhat.com>
+In-Reply-To: <20220801144029.57829-1-bhe@redhat.com>
+References: <20220801144029.57829-1-bhe@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJZ5v0hXVjsWab=qYZfXBTqcjkpWV0CFT9_oQBKQ28rFG3_VLw@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 01 Aug 2022 00:07:35 +0200
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Mailman-Approved-At: Tue, 02 Aug 2022 00:30:37 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -60,107 +60,167 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Michel Lespinasse <michel@lespinasse.org>,
- Juri Lelli <juri.lelli@redhat.com>, Linux-sh list <linux-sh@vger.kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Linus Walleij <linus.walleij@linaro.org>, Benjamin Segall <bsegall@google.com>,
- Guo Ren <guoren@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Alexander Gordeev <agordeev@linux.ibm.com>, srivatsa@csail.mit.edu,
- linux-arch <linux-arch@vger.kernel.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Huacai Chen <chenhuacai@kernel.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Andy Gross <agross@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Catalin Marinas <catalin.marinas@arm.com>, xen-devel@lists.xenproject.org,
- Matt Turner <mattst88@gmail.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, sammy@sammy.net,
- Petr Mladek <pmladek@suse.com>, Linux PM <linux-pm@vger.kernel.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-um@lists.infradead.org, acme@kernel.org,
- Thomas Gleixner <tglx@linutronix.de>,
- Linux OMAP Mailing List <linux-omap@vger.kernel.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Richard Henderson <rth@twiddle.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-perf-users@vger.kernel.org, senozhatsky@chromium.org,
- Sven Schnelle <svens@linux.ibm.com>, jolsa@kernel.org,
- Paul Mackerras <paulus@samba.org>, Mark Rutland <mark.rutland@arm.com>,
- linux-ia64@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
- virtualization@lists.linux-foundation.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- Max Filippov <jcmvbkbc@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- kernel@xen0n.name, quic_neeraju@quicinc.com, linux-s390@vger.kernel.org,
- vschneid@redhat.com, John Ogness <john.ogness@linutronix.de>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Will Deacon <will@kernel.org>,
- Helge Deller <deller@gmx.de>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Jon Hunter <jonathanh@nvidia.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Frederic Weisbecker <frederic@kernel.org>, Len Brown <lenb@kernel.org>,
- linux-xtensa@linux-xtensa.org, Sascha Hauer <kernel@pengutronix.de>,
- Vasily Gorbik <gor@linux.ibm.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-alpha@vger.kernel.org,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Chris Zankel <chris@zankel.net>, Stephen Boyd <sboyd@kernel.org>, rh0@fb.com,
- dinguyen@kernel.org, Daniel Bristot de Oliveira <bristot@redhat.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Joel Fernandes <joel@joelfernandes.org>, Fabio Estevam <festevam@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Josh Triplett <josh@joshtriplett.org>, Kevin Hilman <khilman@kernel.org>,
- linux-csky@vger.kernel.org, Tony Lindgren <tony@atomide.com>,
- linux-snps-arc@lists.infradead.org, Mel Gorman <mgorman@suse.de>,
- Jacob Pan <jacob.jun.pan@linux.intel.com>, Yury Norov <yury.norov@gmail.com>,
- ulli.kroll@googlemail.com, vgupta@kernel.org,
- linux-clk <linux-clk@vger.kernel.org>, Michal Simek <monstr@monstr.eu>,
- Steven Rostedt <rostedt@goodmis.org>, rcu@vger.kernel.org,
- Borislav Petkov <bp@alien8.de>, bcain@quicinc.com,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Parisc List <linux-parisc@vger.kernel.org>,
- Sudeep Holla <sudeep.holla@arm.com>, Shawn Guo <shawnguo@kernel.org>,
- David Miller <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
- Peter Zijlstra <peterz@infradead.org>, amakhalov@vmware.com,
- Bjorn Andersson <bjorn.andersson@linaro.org>, "H. Peter Anvin" <hpa@zytor.com>,
- sparclinux@vger.kernel.org, linux-hexagon@vger.kernel.org,
- linux-riscv <linux-riscv@lists.infradead.org>, anton.ivanov@cambridgegreys.com,
- jonas@southpole.se, Arnd Bergmann <arnd@arndb.de>,
- Richard Weinberger <richard@nod.at>, the arch/x86 maintainers <x86@kernel.org>,
- Russell King - ARM Linux <linux@armlinux.org.uk>,
- Ingo Molnar <mingo@redhat.com>, Albert Ou <aou@eecs.berkeley.edu>,
- "Paul E. McKenney" <paulmck@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
- openrisc@lists.librecores.org, Paul Walmsley <paul.walmsley@sifive.com>,
- linux-tegra <linux-tegra@vger.kernel.org>, namhyung@kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jpoimboe@kernel.org,
- Juergen Gross <jgross@suse.com>, pv-drivers@vmware.com,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
- Johannes Berg <johannes@sipsolutions.net>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Cc: Jonas Bonn <jonas@southpole.se>, wangkefeng.wang@huawei.com,
+ Baoquan He <bhe@redhat.com>, hch@infradead.org, linux-mm@kvack.org,
+ openrisc@lists.librecores.org, akpm@linux-foundation.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Sat, Jul 30, 2022 at 09:52:34PM +0200, Rafael J. Wysocki wrote:
-> On Sat, Jul 30, 2022 at 11:48 AM Michel Lespinasse
-> <michel@lespinasse.org> wrote:
-> > I'm not sure if that was the patch you meant to send though, as it
-> > seems it's only adding a tracepoint so shouldn't make any difference
-> > if I'm not actually using the tracepoint ?
-> 
-> You are right, it looks like I pasted a link to a different patch by
-> mistake.  Sorry about that.
-> 
-> I meant this one:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git/commit/?h=pm&id=d295ad34f236c3518634fb6403d4c0160456e470
-> 
-> which will appear in the final 5.19.
+Add hooks ioremap_allowed() and iounmap_allowed() for operisc's special
+operation when ioremap() and iounmap.
 
-Thanks. I can confirm that this patch fixes the boot time debug
-warnings for me. And I see that linus already merged it, nice!
+Signed-off-by: Baoquan He <bhe@redhat.com>
+Cc: Jonas Bonn <jonas@southpole.se>
+Cc: Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+Cc: Stafford Horne <shorne@gmail.com>
+Cc: openrisc@lists.librecores.org
+---
+ arch/openrisc/Kconfig          |  1 +
+ arch/openrisc/include/asm/io.h | 16 ++++++++---
+ arch/openrisc/mm/ioremap.c     | 49 +++++++++++-----------------------
+ 3 files changed, 28 insertions(+), 38 deletions(-)
 
---
-Michel "walken" Lespinasse.
+diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
+index e814df4c483c..77505f2a2767 100644
+--- a/arch/openrisc/Kconfig
++++ b/arch/openrisc/Kconfig
+@@ -21,6 +21,7 @@ config OPENRISC
+ 	select GENERIC_IRQ_PROBE
+ 	select GENERIC_IRQ_SHOW
+ 	select GENERIC_IOMAP
++	select GENERIC_IOREMAP
+ 	select GENERIC_CPU_DEVICES
+ 	select HAVE_UID16
+ 	select GENERIC_ATOMIC64
+diff --git a/arch/openrisc/include/asm/io.h b/arch/openrisc/include/asm/io.h
+index c298061c70a7..8948df501464 100644
+--- a/arch/openrisc/include/asm/io.h
++++ b/arch/openrisc/include/asm/io.h
+@@ -15,6 +15,8 @@
+ #define __ASM_OPENRISC_IO_H
+ 
+ #include <linux/types.h>
++#include <asm/pgtable.h>
++#include <asm/pgalloc.h>
+ 
+ /*
+  * PCI: can we really do 0 here if we have no port IO?
+@@ -27,11 +29,17 @@
+ #define PIO_OFFSET		0
+ #define PIO_MASK		0
+ 
+-#define ioremap ioremap
+-void __iomem *ioremap(phys_addr_t offset, unsigned long size);
++/*
++ * I/O memory mapping functions.
++ */
++void __iomem *
++ioremap_allowed(phys_addr_t *paddr, size_t size, unsigned long *prot_val);
++#define ioremap_allowed ioremap_allowed
++
++int iounmap_allowed(void *addr);
++#define iounmap_allowed iounmap_allowed
+ 
+-#define iounmap iounmap
+-extern void iounmap(void __iomem *addr);
++#define _PAGE_IOREMAP (pgprot_val(PAGE_KERNEL) | _PAGE_CI)
+ 
+ #include <asm-generic/io.h>
+ 
+diff --git a/arch/openrisc/mm/ioremap.c b/arch/openrisc/mm/ioremap.c
+index daae13a76743..d30b6cc65548 100644
+--- a/arch/openrisc/mm/ioremap.c
++++ b/arch/openrisc/mm/ioremap.c
+@@ -24,26 +24,18 @@ extern int mem_init_done;
+ 
+ static unsigned int fixmaps_used __initdata;
+ 
+-/*
+- * Remap an arbitrary physical address space into the kernel virtual
+- * address space. Needed when the kernel wants to access high addresses
+- * directly.
+- *
+- * NOTE! We need to allow non-page-aligned mappings too: we will obviously
+- * have to convert them into an offset in a page-aligned mapping, but the
+- * caller shouldn't need to know that small detail.
+- */
+-void __iomem *__ref ioremap(phys_addr_t addr, unsigned long size)
++void __iomem *
++ioremap_allowed(phys_addr_t *paddr, size_t size, unsigned long *prot_val)
+ {
+ 	phys_addr_t p;
+ 	unsigned long v;
+ 	unsigned long offset, last_addr;
+-	struct vm_struct *area = NULL;
++	int ret = -EINVAL;
+ 
+ 	/* Don't allow wraparound or zero size */
+ 	last_addr = addr + size - 1;
+ 	if (!size || last_addr < addr)
+-		return NULL;
++		return IOMEM_ERR_PTR(ret);
+ 
+ 	/*
+ 	 * Mappings have to be page-aligned
+@@ -52,32 +44,24 @@ void __iomem *__ref ioremap(phys_addr_t addr, unsigned long size)
+ 	p = addr & PAGE_MASK;
+ 	size = PAGE_ALIGN(last_addr + 1) - p;
+ 
+-	if (likely(mem_init_done)) {
+-		area = get_vm_area(size, VM_IOREMAP);
+-		if (!area)
+-			return NULL;
+-		v = (unsigned long)area->addr;
+-	} else {
++	if (unlikely(!mem_init_done)) {
+ 		if ((fixmaps_used + (size >> PAGE_SHIFT)) > FIX_N_IOREMAPS)
+-			return NULL;
++			return IOMEM_ERR_PTR(ret);
+ 		v = fix_to_virt(FIX_IOREMAP_BEGIN + fixmaps_used);
+ 		fixmaps_used += (size >> PAGE_SHIFT);
+-	}
+ 
+-	if (ioremap_page_range(v, v + size, p,
+-			__pgprot(pgprot_val(PAGE_KERNEL) | _PAGE_CI))) {
+-		if (likely(mem_init_done))
+-			vfree(area->addr);
+-		else
++		if (ioremap_page_range(v, v + size, p, __pgprot(*prot_val))) {
+ 			fixmaps_used -= (size >> PAGE_SHIFT);
+-		return NULL;
++			return IOMEM_ERR_PTR(ret);
++		}
++
++		return (void __iomem *)(offset + (char *)v);
+ 	}
+ 
+-	return (void __iomem *)(offset + (char *)v);
++	return NULL;
+ }
+-EXPORT_SYMBOL(ioremap);
+ 
+-void iounmap(void __iomem *addr)
++int iounmap_allowed(void __iomem *addr)
+ {
+ 	/* If the page is from the fixmap pool then we just clear out
+ 	 * the fixmap mapping.
+@@ -97,13 +81,10 @@ void iounmap(void __iomem *addr)
+ 		 *   ii) invalid accesses to the freed areas aren't made
+ 		 */
+ 		flush_tlb_all();
+-		return;
++		return -EINVAL;
+ 	}
+-
+-	return vfree((void *)(PAGE_MASK & (unsigned long)addr));
++	return 0;
+ }
+-EXPORT_SYMBOL(iounmap);
+-
+ /**
+  * OK, this one's a bit tricky... ioremap can get called before memory is
+  * initialized (early serial console does this) and will want to alloc a page
+-- 
+2.34.1
+
