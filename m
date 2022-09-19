@@ -2,43 +2,43 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A4395BCE86
-	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CA89A5BCEA5
+	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:48 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A05D624B41;
-	Mon, 19 Sep 2022 16:24:32 +0200 (CEST)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id CBA7224C2C
- for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:17:09 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 9176724B3D;
+	Mon, 19 Sep 2022 16:24:48 +0200 (CEST)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by mail.librecores.org (Postfix) with ESMTPS id 9E5D525B9F
+ for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:17:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+ d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
  Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:In-Reply-To;
- bh=nefRY1zld6SB6gly/BgzrvcXEKwr/pOkUZl11QGpgL8=; b=A9Y5adyud1/mM3xreS5eUrJvnd
- FvUqFIv3nlupLbTdeI33lEpY/zFLIe19vxpCf8VQNlb07A5YwXLCUo0YY6Nuqzs/xjWg+Sj2Wqxqx
- RAKsZxGa5p4Dkxg5ntJ8XtfvkMD+8w17RzWJpVa5IW9NqPm9m4txBnQGDoVesEU79pfxKNmKTjAHM
- QmPWfVUPI0jr1ypsV5iZbItClD0P2Di/q7Z5RllXZy5ZJH2hOmD80dPHf6vt8aFDpFVRstMV7z9qd
- FPTHr06kvgBzpugI2hUMZPsElk/ZqCI0u/yXhF3TnRjADu3s+L6sywGDm998dkamTun6T/pertQtI
- 8lYuUinw==;
+ bh=tHnqBkdMyvYunYXYVYlgcgUQQIKSwssAZ5pz8qcqKQY=; b=oSOjRfybQB1HzLh07ntiJBNX3L
+ HCd3QPPtrX2QpGBXGbkBp9vQo4MERxRRPotEASyVSOGtrGzi6xNMUR5QE40aFO9aXcbWMyZPKxKCg
+ +wyqR4j1pBZ1KAvHJsgrFZu24J0uZlXnXRxeKgNwBtvP97hLTlu8ONkMdU3VomQscJ5JQqiVpIqsL
+ grmaQTNcBE6IJLkquRyNCK+Zc0Q86XeOhzRwwOuL/HDx9X/1zR0fJ1VVlfk8rtpuQwRSn3fPewrIh
+ C8QpN4vcgz2I2hZicsgDEBP0cZ3VeYHsqdJVL6mjIk/rtYeyIqWpmxknZKAbxK/xrZC6RRcbWzEpf
+ TCmLdkUw==;
 Received: from j130084.upc-j.chello.nl ([24.132.130.84]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oaDpG-004ahu-0p; Mon, 19 Sep 2022 10:16:30 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oaDpE-00E28v-2E; Mon, 19 Sep 2022 10:17:18 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id BC39D302DDD;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C4397302DF5;
  Mon, 19 Sep 2022 12:16:24 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id E23492BA4903C; Mon, 19 Sep 2022 12:16:21 +0200 (CEST)
-Message-ID: <20220919101520.802976773@infradead.org>
+ id E6E592BA4903D; Mon, 19 Sep 2022 12:16:21 +0200 (CEST)
+Message-ID: <20220919101520.869531945@infradead.org>
 User-Agent: quilt/0.66
-Date: Mon, 19 Sep 2022 11:59:46 +0200
+Date: Mon, 19 Sep 2022 11:59:47 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: peterz@infradead.org
-Subject: [PATCH v2 07/44] cpuidle,psci: Push RCU-idle into driver
+Subject: [PATCH v2 08/44] cpuidle,imx6: Push RCU-idle into driver
 References: <20220919095939.761690562@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -110,48 +110,30 @@ again, at least twice, before going idle is daft.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- drivers/cpuidle/cpuidle-psci.c |    9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ arch/arm/mach-imx/cpuidle-imx6sx.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
---- a/drivers/cpuidle/cpuidle-psci.c
-+++ b/drivers/cpuidle/cpuidle-psci.c
-@@ -69,12 +69,12 @@ static int __psci_enter_domain_idle_stat
- 		return -1;
+--- a/arch/arm/mach-imx/cpuidle-imx6sx.c
++++ b/arch/arm/mach-imx/cpuidle-imx6sx.c
+@@ -47,7 +47,9 @@ static int imx6sx_enter_wait(struct cpui
+ 		cpu_pm_enter();
+ 		cpu_cluster_pm_enter();
  
- 	/* Do runtime PM to manage a hierarchical CPU toplogy. */
--	ct_irq_enter_irqson();
- 	if (s2idle)
- 		dev_pm_genpd_suspend(pd_dev);
- 	else
- 		pm_runtime_put_sync_suspend(pd_dev);
--	ct_irq_exit_irqson();
-+
-+	ct_idle_enter();
++		ct_idle_enter();
+ 		cpu_suspend(0, imx6sx_idle_finish);
++		ct_idle_exit();
  
- 	state = psci_get_domain_state();
- 	if (!state)
-@@ -82,12 +82,12 @@ static int __psci_enter_domain_idle_stat
- 
- 	ret = psci_cpu_suspend_enter(state) ? -1 : idx;
- 
--	ct_irq_enter_irqson();
-+	ct_idle_exit();
-+
- 	if (s2idle)
- 		dev_pm_genpd_resume(pd_dev);
- 	else
- 		pm_runtime_get_sync(pd_dev);
--	ct_irq_exit_irqson();
- 
- 	cpu_pm_exit();
- 
-@@ -240,6 +240,7 @@ static int psci_dt_cpu_init_topology(str
- 	 * of a shared state for the domain, assumes the domain states are all
- 	 * deeper states.
- 	 */
-+	drv->states[state_count - 1].flags |= CPUIDLE_FLAG_RCU_IDLE;
- 	drv->states[state_count - 1].enter = psci_enter_domain_idle_state;
- 	drv->states[state_count - 1].enter_s2idle = psci_enter_s2idle_domain_idle_state;
- 	psci_cpuidle_use_cpuhp = true;
+ 		cpu_cluster_pm_exit();
+ 		cpu_pm_exit();
+@@ -87,7 +89,8 @@ static struct cpuidle_driver imx6sx_cpui
+ 			 */
+ 			.exit_latency = 300,
+ 			.target_residency = 500,
+-			.flags = CPUIDLE_FLAG_TIMER_STOP,
++			.flags = CPUIDLE_FLAG_TIMER_STOP |
++				 CPUIDLE_FLAG_RCU_IDLE,
+ 			.enter = imx6sx_enter_wait,
+ 			.name = "LOW-POWER-IDLE",
+ 			.desc = "ARM power off",
 
 
