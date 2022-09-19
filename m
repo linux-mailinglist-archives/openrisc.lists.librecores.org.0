@@ -2,43 +2,43 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 288135BCE87
-	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 933F85BCEAF
+	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:53 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 3F66824AAD;
-	Mon, 19 Sep 2022 16:24:33 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 55D4A24814;
+	Mon, 19 Sep 2022 16:24:53 +0200 (CEST)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id D42A524C31
- for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:17:09 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id A439525B96
+ for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:18:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
  Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:In-Reply-To;
- bh=74awPgmRWnz6TtiKDYLgK7Deo1BdG7DroGRjfVtm8U0=; b=SFQYA3jAmhFq40VYZM68Tl2w5i
- ZXRBNgbLC3acA/1Dm/ZTH0pKngpyZarrHO2urIBRGd1SFXtlBVsxBG5w3GvcNlPbnMiIzGgnA+Y8t
- dXazbL2lngg+xVaLeVvXkenThdUDjpquoAohkyV4ZdsIELsDdK/l8RS1n5Tz50U++NJCb4r09fRIs
- kieZ0CsOt3gPv2NZizNIQhY8xJqq2RCg52cWnS+fYBZiVJ6uU3u4gx57qQdc9RSVuVE+VOTiNE5qY
- bUCPNJ6Ogw6hQFEH7tWJhnIsvwMUvNInJslCtzYuuDdwYWXhLCJ6oMb7pHkM31N8il9TbGM5YnHUV
- 95FWEVpQ==;
+ bh=wztoayxqdaRhc3fzwYQuz0RAh5ZT6y7bJFX0CXMuNy8=; b=ADXtthd/kB2UkNVNsBZX3mcAgx
+ eb1wSA1egq4M07Od+XfETtj3lhd4iMNEvYwcU9NzeS13eZKp+mowXOQTzEFZK7CeroXVfNcUNAucm
+ DFEs4ENnbXNf93/JuDzTXaj8dDvpaoObTItrP5rfAcPTaGTUO9u17CB7M9lBwSzhZqApt31copOyD
+ THHS1zzgB7BqCqSJl0DeM5JLgmoPtje3pC9taSIf0jDAy3NiwNozoFE6k7Aa6gH0axWhSw0Ae2Kln
+ k7+RKfh2KfpdBiXJ6godhy6Y1cfSrmD10KmQxJ5TbTEnSM6kxy+r95TYqIDfTireSwql4ofArgV57
+ wDOwI0dQ==;
 Received: from j130084.upc-j.chello.nl ([24.132.130.84]
  helo=noisy.programming.kicks-ass.net)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oaDpF-004ahi-DF; Mon, 19 Sep 2022 10:16:29 +0000
+ id 1oaDpF-004ahk-Dm; Mon, 19 Sep 2022 10:16:29 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 8F591301C5E;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 99768302218;
  Mon, 19 Sep 2022 12:16:24 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id CE9192BA49038; Mon, 19 Sep 2022 12:16:21 +0200 (CEST)
-Message-ID: <20220919101520.534233547@infradead.org>
+ id D336C2BA49039; Mon, 19 Sep 2022 12:16:21 +0200 (CEST)
+Message-ID: <20220919101520.602636221@infradead.org>
 User-Agent: quilt/0.66
-Date: Mon, 19 Sep 2022 11:59:42 +0200
+Date: Mon, 19 Sep 2022 11:59:43 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: peterz@infradead.org
-Subject: [PATCH v2 03/44] cpuidle/poll: Ensure IRQ state is invariant
+Subject: [PATCH v2 04/44] cpuidle: Move IRQ state validation
 References: <20220919095939.761690562@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -55,20 +55,19 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: juri.lelli@redhat.com, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- rafael@kernel.org, catalin.marinas@arm.com, linus.walleij@linaro.org,
- bsegall@google.com, guoren@kernel.org, pavel@ucw.cz, agordeev@linux.ibm.com,
- srivatsa@csail.mit.edu, linux-arch@vger.kernel.org, vincent.guittot@linaro.org,
- mpe@ellerman.id.au, chenhuacai@kernel.org, christophe.leroy@csgroup.eu,
- linux-acpi@vger.kernel.org, agross@kernel.org, linux-imx@nxp.com,
- vgupta@kernel.org, mattst88@gmail.com, borntraeger@linux.ibm.com,
- mturquette@baylibre.com, sammy@sammy.net, pmladek@suse.com,
- linux-pm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-um@lists.infradead.org, npiggin@gmail.com, tglx@linutronix.de,
- linux-omap@vger.kernel.org, dietmar.eggemann@arm.com, andreyknvl@gmail.com,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, senozhatsky@chromium.org,
- svens@linux.ibm.com, jolsa@kernel.org, tj@kernel.org,
+Cc: juri.lelli@redhat.com, rafael@kernel.org, catalin.marinas@arm.com,
+ linus.walleij@linaro.org, bsegall@google.com, guoren@kernel.org, pavel@ucw.cz,
+ agordeev@linux.ibm.com, srivatsa@csail.mit.edu, linux-arch@vger.kernel.org,
+ vincent.guittot@linaro.org, mpe@ellerman.id.au, chenhuacai@kernel.org,
+ christophe.leroy@csgroup.eu, linux-acpi@vger.kernel.org, agross@kernel.org,
+ linux-imx@nxp.com, vgupta@kernel.org, mattst88@gmail.com,
+ borntraeger@linux.ibm.com, mturquette@baylibre.com, sammy@sammy.net,
+ pmladek@suse.com, linux-pm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-um@lists.infradead.org,
+ npiggin@gmail.com, tglx@linutronix.de, linux-omap@vger.kernel.org,
+ dietmar.eggemann@arm.com, andreyknvl@gmail.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ senozhatsky@chromium.org, svens@linux.ibm.com, jolsa@kernel.org, tj@kernel.org,
  Andrew Morton <akpm@linux-foundation.org>, mark.rutland@arm.com,
  linux-ia64@vger.kernel.org, dave.hansen@linux.intel.com,
  virtualization@lists.linux-foundation.org,
@@ -106,33 +105,41 @@ Cc: juri.lelli@redhat.com, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-cpuidle_state::enter() methods should be IRQ invariant
+Make cpuidle_enter_state() consistent with the s2idle variant and
+verify ->enter() always returns with interrupts disabled.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/cpuidle/poll_state.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/cpuidle/cpuidle.c |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
---- a/drivers/cpuidle/poll_state.c
-+++ b/drivers/cpuidle/poll_state.c
-@@ -17,7 +17,7 @@ static int __cpuidle poll_idle(struct cp
- 
- 	dev->poll_time_limit = false;
- 
--	local_irq_enable();
-+	raw_local_irq_enable();
- 	if (!current_set_polling_and_test()) {
- 		unsigned int loop_count = 0;
- 		u64 limit;
-@@ -36,6 +36,8 @@ static int __cpuidle poll_idle(struct cp
- 			}
- 		}
- 	}
-+	raw_local_irq_disable();
+--- a/drivers/cpuidle/cpuidle.c
++++ b/drivers/cpuidle/cpuidle.c
+@@ -236,7 +236,11 @@ int cpuidle_enter_state(struct cpuidle_d
+ 	stop_critical_timings();
+ 	if (!(target_state->flags & CPUIDLE_FLAG_RCU_IDLE))
+ 		ct_idle_enter();
 +
- 	current_clr_polling();
+ 	entered_state = target_state->enter(dev, drv, index);
++	if (WARN_ONCE(!irqs_disabled(), "%ps leaked IRQ state", target_state->enter))
++		raw_local_irq_disable();
++
+ 	if (!(target_state->flags & CPUIDLE_FLAG_RCU_IDLE))
+ 		ct_idle_exit();
+ 	start_critical_timings();
+@@ -248,12 +252,8 @@ int cpuidle_enter_state(struct cpuidle_d
+ 	/* The cpu is no longer idle or about to enter idle. */
+ 	sched_idle_set_state(NULL);
  
- 	return index;
+-	if (broadcast) {
+-		if (WARN_ON_ONCE(!irqs_disabled()))
+-			local_irq_disable();
+-
++	if (broadcast)
+ 		tick_broadcast_exit();
+-	}
+ 
+ 	if (!cpuidle_state_is_coupled(drv, index))
+ 		local_irq_enable();
 
 
