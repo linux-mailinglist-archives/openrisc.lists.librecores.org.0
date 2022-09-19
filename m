@@ -2,42 +2,42 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id EEC525BCFAA
-	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:52:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 717E65BCFAB
+	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:52:37 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 175C724B33;
+	by mail.librecores.org (Postfix) with ESMTP id 3AC1F24B36;
 	Mon, 19 Sep 2022 16:52:36 +0200 (CEST)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id 0E0CE24B07
- for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 16:31:48 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTPS id 6C52624B08
+ for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 16:39:12 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E92CBB81C48;
- Mon, 19 Sep 2022 14:31:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884E0C433D6;
- Mon, 19 Sep 2022 14:31:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BF856B81C95;
+ Mon, 19 Sep 2022 14:39:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C85C433D6;
+ Mon, 19 Sep 2022 14:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663597905;
- bh=NkXCfQm/FLpDP/QLaoePbhdmGTT1By087FmiZ+g8tK4=;
+ s=k20201202; t=1663598350;
+ bh=EYlJ8II0nMQUwIjH0JUADdeT52M2bVXh8wZ8I7YWDZQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cPr6ORIkZS1hi0mTfC3IAGOVxe5Xf0YIpXn1FG72c3gSFnG+XbcMopHgOCdZrpVuQ
- LHqUCo/2hUmO1H6LNW9r9rHA5mXGvztHGS2F3OtBjHAXIwt5oCzU5wdBmMInXf415s
- ibv233mBU12TSNxEClWBTVHK1fzjS7w3j4hbCapvOVbDE6aKKPaOgVe+365dcYYrsH
- IXd+ByoZVYWQ1bXlckcr80Mp0FHSvK1giDc4yzOoai/YCnXbUK9IDecCd6Dzc6zaZI
- kDA/PRtGSO5qjzxSvX9Ec26StLbOH1EWQlWCIdAgthIaznmMEXMje+f6NIOt73HqRu
- 77PbrmkIj/BkA==
-Date: Mon, 19 Sep 2022 16:31:42 +0200
+ b=s3+f9C0KTVjmYUPiubcRMi8XIY5SJMP0244Vb1fXbwXdFHK2Bm2BwTTQiaCHZh9e8
+ gk+RkXTCbQvo+kjvjvWXHkL/k/NseZ0cbkyw2yDh2rZtKAxwlQOJfRciHvpbPx0lTm
+ fDHS2etEOvPkeXqxMZO/oK5HOJhYIwkHmqYibhK+OB+2c+J+ST7lgkwPFAFcYkZbFW
+ MXfD5dFjyN8rnPvB9qABtdA2rx/c5tMG/PNclmQth0MoJSBvpOxArLP6yCDHF7fpUw
+ gdJXH8PHYrPCe2KnzR/yv4vNUQpksjg/NG4m1Xvw5PY6ek342QURnNGyGExrAr8OtZ
+ QX22S+N/3elJw==
+Date: Mon, 19 Sep 2022 16:39:07 +0200
 From: Frederic Weisbecker <frederic@kernel.org>
 To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v2 09/44] cpuidle,omap3: Push RCU-idle into driver
-Message-ID: <20220919143142.GA61009@lothringen>
+Subject: Re: [PATCH v2 10/44] cpuidle,armada: Push RCU-idle into driver
+Message-ID: <20220919143907.GB61009@lothringen>
 References: <20220919095939.761690562@infradead.org>
- <20220919101520.936337959@infradead.org>
+ <20220919101521.004425686@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220919101520.936337959@infradead.org>
+In-Reply-To: <20220919101521.004425686@infradead.org>
 X-Mailman-Approved-At: Mon, 19 Sep 2022 16:52:35 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -101,10 +101,29 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, catalin.marinas@arm.com,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Mon, Sep 19, 2022 at 11:59:48AM +0200, Peter Zijlstra wrote:
-> Doing RCU-idle outside the driver, only to then teporarily enable it
+On Mon, Sep 19, 2022 at 11:59:49AM +0200, Peter Zijlstra wrote:
+> Doing RCU-idle outside the driver, only to then temporarily enable it
 > again before going idle is daft.
 
-That doesn't tell where those calls are.
+Ah wait, now I see, that's cpu_pm_enter()/cpu_pm_exit() -> cpu_pm_notify*() the culprits.
+Might be worth adding a short note about that on your changelogs.
 
-Thanks.
+> 
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> ---
+>  drivers/cpuidle/cpuidle-mvebu-v7.c |    7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> --- a/drivers/cpuidle/cpuidle-mvebu-v7.c
+> +++ b/drivers/cpuidle/cpuidle-mvebu-v7.c
+> @@ -36,7 +36,10 @@ static int mvebu_v7_enter_idle(struct cp
+>  	if (drv->states[index].flags & MVEBU_V7_FLAG_DEEP_IDLE)
+>  		deepidle = true;
+>  
+> +	ct_idle_enter();
+>  	ret = mvebu_v7_cpu_suspend(deepidle);
+> +	ct_idle_exit();
+
+And then yes of course:
+
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
