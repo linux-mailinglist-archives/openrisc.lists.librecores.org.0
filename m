@@ -2,43 +2,43 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id A661F5BCE8F
-	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A650B5BCEA9
+	for <lists+openrisc@lfdr.de>; Mon, 19 Sep 2022 16:24:50 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 6DFD12422B;
-	Mon, 19 Sep 2022 16:24:37 +0200 (CEST)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by mail.librecores.org (Postfix) with ESMTPS id 7587124C25
- for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:17:38 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 6B692214F6;
+	Mon, 19 Sep 2022 16:24:50 +0200 (CEST)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by mail.librecores.org (Postfix) with ESMTPS id 5F6E725BFE
+ for <openrisc@lists.librecores.org>; Mon, 19 Sep 2022 12:17:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+ d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
  Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:In-Reply-To;
- bh=VPG6Pv8mWlQqWm+kW/xAIKtiRyMjOEN9R6RnNMCwxdw=; b=Ca5aS96cYfllCWW4NedYRctlyO
- gIiKYs+tVjR65pA5uFipueivu4K8pqduCvewON4kFVB2LMS+i5eIb/U6nldhQIDn+r9QASPUyZC4c
- GF32lSiMSA+Mhiewzh5F0g4wZwjk2l8xxnNGJnBVrz2MY26bzXbcmRBe2lb1RihVg4t8zc71zZR1Z
- 2IfJ3S+ZOlX+uF+fmc+aV4GTYcoglXITJVkDuZAYu2b+tj6JJHtARlfxly/vNboY4Vlaph4FJyVQS
- Es6vtcgbyiH1mH5tISei+3HknX1+gpXNt7RYeujjLEjPx5O3nVTnio6SmEtDdkPxQ6iL6qwNlbTuN
- 0w/UxONg==;
+ bh=mpoCVwwSlcWMSbFc2ASY4TLxAbRobKK8wUXUoaGZ7qA=; b=gtfdf8L6gVyevRGMR3eZu3f8N0
+ zWufH7vcSU1x26RRVr7ayAtV4E5cQIJoYbE4C6CeSVWNQ7hNoKjtXt3R8UGfMv5WAYlHaeINfopoY
+ ZULORscKoNxVfR08GoydnWuXdwmVP9E68XJLQNl22iBoLakcwMXbbeH/izd6JAhsn/t9bscwlA9Bk
+ XAVLYGKcAcZkf5rVwfioZhxprY0N3Z02WDZJG0OMDKTp90Ttdh/A8/En/Ti9AGYVqIdDRQVhWGxmM
+ Ua7N8r2k1nrFncinnNqzxA5aKzla6Ri5rgGBp647+u7hslBhRpO/0hIxfbFx+qJnhtuG/vLoNGoEa
+ D8BAw/jQ==;
 Received: from j130084.upc-j.chello.nl ([24.132.130.84]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oaDq6-004b8S-I6; Mon, 19 Sep 2022 10:17:22 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1oaDq4-00E2Az-8U; Mon, 19 Sep 2022 10:17:21 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 32DFE302F27;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 3D5A8302F2C;
  Mon, 19 Sep 2022 12:16:25 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id 4F9B32BABC0C9; Mon, 19 Sep 2022 12:16:22 +0200 (CEST)
-Message-ID: <20220919101522.021681292@infradead.org>
+ id 55BCB2BAC75A1; Mon, 19 Sep 2022 12:16:22 +0200 (CEST)
+Message-ID: <20220919101522.089180678@infradead.org>
 User-Agent: quilt/0.66
-Date: Mon, 19 Sep 2022 12:00:04 +0200
+Date: Mon, 19 Sep 2022 12:00:05 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: peterz@infradead.org
-Subject: [PATCH v2 25/44] printk: Remove trace_.*_rcuidle() usage
+Subject: [PATCH v2 26/44] time/tick-broadcast: Remove RCU_NONIDLE usage
 References: <20220919095939.761690562@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -105,29 +105,53 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, catalin.marinas@arm.com,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-The problem, per commit fc98c3c8c9dc ("printk: use rcuidle console
-tracepoint"), was printk usage from the cpuidle path where RCU was
-already disabled.
-
-Per the patches earlier in this series, this is no longer the case.
+No callers left that have already disabled RCU.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Acked-by: Petr Mladek <pmladek@suse.com>
+Acked-by: Mark Rutland <mark.rutland@arm.com>
 ---
- kernel/printk/printk.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/time/tick-broadcast-hrtimer.c |   29 ++++++++++++-----------------
+ 1 file changed, 12 insertions(+), 17 deletions(-)
 
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -2238,7 +2238,7 @@ static u16 printk_sprint(char *text, u16
- 		}
- 	}
- 
--	trace_console_rcuidle(text, text_len);
-+	trace_console(text, text_len);
- 
- 	return text_len;
+--- a/kernel/time/tick-broadcast-hrtimer.c
++++ b/kernel/time/tick-broadcast-hrtimer.c
+@@ -56,25 +56,20 @@ static int bc_set_next(ktime_t expires,
+ 	 * hrtimer callback function is currently running, then
+ 	 * hrtimer_start() cannot move it and the timer stays on the CPU on
+ 	 * which it is assigned at the moment.
++	 */
++	hrtimer_start(&bctimer, expires, HRTIMER_MODE_ABS_PINNED_HARD);
++	/*
++	 * The core tick broadcast mode expects bc->bound_on to be set
++	 * correctly to prevent a CPU which has the broadcast hrtimer
++	 * armed from going deep idle.
+ 	 *
+-	 * As this can be called from idle code, the hrtimer_start()
+-	 * invocation has to be wrapped with RCU_NONIDLE() as
+-	 * hrtimer_start() can call into tracing.
++	 * As tick_broadcast_lock is held, nothing can change the cpu
++	 * base which was just established in hrtimer_start() above. So
++	 * the below access is safe even without holding the hrtimer
++	 * base lock.
+ 	 */
+-	RCU_NONIDLE( {
+-		hrtimer_start(&bctimer, expires, HRTIMER_MODE_ABS_PINNED_HARD);
+-		/*
+-		 * The core tick broadcast mode expects bc->bound_on to be set
+-		 * correctly to prevent a CPU which has the broadcast hrtimer
+-		 * armed from going deep idle.
+-		 *
+-		 * As tick_broadcast_lock is held, nothing can change the cpu
+-		 * base which was just established in hrtimer_start() above. So
+-		 * the below access is safe even without holding the hrtimer
+-		 * base lock.
+-		 */
+-		bc->bound_on = bctimer.base->cpu_base->cpu;
+-	} );
++	bc->bound_on = bctimer.base->cpu_base->cpu;
++
+ 	return 0;
  }
+ 
 
 
