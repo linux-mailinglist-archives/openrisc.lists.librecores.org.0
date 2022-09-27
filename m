@@ -2,28 +2,27 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E1E65EF756
+	by mail.lfdr.de (Postfix) with ESMTP id B62965EF758
 	for <lists+openrisc@lfdr.de>; Thu, 29 Sep 2022 16:20:30 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id D2520248F5;
-	Thu, 29 Sep 2022 16:20:27 +0200 (CEST)
+	by mail.librecores.org (Postfix) with ESMTP id 9D2DC24243;
+	Thu, 29 Sep 2022 16:20:28 +0200 (CEST)
 Received: from muru.com (muru.com [72.249.23.125])
- by mail.librecores.org (Postfix) with ESMTP id 6A15424B56
- for <openrisc@lists.librecores.org>; Tue, 27 Sep 2022 08:21:57 +0200 (CEST)
+ by mail.librecores.org (Postfix) with ESMTP id 6501424B6F
+ for <openrisc@lists.librecores.org>; Tue, 27 Sep 2022 08:31:14 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id E879B80E0;
- Tue, 27 Sep 2022 06:13:36 +0000 (UTC)
-Date: Tue, 27 Sep 2022 09:21:54 +0300
+ by muru.com (Postfix) with ESMTPS id 5E7B081BD;
+ Tue, 27 Sep 2022 06:22:54 +0000 (UTC)
+Date: Tue, 27 Sep 2022 09:31:11 +0300
 From: Tony Lindgren <tony@atomide.com>
 To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v2 37/44] arm,omap2: Use WFI for omap2_pm_idle()
-Message-ID: <YzKWgjNLWSmDss/h@atomide.com>
+Subject: Re: [PATCH v2 00/44] cpuidle,rcu: Clean up the mess
+Message-ID: <YzKYrx8Kd9SBYcUg@atomide.com>
 References: <20220919095939.761690562@infradead.org>
- <20220919101522.842219871@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220919101522.842219871@infradead.org>
+In-Reply-To: <20220919095939.761690562@infradead.org>
 X-Mailman-Approved-At: Thu, 29 Sep 2022 16:20:25 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -88,17 +87,21 @@ Cc: juri.lelli@redhat.com, rafael@kernel.org, catalin.marinas@arm.com,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-* Peter Zijlstra <peterz@infradead.org> [220919 10:09]:
-> arch_cpu_idle() is a very simple idle interface and exposes only a
-> single idle state and is expected to not require RCU and not do any
-> tracing/instrumentation.
-> 
-> As such, omap2_pm_idle() is not a valid implementation. Replace it
-> with a simple (shallow) omap2_do_wfi() call.
-> 
-> Omap2 doesn't have a cpuidle driver; but adding one would be the
-> recourse to (re)gain the other idle states.
+Hi,
 
-Looks good to me thanks:
+* Peter Zijlstra <peterz@infradead.org> [220919 10:08]:
+> Hi All!
+> 
+> At long last, a respin of the cpuidle vs rcu cleanup patches.
+> 
+> v1: https://lkml.kernel.org/r/20220608142723.103523089@infradead.org
+> 
+> These here patches clean up the mess that is cpuidle vs rcuidle.
 
-Acked-by: Tony Lindgren <tony@atomide.com>
+I just gave these a quick test and things still work for me. The old
+omap3 off mode during idle still works. No more need to play the
+whack the mole game with RCU-idle :) I did not test on x86, or on other
+ARMs, but considering the test pretty much covered the all the
+affected RCU-idle related paths, where suitable, feel free to add:
+
+Tested-by: Tony Lindgren <tony@atomide.com>
