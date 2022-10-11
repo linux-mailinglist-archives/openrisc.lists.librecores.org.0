@@ -2,60 +2,77 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B4775FC377
-	for <lists+openrisc@lfdr.de>; Wed, 12 Oct 2022 12:10:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0F325FC97D
+	for <lists+openrisc@lfdr.de>; Wed, 12 Oct 2022 18:51:41 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 9778724B60;
-	Wed, 12 Oct 2022 12:10:11 +0200 (CEST)
-Received: from pegase2.c-s.fr (pegase2.c-s.fr [93.17.235.10])
- by mail.librecores.org (Postfix) with ESMTPS id A22D724B52
- for <openrisc@lists.librecores.org>; Wed, 12 Oct 2022 12:10:09 +0200 (CEST)
-Received: from localhost (mailhub3.si.c-s.fr [172.26.127.67])
- by localhost (Postfix) with ESMTP id 4MnT0x0qw5z9sn3;
- Wed, 12 Oct 2022 12:10:09 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at c-s.fr
-Received: from pegase2.c-s.fr ([172.26.127.65])
- by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id TIVUJqBKGH_A; Wed, 12 Oct 2022 12:10:09 +0200 (CEST)
-Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
- by pegase2.c-s.fr (Postfix) with ESMTP id 4MnT0w5hBVz9sml;
- Wed, 12 Oct 2022 12:10:08 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id A7A768B779;
- Wed, 12 Oct 2022 12:10:08 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at c-s.fr
-Received: from messagerie.si.c-s.fr ([127.0.0.1])
- by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
- with ESMTP id sQdoCYhcG0-i; Wed, 12 Oct 2022 12:10:08 +0200 (CEST)
-Received: from PO20335.IDSI0.si.c-s.fr (unknown [192.168.232.127])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 063CD8B776;
- Wed, 12 Oct 2022 12:10:07 +0200 (CEST)
-Received: from PO20335.IDSI0.si.c-s.fr (localhost [127.0.0.1])
- by PO20335.IDSI0.si.c-s.fr (8.17.1/8.16.1) with ESMTPS id 29CA9wIl1165783
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 12 Oct 2022 12:09:58 +0200
-Received: (from chleroy@localhost)
- by PO20335.IDSI0.si.c-s.fr (8.17.1/8.17.1/Submit) id 29CA9vLE1165772;
- Wed, 12 Oct 2022 12:09:57 +0200
-X-Authentication-Warning: PO20335.IDSI0.si.c-s.fr: chleroy set sender to
- christophe.leroy@csgroup.eu using -f
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: Baoquan He <bhe@redhat.com>
-Subject: [RFC PATCH 2/8] openrisc: mm: remove unneeded early ioremap code
-Date: Wed, 12 Oct 2022 12:09:38 +0200
-Message-Id: <9010e8719949cce376dc3f75a97b8bfb2ff98442.1665568707.git.christophe.leroy@csgroup.eu>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <cover.1665568707.git.christophe.leroy@csgroup.eu>
-References: <cover.1665568707.git.christophe.leroy@csgroup.eu>
+	by mail.librecores.org (Postfix) with ESMTP id 8849A248C4;
+	Wed, 12 Oct 2022 18:51:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by mail.librecores.org (Postfix) with ESMTP id 278FE24BCC
+ for <openrisc@lists.librecores.org>; Tue, 11 Oct 2022 18:22:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1665505336;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6gv22bmoTax0J0zhnmYTJUdzNvY/rZYRIc0hd8rouMg=;
+ b=jHF6JUnuS1iw6uZ0sq4yfF5yGJjc9LzpyDYOYBfAsfhSPdVGo8jlPXULrqux57MQ1eGQpT
+ +4Au/9AqiO1qyyRMD1Zzity73MlaJtg6H8ZWRlo5qyOVtjnTloOagF4QyQ/X5nmAXUerCO
+ 0ch3tbgsF4961TloCZEkprFhwj8Wqyg=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-478-odnbB1WWMYO6YWf0ZINyyA-1; Tue, 11 Oct 2022 12:22:07 -0400
+X-MC-Unique: odnbB1WWMYO6YWf0ZINyyA-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ i17-20020a05640242d100b0044f18a5379aso11771861edc.21
+ for <openrisc@lists.librecores.org>; Tue, 11 Oct 2022 09:22:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6gv22bmoTax0J0zhnmYTJUdzNvY/rZYRIc0hd8rouMg=;
+ b=uKgJAp6YjoavX7XvrNIbLXUS7/a6Ch3CRSG1ZrK0wr1dDpTQ5jszn1cJ9HrxmpPca/
+ On5JZaJP6olCdZP62bIygpyO382EPPrmIEsOOjZPRsci1Qb9KRy5WS0s88w6jqA+nC4w
+ zenbqU9kC5naPV36KGAgXJUgro+Ojw3f62ZxBpiUhx5fg0h7cpOaMHShSJWMRdEUi1YB
+ ndoTtCDrPtxtgtp7ZvEux7b8zU4CgF6l+MaNg3Mt6YOoIHJDWETm16L0LCQlmF8mgeKx
+ 84EjFRWFCZfT2vKHIMQaZB40HJQ7cfx2618bMTQju4baZgEfEvQiCYR+k5WB4eBPArzA
+ cEjg==
+X-Gm-Message-State: ACrzQf0Y6/op1euEDY1AF3r8sQfHHWRePWpZCY1cY9cIwJZHiZUrEqW5
+ ga8YqosCohvVE0H0yfXP84CLkKE4JA0FI+Oa5/Q3kMInAV+a3D8WxeITgysoWqtR5/Iubyy2Ir9
+ eodpMGmr9nHxDObtHIbo9LoEKsw==
+X-Received: by 2002:a17:907:2712:b0:78d:a223:729b with SMTP id
+ w18-20020a170907271200b0078da223729bmr11697157ejk.443.1665505326058; 
+ Tue, 11 Oct 2022 09:22:06 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM5z3+5ecaWwqYPDE234CAcuf3hKc1qLTNOp8VUNiMDwybT1F6EbMEGGKCCgL+v4lylioGXOig==
+X-Received: by 2002:a17:907:2712:b0:78d:a223:729b with SMTP id
+ w18-20020a170907271200b0078da223729bmr11697097ejk.443.1665505325743; 
+ Tue, 11 Oct 2022 09:22:05 -0700 (PDT)
+Received: from [192.168.0.198] (host-79-47-205-133.retail.telecomitalia.it.
+ [79.47.205.133]) by smtp.gmail.com with ESMTPSA id
+ xf13-20020a17090731cd00b00730b3bdd8d7sm7273113ejb.179.2022.10.11.09.22.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Oct 2022 09:22:05 -0700 (PDT)
+Message-ID: <3e680bb9-9896-3665-dd59-4f2e6f8205bb@redhat.com>
+Date: Tue, 11 Oct 2022 18:22:03 +0200
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1665569381; l=1888;
- i=christophe.leroy@csgroup.eu; s=20211009; h=from:subject:message-id;
- bh=f2w0I54eSGQxmIhNTUEqBybhfAm8ExZ/ChMo0/3T1RI=;
- b=qbXIm933JmWHxLgvIWJg+km9cyZtWnimWkpDXCVrpdc35YeAbAefnQpKJSleXGv1VMLtwp3js5TH
- 9nHo40RYD5qpu7L+OWpHdhUaePk9M1QASy6k+82L4lUQSggT0bCb
-X-Developer-Key: i=christophe.leroy@csgroup.eu; a=ed25519;
- pk=HIzTzUj91asvincQGOFx6+ZF5AoUuP9GdOtQChs7Mm0=
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: [RFC PATCH 0/5] Generic IPI sending tracepoint
+To: Valentin Schneider <vschneid@redhat.com>
+References: <20221007154145.1877054-1-vschneid@redhat.com>
+ <Y0CFnWDpMNGajIRD@fuller.cnet> <xhsmhilkqfi7z.mognet@vschneid.remote.csb>
+From: Daniel Bristot de Oliveira <bristot@redhat.com>
+In-Reply-To: <xhsmhilkqfi7z.mognet@vschneid.remote.csb>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 12 Oct 2022 18:51:41 +0200
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -68,74 +85,41 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, Jonas Bonn <jonas@southpole.se>,
- wangkefeng.wang@huawei.com, schnelle@linux.ibm.com,
- linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- hch@infradead.org, linux-mm@kvack.org, David.Laight@ACULAB.COM,
- akpm@linux-foundation.org, agordeev@linux.ibm.com,
- openrisc@lists.librecores.org
+Cc: Juri Lelli <juri.lelli@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
+ linux-ia64@vger.kernel.org, linux-sh@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-mips@vger.kernel.org,
+ Guo Ren <guoren@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ linux-hexagon@vger.kernel.org, x86@kernel.org,
+ Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, linux-snps-arc@lists.infradead.org,
+ linux-xtensa@linux-xtensa.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, openrisc@lists.librecores.org,
+ Borislav Petkov <bp@alien8.de>, Nicholas Piggin <npiggin@gmail.com>,
+ loongarch@lists.linux.dev, Thomas Gleixner <tglx@linutronix.de>,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ Marcelo Tosatti <mtosatti@redhat.com>, linux-kernel@vger.kernel.org,
+ Douglas RAILLARD <douglas.raillard@arm.com>, linux-alpha@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-From: Baoquan He <bhe@redhat.com>
+On 10/11/22 18:17, Valentin Schneider wrote:
+> Thinking out loud, it makes way more sense to record a cpumask in the
+> tracepoint, but perhaps we could have a postprocessing step to transform
+> those into N events each targeting a single CPU?
 
-Under arch/openrisc, there isn't any place where ioremap() is called.
-It means that there isn't early ioremap handling needed in openrisc,
-So the early ioremap handling code in ioremap() of
-arch/openrisc/mm/ioremap.c is unnecessary and can be removed.
+My approach on the tracers/rtla is to make the simple things in kernel, and beautify
+things in user-space.
 
-Signed-off-by: Baoquan He <bhe@redhat.com>
-Cc: Jonas Bonn <jonas@southpole.se>
-Cc: Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
-Cc: Stafford Horne <shorne@gmail.com>
-Cc: openrisc@lists.librecores.org
----
- arch/openrisc/mm/ioremap.c | 22 +++++-----------------
- 1 file changed, 5 insertions(+), 17 deletions(-)
+You could keep the tracepoint as a mask, and then make it pretty, like cpus=3-5,8
+in user-space. For example with a trace-cmd/perf loadable plugin, libtracefs helper.
 
-diff --git a/arch/openrisc/mm/ioremap.c b/arch/openrisc/mm/ioremap.c
-index 8ec0dafecf25..90b59bc53c8c 100644
---- a/arch/openrisc/mm/ioremap.c
-+++ b/arch/openrisc/mm/ioremap.c
-@@ -22,8 +22,6 @@
- 
- extern int mem_init_done;
- 
--static unsigned int fixmaps_used __initdata;
--
- /*
-  * Remap an arbitrary physical address space into the kernel virtual
-  * address space. Needed when the kernel wants to access high addresses
-@@ -52,24 +50,14 @@ void __iomem *__ref ioremap(phys_addr_t addr, unsigned long size)
- 	p = addr & PAGE_MASK;
- 	size = PAGE_ALIGN(last_addr + 1) - p;
- 
--	if (likely(mem_init_done)) {
--		area = get_vm_area(size, VM_IOREMAP);
--		if (!area)
--			return NULL;
--		v = (unsigned long)area->addr;
--	} else {
--		if ((fixmaps_used + (size >> PAGE_SHIFT)) > FIX_N_IOREMAPS)
--			return NULL;
--		v = fix_to_virt(FIX_IOREMAP_BEGIN + fixmaps_used);
--		fixmaps_used += (size >> PAGE_SHIFT);
--	}
-+	area = get_vm_area(size, VM_IOREMAP);
-+	if (!area)
-+		return NULL;
-+	v = (unsigned long)area->addr;
- 
- 	if (ioremap_page_range(v, v + size, p,
- 			__pgprot(pgprot_val(PAGE_KERNEL) | _PAGE_CI))) {
--		if (likely(mem_init_done))
--			vfree(area->addr);
--		else
--			fixmaps_used -= (size >> PAGE_SHIFT);
-+		vfree(area->addr);
- 		return NULL;
- 	}
- 
--- 
-2.37.1
+For rtla I was thinking to make a new tool to parse them. and make it pretty there.
+
+-- Daniel
 
