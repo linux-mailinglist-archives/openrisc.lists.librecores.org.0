@@ -2,63 +2,61 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 0ADB05FC97E
-	for <lists+openrisc@lfdr.de>; Wed, 12 Oct 2022 18:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 89AD85FC971
+	for <lists+openrisc@lfdr.de>; Wed, 12 Oct 2022 18:47:46 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id A36D3248D5;
-	Wed, 12 Oct 2022 18:51:41 +0200 (CEST)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by mail.librecores.org (Postfix) with ESMTPS id 93898248D5
- for <openrisc@lists.librecores.org>; Wed, 12 Oct 2022 14:42:17 +0200 (CEST)
-Received: by mail-ej1-f52.google.com with SMTP id fy4so1270644ejc.5
- for <openrisc@lists.librecores.org>; Wed, 12 Oct 2022 05:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ventanamicro.com; s=google;
+	by mail.librecores.org (Postfix) with ESMTP id 2827624BA1;
+	Wed, 12 Oct 2022 18:47:46 +0200 (CEST)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by mail.librecores.org (Postfix) with ESMTPS id 27E3B24B2A
+ for <openrisc@lists.librecores.org>; Wed, 12 Oct 2022 18:47:45 +0200 (CEST)
+Received: by mail-wr1-f42.google.com with SMTP id j16so27078972wrh.5
+ for <openrisc@lists.librecores.org>; Wed, 12 Oct 2022 09:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=scSSoPVjvPcIKMwAKdcIxF1HMnXwBEuvlyuD0JbeDac=;
- b=hSkbNoXoG3wWcVdKnqVO7XYK1bv0MH9u8oEv95OaWkkCTB9RsoNg9sS+DyfAXD0gi8
- C3B5RxdZ6EF3FePvqnrCKkr5w8XgiGA0OEB2iK+NsGb9ZOHdvUgBAY5mEupVk514sXh2
- BcfULR6zZ2AZhQJP/B28JemyEcyeDcI3AKRJ5lPKFWuGde9NbfJyX15rLE2gsyDez6YX
- OKDkOurVilre1ybmB6wqSmbSEpcfuh+ukasYa8QPIj2WOxaDkWQTz+Nri8qre79tIxTd
- 1cFDVYDQytan/tbkNZZVN4NNSOJbGSrVUq2mGHauT+3m9QGeWYsm/jufVV+rUDLqTO07
- hCAQ==
+ bh=bkYwffHoTj+UGeb69vyYv3Vi6xsZterM+r8p4HSwk3k=;
+ b=qt8qxQtSMmPSznXRe9pn8HRdFJaewZGwEj1d2XqeJIUx7fTdVWUet+16K0OFzpIWK6
+ Zk5upGfpxB93/w9tOsCA58VK11SJPgjbhNfiqAMe9K5nBOeFP7FusCxGHEYKFmUke4b/
+ tJRSixQsn1aCq2/YKwKNDqFFhAt4Xek2mA+DovqEa/pSJ4PqV0CNRLDTdYAol3bESito
+ y+A4DoxRkyPPRL4gG+R3UHZhAkPHviiSgz6gRsD7K0aMdi4hn/ReQf9ke+vM6TW5GEuN
+ wsHEWUBDeB5vZm1+IwtfJbyF4nfih/t790IREmOraOJFifaG+hVDFMpPjH/wX9142rvs
+ XmsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=scSSoPVjvPcIKMwAKdcIxF1HMnXwBEuvlyuD0JbeDac=;
- b=Cy/pJa3sJO+3od7qiCVov2ch6CmsVW5LVy9naqhShlSRkPLghaYkF2R4SpLb3TL4lp
- vc9o4fEpqhaGLhXI9UKOFRYoee/xXi7b/q53JAVxMhWUzNkwN7kM1q5sPgahdW+hCc6r
- aerADMr0g+F0NDvvJj6dh5n18mLhzdOxNUlz+NJehcNOmWmitLO78YVTYKOqinJa657O
- ZZdEGg4eTJy0qGxoIcWEXiVh6JZ7yamXQxhxgETGg9Zx1TjDANqwGuIvyRqPvAjmTO3+
- To8jD8LhVxRpAMKHgtI9ZwbVz6Esy82/W1pETezu6LI9fGqebXOJ7uGf7Yr/A+/SPztp
- Xuew==
-X-Gm-Message-State: ACrzQf2cqhUxS2HldD4Ht/QKmhtnhNcOkzWCgQq1Pf6zKlao7ZquNjyZ
- rGDTfTOsWfoCpaYQ40Vzbe2uhA==
-X-Google-Smtp-Source: AMsMyM5pMRTzBK4wxOaeWPxAICeTFfKr9UUi5U35RJKBVu1VmBh/W7bpRQUc+vTTEtwGS2qmCt2lPQ==
-X-Received: by 2002:a17:907:a06b:b0:78d:d25f:b726 with SMTP id
- ia11-20020a170907a06b00b0078dd25fb726mr7250759ejc.203.1665578537183; 
- Wed, 12 Oct 2022 05:42:17 -0700 (PDT)
-Received: from localhost (cst2-173-61.cust.vodafone.cz. [31.30.173.61])
+ bh=bkYwffHoTj+UGeb69vyYv3Vi6xsZterM+r8p4HSwk3k=;
+ b=NFtB2t0LPTSEg1CAayejqhR7wCtpvk6N3k0hi8BWuyHVbmSQShT4JQqjzTYuWXLiGx
+ 2UjBN+lT2Qs2CczvRbTGY/wFO4PLJJjYsfQ+P8CHmlIi4oe7SKo3FTQrwsmwvs/3N7GX
+ CI3CrWYw7yik4xwFgXWtGjGd/3m2o7ceNr6qq3gw2ZqD52Sr1kJe7oCkYZw8zi8hBJE1
+ /N8B/OghM9351nGvohbSvDfnzmpWEgu+JdHB4XZWgPSYIR65pvgJ7hhxDR9p0MXBjemm
+ mU6ueNSv0g7fx/GVFQT26hCtD0OYEWEnGSH0FAxGrXA+Dgm7nIcq1qNiC9qePpWGPDM+
+ XA9w==
+X-Gm-Message-State: ACrzQf1FipbNe+4DEcieGJh3cyo5z190r0WOVXsQLWOU18idV7ja0hJc
+ UPxxOupry7EyPWXdWu6ukdA=
+X-Google-Smtp-Source: AMsMyM5QG/hbTP0GgOdpLWkfLu7at/Wgl1M2fr1LZcGBYHj6q7svLrd3xOaQiLDwa/S213jc6sDvfA==
+X-Received: by 2002:a05:6000:10d1:b0:22e:3bc5:c91c with SMTP id
+ b17-20020a05600010d100b0022e3bc5c91cmr18250079wrx.368.1665593264626; 
+ Wed, 12 Oct 2022 09:47:44 -0700 (PDT)
+Received: from localhost ([2a03:b0c0:1:d0::dee:c001])
  by smtp.gmail.com with ESMTPSA id
- w21-20020aa7da55000000b0044e01e2533asm11133463eds.43.2022.10.12.05.42.16
+ p22-20020a05600c065600b003c6c2ff7f25sm2056959wmm.15.2022.10.12.09.47.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Oct 2022 05:42:16 -0700 (PDT)
-Date: Wed, 12 Oct 2022 14:42:15 +0200
-From: Andrew Jones <ajones@ventanamicro.com>
-To: x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] x86: Fix /proc/cpuinfo cpumask warning
-Message-ID: <20221012124215.edmgo6767yipfkt2@kamzik>
-References: <20221012081905.1800640-1-ajones@ventanamicro.com>
- <20221012082422.uavybxdfmv4xkhxi@kamzik>
+ Wed, 12 Oct 2022 09:47:44 -0700 (PDT)
+Date: Wed, 12 Oct 2022 16:47:43 +0000
+From: Stafford Horne <shorne@gmail.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [RFC PATCH 2/8] openrisc: mm: remove unneeded early ioremap code
+Message-ID: <Y0bvr/gKaKYd7ur2@oscomms1>
+References: <cover.1665568707.git.christophe.leroy@csgroup.eu>
+ <9010e8719949cce376dc3f75a97b8bfb2ff98442.1665568707.git.christophe.leroy@csgroup.eu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20221012082422.uavybxdfmv4xkhxi@kamzik>
-X-Mailman-Approved-At: Wed, 12 Oct 2022 18:51:41 +0200
+In-Reply-To: <9010e8719949cce376dc3f75a97b8bfb2ff98442.1665568707.git.christophe.leroy@csgroup.eu>
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,80 +69,85 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Yury Norov <yury.norov@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Heiko Carstens <hca@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@linutronix.de>, linuxppc-dev@lists.ozlabs.org,
- openrisc@lists.librecores.org
+Cc: linux-arch@vger.kernel.org, Jonas Bonn <jonas@southpole.se>,
+ wangkefeng.wang@huawei.com, Baoquan He <bhe@redhat.com>,
+ schnelle@linux.ibm.com, linux-kernel@vger.kernel.org, hch@infradead.org,
+ linux-mm@kvack.org, David.Laight@aculab.com, akpm@linux-foundation.org,
+ agordeev@linux.ibm.com, openrisc@lists.librecores.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-
-Adding more people and lists to CC in order to point this patch out,
-because, based on a quick grep of cpuinfo seq operations, I think at least
-openrisc, powerpc, and s390 also need an equivalent patch (and I've
-already sent a patch for riscv). While the test is simple (see next
-paragraph) I'm not equipped to test on each architecture.
-
-To test, just build a kernel with DEBUG_PER_CPU_MAPS enabled, boot to a
-shell, do 'cat /proc/cpuinfo', and look for a kernel warning.
-
-Thanks,
-drew
-
-On Wed, Oct 12, 2022 at 10:24:22AM +0200, Andrew Jones wrote:
-> On Wed, Oct 12, 2022 at 10:19:05AM +0200, Andrew Jones wrote:
-> > Commit 78e5a3399421 ("cpumask: fix checking valid cpu range") has
-> > started issuing warnings[*] when cpu indices equal to nr_cpu_ids - 1
-> > are passed to cpumask_next* functions. seq_read_iter() and cpuinfo's
-> > start and next seq operations implement a pattern like
-> > 
-> >   n = cpumask_next(n - 1, mask);
-> >   show(n);
-> >   while (1) {
-> >       ++n;
-> >       n = cpumask_next(n - 1, mask);
-> >       if (n >= nr_cpu_ids)
-> >           break;
-> >       show(n);
-> >   }
-> > 
-> > which will issue the warning when reading /proc/cpuinfo. Ensure no
-> > warning is generated by validating the cpu index before calling
-> > cpumask_next().
-> > 
-> > [*] Warnings will only appear with DEBUG_PER_CPU_MAPS enabled.
-> > 
-> > Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
-> > Cc: Yury Norov <yury.norov@gmail.com>
-> > ---
+On Wed, Oct 12, 2022 at 12:09:38PM +0200, Christophe Leroy wrote:
+> From: Baoquan He <bhe@redhat.com>
 > 
-> Forgot the changelog...
+> Under arch/openrisc, there isn't any place where ioremap() is called.
+> It means that there isn't early ioremap handling needed in openrisc,
+> So the early ioremap handling code in ioremap() of
+> arch/openrisc/mm/ioremap.c is unnecessary and can be removed.
 > 
-> v2:
->   - Added all the information I should have in the first place to the
->     commit message [Boris]
->   - Changed style of fix [Boris]
+> Signed-off-by: Baoquan He <bhe@redhat.com>
+> Cc: Jonas Bonn <jonas@southpole.se>
+> Cc: Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+> Cc: Stafford Horne <shorne@gmail.com>
+> Cc: openrisc@lists.librecores.org
+
+Thanks for picking this up.
+
+Perhaps add this link?
+
+Link: https://lore.kernel.org/linux-mm/YwxfxKrTUtAuejKQ@oscomms1/
+
+But either way.
+
+Acked-by: Stafford Horne <shorne@gmail.com>
+
+> ---
+>  arch/openrisc/mm/ioremap.c | 22 +++++-----------------
+>  1 file changed, 5 insertions(+), 17 deletions(-)
 > 
-> >  arch/x86/kernel/cpu/proc.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/arch/x86/kernel/cpu/proc.c b/arch/x86/kernel/cpu/proc.c
-> > index 099b6f0d96bd..94ac02c8dd6f 100644
-> > --- a/arch/x86/kernel/cpu/proc.c
-> > +++ b/arch/x86/kernel/cpu/proc.c
-> > @@ -153,6 +153,9 @@ static int show_cpuinfo(struct seq_file *m, void *v)
-> >  
-> >  static void *c_start(struct seq_file *m, loff_t *pos)
-> >  {
-> > +	if (*pos >= nr_cpu_ids)
-> > +		return NULL;
-> > +
-> >  	*pos = cpumask_next(*pos - 1, cpu_online_mask);
-> >  	if ((*pos) < nr_cpu_ids)
-> >  		return &cpu_data(*pos);
-> > -- 
-> > 2.37.3
-> > 
+> diff --git a/arch/openrisc/mm/ioremap.c b/arch/openrisc/mm/ioremap.c
+> index 8ec0dafecf25..90b59bc53c8c 100644
+> --- a/arch/openrisc/mm/ioremap.c
+> +++ b/arch/openrisc/mm/ioremap.c
+> @@ -22,8 +22,6 @@
+>  
+>  extern int mem_init_done;
+>  
+> -static unsigned int fixmaps_used __initdata;
+> -
+>  /*
+>   * Remap an arbitrary physical address space into the kernel virtual
+>   * address space. Needed when the kernel wants to access high addresses
+> @@ -52,24 +50,14 @@ void __iomem *__ref ioremap(phys_addr_t addr, unsigned long size)
+>  	p = addr & PAGE_MASK;
+>  	size = PAGE_ALIGN(last_addr + 1) - p;
+>  
+> -	if (likely(mem_init_done)) {
+> -		area = get_vm_area(size, VM_IOREMAP);
+> -		if (!area)
+> -			return NULL;
+> -		v = (unsigned long)area->addr;
+> -	} else {
+> -		if ((fixmaps_used + (size >> PAGE_SHIFT)) > FIX_N_IOREMAPS)
+> -			return NULL;
+> -		v = fix_to_virt(FIX_IOREMAP_BEGIN + fixmaps_used);
+> -		fixmaps_used += (size >> PAGE_SHIFT);
+> -	}
+> +	area = get_vm_area(size, VM_IOREMAP);
+> +	if (!area)
+> +		return NULL;
+> +	v = (unsigned long)area->addr;
+>  
+>  	if (ioremap_page_range(v, v + size, p,
+>  			__pgprot(pgprot_val(PAGE_KERNEL) | _PAGE_CI))) {
+> -		if (likely(mem_init_done))
+> -			vfree(area->addr);
+> -		else
+> -			fixmaps_used -= (size >> PAGE_SHIFT);
+> +		vfree(area->addr);
+>  		return NULL;
+>  	}
+>  
+> -- 
+> 2.37.1
+> 
