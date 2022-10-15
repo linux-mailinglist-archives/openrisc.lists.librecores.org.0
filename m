@@ -2,64 +2,61 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 622F95FF1E0
-	for <lists+openrisc@lfdr.de>; Fri, 14 Oct 2022 17:58:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6F3AD5FFB2F
+	for <lists+openrisc@lfdr.de>; Sat, 15 Oct 2022 18:26:00 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 11A7224BAB;
-	Fri, 14 Oct 2022 17:58:51 +0200 (CEST)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by mail.librecores.org (Postfix) with ESMTPS id 1A02F24B9B
- for <openrisc@lists.librecores.org>; Fri, 14 Oct 2022 17:58:50 +0200 (CEST)
-Received: by mail-ed1-f45.google.com with SMTP id u21so7437016edi.9
- for <openrisc@lists.librecores.org>; Fri, 14 Oct 2022 08:58:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ventanamicro.com; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XBIOqGjmdzThiZsnnbTdUiYSPQXS/qp/QRUJHndogxY=;
- b=de2qcklml8jKYdhJlyXqmJXoz8FYGzMVRLfN9JcOUqf4UOLuKCrWZr59qwP/CI15i8
- 9ZEYt9iqHJUORqeLDasCpf2TvKXJ2eNiOMML8Fk+bz7YKFJbV57Ez3yS2OMYxbifi8aU
- 80V2z5mOPzJ5j+SPiaK/ExtA7pvzSXkVFgQy9BgPDzmgfE18Klp1ebv/IKnNb6TVl3x7
- K0gO3P8T9E6LTR2oS1WZnI3pbS2vkD6iCSFlqd/rinFyB9u6Ftb/GsYDL097UX4vn1na
- X5w9kGup7pabQp9pwZ84Krxhofd+fyywuWkx0d61FPGLmHqmWuc2PbVNpdjodZPMfLJV
- 6NYQ==
+	by mail.librecores.org (Postfix) with ESMTP id 1310A24BDB;
+	Sat, 15 Oct 2022 18:26:00 +0200 (CEST)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by mail.librecores.org (Postfix) with ESMTPS id 9C97D24BAC
+ for <openrisc@lists.librecores.org>; Sat, 15 Oct 2022 18:25:59 +0200 (CEST)
+Received: by mail-wr1-f52.google.com with SMTP id a10so11924966wrm.12
+ for <openrisc@lists.librecores.org>; Sat, 15 Oct 2022 09:25:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=dNKwwUuvrgZ46xwoGGuVcYvN6TXI2tCIVd9WU2CVGOQ=;
+ b=JluM3QD05PT6gVppLGJyJaOsBmS9w+f9HdZ/rv1gXA30MjMECsYItnh96r7BPeN6Vc
+ Q/lON8XcAThALGZmSrjIRUYbDxj6YSCnMpXCR5IBuLFyEMxRmfOHoFmo/eK7zCthY0Pe
+ 71lrRasStpjrlwiWcvqsw8OV8TzK2XyRGGOBoUQxTBWRP0lkT8hBKaYhK3jDcYxUEdJF
+ UTGvq4ubkjR0/6jQ0QfhhtRk3uM0gkSS7vk/NnC+ZsYmHNb/VQsY29DfOX9Tm9pr0oSf
+ 2tIPpp0UhZn8Hrsy9n3Ejt5mrOZcI+xD/d9EAuOKBSYdzn6tkqkl+q3WuBE9WQ+J9TYs
+ XZfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XBIOqGjmdzThiZsnnbTdUiYSPQXS/qp/QRUJHndogxY=;
- b=PkGT2re4sJt1QFrQT7v0o2j50Cv1QnjgIENop0yXwGPhPWxrYIrDPlLUxdZwyRIGp1
- /gIDdbMLVdQ03696CF06nD1X0KKkQQxIZ5LujoIH/E14DFujSAmmjAyxg+EyTCgQe2+P
- MHKKeITO8LTK7UABd0VEoc/l+Cu5xwxFcqfh533wtTnz1G9X1DgJAwA13+b+2BHFj9Me
- ZbNxXlbsOrxP2XcycVqKfUpH/VAoL2GFz3qwQdgJgL/Xl9Ouh8405H8tmGCpMjAb6Zox
- wYSF/PmmBJL6S2PqsCnCEwMxXLOfkefgLNfTbKRtfmTe/S1HnbtHnglpbpjfYhGGXbgH
- hI/Q==
-X-Gm-Message-State: ACrzQf1WUJ0BfVT/RgYY1o4KLS0mQGPp6EEiDabNBHxR1Jc1P4gL+Ss1
- 5Xh0k7K3XKC3bGZyWlTL3IwdPg==
-X-Google-Smtp-Source: AMsMyM7AeOygOXkM1z/GTKaGU+3a1Uh1fQyGWBmDx0oj1luEK/7mcX83iQG4d2XLgbn9xXhJP10WDg==
-X-Received: by 2002:a05:6402:3485:b0:45c:d688:6848 with SMTP id
- v5-20020a056402348500b0045cd6886848mr4672473edc.279.1665763129826; 
- Fri, 14 Oct 2022 08:58:49 -0700 (PDT)
-Received: from localhost (cst2-173-61.cust.vodafone.cz. [31.30.173.61])
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dNKwwUuvrgZ46xwoGGuVcYvN6TXI2tCIVd9WU2CVGOQ=;
+ b=dpkVfEYiQwaAMV9HVFiAhG0JaUDiiQcLbd1i1tRphLFgRCu9deu/XkE7flE/bhcloz
+ 41kTXVEc9kT3E3sFjjnFlnzAD65ocS4gu0k2ywzWhw8AYZ5pIP+BTbXOpldQua29n+7h
+ bPRXNK3Yx2UjvLn0aueLRLa2UU3oFNdHKdXMATVpay/u7hrxD/ODs5cXqESTfzWanEHV
+ LTL6f0Y/ePvkkQcJeIeKN6uD3EVTK4l7p3vmMY2tY2qIr8q/3tIgG/lB0d6PhQvN5/7Z
+ BRR+fMIKn5hDMedzIr+kCrC+bunqZC8BMrZAxac70Ve31DlaZItEmA5SNMOqsY/Vtp06
+ +LUA==
+X-Gm-Message-State: ACrzQf0vDmZIlp0DvpoDR6qhFY7VUdQUckUAKoMzt5qCLXgpbkbv9Z3H
+ IeXFPWlbXuMH2efPzd1NqPU=
+X-Google-Smtp-Source: AMsMyM71VpkOhoy31kwvj7hvjMDnCb6bByCRJVgIqksFM6+DvDOk642WbK3ppITSUWEeZzLHarGR3g==
+X-Received: by 2002:a05:6000:178e:b0:22e:6d9f:1592 with SMTP id
+ e14-20020a056000178e00b0022e6d9f1592mr1917812wrg.6.1665851158988; 
+ Sat, 15 Oct 2022 09:25:58 -0700 (PDT)
+Received: from localhost ([2a03:b0c0:1:d0::dee:c001])
  by smtp.gmail.com with ESMTPSA id
- 12-20020a170906300c00b0077a1dd3e7b7sm1746796ejz.102.2022.10.14.08.58.49
+ 123-20020a1c1981000000b003c6c4639ac6sm5204196wmz.34.2022.10.15.09.25.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Oct 2022 08:58:49 -0700 (PDT)
-From: Andrew Jones <ajones@ventanamicro.com>
-To: x86@kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] x86: Fix /proc/cpuinfo cpumask warning
-Date: Fri, 14 Oct 2022 17:58:45 +0200
-Message-Id: <20221014155845.1986223-3-ajones@ventanamicro.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221014155845.1986223-1-ajones@ventanamicro.com>
-References: <20221014155845.1986223-1-ajones@ventanamicro.com>
+ Sat, 15 Oct 2022 09:25:52 -0700 (PDT)
+Date: Sat, 15 Oct 2022 16:25:51 +0000
+From: Stafford Horne <shorne@gmail.com>
+To: Palmer Dabbelt <palmer@rivosinc.com>
+Subject: Re: [PATCH] MAINTAINERS: git://github -> https://github.com for
+ openrisc
+Message-ID: <Y0rfD8y9m54Zrc4C@oscomms1>
+References: <20221013214637.30893-1-palmer@rivosinc.com>
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221013214637.30893-1-palmer@rivosinc.com>
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -72,58 +69,51 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Vasily Gorbik <gor@linux.ibm.com>, Yury Norov <yury.norov@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Thomas Gleixner <tglx@linutronix.de>,
- linuxppc-dev@lists.ozlabs.org, openrisc@lists.librecores.org
+Cc: jonas@southpole.se, Conor Dooley <conor.dooley@microchip.com>,
+ openrisc@lists.librecores.org, linux-kernel@vger.kernel.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Commit 78e5a3399421 ("cpumask: fix checking valid cpu range") has
-started issuing warnings[*] when cpu indices equal to nr_cpu_ids - 1
-are passed to cpumask_next* functions. seq_read_iter() and cpuinfo's
-start and next seq operations implement a pattern like
+Hi Palmer,
 
-  n = cpumask_next(n - 1, mask);
-  show(n);
-  while (1) {
-      ++n;
-      n = cpumask_next(n - 1, mask);
-      if (n >= nr_cpu_ids)
-          break;
-      show(n);
-  }
+On Thu, Oct 13, 2022 at 02:46:37PM -0700, Palmer Dabbelt wrote:
+> Github deprecated the git:// links about a year ago, so let's move to
+> the https:// URLs instead.
 
-which will issue the warning when reading /proc/cpuinfo. Ensure no
-warning is generated by validating the cpu index before calling
-cpumask_next().
+Thanks, I will queue this for 6.1 right away.  I saw you originally had this as
+a mega patch now split it up.  Either way is good with me, ghouth taking this
+on.
 
-[*] Warnings will only appear with DEBUG_PER_CPU_MAPS enabled.
+> Reported-by: Conor Dooley <conor.dooley@microchip.com>
+> Link: https://github.blog/2021-09-01-improving-git-protocol-security-github/
+> Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+> ---
+> I've split these up by github username so folks can take them
+> independently, as some of these repos have been renamed at github and
+> thus need more than just a sed to fix them.
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 796ba37dd4ff..9a9ca93b63fd 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15234,7 +15234,7 @@ M:	Stafford Horne <shorne@gmail.com>
+>  L:	openrisc@lists.librecores.org
+>  S:	Maintained
+>  W:	http://openrisc.io
 
-Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
-Cc: Yury Norov <yury.norov@gmail.com>
----
- arch/x86/kernel/cpu/proc.c | 3 +++
- 1 file changed, 3 insertions(+)
+FWIW: Our website should be https:// too.  I will sumbit a patch for that as
+well.
 
-diff --git a/arch/x86/kernel/cpu/proc.c b/arch/x86/kernel/cpu/proc.c
-index 099b6f0d96bd..de3f93ac6e49 100644
---- a/arch/x86/kernel/cpu/proc.c
-+++ b/arch/x86/kernel/cpu/proc.c
-@@ -153,6 +153,9 @@ static int show_cpuinfo(struct seq_file *m, void *v)
- 
- static void *c_start(struct seq_file *m, loff_t *pos)
- {
-+	if (*pos == nr_cpu_ids)
-+		return NULL;
-+
- 	*pos = cpumask_next(*pos - 1, cpu_online_mask);
- 	if ((*pos) < nr_cpu_ids)
- 		return &cpu_data(*pos);
--- 
-2.37.3
+Stafford
 
+> -T:	git git://github.com/openrisc/linux.git
+> +T:	git https://github.com/openrisc/linux.git
+>  F:	Documentation/devicetree/bindings/openrisc/
+>  F:	Documentation/openrisc/
+>  F:	arch/openrisc/
+> -- 
+> 2.38.0
+> 
