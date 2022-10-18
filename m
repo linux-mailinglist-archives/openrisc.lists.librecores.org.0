@@ -2,61 +2,51 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id DED2261E667
-	for <lists+openrisc@lfdr.de>; Sun,  6 Nov 2022 22:19:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9956F61E659
+	for <lists+openrisc@lfdr.de>; Sun,  6 Nov 2022 22:13:36 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 7A154242D7;
-	Sun,  6 Nov 2022 22:19:34 +0100 (CET)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by mail.librecores.org (Postfix) with ESMTPS id 58BF424B93
- for <openrisc@lists.librecores.org>; Sat, 15 Oct 2022 20:08:51 +0200 (CEST)
-Received: by mail-qk1-f173.google.com with SMTP id b25so4446464qkk.7
- for <openrisc@lists.librecores.org>; Sat, 15 Oct 2022 11:08:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4wAaC7lbGaB3AX/Lsftuvb2OO1sJpQJ6Ykn9DFNJXY0=;
- b=FyRwiQ1Kkh2U3R7rwv/cUWgWbhnhVuRAkvLikv3swWoWi+Qni43MwmjlvAl7Qd5YWU
- e3eQ8r4coovbGUfjgmrmah9muM3lMIJqLMPtobpzhigxXHyNURqImNwciQiRzGsAHdHO
- qXOEVFqd/G+S/R1kNsVrId98EksJPTRvXw6S31DLxWwCE/s50meM1rY5rsjT96D1ObDy
- lCH7/wDPhN4Zl3js/rayUXV95GaO+0Ed0I7Aor4TcANC3GM2Q2PJASLmjnpLgyV/gbKH
- KXTHOpPBMJ9ORopJ3VS/8U3M5d4tTN/mU0ZQfTgvUx8AXj2lFRY2L268IjoNTL418YNj
- eMZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4wAaC7lbGaB3AX/Lsftuvb2OO1sJpQJ6Ykn9DFNJXY0=;
- b=4qY4RlxxlaYaOA+fjfLP2eg+yX8l/U3plMBOrRvMvr38lCxnIbIQ7DqsstdUCEgRvG
- U8laeS+PeL1+iC3yZm1tXSLFAKS32Mm/Goakivh8u5fel0VK1n/xgh9HAMTvQDjhj6gi
- TgX9d3h7v005sv4vJkCplkxr4Q78k2R7oD9gC+1p+6Yj88Fzfa8MIT85mQtHhvm1c0KU
- Pc9s3gbHyV/Me1Fa8qGYUU/3LAYnUDp7CYStG+hP3hO2lmPINmc2+2wg4by8URVyjP4y
- mS9Bh7/PnzkkZ7U6hOkOprwgbCzGg4d29wBkM3JZ5DRdkmitxpQKpFFNbBqoLb1ATBAj
- iNuA==
-X-Gm-Message-State: ACrzQf3Udd6HVjUOXTpy6iehkUPVn4zBwR6Uo/hPnV53KB+iYXXrr26F
- UtJ5m70tdSBLwPlVrsLdvxY=
-X-Google-Smtp-Source: AMsMyM6RKmR37GztXAcqofHNQn3klZzUQq+GK3VRFWmYfAI4qhzKm9L4cuQOR6HCO3RXlQARuABfrA==
-X-Received: by 2002:a37:6303:0:b0:6ec:554b:131d with SMTP id
- x3-20020a376303000000b006ec554b131dmr2532393qkb.166.1665857330103; 
- Sat, 15 Oct 2022 11:08:50 -0700 (PDT)
-Received: from localhost ([2601:4c1:c100:2270:2b6d:8b98:c35a:4b7])
- by smtp.gmail.com with ESMTPSA id
- h6-20020a05620a400600b006b949afa980sm5294690qko.56.2022.10.15.11.08.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Oct 2022 11:08:49 -0700 (PDT)
-Date: Sat, 15 Oct 2022 11:08:51 -0700
-From: Yury Norov <yury.norov@gmail.com>
-To: Andrew Jones <ajones@ventanamicro.com>
-Subject: Re: [PATCH v3 0/2] Fix /proc/cpuinfo cpumask warning
-Message-ID: <Y0r3M+WCMqugVoXf@yury-laptop>
-References: <20221014155845.1986223-1-ajones@ventanamicro.com>
+	by mail.librecores.org (Postfix) with ESMTP id 41091214F6;
+	Sun,  6 Nov 2022 22:13:36 +0100 (CET)
+Received: from mailbox.box.xen0n.name (mail.xen0n.name [115.28.160.31])
+ by mail.librecores.org (Postfix) with ESMTPS id 95E4C24BD9
+ for <openrisc@lists.librecores.org>; Tue, 18 Oct 2022 11:20:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xen0n.name; s=mail;
+ t=1666084821; bh=N48MFgDUmr1tfKHznoAthvRtR1Wpy0hSpJqTj7oKYC4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=cHV6qrCjD47k3jGPjUQF3lwihop1RDaw3yjdG73m7BjSD1b/7jyWqLqeN+Uyk642T
+ VvEcixZUqLhrENpMZkopSZmIH+3rzqlov7m3aEUZuBieiNorHcibY7orD6PjU5mrAB
+ wuldpVWm+HQ77bl4gfDeA0Z+scSMeI8G3x4eFq+M=
+Received: from [100.100.57.122] (unknown [220.248.53.61])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mailbox.box.xen0n.name (Postfix) with ESMTPSA id 69A5760087;
+ Tue, 18 Oct 2022 17:20:20 +0800 (CST)
+Message-ID: <27ffa400-b947-7c83-0e79-c8eb9f96e12e@xen0n.name>
+Date: Tue, 18 Oct 2022 17:20:19 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221014155845.1986223-1-ajones@ventanamicro.com>
-X-Mailman-Approved-At: Sun, 06 Nov 2022 22:19:32 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:107.0)
+ Gecko/20100101 Thunderbird/107.0a1
+Subject: Re: [PATCH] mm: remove kern_addr_valid() completely
+Content-Language: en-US
+To: Kefeng Wang <wangkefeng.wang@huawei.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-alpha@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, linux-ia64@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+ linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
+ linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
+ linux-fsdevel@vger.kernel.org
+References: <20221018074014.185687-1-wangkefeng.wang@huawei.com>
+From: WANG Xuerui <kernel@xen0n.name>
+In-Reply-To: <20221018074014.185687-1-wangkefeng.wang@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sun, 06 Nov 2022 22:13:35 +0100
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,48 +59,107 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org, openrisc@lists.librecores.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- Thomas Gleixner <tglx@linutronix.de>, Albert Ou <aou@eecs.berkeley.edu>
+Cc: Rich Felker <dalias@libc.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Will Deacon <will@kernel.org>, Greg Ungerer <gerg@linux-m68k.org>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Jonas Bonn <jonas@southpole.se>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
+ Huacai Chen <chenhuacai@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, Ingo Molnar <mingo@redhat.com>,
+ Vineet Gupta <vgupta@kernel.org>, Matt Turner <mattst88@gmail.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>, Andy Lutomirski <luto@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Chris Zankel <chris@zankel.net>,
+ Michal Simek <monstr@monstr.eu>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Dinh Nguyen <dinguyen@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
+ Borislav Petkov <bp@alien8.de>, Johannes Berg <johannes@sipsolutions.net>,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Fri, Oct 14, 2022 at 05:58:43PM +0200, Andrew Jones wrote:
-> Commit 78e5a3399421 ("cpumask: fix checking valid cpu range") has
-> started issuing warnings[*] when cpu indices equal to nr_cpu_ids - 1
-> are passed to cpumask_next* functions. seq_read_iter() and cpuinfo's
-> start and next seq operations implement a pattern like
-> 
->   n = cpumask_next(n - 1, mask);
->   show(n);
->   while (1) {
->       ++n;
->       n = cpumask_next(n - 1, mask);
->       if (n >= nr_cpu_ids)
->           break;
->       show(n);
->   }
->     
-> which will issue the warning when reading /proc/cpuinfo.
-> 
-> [*] Warnings will only appear with DEBUG_PER_CPU_MAPS enabled.
-> 
-> This series address the issue for x86 and riscv, but from a quick
-> grep of cpuinfo seq operations, I think at least openrisc, powerpc,
-> and s390 also need an equivalent patch. While the test is simple (see
-> next paragraph) I'm not equipped to test on each architecture.
-> 
-> To test, just build a kernel with DEBUG_PER_CPU_MAPS enabled, boot to
-> a shell, do 'cat /proc/cpuinfo', and look for a kernel warning.
-> 
-> While the patches are being posted together in a series since they're
-> for two different architectures they don't necessarily need to go
-> through the same tree.
+On 2022/10/18 15:40, Kefeng Wang wrote:
+> Most architectures(except arm64/x86/sparc) simply return 1 for
 
-Acked-by: Yury Norov <yury.norov@gmail.com
+one space before the opening parens
+
+> kern_addr_valid(), which is only used in read_kcore(), and it
+> calls copy_from_kernel_nofault() which could check whether the
+> address is a valid kernel address, so no need kern_addr_valid(),
+
+minor grammatical nit:
+
+"... which already checks whether the address is a valid kernel address. 
+So kern_addr_valid is unnecessary, let's remove it."
+
+> let's remove unneeded kern_addr_valid() completely.
+> 
+> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+> ---
+>   arch/alpha/include/asm/pgtable.h          |  2 -
+>   arch/arc/include/asm/pgtable-bits-arcv2.h |  2 -
+>   arch/arm/include/asm/pgtable-nommu.h      |  2 -
+>   arch/arm/include/asm/pgtable.h            |  4 --
+>   arch/arm64/include/asm/pgtable.h          |  2 -
+>   arch/arm64/mm/mmu.c                       | 47 -----------------------
+>   arch/arm64/mm/pageattr.c                  |  3 +-
+>   arch/csky/include/asm/pgtable.h           |  3 --
+>   arch/hexagon/include/asm/page.h           |  7 ----
+>   arch/ia64/include/asm/pgtable.h           | 16 --------
+>   arch/loongarch/include/asm/pgtable.h      |  2 -
+>   arch/m68k/include/asm/pgtable_mm.h        |  2 -
+>   arch/m68k/include/asm/pgtable_no.h        |  1 -
+>   arch/microblaze/include/asm/pgtable.h     |  3 --
+>   arch/mips/include/asm/pgtable.h           |  2 -
+>   arch/nios2/include/asm/pgtable.h          |  2 -
+>   arch/openrisc/include/asm/pgtable.h       |  2 -
+>   arch/parisc/include/asm/pgtable.h         | 15 --------
+>   arch/powerpc/include/asm/pgtable.h        |  7 ----
+>   arch/riscv/include/asm/pgtable.h          |  2 -
+>   arch/s390/include/asm/pgtable.h           |  2 -
+>   arch/sh/include/asm/pgtable.h             |  2 -
+>   arch/sparc/include/asm/pgtable_32.h       |  6 ---
+>   arch/sparc/mm/init_32.c                   |  3 +-
+>   arch/sparc/mm/init_64.c                   |  1 -
+>   arch/um/include/asm/pgtable.h             |  2 -
+>   arch/x86/include/asm/pgtable_32.h         |  9 -----
+>   arch/x86/include/asm/pgtable_64.h         |  1 -
+>   arch/x86/mm/init_64.c                     | 41 --------------------
+>   arch/xtensa/include/asm/pgtable.h         |  2 -
+>   fs/proc/kcore.c                           | 26 +++++--------
+>   31 files changed, 11 insertions(+), 210 deletions(-)
+> 
+> diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/include/asm/pgtable.h
+> index 946704bee599..fc70b7041b76 100644
+> --- a/arch/loongarch/include/asm/pgtable.h
+> +++ b/arch/loongarch/include/asm/pgtable.h
+> @@ -421,8 +421,6 @@ static inline void update_mmu_cache_pmd(struct vm_area_struct *vma,
+>   	__update_tlb(vma, address, (pte_t *)pmdp);
+>   }
+>   
+> -#define kern_addr_valid(addr)	(1)
+> -
+>   static inline unsigned long pmd_pfn(pmd_t pmd)
+>   {
+>   	return (pmd_val(pmd) & _PFN_MASK) >> _PFN_SHIFT;
+
+Acked-by: WANG Xuerui <git@xen0n.name> # loongarch
+
+Thanks!
+
+-- 
+WANG "xen0n" Xuerui
+
+Linux/LoongArch mailing list: https://lore.kernel.org/loongarch/
+
