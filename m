@@ -2,50 +2,57 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id C9A0C5FFCAD
-	for <lists+openrisc@lfdr.de>; Sun, 16 Oct 2022 02:15:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 499136025DE
+	for <lists+openrisc@lfdr.de>; Tue, 18 Oct 2022 09:36:33 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 689BB24BF3;
-	Sun, 16 Oct 2022 02:15:41 +0200 (CEST)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id 647B024BE4
- for <openrisc@lists.librecores.org>; Sun, 16 Oct 2022 02:15:40 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D224EB80B46;
- Sun, 16 Oct 2022 00:15:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 78E35C433D7;
- Sun, 16 Oct 2022 00:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1665879338;
- bh=t5U11+x4czcTlpCrS/3J3OedwSEGUOn1KQy3HtgOllk=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
- b=dkoJMzC/LSC973QoDYOvqn5nKJpKo2VoqUbIXCW9H4QX2EiZh03A1hfDDgaZ/XHGb
- aET+oHn5YJVQCjBRnj8j2iuJFdBTYEdMfEch4rNh/QDd9P+FxkHvLBTQOtd7dXLiAf
- RySq6QQoNI2OvnL7qGMeH1MEXHVeUQ9SN6U2jDfLHXCsWZJHfadj3NY5JvwKSO4XEM
- B65ldKbLmOnS6ANT6ezUYBihRCWD5c1R/0XoQZ2wYPmhJKwI7mEq2JXMtdnvvzTC7Q
- GGiGcE16hj8/n/kN1ItyWqaMa2xMF+PNKr0zxuNG77C0DUnAXuopkj6+8UIRcTWJXD
- io/RNd9KUH01g==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 6620FE270EF; Sun, 16 Oct 2022 00:15:38 +0000 (UTC)
-Subject: Re: [GIT PULL] OpenRISC updates for v6.1-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <Y0rkcqBr6Wan4ueU@stafford-asahi>
-References: <Y0rkcqBr6Wan4ueU@stafford-asahi>
-X-PR-Tracked-List-Id: Discussion around the OpenRISC processor
- <openrisc.lists.librecores.org>
-X-PR-Tracked-Message-Id: <Y0rkcqBr6Wan4ueU@stafford-asahi>
-X-PR-Tracked-Remote: https://github.com/openrisc/linux.git tags/for-linus
-X-PR-Tracked-Commit-Id: 34a0bac084e49324c29e6d0984d24096e02c6314
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 36d8a3edf8bd504320fca970f8b0633b8226cb58
-Message-Id: <166587933841.18523.260321128044065343.pr-tracker-bot@kernel.org>
-Date: Sun, 16 Oct 2022 00:15:38 +0000
-To: Stafford Horne <shorne@gmail.com>
+	by mail.librecores.org (Postfix) with ESMTP id EE94024C74;
+	Tue, 18 Oct 2022 09:36:32 +0200 (CEST)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by mail.librecores.org (Postfix) with ESMTPS id D1E0C24B37
+ for <openrisc@lists.librecores.org>; Tue, 18 Oct 2022 09:36:31 +0200 (CEST)
+Received: by mail-qt1-f178.google.com with SMTP id f22so9176413qto.3
+ for <openrisc@lists.librecores.org>; Tue, 18 Oct 2022 00:36:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Mwq8mRE5qiqVJEFTV8PMaTxlxiFl0HRvXCI1ESDIAgA=;
+ b=0tYsrYZPvPuggXxZjkgYkvKB1nyxhHADNxxwWySB5V+23tuXgcg5zsgxy+vbdF9joh
+ vfnjE9JwvnvkPVcLxOnTZnKH8uUE+jjQVOVoa0USIkHbpPvHmhBJ4qF8zCpAm2dvTIyA
+ ZihP/+wY8P7xmGUo3qNgDhy/C7gTYzbMPViM8EL6ZklJi9hjwYhk3dOJGC1rdP3gOptV
+ bIApLbFXt90zoOm6thWIKGJz42gp1xA2ujhNGzshD69KZEtKwBAJMNOtmUc/kVS9iQp0
+ 8z27t6FeXMvxgfpNyibEXCyKt8HiKcxm9u7CBAMz+NKhXmd//C/9jUlF7VA5lU8TamCg
+ NTIw==
+X-Gm-Message-State: ACrzQf1BdHxtYuZQnHsYPx84Ok9hmoflBFgTnH8KhGVZenp/rMbiUDiN
+ 5MtxCrrYnHTnkeiwk9ssElCA7DcVNfGhQHBj
+X-Google-Smtp-Source: AMsMyM6jx+DW+CbMV0t2gdN+4v/pkC2yYb9pzJVB/QzqwZBBC6lHc1U+2jnIOWkeGA0jH5C/1h4JTg==
+X-Received: by 2002:ac8:5d49:0:b0:39c:c082:1417 with SMTP id
+ g9-20020ac85d49000000b0039cc0821417mr1042547qtx.687.1666078590661; 
+ Tue, 18 Oct 2022 00:36:30 -0700 (PDT)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com.
+ [209.85.128.178]) by smtp.gmail.com with ESMTPSA id
+ fa12-20020a05622a4ccc00b0039cb8cdaa6bsm1402902qtb.63.2022.10.18.00.36.30
+ for <openrisc@lists.librecores.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Oct 2022 00:36:30 -0700 (PDT)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-358bf076f1fso129246137b3.9
+ for <openrisc@lists.librecores.org>; Tue, 18 Oct 2022 00:36:30 -0700 (PDT)
+X-Received: by 2002:a81:848c:0:b0:356:e173:2c7a with SMTP id
+ u134-20020a81848c000000b00356e1732c7amr1276352ywf.502.1666078253767; Tue, 18
+ Oct 2022 00:30:53 -0700 (PDT)
+MIME-Version: 1.0
+References: <20221018074014.185687-1-wangkefeng.wang@huawei.com>
+In-Reply-To: <20221018074014.185687-1-wangkefeng.wang@huawei.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 18 Oct 2022 09:30:42 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWwAgPkifAkah7MoBKBoyB4tb+HM5cgvenwNFaAfbg+UQ@mail.gmail.com>
+Message-ID: <CAMuHMdWwAgPkifAkah7MoBKBoyB4tb+HM5cgvenwNFaAfbg+UQ@mail.gmail.com>
+Subject: Re: [PATCH] mm: remove kern_addr_valid() completely
+To: Kefeng Wang <wangkefeng.wang@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -58,21 +65,68 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Openrisc <openrisc@lists.librecores.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: Rich Felker <dalias@libc.org>, linux-ia64@vger.kernel.org,
+ Andy Lutomirski <luto@kernel.org>, linux-sh@vger.kernel.org,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-mips@vger.kernel.org,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Guo Ren <guoren@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, "H . Peter Anvin" <hpa@zytor.com>,
+ sparclinux@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Will Deacon <will@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-hexagon@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, Huacai Chen <chenhuacai@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
+ Greg Ungerer <gerg@linux-m68k.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Vineet Gupta <vgupta@kernel.org>,
+ Matt Turner <mattst88@gmail.com>, linux-snps-arc@lists.infradead.org,
+ linux-xtensa@linux-xtensa.org, Albert Ou <aou@eecs.berkeley.edu>,
+ Vasily Gorbik <gor@linux.ibm.com>, Chris Zankel <chris@zankel.net>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Heiko Carstens <hca@linux.ibm.com>, linux-um@lists.infradead.org,
+ Nicholas Piggin <npiggin@gmail.com>, Richard Weinberger <richard@nod.at>,
+ linux-m68k@lists.linux-m68k.org, openrisc@lists.librecores.org,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>, loongarch@lists.linux.dev,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ Michal Simek <monstr@monstr.eu>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Sven Schnelle <svens@linux.ibm.com>,
+ linux-alpha@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Borislav Petkov <bp@alien8.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, linuxppc-dev@lists.ozlabs.org,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-The pull request you sent on Sat, 15 Oct 2022 17:48:50 +0100:
+On Tue, Oct 18, 2022 at 9:25 AM Kefeng Wang <wangkefeng.wang@huawei.com> wrote:
+> Most architectures(except arm64/x86/sparc) simply return 1 for
+> kern_addr_valid(), which is only used in read_kcore(), and it
+> calls copy_from_kernel_nofault() which could check whether the
+> address is a valid kernel address, so no need kern_addr_valid(),
+> let's remove unneeded kern_addr_valid() completely.
+>
+> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
 
-> https://github.com/openrisc/linux.git tags/for-linus
+>  arch/m68k/include/asm/pgtable_mm.h        |  2 -
+>  arch/m68k/include/asm/pgtable_no.h        |  1 -
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/36d8a3edf8bd504320fca970f8b0633b8226cb58
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org> [m68k]
 
-Thank you!
+Gr{oetje,eeting}s,
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
