@@ -2,63 +2,38 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 03453610B84
-	for <lists+openrisc@lfdr.de>; Fri, 28 Oct 2022 09:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B1F4B610BFC
+	for <lists+openrisc@lfdr.de>; Fri, 28 Oct 2022 10:14:02 +0200 (CEST)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id BB6CC24C2D;
-	Fri, 28 Oct 2022 09:48:30 +0200 (CEST)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by mail.librecores.org (Postfix) with ESMTPS id E9FFF24B58
- for <openrisc@lists.librecores.org>; Fri, 28 Oct 2022 09:48:29 +0200 (CEST)
-Received: by mail-wr1-f43.google.com with SMTP id z14so5863282wrn.7
- for <openrisc@lists.librecores.org>; Fri, 28 Oct 2022 00:48:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ventanamicro.com; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=U0U3J+Q69fu7o/YQz3q/fMO7g+tmuXGKvEK6KG9JDGA=;
- b=oqmNgqsztuMpLAhNQorP3820L6EJNnJRDoXEb4RgzXZQMfNQDcyVCHVYlvSTb+cksH
- CwJ2aeLsuRGbAg4oUeweMw9W7RVPie8fbQhXZCKgnIXewPhBCQ2D8qNqXYiXfhT76dW6
- xJX6KJ6QR8kf1VFJxGUsMl5/+ENJJ5Wxii90WkOuwZT7HNIb6lID8pp/UFcfXmak4LFL
- jTzzJYzhej1Kn237Slz8BJcwQbdSqVXWEQpinfJlNcbgrjQ4bsMdqNEumXt3CMYlYdSi
- LO4ALfufKLzxVKs824kdxmBew78rDuLIWHvjPbK+3tKTM3XpkrSx4Zr/NWhajts4BWCr
- /L7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=U0U3J+Q69fu7o/YQz3q/fMO7g+tmuXGKvEK6KG9JDGA=;
- b=5j2TAccyiEtW8d4vGwDEp2fYAjclxO6pvCQpHV51nhD1OQinMm7Qw9O348VGiE1/i1
- oDY59IpZtOwfYDa2QL9YeVkzDIxUZmR1EmctKhUV8x7c6TVokJa1RlvGNZiOTj9NEXV/
- 2U9JQ73PQLaJ0+PUfLnrkWJDe4eHWGbcvDHlTX90ic1N3WEJVxP6JhkshHdcvZ37YP0E
- tBKlhs6K5YvNT/9BBtHFZqXfBrtReFSEXi5bEPM0vIx1XCaJeRKjoUBsE9PT92aBao4p
- riIYQimmTbLNO72HXxcixdkBdP2q849PqrrG0kSthHTOaYCXIKrNyXRKHi00ZnJZEaCN
- MgGQ==
-X-Gm-Message-State: ACrzQf0GDn6i7YakOIO/Vo6xCBOw7iAgySq0nOk0vrQU6W2IeIvS00qz
- o4N6Zu7uBdKCDQ0ncRY3m+YOYw==
-X-Google-Smtp-Source: AMsMyM6VIrVFAYX3MFdpAr2A3aolwkCyi7gytgwNOdq5lcvzoSJ4ww9Dhq1bl3mK11pqR8Em7mdPlA==
-X-Received: by 2002:adf:ef4e:0:b0:236:6608:f6ce with SMTP id
- c14-20020adfef4e000000b002366608f6cemr18585925wrp.85.1666943309562; 
- Fri, 28 Oct 2022 00:48:29 -0700 (PDT)
-Received: from localhost (cst2-173-61.cust.vodafone.cz. [31.30.173.61])
- by smtp.gmail.com with ESMTPSA id
- h1-20020a5d4301000000b0022efc4322a9sm2989820wrq.10.2022.10.28.00.48.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 00:48:29 -0700 (PDT)
-Date: Fri, 28 Oct 2022 09:48:28 +0200
-From: Andrew Jones <ajones@ventanamicro.com>
-To: x86@kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] x86: Fix /proc/cpuinfo cpumask warning
-Message-ID: <20221028074828.b66uuqqfbrnjdtab@kamzik>
-References: <20221014155845.1986223-1-ajones@ventanamicro.com>
- <20221014155845.1986223-3-ajones@ventanamicro.com>
+	by mail.librecores.org (Postfix) with ESMTP id 54F0124C55;
+	Fri, 28 Oct 2022 10:14:02 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by mail.librecores.org (Postfix) with ESMTPS id BB3D624C2D
+ for <openrisc@lists.librecores.org>; Fri, 28 Oct 2022 10:14:00 +0200 (CEST)
+Received: from canpemm500009.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MzFYn2V7KzmV5j;
+ Fri, 28 Oct 2022 16:09:01 +0800 (CST)
+Received: from localhost.localdomain (10.67.164.66) by
+ canpemm500009.china.huawei.com (7.192.105.203) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 28 Oct 2022 16:13:56 +0800
+From: Yicong Yang <yangyicong@huawei.com>
+To: <akpm@linux-foundation.org>, <linux-mm@kvack.org>,
+ <linux-arm-kernel@lists.infradead.org>, <x86@kernel.org>,
+ <catalin.marinas@arm.com>, <will@kernel.org>, <anshuman.khandual@arm.com>,
+ <linux-doc@vger.kernel.org>
+Subject: [PATCH v5 0/2] arm64: support batched/deferred tlb shootdown during
+ page reclamation
+Date: Fri, 28 Oct 2022 16:12:53 +0800
+Message-ID: <20221028081255.19157-1-yangyicong@huawei.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221014155845.1986223-3-ajones@ventanamicro.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.67.164.66]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ canpemm500009.china.huawei.com (7.192.105.203)
+X-CFilter-Loop: Reflected
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -71,68 +46,93 @@ List-Post: <mailto:openrisc@lists.librecores.org>
 List-Help: <mailto:openrisc-request@lists.librecores.org?subject=help>
 List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
  <mailto:openrisc-request@lists.librecores.org?subject=subscribe>
-Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Vasily Gorbik <gor@linux.ibm.com>, Yury Norov <yury.norov@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Thomas Gleixner <tglx@linutronix.de>,
- linuxppc-dev@lists.ozlabs.org, openrisc@lists.librecores.org
+Cc: linux-s390@vger.kernel.org, wangkefeng.wang@huawei.com,
+ zhangshiming@oppo.com, lipeifeng@oppo.com, prime.zeng@hisilicon.com,
+ arnd@arndb.de, corbet@lwn.net, peterz@infradead.org, realmz6@gmail.com,
+ Barry Song <21cnbao@gmail.com>, linux-kernel@vger.kernel.org,
+ yangyicong@hisilicon.com, guojian@oppo.com, openrisc@lists.librecores.org,
+ xhao@linux.alibaba.com, darren@os.amperecomputing.com, huzhanyuan@oppo.com,
+ punit.agrawal@bytedance.com, linux-riscv@lists.infradead.org,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Fri, Oct 14, 2022 at 05:58:45PM +0200, Andrew Jones wrote:
-> Commit 78e5a3399421 ("cpumask: fix checking valid cpu range") has
-> started issuing warnings[*] when cpu indices equal to nr_cpu_ids - 1
-> are passed to cpumask_next* functions. seq_read_iter() and cpuinfo's
-> start and next seq operations implement a pattern like
-> 
->   n = cpumask_next(n - 1, mask);
->   show(n);
->   while (1) {
->       ++n;
->       n = cpumask_next(n - 1, mask);
->       if (n >= nr_cpu_ids)
->           break;
->       show(n);
->   }
-> 
-> which will issue the warning when reading /proc/cpuinfo. Ensure no
-> warning is generated by validating the cpu index before calling
-> cpumask_next().
-> 
-> [*] Warnings will only appear with DEBUG_PER_CPU_MAPS enabled.
-> 
-> Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
-> Cc: Yury Norov <yury.norov@gmail.com>
-> ---
->  arch/x86/kernel/cpu/proc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/cpu/proc.c b/arch/x86/kernel/cpu/proc.c
-> index 099b6f0d96bd..de3f93ac6e49 100644
-> --- a/arch/x86/kernel/cpu/proc.c
-> +++ b/arch/x86/kernel/cpu/proc.c
-> @@ -153,6 +153,9 @@ static int show_cpuinfo(struct seq_file *m, void *v)
->  
->  static void *c_start(struct seq_file *m, loff_t *pos)
->  {
-> +	if (*pos == nr_cpu_ids)
-> +		return NULL;
-> +
->  	*pos = cpumask_next(*pos - 1, cpu_online_mask);
->  	if ((*pos) < nr_cpu_ids)
->  		return &cpu_data(*pos);
-> -- 
-> 2.37.3
->
+From: Yicong Yang <yangyicong@hisilicon.com>
 
-Hi x86 maintainers,
+Though ARM64 has the hardware to do tlb shootdown, the hardware
+broadcasting is not free.
+A simplest micro benchmark shows even on snapdragon 888 with only
+8 cores, the overhead for ptep_clear_flush is huge even for paging
+out one page mapped by only one process:
+5.36%  a.out    [kernel.kallsyms]  [k] ptep_clear_flush
 
-I realize 78e5a3399421 has now been reverted, so this fix is no longer
-urgent. I don't believe it's wrong, though, so if it's still of interest,
-then please consider this a friendly ping.
+While pages are mapped by multiple processes or HW has more CPUs,
+the cost should become even higher due to the bad scalability of
+tlb shootdown.
 
-Thanks,
-drew
+The same benchmark can result in 16.99% CPU consumption on ARM64
+server with around 100 cores according to Yicong's test on patch
+4/4.
+
+This patchset leverages the existing BATCHED_UNMAP_TLB_FLUSH by
+1. only send tlbi instructions in the first stage -
+	arch_tlbbatch_add_mm()
+2. wait for the completion of tlbi by dsb while doing tlbbatch
+	sync in arch_tlbbatch_flush()
+Testing on snapdragon shows the overhead of ptep_clear_flush
+is removed by the patchset. The micro benchmark becomes 5% faster
+even for one page mapped by single process on snapdragon 888.
+
+With this support we're possible to do more optimization for memory
+reclamation and migration[*].
+
+[*] https://lore.kernel.org/lkml/393d6318-aa38-01ed-6ad8-f9eac89bf0fc@linux.alibaba.com/
+
+-v5:
+1. Make ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH depends on EXPERT for this stage on arm64.
+2. Make a threshhold of CPU numbers for enabling batched TLP flush on arm64
+Link: https://lore.kernel.org/linux-arm-kernel/20220921084302.43631-1-yangyicong@huawei.com/T/
+
+-v4:
+1. Add tags from Kefeng and Anshuman, Thanks.
+2. Limit the TLB batch/defer on systems with >4 CPUs, per Anshuman
+3. Merge previous Patch 1,2-3 into one, per Anshuman
+Link: https://lore.kernel.org/linux-mm/20220822082120.8347-1-yangyicong@huawei.com/
+
+-v3:
+1. Declare arch's tlbbatch defer support by arch_tlbbatch_should_defer() instead
+   of ARCH_HAS_MM_CPUMASK, per Barry and Kefeng
+2. Add Tested-by from Xin Hao
+Link: https://lore.kernel.org/linux-mm/20220711034615.482895-1-21cnbao@gmail.com/
+
+-v2:
+1. Collected Yicong's test result on kunpeng920 ARM64 server;
+2. Removed the redundant vma parameter in arch_tlbbatch_add_mm()
+   according to the comments of Peter Zijlstra and Dave Hansen
+3. Added ARCH_HAS_MM_CPUMASK rather than checking if mm_cpumask
+   is empty according to the comments of Nadav Amit
+
+Thanks, Peter, Dave and Nadav for your testing or reviewing
+, and comments.
+
+-v1:
+https://lore.kernel.org/lkml/20220707125242.425242-1-21cnbao@gmail.com/
+
+Anshuman Khandual (1):
+  mm/tlbbatch: Introduce arch_tlbbatch_should_defer()
+
+Barry Song (1):
+  arm64: support batched/deferred tlb shootdown during page reclamation
+
+ .../features/vm/TLB/arch-support.txt          |  2 +-
+ arch/arm64/Kconfig                            |  6 +++
+ arch/arm64/include/asm/tlbbatch.h             | 12 +++++
+ arch/arm64/include/asm/tlbflush.h             | 46 ++++++++++++++++++-
+ arch/x86/include/asm/tlbflush.h               | 15 +++++-
+ mm/rmap.c                                     | 19 +++-----
+ 6 files changed, 84 insertions(+), 16 deletions(-)
+ create mode 100644 arch/arm64/include/asm/tlbbatch.h
+
+-- 
+2.24.0
+
