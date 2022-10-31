@@ -2,43 +2,44 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 36B5B61E61B
+	by mail.lfdr.de (Postfix) with ESMTP id C892561E61C
 	for <lists+openrisc@lfdr.de>; Sun,  6 Nov 2022 22:05:59 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id E001E24ACC;
+	by mail.librecores.org (Postfix) with ESMTP id F389C24AE5;
 	Sun,  6 Nov 2022 22:05:57 +0100 (CET)
 Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by mail.librecores.org (Postfix) with ESMTPS id EA96D24BE6
- for <openrisc@lists.librecores.org>; Fri, 28 Oct 2022 18:06:47 +0200 (CEST)
-Received: from zn.tnic (p200300ea9733e7ce329c23fffea6a903.dip0.t-ipconnect.de
- [IPv6:2003:ea:9733:e7ce:329c:23ff:fea6:a903])
+ by mail.librecores.org (Postfix) with ESMTPS id 8550C214F6
+ for <openrisc@lists.librecores.org>; Mon, 31 Oct 2022 09:59:07 +0100 (CET)
+Received: from zn.tnic (p200300ea9733e7cf329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9733:e7cf:329c:23ff:fea6:a903])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4623B1EC0518;
- Fri, 28 Oct 2022 18:06:47 +0200 (CEST)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B91D91EC0531;
+ Mon, 31 Oct 2022 09:59:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1666973207;
+ t=1667206746;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=TaSyEs2uDEeNFySFbsAWLGbxmyPJdlW/cEgdh6Dc9LA=;
- b=XHRJ4OhKGvnSUY3FZm5qFAiodKxGqGTCRY5VncUDeCygsxhy9Q4bM8IEzLrXXfF9nBehiX
- F7RLgBP2A6Oi14yCT72nCZ/izgf6RazLC87U75EJpOOQeUI+HZNL9wnR/pPQJCb7fDjnM3
- tBLFlldzMQiEmDed7zRxx/CCa6R7SoA=
-Date: Fri, 28 Oct 2022 18:06:41 +0200
+ bh=ev78IiojEqGZ8VOXUxmz9XVfROk+6cN5zzZ8OowFM8w=;
+ b=eI/C2tSlcg0AxMZOuPZM7vJKKoRmjE6inbkFlcyC7xyapkJ4fbL6uqhy9LxHWWR24ASGVE
+ A/YY8Nzaqhc5keG/EfmGhgdQunAK7K3mp31A11nA8qzGhVzkP/b4DF6aS9rc2MXsmebhdy
+ KGNWf+tkEEOxBllDztC3oUYW5H3eT+s=
+Date: Mon, 31 Oct 2022 09:58:57 +0100
 From: Borislav Petkov <bp@alien8.de>
-To: Yury Norov <yury.norov@gmail.com>
+To: Andrew Jones <ajones@ventanamicro.com>
 Subject: Re: [PATCH v3 2/2] x86: Fix /proc/cpuinfo cpumask warning
-Message-ID: <Y1v+Ed6mRN9gisJS@zn.tnic>
+Message-ID: <Y1+OUawGJDjh4DOJ@zn.tnic>
 References: <20221014155845.1986223-1-ajones@ventanamicro.com>
  <20221014155845.1986223-3-ajones@ventanamicro.com>
  <20221028074828.b66uuqqfbrnjdtab@kamzik>
  <Y1vrMMtRwb0Lekl0@yury-laptop> <Y1vvMlwf/4EA/8WW@zn.tnic>
  <CAAH8bW_DkvPCH0-q2Bfe0OJ72r63mRM3GP7NKOFrhe3zMO2gbQ@mail.gmail.com>
+ <Y1v+Ed6mRN9gisJS@zn.tnic> <20221031080604.6xei6c4e3ckhsvmy@kamzik>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAAH8bW_DkvPCH0-q2Bfe0OJ72r63mRM3GP7NKOFrhe3zMO2gbQ@mail.gmail.com>
+In-Reply-To: <20221031080604.6xei6c4e3ckhsvmy@kamzik>
 X-Mailman-Approved-At: Sun, 06 Nov 2022 22:05:55 +0100
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
@@ -55,35 +56,27 @@ List-Subscribe: <https://lists.librecores.org/listinfo/openrisc>,
 Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
  Alexander Gordeev <agordeev@linux.ibm.com>,
  Dave Hansen <dave.hansen@linux.intel.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>,
- x86@kernel.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Yury Norov <yury.norov@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Heiko Carstens <hca@linux.ibm.com>, x86@kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  openrisc@lists.librecores.org, Ingo Molnar <mingo@redhat.com>,
  Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <paul.walmsley@sifive.com>,
  linux-riscv <linux-riscv@lists.infradead.org>,
  "open list:LINUX FOR POWERPC PA SEMI PWRFICIENT"
  <linuxppc-dev@lists.ozlabs.org>, Thomas Gleixner <tglx@linutronix.de>,
- Albert Ou <aou@eecs.berkeley.edu>, Andrew Jones <ajones@ventanamicro.com>
+ Albert Ou <aou@eecs.berkeley.edu>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Fri, Oct 28, 2022 at 10:13:28AM -0500, Yury Norov wrote:
-> Because it's related to bitmap API usage and has been revealed after
-> some work in bitmaps.
+On Mon, Oct 31, 2022 at 09:06:04AM +0100, Andrew Jones wrote:
+>  The valid cpumask range is [0, nr_cpu_ids) and cpumask_next() always
+>  returns a CPU ID greater than its input, which results in its input
+>  range being [-1, nr_cpu_ids - 1). Ensure showing CPU info avoids
+>  triggering error conditions in cpumask_next() by stopping its loop
 
-So first of all, that "fix" needs to explain what exactly it is fixing.
-Not "it fixes this and that warning" but why the input arg to
-cpumask_next() cannot be nr_cpu_ids because... yadda yadda...
+What error conditions?
 
-> And because nobody else cares.
-
-Why do you assume that?
-
-> If you're willing to move it yourself please go ahead.
-
-If it fixes a real issue, we are taking it. And pls note that x86
-patches go through the tip tree.
-
-Thx.
+What would happen if @n is outside of the valid range?
 
 -- 
 Regards/Gruss,
