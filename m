@@ -2,46 +2,45 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 3850C61E61D
+	by mail.lfdr.de (Postfix) with ESMTP id 9C8C561E61E
 	for <lists+openrisc@lfdr.de>; Sun,  6 Nov 2022 22:06:00 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 118FE24AF6;
+	by mail.librecores.org (Postfix) with ESMTP id 2A64524B16;
 	Sun,  6 Nov 2022 22:05:58 +0100 (CET)
 Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by mail.librecores.org (Postfix) with ESMTPS id 028B924C42
- for <openrisc@lists.librecores.org>; Wed,  2 Nov 2022 19:44:06 +0100 (CET)
-Received: from zn.tnic (p200300ea9733e741329c23fffea6a903.dip0.t-ipconnect.de
- [IPv6:2003:ea:9733:e741:329c:23ff:fea6:a903])
+ by mail.librecores.org (Postfix) with ESMTPS id 8B3F524C0F
+ for <openrisc@lists.librecores.org>; Thu,  3 Nov 2022 16:02:16 +0100 (CET)
+Received: from zn.tnic (p200300ea9733e7e7329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9733:e7e7:329c:23ff:fea6:a903])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 72DBB1EC0430;
- Wed,  2 Nov 2022 19:44:06 +0100 (CET)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E2C1D1EC0528;
+ Thu,  3 Nov 2022 16:02:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1667414646;
+ t=1667487736;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=iOr/2V0DoRyu5jKtmDX0XiBrZE84Kn1Pob6d6OL2TAQ=;
- b=P8xIFXf059+smEe6r5YZYLEbBvKhvHMQlCDMpFuQpPIyUL+0Na11Qye0LmeFzVkyGcJ0Ue
- fIrCmtMkvbI9pekV7eZIq4LZ2B96yVhn3hhIe318CHOxpV0wNqptu2eHkXK4/tBD234sAI
- ZmyjnjRhdV4j8e7O51OrF3B1uOD5hfo=
-Date: Wed, 2 Nov 2022 19:44:02 +0100
+ bh=5zOKDwJu4FB0xil2b5a/FPJvsZt45ByyRxSMQsaaDR8=;
+ b=QSTgD6Ncd3yLcOSJYmXGo3EY1DApfHw02ztOKs7k0PAMuO15QSqsfMgfLs99GK7c8D6O5M
+ EIOEJproe4r8R5EXjhGGomlU7hRESTU4jQUJYXGQ2n64qCj7A3JMaFvsauSzmA31U5bm9T
+ 1HVpbEVPWdzipSAdtoW/ML7JHqLy6kc=
+Date: Thu, 3 Nov 2022 16:02:12 +0100
 From: Borislav Petkov <bp@alien8.de>
 To: Andrew Jones <ajones@ventanamicro.com>
 Subject: Re: [PATCH v3 2/2] x86: Fix /proc/cpuinfo cpumask warning
-Message-ID: <Y2K6clNJBn0SbWU+@zn.tnic>
-References: <20221014155845.1986223-1-ajones@ventanamicro.com>
- <20221014155845.1986223-3-ajones@ventanamicro.com>
- <20221028074828.b66uuqqfbrnjdtab@kamzik>
+Message-ID: <Y2PX9GfxWYh6+XGT@zn.tnic>
+References: <20221028074828.b66uuqqfbrnjdtab@kamzik>
  <Y1vrMMtRwb0Lekl0@yury-laptop> <Y1vvMlwf/4EA/8WW@zn.tnic>
  <CAAH8bW_DkvPCH0-q2Bfe0OJ72r63mRM3GP7NKOFrhe3zMO2gbQ@mail.gmail.com>
  <Y1v+Ed6mRN9gisJS@zn.tnic> <20221031080604.6xei6c4e3ckhsvmy@kamzik>
  <Y1+OUawGJDjh4DOJ@zn.tnic> <20221031100327.r7tswmpszvs5ot5n@kamzik>
+ <Y2K6clNJBn0SbWU+@zn.tnic> <20221103125945.lrr5oxxmylwpam53@kamzik>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20221031100327.r7tswmpszvs5ot5n@kamzik>
-X-Mailman-Approved-At: Sun, 06 Nov 2022 22:05:55 +0100
+In-Reply-To: <20221103125945.lrr5oxxmylwpam53@kamzik>
+X-Mailman-Approved-At: Sun, 06 Nov 2022 22:05:56 +0100
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -69,38 +68,40 @@ Cc: Jonas Bonn <jonas@southpole.se>, linux-s390@vger.kernel.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Mon, Oct 31, 2022 at 11:03:27AM +0100, Andrew Jones wrote:
-> Currently (after the revert of 78e5a3399421)
+On Thu, Nov 03, 2022 at 01:59:45PM +0100, Andrew Jones wrote:
+> The patch I'm proposing ensures cpumask_next()'s range, which is actually
+> [-1, nr_cpus_ids - 1),
 
-After the revert?
+Lemme make sure I understand it correctly: on the upper boundary, if you
+supply for n the value nr_cpu_ids - 2, then it will return potentially
+the last bit if the mask is set, i.e., the one at position (nr_cpu_ids - 1).
 
-That commit is still in the latest Linus tree.
+If you supply nr_cpus_ids - 1, then it'll return nr_cpu_ids to signal no
+further bits set.
 
-> with DEBUG_PER_CPU_MAPS we'll get a warning splat when the cpu is
-> outside the range [-1, nr_cpu_ids)
+Yes, no?
 
-Yah, that range makes sense.
+> I'll send a v4 with another stab at the commit message.
 
-> and cpumask_next() will call find_next_bit() with the input plus one anyway.
-> find_next_bit() doesn't explicity document what happens when an input is
-> outside the range, but it currently returns the bitmap size without any
-> side effects, which means cpumask_next() will return nr_cpu_ids.
+Yes, and it is still an unreadable mess: "A kernel compiled with commit
+... but not its revert... " Nope.
 
-That is good to have in the commit message.
+First make sure cpumask_next()'s valid accepted range has been settled
+upon, has been explicitly documented in a comment above it and then I'll
+take a patch that fixes whatever is there to fix.
 
-> show_cpuinfo() doesn't try to show anything in that case and stops its
-> loop, or, IOW, things work fine now with an input of nr_cpu_ids - 1. But,
-> show_cpuinfo() is just getting away with a violated cpumask_next()
-> contract, which 78e5a3399421 exposed. How about a new commit message like
-> this
+Callers should not have to filter values before passing them in - the
+function either returns an error or returns the next bit in the mask.
 
-You're making it sound more complex than it is. All you wanna say is:
+This thing:
 
-"Filter out invalid cpumask_next() inputs by checking its first argument
-against nr_cpu_ids because cpumask_next() will call find_next_bit() with
-the input plus one but the valid range for n is [-1, nr_cpu_ids)."
+	if (*pos == nr_cpu_ids)
 
-But that thing with the revert above needs to be clarified first.
+but then to pass in pos - 1:
+
+	*pos = cpumask_next(*pos - 1
+
+looks to me like the interface needs more cooking.
 
 Thx.
 
