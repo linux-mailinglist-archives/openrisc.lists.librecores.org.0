@@ -2,57 +2,54 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C69165427C
-	for <lists+openrisc@lfdr.de>; Thu, 22 Dec 2022 15:12:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B18CE654CD1
+	for <lists+openrisc@lfdr.de>; Fri, 23 Dec 2022 08:17:46 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 51D8A25C4E;
-	Thu, 22 Dec 2022 15:12:36 +0100 (CET)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by mail.librecores.org (Postfix) with ESMTPS id 15F7C25C18
- for <openrisc@lists.librecores.org>; Thu, 22 Dec 2022 15:12:34 +0100 (CET)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-3e45d25de97so28231127b3.6
- for <openrisc@lists.librecores.org>; Thu, 22 Dec 2022 06:12:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DaSeJ7b4XoTWS2Tt6rTxmu6n/STTyq8+F8PwIAXlFPg=;
- b=C6L0zTNspbLFPhRHzR1lsNbmL9IzKRDDs7M1jeG+6oVYqWwrRb5RWqyLaHS7SVdApP
- t/hgCIHGhUriHSKrP3xP5AVcVkD8SdZwvd6Ntcem2m50s5yksckvu8y+AWWghfwq2YDi
- R2z44Zh6dWs9tdIJixaJQsaQnMda7saTWD3BMgGGGYeVwzx1X7/Fl8193UomKq/NSQ6o
- d7LsCEvxv2SELRIPFqnd8O8uAEWDlZ1AB3joNKMtOnbOUFOkADpApak73BAAUU9vj5GP
- KEVAV8nD3rDwa2zb5VinA+IWFdFVgxIMB1OE6xUHzfcsxxr+P/n47j50kTzERuKf1Tzy
- g8Ag==
-X-Gm-Message-State: AFqh2krwoxo1fKTW2TJTFsVHByM2J0YRW22Kje+CFCS8pOle8NUHquFL
- exkF42n/9YNXfQQVzLG5dRFV3I8lVYYL5Q==
-X-Google-Smtp-Source: AMrXdXsnZvdviKQyLOxpTz8KipdUUQAw4qzjko/WVU5uX0rfhkU0oO+m5s8SR5G4ZvN+q597/6TOFA==
-X-Received: by 2002:a05:7500:2b92:b0:ea:4bf3:b1cf with SMTP id
- dr18-20020a0575002b9200b000ea4bf3b1cfmr331350gab.18.1671718352585; 
- Thu, 22 Dec 2022 06:12:32 -0800 (PST)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com.
- [209.85.219.176]) by smtp.gmail.com with ESMTPSA id
- bj11-20020a05620a190b00b006fa2cc1b0fbsm376765qkb.11.2022.12.22.06.12.31
- for <openrisc@lists.librecores.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 06:12:31 -0800 (PST)
-Received: by mail-yb1-f176.google.com with SMTP id 186so2068429ybe.8
- for <openrisc@lists.librecores.org>; Thu, 22 Dec 2022 06:12:31 -0800 (PST)
-X-Received: by 2002:a25:d243:0:b0:702:90b4:2e24 with SMTP id
- j64-20020a25d243000000b0070290b42e24mr417369ybg.365.1671718351056; Thu, 22
- Dec 2022 06:12:31 -0800 (PST)
+	by mail.librecores.org (Postfix) with ESMTP id 785BD247B6;
+	Fri, 23 Dec 2022 08:17:46 +0100 (CET)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by mail.librecores.org (Postfix) with ESMTPS id 4B05225C3F
+ for <openrisc@lists.librecores.org>; Thu, 22 Dec 2022 15:17:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671718650; x=1703254650;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=meZJDY1PMUtgLkPrUblSxd3HYWLxd7p0iVKy4Ko1qbk=;
+ b=T7e+hTc/PkN2A4Z/rpARpVc49NoVDvgl9Sb93ogzK1Y4eM9npwpvCfni
+ wEvabfnFs7r/EglMGelDo9LgxwNsUaKZOX6c6TkmrRz/49bPsIr3SPGXZ
+ OQxx4ZSJ4wZWF9M7a04IPS3d720SJ0WXeFNQUPvRTOCukD469rgzLGqJs
+ Ofgv+p5zWVb3BjagxXYczrnK5moeByfWwjTAj5nW5dH/CWpDtuc5br0UM
+ 2fYF7i6+C6GM1+oF4xlOYTI77m9AjCCs6sI3K5rXhimKdFBnPJE/pHmyL
+ v0wUix/DCDIKrSPO97nity36LyZ5H0yfmW2kePew7qy8o+rSduToFvp7L w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="307820235"
+X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="307820235"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 06:17:27 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="651797661"
+X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="651797661"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.17.92])
+ ([10.213.17.92])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 06:17:21 -0800
+Message-ID: <286f817c-2e3a-aba9-1083-73f25bafd84c@intel.com>
+Date: Thu, 22 Dec 2022 15:17:18 +0100
 MIME-Version: 1.0
-References: <20221222114635.1251934-1-andrzej.hajda@intel.com>
-In-Reply-To: <20221222114635.1251934-1-andrzej.hajda@intel.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 22 Dec 2022 15:12:19 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUE-a6SffG1PH=WfrMx-CNLB9EfUr4qmL_USBP31YGoNg@mail.gmail.com>
-Message-ID: <CAMuHMdUE-a6SffG1PH=WfrMx-CNLB9EfUr4qmL_USBP31YGoNg@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.6.0
 Subject: Re: [PATCH 00/19] Introduce __xchg, non-atomic xchg
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20221222114635.1251934-1-andrzej.hajda@intel.com>
+ <CAMuHMdUE-a6SffG1PH=WfrMx-CNLB9EfUr4qmL_USBP31YGoNg@mail.gmail.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <CAMuHMdUE-a6SffG1PH=WfrMx-CNLB9EfUr4qmL_USBP31YGoNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 23 Dec 2022 08:17:29 +0100
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.26
 Precedence: list
@@ -82,59 +79,67 @@ Cc: Mark Rutland <mark.rutland@arm.com>, linux-ia64@vger.kernel.org,
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-Hi Andrzej,
 
-Thanks for your series!
 
-On Thu, Dec 22, 2022 at 12:49 PM Andrzej Hajda <andrzej.hajda@intel.com> wrote:
-> I hope there will be place for such tiny helper in kernel.
-> Quick cocci analyze shows there is probably few thousands places
-> where it could be useful.
-> I am not sure who is good person to review/ack such patches,
-> so I've used my intuition to construct to/cc lists, sorry for mistakes.
-> This is the 2nd approach of the same idea, with comments addressed[0].
+On 22.12.2022 15:12, Geert Uytterhoeven wrote:
+> Hi Andrzej,
 >
-> The helper is tiny and there are advices we can leave without it, so
-> I want to present few arguments why it would be good to have it:
+> Thanks for your series!
 >
-> 1. Code readability/simplification/number of lines:
+> On Thu, Dec 22, 2022 at 12:49 PM Andrzej Hajda <andrzej.hajda@intel.com> wrote:
+>> I hope there will be place for such tiny helper in kernel.
+>> Quick cocci analyze shows there is probably few thousands places
+>> where it could be useful.
+>> I am not sure who is good person to review/ack such patches,
+>> so I've used my intuition to construct to/cc lists, sorry for mistakes.
+>> This is the 2nd approach of the same idea, with comments addressed[0].
+>>
+>> The helper is tiny and there are advices we can leave without it, so
+>> I want to present few arguments why it would be good to have it:
+>>
+>> 1. Code readability/simplification/number of lines:
+>>
+>> Real example from drivers/net/ethernet/mellanox/mlx5/core/esw/qos.c:
+>> -       previous_min_rate = evport->qos.min_rate;
+>> -       evport->qos.min_rate = min_rate;
+>> +       previous_min_rate = __xchg(evport->qos.min_rate, min_rate);
+> Upon closer look, shouldn't that be
 >
-> Real example from drivers/net/ethernet/mellanox/mlx5/core/esw/qos.c:
-> -       previous_min_rate = evport->qos.min_rate;
-> -       evport->qos.min_rate = min_rate;
-> +       previous_min_rate = __xchg(evport->qos.min_rate, min_rate);
-
-Upon closer look, shouldn't that be
-
-    previous_min_rate = __xchg(&evport->qos.min_rate, min_rate);
-
-?
-
-> For sure the code is more compact, and IMHO more readable.
+>      previous_min_rate = __xchg(&evport->qos.min_rate, min_rate);
 >
-> 2. Presence of similar helpers in other somehow related languages/libs:
+> ?
+
+Yes, you are right, the first argument is a pointer.
+
+Regards
+Andrzej
+
 >
-> a) Rust[1]: 'replace' from std::mem module, there is also 'take'
->     helper (__xchg(&x, 0)), which is the same as private helper in
->     i915 - fetch_and_zero, see latest patch.
-> b) C++ [2]: 'exchange' from utility header.
+>> For sure the code is more compact, and IMHO more readable.
+>>
+>> 2. Presence of similar helpers in other somehow related languages/libs:
+>>
+>> a) Rust[1]: 'replace' from std::mem module, there is also 'take'
+>>      helper (__xchg(&x, 0)), which is the same as private helper in
+>>      i915 - fetch_and_zero, see latest patch.
+>> b) C++ [2]: 'exchange' from utility header.
+>>
+>> If the idea is OK there are still 2 qestions to answer:
+>>
+>> 1. Name of the helper, __xchg follows kernel conventions,
+>>      but for me Rust names are also OK.
+> Before I realized the missing "&", I wondered how this is different
+> from swap(), so naming is important.
+> https://elixir.bootlin.com/linux/latest/source/include/linux/minmax.h#L139
 >
-> If the idea is OK there are still 2 qestions to answer:
+> Gr{oetje,eeting}s,
 >
-> 1. Name of the helper, __xchg follows kernel conventions,
->     but for me Rust names are also OK.
+>                          Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds
 
-Before I realized the missing "&", I wondered how this is different
-from swap(), so naming is important.
-https://elixir.bootlin.com/linux/latest/source/include/linux/minmax.h#L139
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
