@@ -2,41 +2,59 @@ Return-Path: <openrisc-bounces@lists.librecores.org>
 X-Original-To: lists+openrisc@lfdr.de
 Delivered-To: lists+openrisc@lfdr.de
 Received: from mail.librecores.org (lists.librecores.org [88.198.125.70])
-	by mail.lfdr.de (Postfix) with ESMTP id DDDA367FA63
-	for <lists+openrisc@lfdr.de>; Sat, 28 Jan 2023 20:13:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6AB2A67FB55
+	for <lists+openrisc@lfdr.de>; Sat, 28 Jan 2023 23:23:46 +0100 (CET)
 Received: from [172.31.1.100] (localhost.localdomain [127.0.0.1])
-	by mail.librecores.org (Postfix) with ESMTP id 396EF22A6D;
-	Sat, 28 Jan 2023 20:13:39 +0100 (CET)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by mail.librecores.org (Postfix) with ESMTPS id 97527200CB
- for <openrisc@lists.librecores.org>; Sat, 28 Jan 2023 20:13:37 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CC90AB819AD;
- Thu, 26 Jan 2023 01:45:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32671C433D2;
- Thu, 26 Jan 2023 01:45:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1674697514;
- bh=7RpoJrPZS6SJcilZwJlgfOcy8VI5bDbkm1rwJIiWgGs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QrUq5ATjY2oqR+jEAeForg1RvYMYo+bDZxJkpPvGEAQMtF9Wex3AsF6pj45qmjarD
- FkXgKw35BmzCytgE7GIRGvCG25LoCH1q8w/sqjuafA+hP0s/EWoOXsqZwbktTsZyRq
- n3OCsv9RwqATlbboWAh4Ya/cfUooerJ2jtkrgbTo=
-Date: Wed, 25 Jan 2023 17:45:12 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Mike Rapoport <rppt@kernel.org>
-Subject: Re: [PATCH 3/3] mm, arch: add generic implementation of pfn_valid()
- for FLATMEM
-Message-Id: <20230125174512.ce5aed444cc8b8870825d8c2@linux-foundation.org>
-In-Reply-To: <20230125190757.22555-4-rppt@kernel.org>
+	by mail.librecores.org (Postfix) with ESMTP id 1159F229DD;
+	Sat, 28 Jan 2023 23:23:46 +0100 (CET)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by mail.librecores.org (Postfix) with ESMTPS id 52499215C6
+ for <openrisc@lists.librecores.org>; Sat, 28 Jan 2023 23:23:44 +0100 (CET)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-4a263c4ddbaso113749707b3.0
+ for <openrisc@lists.librecores.org>; Sat, 28 Jan 2023 14:23:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iTLUhLqiktW0lQYPPHgLpL0hyET/yRv7DDBqjk/47Fc=;
+ b=c3Ijfg077fn02FMX561w8/SS1YugJEvtx6NLWHHHWCQCHTVhh04hkvjqX4835mDcKx
+ M4HM0DxhVJvhQzZDewHPn72wRf809ow45wZ7v+OaUpoUpaNMYIXqalkX2DM3L0cMkD6O
+ OJwQNtD6aiDuA6EYa585gd7jFErGGE4GPH7yvGZ6Vavk0Mzl6bD+YdeWjs2aCij3gGvL
+ BzWLnZ8DOHgtMZNFaPgLqiMc/GOjjLfTu70LpGfzKTGyDiqVkwC036Moc3K0nG3UNlb7
+ LzQ1dTrIZp63uQsmivMM1Yrs+0hSAkR02E7BviUztgYg9IO/jdoCYsgq3V1rctQpu0Ka
+ Idfw==
+X-Gm-Message-State: AO0yUKVc5CTgFBbhFOOvB7nPOa+eh/iFA77xTEqmhoBYoE5woU3zLRGE
+ w8hKlpbpKkEK4h7Xtq77KPc1XYLpjHyQ0Q==
+X-Google-Smtp-Source: AK7set8XfW+CzhukNGjUvJUd/Wvq2s/fvC+XbnoGFE5Q9olspwFFLpqfz515wOhpI31jF1U85Yai7g==
+X-Received: by 2002:a05:622a:489:b0:3b8:118c:f0dd with SMTP id
+ p9-20020a05622a048900b003b8118cf0ddmr861377qtx.1.1674721256329; 
+ Thu, 26 Jan 2023 00:20:56 -0800 (PST)
+Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com.
+ [209.85.219.169]) by smtp.gmail.com with ESMTPSA id
+ b16-20020a05620a04f000b00704d8ad2e11sm550187qkh.42.2023.01.26.00.20.56
+ for <openrisc@lists.librecores.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jan 2023 00:20:56 -0800 (PST)
+Received: by mail-yb1-f169.google.com with SMTP id h5so1102395ybj.8
+ for <openrisc@lists.librecores.org>; Thu, 26 Jan 2023 00:20:56 -0800 (PST)
+X-Received: by 2002:a25:9ac1:0:b0:7b4:6a33:d89f with SMTP id
+ t1-20020a259ac1000000b007b46a33d89fmr2761883ybo.543.1674721245117; Thu, 26
+ Jan 2023 00:20:45 -0800 (PST)
+MIME-Version: 1.0
 References: <20230125190757.22555-1-rppt@kernel.org>
- <20230125190757.22555-4-rppt@kernel.org>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20230125190757.22555-2-rppt@kernel.org>
+In-Reply-To: <20230125190757.22555-2-rppt@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Jan 2023 09:20:33 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUeuPgkWVjpZ=OM4ofnoYyv2nY1_FGo0JUZCFXYX=K2vw@mail.gmail.com>
+Message-ID: <CAMuHMdUeuPgkWVjpZ=OM4ofnoYyv2nY1_FGo0JUZCFXYX=K2vw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] m68k: use asm-generic/memory_model.h for both MMU and
+ !MMU
+To: Mike Rapoport <rppt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openrisc@lists.librecores.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +85,33 @@ Cc: Rich Felker <dalias@libc.org>, linux-ia64@vger.kernel.org,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
  Palmer Dabbelt <palmer@dabbelt.com>, linux-alpha@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: openrisc-bounces@lists.librecores.org
 Sender: "OpenRISC" <openrisc-bounces@lists.librecores.org>
 
-On Wed, 25 Jan 2023 21:07:57 +0200 Mike Rapoport <rppt@kernel.org> wrote:
+On Wed, Jan 25, 2023 at 8:08 PM Mike Rapoport <rppt@kernel.org> wrote:
+> From: "Mike Rapoport (IBM)" <rppt@kernel.org>
+>
+> The MMU variant uses generic definitions of page_to_pfn() and
+> pfn_to_page(), but !MMU defines them in include/asm/page_no.h for no
+> good reason.
+>
+> Include asm-generic/memory_model.h in the common include/asm/page.h and
+> drop redundant definitions.
+>
+> Signed-off-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
-> Every architecture that supports FLATMEM memory model defines its own
-> version of pfn_valid() that essentially compares a pfn to max_mapnr.
-> 
-> Use mips/powerpc version implemented as static inline as a generic
-> implementation of pfn_valid() and drop its per-architecture definitions
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-arm allnoconfig:
+Gr{oetje,eeting}s,
 
-./include/asm-generic/memory_model.h:23:19: error: static declaration of 'pfn_valid' follows non-static declaration
-   23 | static inline int pfn_valid(unsigned long pfn)
-      |                   ^~~~~~~~~
-./arch/arm/include/asm/page.h:160:12: note: previous declaration of 'pfn_valid' with type 'int(long unsigned int)'
-  160 | extern int pfn_valid(unsigned long);
-      |            ^~~~~~~~~
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-I thought of doing
-
---- a/arch/arm/include/asm/page.h~mm-arch-add-generic-implementation-of-pfn_valid-for-flatmem-fix
-+++ a/arch/arm/include/asm/page.h
-@@ -156,10 +156,6 @@ extern void copy_page(void *to, const vo
- 
- typedef struct page *pgtable_t;
- 
--#ifdef CONFIG_HAVE_ARCH_PFN_VALID
--extern int pfn_valid(unsigned long);
--#endif
--
- #include <asm/memory.h>
- 
- #endif /* !__ASSEMBLY__ */
-_
-
-but I'm seeing a pfn_valid declaration in arch/arc/include/asm/page.h
-which might be a problem.
-
-v2, please ;)
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
